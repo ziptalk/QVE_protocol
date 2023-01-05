@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, BrowserRouter, Routes } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Mainpage from "./page/mainPage";
+import styled from "styled-components";
+import Loginpage from "./page/loginPage";
+import authService from "./services/auth.service";
+import axios from "axios";
+
+const Background = styled.div`
+  position: absolute;
+  background-color: #202025;
+  width: 100%;
+  min-height: 190vh;
+`;
 
 function App() {
+  //const [currentUser, setCurrentUser] = useState(undefined);
+
+  useEffect(() => {
+    const user = authService.getCurrentUser();
+
+    /*if (user) {
+      setCurrentUser(user);
+    }
+  */}, []);
+
+  /*
+  const logOut = () => {
+    authService.logout();
+  }
+  */
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Background className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Loginpage />}></Route>
+          <Route path="/mainPage" element={<Mainpage />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </Background>
   );
 }
+
+
 
 export default App;
