@@ -822,25 +822,25 @@ const fetchUserMe = async () => {
     }, [])
 }
 const fetchBalanceList = async () => {
-    axios.get('http://43.206.230.159:8080/balance/get/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://43.206.230.159:8080/balance/get/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setBalanceList(res.data);
     }, [])
 }
 const fetchMyBalance = async () => {
-    axios.get('http://43.206.230.159:8080/user/mybalance/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://43.206.230.159:8080/user/mybalance/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setMyBalance(res.data);
     }, [])
 }
 const fetchMdd = async () => {
-    axios.get('http://43.206.230.159:8080/balance/getmdd', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://43.206.230.159:8080/balance/getmdd', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setMdd(res.data);
     })
 }
 const fetchPnl = async () => {
-    axios.get('http://43.206.230.159:8080/balance/getpnl', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://43.206.230.159:8080/balance/getpnl', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setPnl(res.data);
     })
