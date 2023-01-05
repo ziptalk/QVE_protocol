@@ -35,7 +35,8 @@ padding: 0px;
 gap: 24px;
 
 position: absolute;
-width: 100%;
+width: 374px;
+left: calc(50% - 187px);
 height: 215px;
 top: 376px;
 `;
@@ -70,6 +71,7 @@ text-align: center;
 color: #B7B8CD;
 `;
 const InputName = styled.div`
+position: absolute;
 font-size: 3px;
 color: #5C5E81;
 `;

@@ -845,6 +845,7 @@ const fetchPnl = async () => {
         setPnl(res.data);
     })
 }
+
     useEffect(() => {
             fetchUserMe();
             fetchBalanceList();

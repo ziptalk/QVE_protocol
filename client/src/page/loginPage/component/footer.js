@@ -8,9 +8,9 @@ padding: 0px;
 gap: 8px;
 
 position: absolute;
-width: 100%;
+width: 139px;
 height: 13px;
-left: calc(50% - 100px/2 + 1px);;
+left: calc(50% - 69.5px);;
 top: 630px;
 
 font-family: 'Inter';
