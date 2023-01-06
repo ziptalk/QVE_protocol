@@ -160,13 +160,12 @@ input:invalid {
   }
 `;
 const Button = styled.button`
+background: inherit ; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer;
 display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
 padding: 10px 36px;
-gap: 10px;
-
 position: absolute;
 top: 150px;
 right: 20px;
@@ -175,7 +174,6 @@ right: 20px;
 
 background: #4A3CE8;
 border-radius: 21px;
-
 color: #FFFFFF;
 `
 const ErrorMsg = styled.div`
@@ -247,7 +245,6 @@ function Main(props) {
         await authService.login(username, password).then (
             () => {
                 const UserA = authService.getCurrentUser();
-                console.log("User data is : ",UserA);
                 navigate("/mainPage");
             },
             (error) => {

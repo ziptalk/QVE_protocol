@@ -164,7 +164,6 @@ xaxis: {
 type: 'datetime'
 }
 })
-console.log("pnlArray", pnlArray);
 const [changeDataBalance, setChangeDataBalance] = useState(false)
 const [dataBalance, setDataBalance] = useState([]);
 const [time, setTime]  = useState([])

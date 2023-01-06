@@ -3,7 +3,6 @@ import axios from "axios";
 const API_URL = "http://43.206.230.159:8080/user";
 
 const login = (username, password) => {
-    console.log("LOGINISHAPPENING")
     return axios
     .post(API_URL + "/login/", {
         username,
