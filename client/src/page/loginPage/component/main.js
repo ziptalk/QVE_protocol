@@ -83,6 +83,7 @@ position: absolute;
 left: 20px;
 font-size: 3px;
 color: #5C5E81;
+bottom: 0px;
 `;
 
 const Input = styled.input`
@@ -91,7 +92,7 @@ padding: 20px;
 position: absolute;
 height: 48px;
 left: 20px;
-top: 19px;
+top: 0px;
 right: 20px;
 
 /* dark/dark */
@@ -128,7 +129,7 @@ padding: 20px;
 position: absolute;
 height: 48px;
 left: 20px;
-top: 86px;
+top: 73px;
 right: 20px;
 
 /* dark/dark */
@@ -167,7 +168,7 @@ padding: 10px 36px;
 gap: 10px;
 
 position: absolute;
-top: 155px;
+top: 150px;
 right: 20px;
 
 /* dark/primary */
@@ -180,7 +181,9 @@ color: #FFFFFF;
 const ErrorMsg = styled.div`
 width: 83px;
 height: 15px;
-
+position: absolute;
+left: 20px;
+top: 48px;
 /* Label */
 
 font-family: 'Inter';
@@ -190,7 +193,34 @@ font-size: 12px;
 line-height: 15px;
 /* identical to box height */
 
-background: white;
+
+/* down */
+
+color: #FF395D;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+`;
+
+const ErrorMsgPwd = styled.div`
+width: 83px;
+height: 15px;
+position: absolute;
+left: 20px;
+top: 122px;
+/* Label */
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
+
 
 /* down */
 
@@ -208,7 +238,7 @@ function Main(props) {
     // react hook에서 state 사용
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  let err = false;
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -222,7 +252,7 @@ function Main(props) {
             },
             (error) => {
               console.log(error);
-              err = true;
+              setError(error);
             }
         );
     } catch (err) {
@@ -239,13 +269,14 @@ function Main(props) {
         <NameContainer>
         <InputName></InputName>
         <Input type="text" id="id" placeholder="ID" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <ErrorMsg style={{visibility : !error ? "hidden" : "visible"}}>Error Message</ErrorMsg>
         </NameContainer>
         <PasswordContainer>
         <InputName></InputName>
         <InputPassword type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <ErrorMsgPwd style={{visibility : !error ? "hidden" : "visible"}}>Error Message</ErrorMsgPwd>
         </PasswordContainer>
         <Button type="submit">Log In</Button>
-        
         </form>
         
         </Container>

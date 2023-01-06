@@ -249,12 +249,17 @@ useEffect(()=>{
                 id: 'LineGraph',
                 width: '100%',
                 height: '100%',
+                foreColor: '#B7B8CD',
                 toolbar: {
                   show: false
                 },
                 dataLabels: {
                     enabled: false
                 },
+              },
+              grid: {
+                borderColor: '#5C5E81',
+                strokeDashArray: 3,
               },
               legend: {
                 position: 'top',
@@ -279,12 +284,15 @@ useEffect(()=>{
                     colors: '#5C5E81',
                 }
             },
+            axisTicks: {
+                show: false,
+            },
             },
             yaxis: 
             [
                 {
                     axisTicks: {
-                        show: true,
+                        show: false,
                     },
                     labels: {
                         style: {
@@ -292,7 +300,7 @@ useEffect(()=>{
                         }
                     },
                     tooltip: {
-                        enabled: true
+                        enabled: false
                     },
                     max: 3,
                     min: -6,
@@ -301,7 +309,7 @@ useEffect(()=>{
                 {
                     opposite: true,
                     axisTicks: {
-                        show: true,
+                        show: false,
                     },
                     labels: {
                         formatter: function(value) {
@@ -344,7 +352,10 @@ useEffect(()=>{
             onItemHover: {
                 highlightDataSeries: true
             },
-            xaxis: {
+            xaxis: [{
+                axisTicks: {
+                    show: false,
+                },
             categories: tmpXdata,
             labels: {
                 style: {
@@ -352,6 +363,7 @@ useEffect(()=>{
                 }
             },
             },
+        ],
             yaxis: 
             [
                 {
@@ -415,7 +427,8 @@ setChartOptions({
 ...chartOptions,
 xaxis: {
 ...chartOptions.xaxis,
-min: new Date().setDate(new Date(time.at(-1)).getDate() - 7),
+//min: new Date().setDate(new Date(time.at(-1)).getDate() - 7),
+min: new Date(time.at(0)).getTime(),
 max: new Date(time.at(-1)).getTime()
 }
 })

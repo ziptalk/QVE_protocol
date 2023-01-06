@@ -173,7 +173,7 @@ color: #0FB63E;
 const PnlChangePercent = styled.div`
 position: absolute;
 top: 14%;
-left: calc(5.35% + 105px);
+left: calc(5.35% + 108px);
 width: 47px;
 height: 17px;
 
@@ -597,7 +597,7 @@ border-radius: 16px;
 
 const ChartContainerPNL = styled.div`
 position: absolute;
-left: 5.35%;
+left: 8%;
 right: 87.17%;
 top: 6.52%;
 bottom: 89.78%;
@@ -619,7 +619,7 @@ color: #B7B8CD;
 
 const ChartContainerPercent = styled.div`
 position: absolute;
-left: 5.35%;
+left: 7.35%;
 top: 10.49%;
 
 /* Chart Title */
@@ -640,7 +640,7 @@ color: #FFFFFF;
 const ChartContainerMDD = styled.div`
 position: absolute;
 top: 14.21%;
-right: 15.49%;
+right: 19%;
 
 /* Cell */
 
@@ -667,7 +667,7 @@ flex-grow: 0;
 const ChartContainerMDDSplit = styled.div`
 position: absolute;
 top: 14.21%;
-right: 13.09%;
+right: 16.5%;
 width: 5px;
 height: 17px;
 
@@ -697,7 +697,7 @@ flex-grow: 0;
 const ChartContainerMDDValue = styled.div`
 position: absolute;
 top: 14.21%;
-right: 9%;
+right: 12.5%;
 
 width: 10px;
 height: 17px;
