@@ -33,7 +33,6 @@ flex-direction: column;
 align-items: flex-end;
 padding: 0px;
 gap: 24px;
-
 position: absolute;
 width: 374px;
 left: calc(50% - 187px);
@@ -43,8 +42,17 @@ top: 376px;
 
 const NameContainer = styled.div`
 width: 374px;
-height: 67px;
+height: 70px;
+/* Inside auto layout */
 
+flex: none;
+order: 0;
+flex-grow: 0;
+`;
+
+const PasswordContainer = styled.div`
+width: 374px;
+height: 67px;
 
 /* Inside auto layout */
 
@@ -72,15 +80,18 @@ color: #B7B8CD;
 `;
 const InputName = styled.div`
 position: absolute;
+left: 20px;
 font-size: 3px;
 color: #5C5E81;
 `;
 
 const Input = styled.input`
 box-sizing: border-box;
+padding: 20px;
 position: absolute;
 height: 48px;
 left: 20px;
+top: 19px;
 right: 20px;
 
 /* dark/dark */
@@ -109,7 +120,43 @@ input:invalid {
     border: 1px solid #FF395D;
     border-radius: 8px;
   }
+`;
 
+const InputPassword = styled.input`
+box-sizing: border-box;
+padding: 20px;
+position: absolute;
+height: 48px;
+left: 20px;
+top: 86px;
+right: 20px;
+
+/* dark/dark */
+
+background: #2B2B34;
+/* dark/outline */
+
+border: 1px solid #5C5E81;
+border-radius: 8px;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+
+/* white */
+
+color: #FFFFFF;
+input[type=text]:focus {
+    border: 1px solid #B7B8CD;
+    border-radius: 8px;
+  }
+
+input:invalid {
+    border: 1px solid #FF395D;
+    border-radius: 8px;
+  }
 `;
 const Button = styled.button`
 display: flex;
@@ -164,12 +211,12 @@ function Main(props) {
         <form onSubmit={handleLogin}>
         <NameContainer>
         <InputName>ID</InputName>
-        <Input type="text" id="button" placeholder="    ID" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <Input type="text" id="id" placeholder="ID" value={username} onChange={(e) => setUsername(e.target.value)} />
         </NameContainer>
-        <NameContainer>
+        <PasswordContainer>
         <InputName>Password</InputName>
-        <Input type="password" placeholder="    Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        </NameContainer>
+        <InputPassword type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        </PasswordContainer>
         <Button type="submit">Log In</Button>
         </form>
         

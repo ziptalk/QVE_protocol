@@ -19,7 +19,7 @@ z-index: 1;
 const Logo = styled.img`
 position: fixed;
 left: 20px;
-top: 84px;
+top: 80px;
 bottom: 23.5;
 right: 318px;
 

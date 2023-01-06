@@ -60,7 +60,7 @@ const Overview = styled.div`
 position: absolute;
 width: 116px;
 height: 36px;
-left: 20px;
+left: calc(50% - 187px);
 top: 163px;
 
 /* Heading 2 */
@@ -499,11 +499,6 @@ font-weight: 700;
 font-size: 14px;
 line-height: 17px;
 /* identical to box height */
-
-
-/* up */
-
-color: #0FB63E;
 `;
 
 const PresentDescription = styled.div`
@@ -589,8 +584,8 @@ color: #FFFFFF;
 const ChartContainer = styled.div`
 position: absolute;
 height: 429px;
-left: 5%;
-right: 5%;
+width: 374px;
+left: calc(50% - 187px);
 top: 208px;
 bottom: 744px;
 
@@ -645,7 +640,7 @@ color: #FFFFFF;
 const ChartContainerMDD = styled.div`
 position: absolute;
 top: 14.21%;
-right: 11.49%;
+right: 15.49%;
 
 /* Cell */
 
@@ -672,7 +667,7 @@ flex-grow: 0;
 const ChartContainerMDDSplit = styled.div`
 position: absolute;
 top: 14.21%;
-right: 9.09%;
+right: 13.09%;
 width: 5px;
 height: 17px;
 
@@ -702,7 +697,7 @@ flex-grow: 0;
 const ChartContainerMDDValue = styled.div`
 position: absolute;
 top: 14.21%;
-right: 6.1%;
+right: 9%;
 
 width: 10px;
 height: 17px;
@@ -714,10 +709,7 @@ font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
-
 /* up */
-
-color: #FF395D;
 
 
 /* Inside auto layout */
@@ -790,18 +782,18 @@ top: 68px;
 
 const LineChartContainer = styled.div`
 position: absolute;
-top: 125px;
-left: 20px;
-right: 20px;
+top: 140px;
+width: 100%;
+left: 0px;
+right: 0px;
 `;
 
 const AssetContainer = styled.div`
 position: absolute;
 height: 458px;
+width: 374px;
 top: 697px;
-bottom: 226px;
-left: 5%;
-right: 5%;
+left: calc(50% - 187px);
 `;
 
 function Main() {
@@ -816,31 +808,31 @@ const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
 
 
 const fetchUserMe = async () => {
-    axios.get('https://43.206.230.159:8080/user/me/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('http://43.206.230.159:8080/user/me/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setUserMe(res.data);
     }, [])
 }
 const fetchBalanceList = async () => {
-    axios.get('https://43.206.230.159:8080/balance/get/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('http://43.206.230.159:8080/balance/get/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setBalanceList(res.data);
     }, [])
 }
 const fetchMyBalance = async () => {
-    axios.get('https://43.206.230.159:8080/user/mybalance/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('http://43.206.230.159:8080/user/mybalance/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setMyBalance(res.data);
     }, [])
 }
 const fetchMdd = async () => {
-    axios.get('https://43.206.230.159:8080/balance/getmdd', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('http://43.206.230.159:8080/balance/getmdd', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setMdd(res.data);
     })
 }
 const fetchPnl = async () => {
-    axios.get('https://43.206.230.159:8080/balance/getpnl', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('http://43.206.230.159:8080/balance/getpnl', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setPnl(res.data);
     })
@@ -869,7 +861,6 @@ const fetchPnl = async () => {
         let valueBalance = getKeyByValue(balanceList[i], "balance");
         balanceArray.push(valueBalance.toFixed(0));
     }
-    console.log(pnl);
     let balance = getKeyByValue(balanceList, "balance");
     const initialValue = getKeyByValue(userMe, "initial_investment");
     const start_date = getKeyByValue(userMe, "start_date");
@@ -878,12 +869,14 @@ const fetchPnl = async () => {
     let my_margin = (getKeyByValue(myBalance, "my_margin"));
     let my_margin_rate = (getKeyByValue(myBalance, "my_margin_rate"));
     let mdd_value = getKeyByValue(mdd, "mdd");
+    mdd_value = Math.abs(mdd_value);
     let pnl_value = getKeyByValue(pnl, "pnl");
     let pnl_24h_gap = getKeyByValue(pnl, "pnl_24h_gap");
     for (let i = 0; i < balanceArray.length; i++) {
         var pnlValue = (balanceArray[i] - totalInitialInvestment) / totalInitialInvestment;
         pnlArray.push((pnlValue * 100).toFixed(2));
     }
+
     const currentPnl = pnlArray.at(-1);
     if (my_balance !== undefined) {
         my_balance = my_balance.toFixed(2);
@@ -906,10 +899,10 @@ const fetchPnl = async () => {
         <ChartContainer>    
             <ChartContainerPNL>PNL</ChartContainerPNL>
             <ChartContainerPercent>{currentPnl}%</ChartContainerPercent>
-            <PnlChangePercent>{pnl_24h_gap}%p</PnlChangePercent>
+            <PnlChangePercent style={{color: mdd_value > 0 ? "#0FB63E" : "#FF395D"}}>{pnl_24h_gap}%p</PnlChangePercent>
             <ChartContainerMDD>MDD</ChartContainerMDD>
             <ChartContainerMDDSplit>:</ChartContainerMDDSplit>
-            <ChartContainerMDDValue>{mdd_value}</ChartContainerMDDValue>
+            <ChartContainerMDDValue style={{color: mdd_value < 5 ? "#0FB63E" : "#FF395D"}}>{mdd_value}</ChartContainerMDDValue>
             <LineChartContainer><LineChart balanceList={balanceList} pnlArray={pnlArray}></LineChart></LineChartContainer>
         </ChartContainer>
         <AssetContainer>
@@ -920,7 +913,7 @@ const fetchPnl = async () => {
         </AssetInitialContainer>
         <AssetPresentContainer>
             <Present>Present</Present>
-            <PresentPercent>{my_margin}({my_margin_rate})</PresentPercent>
+            <PresentPercent style={{color: mdd_value > 0 ? "#0FB63E" : "#FF395D"}}>{my_margin} ({my_margin_rate}%)</PresentPercent>
             <PresentValue>{my_balance} USDT</PresentValue>
             <PresentDescription>수익은 성과보수를 포함한 값이며 환매 시 계약한 성과보수를 제하게 됩니다.</PresentDescription>
         </AssetPresentContainer>

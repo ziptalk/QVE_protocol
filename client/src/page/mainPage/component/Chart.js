@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import ReactApexChart from 'react-apexcharts'
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import iconCalendar from "../../../assets/icon-Calendar.png";
 const ButtonDay = styled.button`
 position: absolute;
 top: 0px;
 bottom: 0px;
 left: 0px;
-right: 84.73%;
+right: 83%;
 background-color: transparent;
 font-family: 'Inter';
 font-style: normal;
@@ -21,7 +21,7 @@ border: none;
 
 const DayWeekSplit = styled.div`
 position: absolute;
-left: 13.17%;
+left: 16%;
 top: 2.5px;
 color: white;
 background-color: transparent;
@@ -30,8 +30,8 @@ background-color: transparent;
 const ButtonWeek = styled.button`
 position: absolute;
 top: 0px;
-right: 68.26%;
-left: 15%;
+right: 66.26%;
+left: 16.2%;
 bottom: 0px;
 background-color: transparent;
 font-family: 'Inter';
@@ -46,7 +46,7 @@ border: none;
 
 const WeekMonthSplit = styled.div`
 position: absolute;
-left: 31.73%;
+left: 32.73%;
 top: 2.5px;
 color: white;
 background-color: transparent;
@@ -55,8 +55,8 @@ background-color: transparent;
 const ButtonMonth = styled.button`
 position: absolute;
 top: 0px;
-right: 52.09%;
-left: 31.73%;
+right: 50.09%;
+left: 33%;
 bottom: 0px;
 background-color: transparent;
 font-family: 'Inter';
@@ -70,7 +70,7 @@ border: none;
 `;
 const MonthYearSplit = styled.div`
 position: absolute;
-left: 47.9%;
+left: 48.9%;
 top: 2.5px;
 color: white;
 background-color: transparent;
@@ -78,8 +78,8 @@ background-color: transparent;
 const Button1Year = styled.button`
 position: absolute;
 top: 0px;
-right: 36.82%;
-left: 47.90%;
+right: 34.82%;
+left: 49.2%;
 bottom: 0px;
 background-color: transparent;
 font-family: 'Inter';
@@ -94,7 +94,7 @@ border: none;
 
 const YearYtdSplit = styled.div`
 position: absolute;
-left: 63.17%;
+left: 64.17%;
 top: 2.5px;
 color: white;
 background-color: transparent;
@@ -103,8 +103,8 @@ background-color: transparent;
 const ButtonYtd = styled.button`
 position: absolute;
 top: 0px;
-right: 17.96%;
-left: 63.17%;
+right: 18%;
+left: 64.5%;
 bottom: 0px;
 background-color: transparent;
 font-family: 'Inter';
@@ -119,7 +119,7 @@ border: none;
 
 const YtdAllSplit = styled.div`
 position: absolute;
-left: 82%;
+left: 81%;
 top: 2.5px;
 color: white;
 background-color: transparent;
@@ -128,7 +128,7 @@ background-color: transparent;
 const ButtonAll = styled.button`
 position: absolute;
 top: 0px;
-left: 80%;
+left: 82%;
 right: 0px;
 bottom: 0px;
 background-color: transparent;
@@ -144,7 +144,8 @@ border: none;
 
 const ButtonContainer = styled.div`
 position: absolute;
-width: 100%;
+width: 85%;
+left: 7%;
 height: 30px;
 top: -30px;
 border: 1px solid #B7B8CD;
@@ -228,6 +229,7 @@ useEffect(()=>{
                 color: '#4A3CE8',
                 legend: {
                     position: 'left',
+                    color: "white",
                 }
             },
             {
@@ -259,6 +261,13 @@ useEffect(()=>{
               },
               onItemClick: {
                 toggleDataSeries: true
+            },
+            stroke: {
+                show: true,
+                curve: 'straight',
+                lineCap: 'butt',
+                width: 2,
+                dashArray: 0,      
             },
             onItemHover: {
                 highlightDataSeries: true
@@ -309,9 +318,9 @@ useEffect(()=>{
                     tooltip: {
                         enabled: true,
                     },
-                    max: 20000,
-                    min: 10000,
-                    tickAmount: 5,
+                    max: 17000,
+                    min: 16200,
+                    tickAmount: 1,
                 },
         ]
           })
@@ -357,9 +366,6 @@ useEffect(()=>{
                     tooltip: {
                         enabled: true
                     },
-                    max: 2,
-                    min: 1.7,
-                    tickAmount: 5,
                 },
                 {
                     opposite: true,
@@ -381,9 +387,6 @@ useEffect(()=>{
                     tooltip: {
                         enabled: true,
                     },
-                    max: 20000,
-                    min: 10000,
-                    tickAmount: 2,
                 },
         ]
           })
@@ -461,7 +464,7 @@ break
 
 return (
 <div>
-<ReactApexChart type="line" options={chartOptions} series={series} 
+<ReactApexChart style={{position: "absolute", width: '100%', height: '100%',top: '20px'}} type="line" options={chartOptions} series={series} 
 />
 <div>
 <ButtonContainer>

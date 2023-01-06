@@ -16,9 +16,9 @@ background: #292932;
 `;
 
 const FooterDescriptionLeft =styled.div`
-width: 87px;
+left: calc(50% - 119px);
 height: 13px;
-
+width: 87px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
@@ -28,7 +28,6 @@ line-height: 13px;
 /* dark/label */
 
 color: #B7B8CD;
-
 
 /* Inside auto layout */
 
@@ -40,6 +39,7 @@ flex-grow: 0;
 const FooterDescriptionRight = styled.div`
 width: 139px;
 height: 13px;
+right: calc(50% + 119px);
 
 /* body */
 

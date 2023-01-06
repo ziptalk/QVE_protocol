@@ -1,8 +1,6 @@
 import axios from "axios";
 
-// http://192.168.0.124:8080/user/login/ 
-
-const API_URL = "https://43.206.230.159:8080/user";
+const API_URL = "http://43.206.230.159:8080/user";
 
 const login = (username, password) => {
     console.log("LOGINISHAPPENING")
