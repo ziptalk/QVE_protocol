@@ -167,7 +167,7 @@ padding: 10px 36px;
 gap: 10px;
 
 position: absolute;
-top: 145px;
+top: 155px;
 right: 20px;
 
 /* dark/primary */
@@ -177,12 +177,38 @@ border-radius: 21px;
 
 color: #FFFFFF;
 `
+const ErrorMsg = styled.div`
+width: 83px;
+height: 15px;
+
+/* Label */
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
+
+background: white;
+
+/* down */
+
+color: #FF395D;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+`;
 
 function Main(props) {
     // react hook에서 state 사용
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
+  let err = false;
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -195,7 +221,8 @@ function Main(props) {
                 navigate("/mainPage");
             },
             (error) => {
-                console.log(error);
+              console.log(error);
+              err = true;
             }
         );
     } catch (err) {
@@ -210,14 +237,15 @@ function Main(props) {
         <Container>
         <form onSubmit={handleLogin}>
         <NameContainer>
-        <InputName>ID</InputName>
+        <InputName></InputName>
         <Input type="text" id="id" placeholder="ID" value={username} onChange={(e) => setUsername(e.target.value)} />
         </NameContainer>
         <PasswordContainer>
-        <InputName>Password</InputName>
+        <InputName></InputName>
         <InputPassword type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </PasswordContainer>
         <Button type="submit">Log In</Button>
+        
         </form>
         
         </Container>
