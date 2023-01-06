@@ -10,7 +10,7 @@ position: absolute;
 width: 251px;
 height: 48px;
 left: calc(50% - 100px/2 - 81px);
-top: 280px;
+top: 227px;
 
 font-family: 'Inter';
 font-style: normal;
@@ -37,7 +37,7 @@ position: absolute;
 width: 374px;
 left: calc(50% - 187px);
 height: 215px;
-top: 376px;
+top: 323px;
 `;
 
 const NameContainer = styled.div`
@@ -65,7 +65,7 @@ position: absolute;
 width: 100px;
 height: 19px;
 left: calc(50% - 100px/2 + 1px);
-top: 318px;
+top: 265px;
 
 /* Heading 4 */
 

@@ -10,6 +10,20 @@ const Background = styled.div`
   position: absolute;
   background-color: #202025;
   width: 100%;
+  height: 170%;
+`;
+
+const BackgroundLogin = styled.div`
+  position: absolute;
+  background-color: #202025;
+  width: 100%;
+  min-height: 50vh;
+`;
+
+const BackgroundMain = styled.div`
+position: absolute;
+  background-color: #202025;
+  width: 100%;
   min-height: 190vh;
 `;
 

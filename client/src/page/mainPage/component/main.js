@@ -12,7 +12,7 @@ const LogoutButton = styled.div`
 z-index: 1;
 position: fixed;
 right: 20px;
-top: 73px;
+top: 20px;
 
 box-sizing: border-box;
 
@@ -61,7 +61,7 @@ position: absolute;
 width: 116px;
 height: 36px;
 left: calc(50% - 187px);
-top: 163px;
+top: 110px;
 
 /* Heading 2 */
 
@@ -586,7 +586,7 @@ position: absolute;
 height: 429px;
 width: 374px;
 left: calc(50% - 187px);
-top: 208px;
+top: 155px;
 bottom: 744px;
 
 /* dark/dark */
@@ -792,7 +792,7 @@ const AssetContainer = styled.div`
 position: absolute;
 height: 458px;
 width: 374px;
-top: 697px;
+top: 644px;
 left: calc(50% - 187px);
 `;
 

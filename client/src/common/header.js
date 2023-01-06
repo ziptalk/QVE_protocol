@@ -9,7 +9,7 @@ flex-direction: column;
 align-items: flex-start;
 padding: 0px;
 
-height: 130px;
+height: 77px;
 top: 0;
 left: 0;
 right: 0;  
@@ -19,7 +19,7 @@ z-index: 1;
 const Logo = styled.img`
 position: fixed;
 left: 20px;
-top: 80px;
+top: 25px;
 bottom: 23.5;
 right: 318px;
 

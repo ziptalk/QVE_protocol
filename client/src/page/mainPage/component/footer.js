@@ -10,8 +10,8 @@ gap: 10px;
 
 position: absolute;
 width: 100% ;
-height: 135px;
-top: 1246px;
+height: 90px;
+top: 1193px;
 background: #292932;
 `;
 

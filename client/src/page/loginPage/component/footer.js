@@ -11,7 +11,7 @@ position: absolute;
 width: 139px;
 height: 13px;
 left: calc(50% - 69.5px);
-top: 630px;
+top: 577px;
 
 font-family: 'Inter';
 font-style: normal;
