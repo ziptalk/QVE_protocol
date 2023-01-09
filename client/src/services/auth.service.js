@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://43.206.230.159:8080/user";
+const API_URL = "https://qve.today/user";
 
 const login = (username, password) => {
     return axios

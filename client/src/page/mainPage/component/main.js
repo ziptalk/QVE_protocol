@@ -808,31 +808,31 @@ const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
 
 
 const fetchUserMe = async () => {
-    axios.get('http://43.206.230.159:8080/user/me/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/user/me/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setUserMe(res.data);
     }, [])
 }
 const fetchBalanceList = async () => {
-    axios.get('http://43.206.230.159:8080/balance/get/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/balance/get/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setBalanceList(res.data);
     }, [])
 }
 const fetchMyBalance = async () => {
-    axios.get('http://43.206.230.159:8080/user/mybalance/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/user/mybalance/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setMyBalance(res.data);
     }, [])
 }
 const fetchMdd = async () => {
-    axios.get('http://43.206.230.159:8080/balance/getmdd', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/balance/getmdd', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setMdd(res.data);
     })
 }
 const fetchPnl = async () => {
-    axios.get('http://43.206.230.159:8080/balance/getpnl', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/balance/getpnl', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setPnl(res.data);
     })

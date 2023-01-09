@@ -87,6 +87,7 @@ bottom: 0px;
 `;
 
 const Input = styled.input`
+all: unset;
 box-sizing: border-box;
 padding: 20px;
 position: absolute;
@@ -95,12 +96,14 @@ left: 20px;
 top: 0px;
 right: 20px;
 
+&:focus {
+  border: 1px solid #4A3CE8 !important;
+}
 /* dark/dark */
 
 background: #2B2B34;
 /* dark/outline */
 
-border: 1px solid #5C5E81;
 border-radius: 8px;
 
 font-family: 'Inter';
@@ -112,18 +115,11 @@ line-height: 19px;
 /* white */
 
 color: #FFFFFF;
-input[type=text]:focus {
-    border: 1px solid #B7B8CD;
-    border-radius: 8px;
-  }
 
-input:invalid {
-    border: 1px solid #FF395D;
-    border-radius: 8px;
-  }
 `;
 
 const InputPassword = styled.input`
+all: unset;
 box-sizing: border-box;
 padding: 20px;
 position: absolute;
@@ -137,6 +133,10 @@ right: 20px;
 background: #2B2B34;
 /* dark/outline */
 
+&:focus {
+  border: 1px solid #4A3CE8 !important;
+}
+
 border: 1px solid #5C5E81;
 border-radius: 8px;
 
@@ -149,18 +149,10 @@ line-height: 19px;
 /* white */
 
 color: #FFFFFF;
-input[type=text]:focus {
-    border: 1px solid #B7B8CD;
-    border-radius: 8px;
-  }
 
-input:invalid {
-    border: 1px solid #FF395D;
-    border-radius: 8px;
-  }
 `;
 const Button = styled.button`
-background: inherit ; border:none; box-shadow:none; border-radius:0; padding:0; overflow:visible; cursor:pointer;
+all: unset;
 display: flex;
 flex-direction: row;
 justify-content: center;
@@ -209,7 +201,7 @@ width: 83px;
 height: 15px;
 position: absolute;
 left: 20px;
-top: 122px;
+top: 121px;
 /* Label */
 
 font-family: 'Inter';
@@ -232,6 +224,7 @@ order: 0;
 flex-grow: 0;
 `;
 
+
 function Main(props) {
     // react hook에서 state 사용
   const [username, setUsername] = useState('');
@@ -250,6 +243,8 @@ function Main(props) {
             (error) => {
               console.log(error);
               setError(error);
+              setUsername("");
+              setPassword("");
             }
         );
     } catch (err) {
@@ -265,15 +260,15 @@ function Main(props) {
         <form onSubmit={handleLogin}>
         <NameContainer>
         <InputName></InputName>
-        <Input type="text" id="id" placeholder="ID" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <Input style={{border: !error ? "1px solid #5C5E81" : "1px solid #FF395D"}} type="text" id="id" placeholder="ID" value={username} onChange={(e) => setUsername(e.target.value)} />
         <ErrorMsg style={{visibility : !error ? "hidden" : "visible"}}>Error Message</ErrorMsg>
         </NameContainer>
         <PasswordContainer>
         <InputName></InputName>
-        <InputPassword type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <InputPassword style={{border: !error ? "1px solid #5C5E81" : "1px solid #FF395D"}} type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <ErrorMsgPwd style={{visibility : !error ? "hidden" : "visible"}}>Error Message</ErrorMsgPwd>
         </PasswordContainer>
-        <Button type="submit">Log In</Button>
+        <Button onfocus="if(error != null) { id = ''; }" type="submit">Log In</Button>
         </form>
         
         </Container>
