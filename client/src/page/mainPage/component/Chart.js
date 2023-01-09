@@ -262,8 +262,8 @@ useEffect(()=>{
               },
               legend: {
                 position: 'top',
-                offsetY: -10,
-                offsetX: 10 
+                //offsetY: -10,
+                offsetX: 0 
               },
               onItemClick: {
                 toggleDataSeries: true
