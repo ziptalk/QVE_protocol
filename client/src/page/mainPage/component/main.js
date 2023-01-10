@@ -6,7 +6,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ContainerAll = styled.div`
-height: 150vh;
+height: 170vh;
 background-color: #202025;
 
 `;
