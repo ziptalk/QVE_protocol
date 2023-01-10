@@ -7,25 +7,10 @@ import authService from "./services/auth.service";
 import axios from "axios";
 
 const Background = styled.div`
-  position: absolute;
   background-color: #202025;
-  width: 100%;
-  height: 170%;
+  height: 100vh;
 `;
 
-const BackgroundLogin = styled.div`
-  position: absolute;
-  background-color: #202025;
-  width: 100%;
-  min-height: 50vh;
-`;
-
-const BackgroundMain = styled.div`
-position: absolute;
-  background-color: #202025;
-  width: 100%;
-  min-height: 190vh;
-`;
 
 function App() {
   //const [currentUser, setCurrentUser] = useState(undefined);

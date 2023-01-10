@@ -6,7 +6,9 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ContainerAll = styled.div`
-z-index: 2;
+height: 150vh;
+background-color: #202025;
+
 `;
 const LogoutButton = styled.div`
 z-index: 1;
@@ -376,7 +378,7 @@ color: #0FB63E;
 `;
 
 const Asset = styled.div`
-position: absolute;
+position: relative;
 width: 114px;
 height: 36px;
 left: 0px;
@@ -399,7 +401,7 @@ color: #B7B8CD;
 `;
 
 const Initial = styled.div`
-position: absolute;
+position: relative;
 height: 15px;
 left: 30px;
 top: 30px;
@@ -789,13 +791,12 @@ right: 0px;
 `;
 
 const AssetContainer = styled.div`
-position: absolute;
+position: relative;
 height: 458px;
 width: 374px;
 top: 644px;
 left: calc(50% - 187px);
 `;
-
 function Main() {
     const [userMe, setUserMe] = useState('');
     const [balanceList, setBalanceList] = useState('');
@@ -893,6 +894,7 @@ const fetchPnl = async () => {
         mdd_value = mdd_value.toFixed(2);
     }
     return(
+        <>
         <ContainerAll>
         <LogoutButton onClickCapture={logout}>Logout</LogoutButton>
         <Overview>Overview</Overview>
@@ -924,6 +926,7 @@ const fetchPnl = async () => {
         </AssetPeriodContainer>
         </AssetContainer>
         </ContainerAll>
+        </>
     );
 }
 

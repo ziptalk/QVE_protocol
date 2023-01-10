@@ -304,7 +304,7 @@ useEffect(()=>{
                         enabled: false
                     },
                     max: 3,
-                    min: -6,
+                    min: -10,
                     tickAmount: 5,
                 },
                 {
