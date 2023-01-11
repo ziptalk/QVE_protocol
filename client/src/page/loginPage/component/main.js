@@ -5,7 +5,7 @@ import authService from "../../../services/auth.service";
 import styled from "styled-components";
 
 const Background = styled.div`
-  background-color: yellow;
+  background-color: #202025;
   height: 100vh;
 `;
 const Title = styled.div`

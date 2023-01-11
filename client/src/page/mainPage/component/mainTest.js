@@ -16,7 +16,8 @@ const EContainer = styled.div`
 `;
 
 const FirstContainer = styled.div`
-padding: 0px 20px 0px 20px;
+width: 95%;
+max-width: 700px;
 
 `;
 
@@ -819,7 +820,8 @@ const fetchPnl = async () => {
         <>
         <ContainerAll>
         <LogoutButton onClickCapture={logout}>Logout</LogoutButton>
-        <EContainer style={{height: "92px"}}>hii</EContainer>
+        <EContainer style={{height: "92px"}}></EContainer>
+        <EContainer style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
         <FirstContainer>
         <Overview>Overview</Overview> 
         <ChartContainer>   
@@ -842,6 +844,7 @@ const fetchPnl = async () => {
             <LineChartContainer><LineChart balanceList={balanceList} pnlArray={pnlArray}></LineChart></LineChartContainer>
         </ChartContainer>
         </FirstContainer>
+        </EContainer>
         <EContainer style={{height: '52px'}}></EContainer>
         <AssetContainer>
         <Asset>My Asset</Asset>
