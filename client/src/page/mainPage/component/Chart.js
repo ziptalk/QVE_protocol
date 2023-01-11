@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import styled, { withTheme } from 'styled-components';
 import iconCalendar from "../../../assets/icon-Calendar.png";
+
+const EContainer = styled.div`
+
+`;
 const ButtonDay = styled.button`
-position: absolute;
-top: 0px;
-bottom: 0px;
-left: 0px;
-right: 83%;
+display: flex;
+align-items: flex-end;
 background-color: transparent;
 font-family: 'Inter';
 font-style: normal;
@@ -15,24 +16,19 @@ font-weight: 700;
 font-size: 12px;
 line-height: 15px;
 color: #FFFFFF;
-text-align: center;
+text-align: right;
 border: none;
+float: right;
 `;
 
 const DayWeekSplit = styled.div`
-position: absolute;
-left: 16%;
-top: 2.5px;
+
 color: white;
 background-color: transparent;
 `;
 
 const ButtonWeek = styled.button`
-position: absolute;
-top: 0px;
-right: 66.26%;
-left: 16.2%;
-bottom: 0px;
+
 background-color: transparent;
 font-family: 'Inter';
 font-style: normal;
@@ -45,19 +41,13 @@ border: none;
 `;
 
 const WeekMonthSplit = styled.div`
-position: absolute;
-left: 32.73%;
-top: 2.5px;
+
 color: white;
 background-color: transparent;
 `;
 
 const ButtonMonth = styled.button`
-position: absolute;
-top: 0px;
-right: 50.09%;
-left: 33%;
-bottom: 0px;
+
 background-color: transparent;
 font-family: 'Inter';
 font-style: normal;
@@ -67,20 +57,14 @@ line-height: 15px;
 color: #FFFFFF;
 text-align: center;
 border: none;
+float: center;
 `;
 const MonthYearSplit = styled.div`
-position: absolute;
-left: 48.9%;
-top: 2.5px;
+
 color: white;
 background-color: transparent;
 `;
 const Button1Year = styled.button`
-position: absolute;
-top: 0px;
-right: 34.82%;
-left: 49.2%;
-bottom: 0px;
 background-color: transparent;
 font-family: 'Inter';
 font-style: normal;
@@ -93,19 +77,13 @@ border: none;
 `;
 
 const YearYtdSplit = styled.div`
-position: absolute;
-left: 64.17%;
-top: 2.5px;
+
 color: white;
 background-color: transparent;
 `;
 
 const ButtonYtd = styled.button`
-position: absolute;
-top: 0px;
-right: 18%;
-left: 64.5%;
-bottom: 0px;
+
 background-color: transparent;
 font-family: 'Inter';
 font-style: normal;
@@ -118,19 +96,14 @@ border: none;
 `;
 
 const YtdAllSplit = styled.div`
-position: absolute;
-left: 81%;
-top: 2.5px;
 color: white;
 background-color: transparent;
+font-size: 20px;
+display: flex;
+justify-content: flex-start;
 `;
 
 const ButtonAll = styled.button`
-position: absolute;
-top: 0px;
-left: 82%;
-right: 0px;
-bottom: 0px;
 background-color: transparent;
 font-family: 'Inter';
 font-style: normal;
@@ -138,16 +111,16 @@ font-weight: 700;
 font-size: 12px;
 line-height: 15px;
 color: #FFFFFF;
-text-align: center;
+text-align:left;
 border: none;
 `;
 
 const ButtonContainer = styled.div`
-position: absolute;
-width: 85%;
-left: 7%;
-height: 30px;
-top: -30px;
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+margin-left: 20px;
+margin-right: 20px;
 border: 1px solid #B7B8CD;
 border-radius: 6px;
 box-sizing: border-box;
@@ -190,6 +163,12 @@ useEffect(()=>{
         dataBtc.push(valueBtc);
         time.push(getTime);
      }
+     const firstBtcValue = dataBtc[0];
+
+     for (let i = 0; i < balanceList.length; i++) {
+        dataBtc[i] = (((dataBtc[i] / firstBtcValue) - 1 ) * 100).toFixed(2);
+
+     }
      let tmpData = [];
      let tmpData1 = [];
      let tmpData2 = [];
@@ -216,7 +195,7 @@ useEffect(()=>{
             for (let i = 0; i < tmpData1.length; i++) {
             }
         }
-     let arr = Object.values(tmpData1);
+     let arr = Object.values(tmpData2);
      let min = Math.min(...arr);
      let max = Math.max(...arr);
 
@@ -226,10 +205,6 @@ useEffect(()=>{
                 type: 'line',
                 name: 'QVE',
                 color: '#4A3CE8',
-                legend: {
-                    position: 'left',
-                    color: "white",
-                }
             },
             {
               data: tmpData2,
@@ -303,33 +278,16 @@ useEffect(()=>{
                     tooltip: {
                         enabled: false
                     },
-                    max: 3,
-                    min: -10,
+                    max: max,
+                    min: min,
                     tickAmount: 5,
                 },
                 {
-                    opposite: true,
-                    axisTicks: {
-                        show: false,
-                    },
-                    labels: {
-                        formatter: function(value) {
-                            var val = Math.abs(value)
-                            if (val >= 1000) {
-                              val = (val / 1000).toFixed(0) + ' K'
-                            }
-                            return val
-                          },
-                        style: {
-                            colors: '#5C5E81',
-                        }
-                    },
                     tooltip: {
                         enabled: true,
                     },
-                    max: 17000,
-                    min: 16200,
-                    tickAmount: 1,
+                    show: false,
+
                 },
         ]
           })
@@ -381,21 +339,9 @@ useEffect(()=>{
                     },
                 },
                 {
-                    opposite: true,
-                    axisTicks: {
-                        show: true,
-                    },
+                   
                     labels: {
-                        formatter: function(value) {
-                            var val = Math.abs(value)
-                            if (val >= 1000) {
-                              val = (val / 1000).toFixed(0) + ' K'
-                            }
-                            return val
-                          },
-                        style: {
-                            colors: '#5C5E81',
-                        }
+                        
                     },
                     tooltip: {
                         enabled: true,
@@ -475,12 +421,8 @@ max: null
 break
 }
 }
-
 return (
-<div>
-<ReactApexChart style={{position: "absolute", width: '100%', height: '100%',top: '20px'}} type="line" options={chartOptions} series={series} 
-/>
-<div>
+<>
 <ButtonContainer>
 <ButtonDay onClick={() => setDataRange('day')}>1D</ButtonDay>
 <DayWeekSplit>|</DayWeekSplit>
@@ -494,8 +436,12 @@ return (
 <YtdAllSplit>|</YtdAllSplit>
 <ButtonAll onClick={() => setDataRange('all')}>ALL</ButtonAll>
 </ButtonContainer>
-</div>
-</div>
+<EContainer style={{height: '11px'}}></EContainer>
+<ReactApexChart style={{display: 'flex', margin: '0px 20px 0px 0px'}} type="line" options={chartOptions} series={series} 
+/>
+</>
+
+
 )
 }
 

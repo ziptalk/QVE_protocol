@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import authService from "../../../services/auth.service";
 import styled from "styled-components";
 
+const Background = styled.div`
+  background-color: yellow;
+  height: 100vh;
+`;
 const Title = styled.div`
 
 position: absolute;
@@ -253,7 +257,7 @@ function Main(props) {
   }
 
     return (
-        <>
+        <Background>
         <Title>BWL Arbitrage Dashboard</Title>
         <SubTitle>for investors</SubTitle>
         <Container>
@@ -272,7 +276,7 @@ function Main(props) {
         </form>
         
         </Container>
-        </>
+        </Background>
     );
 }
 export default Main;

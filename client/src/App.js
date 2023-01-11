@@ -1,14 +1,15 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
+
 import React, { useState, useEffect } from "react";
 import Mainpage from "./page/mainPage";
 import styled from "styled-components";
 import Loginpage from "./page/loginPage";
 import authService from "./services/auth.service";
 import axios from "axios";
+import MainTest from "./page/mainPage/component/mainTest";
 
 const Background = styled.div`
-  background-color: #202025;
-  height: 100vh;
+  
 `;
 
 

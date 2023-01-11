@@ -4,10 +4,6 @@ import { useState } from "react";
 const HeaderContainer = styled.div`
 position: fixed;
 background-color: #292932;
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
 
 height: 77px;
 top: 0;

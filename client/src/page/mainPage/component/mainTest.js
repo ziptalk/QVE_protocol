@@ -6,12 +6,37 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ContainerAll = styled.div`
-height: 100vh;
+height: 100%;
 background-color: #202025;
-margin: 0;
 display: flex;
+flex-direction: column;
+`;
 
+const EContainer = styled.div`
+`;
 
+const FirstContainer = styled.div`
+padding: 0px 20px 0px 20px;
+
+`;
+
+const FirstContainerValue = styled.div`
+display: flex;
+flex-direction: row; 
+padding: 0px 20px 0px 20px;
+height: 32px;
+justify-content:space-between;
+`;
+
+const FirstContainerValueStart = styled.div`
+display: flex;
+flex-direction: row;
+`;
+
+const FirstContainerValueEnd = styled.div`
+display: flex;
+flex-direction: row;
+align-self: end;
 `;
 const LogoutButton = styled.div`
 z-index: 1;
@@ -61,11 +86,8 @@ color: #B7B8CD;
 `;
 
 const Overview = styled.div`
-position: absolute;
 width: 116px;
 height: 36px;
-left: calc(50% - 187px);
-top: 110px;
 
 /* Heading 2 */
 
@@ -175,12 +197,10 @@ color: #0FB63E;
 `;
 
 const PnlChangePercent = styled.div`
-position: absolute;
-top: 14%;
-left: calc(5.35% + 108px);
+display: flex;
 width: 47px;
 height: 17px;
-
+align-self: end;
 /* Cell Bold */
 
 font-family: 'Inter';
@@ -197,10 +217,6 @@ color: #FF395D;
 
 
 /* Inside auto layout */
-
-flex: none;
-order: 0;
-flex-grow: 0;
 `;
 
 const ChangeSplit = styled.div`
@@ -378,14 +394,9 @@ color: #0FB63E;
 `;
 
 const Asset = styled.div`
-position: relative;
-width: 114px;
-height: 36px;
-left: 0px;
-top: 0px;
 
 /* Heading 2 */
-
+width: 374px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
@@ -401,31 +412,22 @@ color: #B7B8CD;
 `;
 
 const Initial = styled.div`
-position: relative;
-height: 15px;
-left: 30px;
-top: 30px;
 
 /* Label Emp */
-
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
 /* identical to box height */
-
 letter-spacing: 0.02em;
-
+margin-left: 30px;
 /* dark/label */
 
 color: #B7B8CD;
 `;  
 
 const InitialValue = styled.div`
-position: absolute;
-right: 30px;
-top: 73px;
 
 font-family: 'Inter';
 font-style: normal;
@@ -437,20 +439,16 @@ line-height: 36px;
 align-items: center;
 text-align: right;
 letter-spacing: 0.02em;
-
+margin-right: 30px;
 /* dark/white */
 
 color: #FFFFFF;
 `
 const Present = styled.div`
-position: absolute;
-width: 314px;
-height: 15px;
-left: 30px;
-top: 30px;
+
 
 /* Label Emp */
-
+margin-left: 30px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
@@ -466,65 +464,51 @@ color: #B7B8CD;
 `;
 
 const PresentValue = styled.div`
-position: absolute;
-right: 30px;
-top: 72px;
 
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 23px;
-line-height: 36px;
 /* or 157% */
-
+margin-right: 30px;
 align-items: center;
 text-align: right;
-letter-spacing: 0.02em;
 
 /* dark/white */
-
 color: #FFFFFF;
 `;
 
 const PresentPercent = styled.div`
-position: absolute;
-top: 55.71px;
-right: 30px;
+
 
 /* Cell Bold */
-
+margin-right: 30px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 14px;
-line-height: 17px;
+text-align: right;
 /* identical to box height */
 `;
 
 const PresentDescription = styled.div`
-position: absolute;
-right: 30px;
-top: 109px;
 
+margin-right: 30px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 7px;
-line-height: 8px;
 text-align: right;
-letter-spacing: 0.02em;
 
 /* dark/label */
 
 color: #B7B8CD;
 `;
 const Period = styled.div`
-position: absolute;
-left: 30px;
-top: 30px;
+
 
 /* Label Emp */
-
+margin-left: 30px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
@@ -540,15 +524,12 @@ color: #B7B8CD;
 `;
 
 const PeriodStart = styled.div`
-position: absolute;
-left: 30px;
-top: 58.41px;
 
+margin-left: 30px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 22px;
-line-height: 36px;
 /* or 164% */
 
 align-items: center;
@@ -560,15 +541,12 @@ color: #FFFFFF;
 `;
 
 const PeriodEnd = styled.div`
-position: absolute;
-right: 30px;
-top: 58.41px;
 
+margin-right: 30px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 22px;
-line-height: 36px;
 /* or 164% */
 
 align-items: center;
@@ -580,12 +558,6 @@ letter-spacing: 0.02em;
 color: #FFFFFF;
 `;
 const ChartContainer = styled.div`
-position: absolute;
-height: 429px;
-width: 374px;
-left: calc(50% - 187px);
-top: 155px;
-bottom: 744px;
 
 /* dark/dark */
 
@@ -594,11 +566,7 @@ border-radius: 16px;
 `;
 
 const ChartContainerPNL = styled.div`
-position: absolute;
-left: 8%;
-right: 87.17%;
-top: 6.52%;
-bottom: 89.78%;
+padding: 24px 0px 0px 20px;
 
 /* Cell Bold */
 
@@ -616,10 +584,7 @@ color: #B7B8CD;
 `
 
 const ChartContainerPercent = styled.div`
-position: absolute;
-left: 7.35%;
-top: 10.49%;
-
+height: 39px;
 /* Chart Title */
 
 font-family: 'Inter';
@@ -636,9 +601,7 @@ color: #FFFFFF;
 `;
 
 const ChartContainerMDD = styled.div`
-position: absolute;
-top: 14.21%;
-right: 19%;
+
 
 /* Cell */
 
@@ -663,11 +626,7 @@ flex-grow: 0;
 `;
 
 const ChartContainerMDDSplit = styled.div`
-position: absolute;
-top: 14.21%;
-right: 16.5%;
-width: 5px;
-height: 17px;
+
 
 /* Cell */
 
@@ -682,23 +641,10 @@ line-height: 17px;
 /* dark/white */
 
 color: #FFFFFF;
-
-
-/* Inside auto layout */
-
-flex: none;
-order: 1;
-flex-grow: 0;
 `;
 
 
 const ChartContainerMDDValue = styled.div`
-position: absolute;
-top: 14.21%;
-right: 12.5%;
-
-width: 10px;
-height: 17px;
 
 /* Cell Bold */
 
@@ -707,27 +653,7 @@ font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
-/* up */
 
-
-/* Inside auto layout */
-
-flex: none;
-order: 2;
-flex-grow: 0;
-`;
-
-const ChangeContainer = styled.div`
-position: absolute;
-width: 374px;
-height: 106px;
-left: 20px;
-top: 782px;
-
-/* dark/dark */
-
-background: #2B2B34;
-border-radius: 16px;
 `;
 
 const TurnoverContainer = styled.div`
@@ -741,32 +667,30 @@ border-radius: 16px;
 `;
 
 const AssetInitialContainer = styled.div`
-position: absolute;
 height: 117px;
-left: 0px;
-right: 0px;
-top: 48px;
-background: #2B2B34;
+width: 374px;
 border-radius: 16px;
+background: #2B2B34;
 `;
 
 const AssetPresentContainer = styled.div`
-position: absolute;
-height: 140px;
-left: 0px;
-right: 0px;
-top: 183px;
+height: 136px;
+width: 374px;
+float: center;
 background: #2B2B34;
 border-radius: 16px;
 `;
 const AssetPeriodContainer = styled.div`
-position: absolute;
 height: 117px;
-left: 0px;
-right: 0px;
-top: 341px;
+width: 374px;
+justify-content: center;
 background: #2B2B34;
 border-radius: 16px;
+`;
+
+const AssetEContainer = styled.div`
+display: flex;
+height: 30px;
 `;
 
 const ExcImg = styled.img`
@@ -779,21 +703,23 @@ top: 68px;
 `;
 
 const LineChartContainer = styled.div`
-position: absolute;
-top: 140px;
 width: 100%;
-left: 0px;
-right: 0px;
+height: max-content;
+float: 'center'
 `;
 
 const AssetContainer = styled.div`
-position: relative;
-height: 458px;
-width: 374px;
-top: 644px;
-left: calc(50% - 187px);
+display: flex;
+flex-direction: column;
+align-items: center;
 `;
-function Main() {
+
+const ContainerRow = styled.div`
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+`;
+function MainTest() {
     
     const [userMe, setUserMe] = useState('');
     const [balanceList, setBalanceList] = useState('');
@@ -893,37 +819,61 @@ const fetchPnl = async () => {
         <>
         <ContainerAll>
         <LogoutButton onClickCapture={logout}>Logout</LogoutButton>
-        <Overview>Overview</Overview>
-        <ChartContainer>    
+        <EContainer style={{height: "92px"}}>hii</EContainer>
+        <FirstContainer>
+        <Overview>Overview</Overview> 
+        <ChartContainer>   
             <ChartContainerPNL>PNL</ChartContainerPNL>
+            <FirstContainerValue>
+            <FirstContainerValueStart>
             <ChartContainerPercent>{currentPnl}%</ChartContainerPercent>
-            <PnlChangePercent style={{color: mdd_value > 0 ? "#0FB63E" : "#FF395D"}}>{pnl_24h_gap}%p</PnlChangePercent>
+            <EContainer style={{width: '5px'}}></EContainer>
+            <PnlChangePercent style={{color: pnl_24h_gap > 0 ? "#0FB63E" : "#FF395D"}}>{pnl_24h_gap}%p</PnlChangePercent>
+            </FirstContainerValueStart>
+            <FirstContainerValueEnd>
             <ChartContainerMDD>MDD</ChartContainerMDD>
+            <EContainer style={{width: "4px"}}></EContainer>
             <ChartContainerMDDSplit>:</ChartContainerMDDSplit>
+            <EContainer style={{width: "4px"}}></EContainer>
             <ChartContainerMDDValue style={{color: mdd_value < 5 ? "#0FB63E" : "#FF395D"}}>{mdd_value}</ChartContainerMDDValue>
+            </FirstContainerValueEnd>
+            </FirstContainerValue>
+            <EContainer style={{height: '15px'}}></EContainer>
             <LineChartContainer><LineChart balanceList={balanceList} pnlArray={pnlArray}></LineChart></LineChartContainer>
         </ChartContainer>
+        </FirstContainer>
+        <EContainer style={{height: '52px'}}></EContainer>
         <AssetContainer>
         <Asset>My Asset</Asset>
         <AssetInitialContainer>
+            <EContainer style={{height: '30px'}}></EContainer>
             <Initial>Initial</Initial>
+            <EContainer style={{height: '28px'}}></EContainer>
             <InitialValue>{initialValue} USDT</InitialValue>
         </AssetInitialContainer>
+        <AssetEContainer></AssetEContainer>
         <AssetPresentContainer>
+            <EContainer style={{height: '30px'}}></EContainer>
             <Present>Present</Present>
             <PresentPercent style={{color: mdd_value > 0 ? "#0FB63E" : "#FF395D"}}>{my_margin} ({my_margin_rate}%)</PresentPercent>
             <PresentValue>{my_balance} USDT</PresentValue>
             <PresentDescription>수익은 성과보수를 포함한 값이며 환매 시 계약한 성과보수를 제하게 됩니다.</PresentDescription>
         </AssetPresentContainer>
-        <AssetPeriodContainer>
+        <AssetEContainer></AssetEContainer>
+        <AssetPeriodContainer>  
+            <EContainer style={{height: '30px'}}></EContainer>
             <Period>Period</Period>
+            <EContainer style={{height: '20px'}}></EContainer>
+            <ContainerRow>
             <PeriodStart>{start_date}</PeriodStart>
             <PeriodEnd>{end_date}</PeriodEnd>
+            </ContainerRow>
         </AssetPeriodContainer>
         </AssetContainer>
+        <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>
         </>
     );
 }
 
-export default Main;
+export default MainTest;

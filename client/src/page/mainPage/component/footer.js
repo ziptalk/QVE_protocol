@@ -7,11 +7,8 @@ justify-content: center;
 align-items: center;
 padding: 40px 20px;
 gap: 10px;
-
-position: absolute;
 width: 100% ;
 height: 90px;
-top: 1193px;
 background: #292932;
 `;
 
