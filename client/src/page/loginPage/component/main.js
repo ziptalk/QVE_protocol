@@ -5,7 +5,7 @@ import authService from "../../../services/auth.service";
 import styled from "styled-components";
 
 const Background = styled.div`
-  background-color: #202025;
+  background-color: #1B1A1E;
   height: 100vh;
 `;
 const Title = styled.div`
@@ -274,7 +274,6 @@ function Main(props) {
         </PasswordContainer>
         <Button onfocus="if(error != null) { id = ''; }" type="submit">Log In</Button>
         </form>
-        
         </Container>
         </Background>
     );

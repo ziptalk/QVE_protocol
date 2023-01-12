@@ -3,11 +3,12 @@ import LineChart from "./Chart";
 import React, { useState, useEffect } from "react";
 import { ReactDOM } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import ExcIcon from "../../../assets/Subtract.png";
 import axios from "axios";
 
 const ContainerAll = styled.div`
 height: 100%;
-background-color: #202025;
+background-color: #1B1A1E;
 display: flex;
 flex-direction: column;
 `;
@@ -52,9 +53,7 @@ box-sizing: border-box;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-padding: 10px 36px;
-gap: 10px;
-
+padding: 10px 29px;
 width: 127px;
 height: 37px;
 
@@ -669,21 +668,24 @@ border-radius: 16px;
 
 const AssetInitialContainer = styled.div`
 height: 117px;
-width: 374px;
+width: 90%;
+max-width: 700px;
 border-radius: 16px;
 background: #2B2B34;
 `;
 
 const AssetPresentContainer = styled.div`
 height: 136px;
-width: 374px;
+width: 90%;
+max-width: 700px;
 float: center;
 background: #2B2B34;
 border-radius: 16px;
 `;
 const AssetPeriodContainer = styled.div`
 height: 117px;
-width: 374px;
+width: 90%;
+max-width: 700px;;
 justify-content: center;
 background: #2B2B34;
 border-radius: 16px;
@@ -695,11 +697,8 @@ height: 30px;
 `;
 
 const ExcImg = styled.img`
-position: absolute;
-width: 12px;
-height: 12px;
-left: 259px;
-top: 68px;
+width: 16px;
+height: 16px;
 
 `;
 
@@ -720,6 +719,45 @@ display: flex;
 flex-direction: row;
 justify-content: space-between;
 `;
+
+const Select = styled.select`
+all: unset;
+box-sizing: border-box;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 12.5px 24.5px;
+width: 224px;
+height: 60px;
+/* dark/background */
+background: #1B1A1E;
+/* dark/primary */
+border: 1px solid #4A3CE8;
+border-radius: 16px;
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+/*Text CSS */
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 24px;
+line-height: 36px;
+/* identical to box height, or 150% */
+
+letter-spacing: 0.02em;
+
+/* dark/label */
+
+color: #B7B8CD;
+
+
+`;
+
+
 function MainTest() {
     
     const [userMe, setUserMe] = useState('');
@@ -727,6 +765,7 @@ function MainTest() {
     const [myBalance, setMyBalance] = useState('');
     const [mdd, setMdd] = useState('');
     const [pnl, setPnl] = useState('');
+    const [portfolio, setPortfolio] = useState('');
     const totalInitialInvestment = 79300;
 
 const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
@@ -819,11 +858,21 @@ const fetchPnl = async () => {
     return(
         <>
         <ContainerAll>
-        <LogoutButton onClickCapture={logout}>Logout</LogoutButton>
+        <LogoutButton onClickCapture={logout}>Disconnect</LogoutButton>
         <EContainer style={{height: "92px"}}></EContainer>
         <EContainer style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
         <FirstContainer>
-        <Overview>Overview</Overview> 
+        <Select onChange={(e) => {
+            const selectPortfolio = e.target.value;
+            setPortfolio(selectPortfolio);
+        }}>
+        <option class="placeholder" selected disabled value="">Select Portfolio</option>
+        <option value={"overview"}>Overview</option>
+        <option value={"position2"}>Position2</option>
+        <option value={"position3"}>Position3</option>
+        <EContainer style={{color: 'white'}}>{portfolio}</EContainer>
+        </Select>
+        <EContainer style={{height: '12px'}}></EContainer>
         <ChartContainer>   
             <ChartContainerPNL>PNL</ChartContainerPNL>
             <FirstContainerValue>
@@ -833,11 +882,14 @@ const fetchPnl = async () => {
             <PnlChangePercent style={{color: pnl_24h_gap > 0 ? "#0FB63E" : "#FF395D"}}>{pnl_24h_gap}%p</PnlChangePercent>
             </FirstContainerValueStart>
             <FirstContainerValueEnd>
+            <ExcImg src={ExcIcon}></ExcImg>
+            <EContainer style={{width: "4px"}}></EContainer>
             <ChartContainerMDD>MDD</ChartContainerMDD>
             <EContainer style={{width: "4px"}}></EContainer>
             <ChartContainerMDDSplit>:</ChartContainerMDDSplit>
             <EContainer style={{width: "4px"}}></EContainer>
             <ChartContainerMDDValue style={{color: mdd_value < 5 ? "#0FB63E" : "#FF395D"}}>{mdd_value}</ChartContainerMDDValue>
+            <EContainer style={{width: '4px'}}></EContainer>
             </FirstContainerValueEnd>
             </FirstContainerValue>
             <EContainer style={{height: '15px'}}></EContainer>
@@ -873,6 +925,7 @@ const fetchPnl = async () => {
             </ContainerRow>
         </AssetPeriodContainer>
         </AssetContainer>
+        <EContainer style={{color: 'white'}}>{portfolio}</EContainer>
         <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>
         </>

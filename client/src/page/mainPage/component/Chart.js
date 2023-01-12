@@ -209,7 +209,7 @@ useEffect(()=>{
             {
               data: tmpData2,
             type: 'line',
-            name: 'BTC',
+            name: 'BTC Index',
             color: '#777777'
             }
           ]
@@ -364,7 +364,7 @@ setChartOptions({
 ...chartOptions,
 xaxis: {
 ...chartOptions.xaxis,
-min: new Date().setDate(new Date(time.at(-1)).getDate() - 1),
+min: new Date().setDate(new Date(time.at(-1)).getDate()-1),
 max: new Date(time.at(-1)).getTime()
 }
 })
@@ -375,7 +375,7 @@ setChartOptions({
 xaxis: {
 ...chartOptions.xaxis,
 //min: new Date().setDate(new Date(time.at(-1)).getDate() - 7),
-min: new Date(time.at(0)).getTime(),
+min: new Date().setDate(new Date(time.at(-1)).getDate() - 7),
 max: new Date(time.at(-1)).getTime()
 }
 })
