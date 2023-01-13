@@ -31,7 +31,6 @@ flex-grow: 0;
 `;
 
 function Header() {
-    const [isLoggedin, setIsLoggedin] = useState(false);
     return(<HeaderContainer>
         <Logo src={logo}></Logo>
     </HeaderContainer>);

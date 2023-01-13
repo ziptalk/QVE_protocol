@@ -5,12 +5,15 @@ import { ReactDOM } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import ExcIcon from "../../../assets/Subtract.png";
 import axios from "axios";
-
+import { Action } from "@remix-run/router";
+import HiddenMessage from "../../../assets/hiddenMessage.png";
+import DropDown from "../dropdown";
 const ContainerAll = styled.div`
 height: 100%;
 background-color: #1B1A1E;
 display: flex;
 flex-direction: column;
+align-content: center;
 `;
 
 const EContainer = styled.div`
@@ -19,7 +22,7 @@ const EContainer = styled.div`
 const FirstContainer = styled.div`
 width: 95%;
 max-width: 700px;
-
+position: relative;
 `;
 
 const FirstContainerValue = styled.div`
@@ -396,16 +399,19 @@ color: #0FB63E;
 const Asset = styled.div`
 
 /* Heading 2 */
-width: 374px;
+width: 90%;
+max-width: 700px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
+align-self: flex-start;
 /* identical to box height, or 150% */
 
 letter-spacing: 0.02em;
 
+align-self: center;
 /* dark/label */
 
 color: #B7B8CD;
@@ -560,7 +566,7 @@ color: #FFFFFF;
 const ChartContainer = styled.div`
 
 /* dark/dark */
-
+width: 100%;
 background: #2B2B34;
 border-radius: 16px;
 `;
@@ -590,7 +596,7 @@ height: 39px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
-font-size: 32px;
+font-size: 30px;
 line-height: 39px;
 /* identical to box height */
 
@@ -696,6 +702,19 @@ display: flex;
 height: 30px;
 `;
 
+const ExcButton = styled.button`
+    all: unset;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    position: relative;
+    &:focus {
+        img {
+            opacity: 1;
+        }
+    }
+`
+
 const ExcImg = styled.img`
 width: 16px;
 height: 16px;
@@ -720,44 +739,22 @@ flex-direction: row;
 justify-content: space-between;
 `;
 
-const Select = styled.select`
-all: unset;
-box-sizing: border-box;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
-padding: 12.5px 24.5px;
-width: 224px;
-height: 60px;
-/* dark/background */
-background: #1B1A1E;
-/* dark/primary */
-border: 1px solid #4A3CE8;
-border-radius: 16px;
-/* Inside auto layout */
-flex: none;
-order: 0;
-flex-grow: 0;
 
-/*Text CSS */
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 36px;
-/* identical to box height, or 150% */
-
-letter-spacing: 0.02em;
-
-/* dark/label */
-
-color: #B7B8CD;
-
-
+const ExcMsg = styled.img`
+height: 50.58px;
+width: auto;
+box-shadow: 4px 4px 40px rgba(0, 0, 0, 0.3);
+position: absolute;
+bottom: 100%;
+left: 50%;
+transform: translateX(-50%);
+transition: 0.3s;
+opacity: 0;
 `;
 
+const StrategyContainer = styled.div`
 
+`;
 function MainTest() {
     
     const [userMe, setUserMe] = useState('');
@@ -766,6 +763,7 @@ function MainTest() {
     const [mdd, setMdd] = useState('');
     const [pnl, setPnl] = useState('');
     const [portfolio, setPortfolio] = useState('');
+    const [excMsg, setExcMsg] = useState(0);
     const totalInitialInvestment = 79300;
 
 const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
@@ -855,26 +853,24 @@ const fetchPnl = async () => {
     if (mdd_value != undefined) {
         mdd_value = mdd_value.toFixed(2);
     }
+    console.log(excMsg);
     return(
         <>
         <ContainerAll>
         <LogoutButton onClickCapture={logout}>Disconnect</LogoutButton>
-        <EContainer style={{height: "92px"}}></EContainer>
+        <EContainer style={{height: "152px"}}></EContainer>
+        /*Dropdown was here*/
+        
         <EContainer style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
         <FirstContainer>
-        <Select onChange={(e) => {
-            const selectPortfolio = e.target.value;
-            setPortfolio(selectPortfolio);
-        }}>
-        <option class="placeholder" selected disabled value="">Select Portfolio</option>
-        <option value={"overview"}>Overview</option>
-        <option value={"position2"}>Position2</option>
-        <option value={"position3"}>Position3</option>
-        <EContainer style={{color: 'white'}}>{portfolio}</EContainer>
-        </Select>
         <EContainer style={{height: '12px'}}></EContainer>
-        <ChartContainer>   
+        <ChartContainer> 
+        <EContainer style={{position: 'absolute', top: '-80px'}}>
+            <DropDown></DropDown>
+        </EContainer>
+        <EContainer style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row', alignSelf: 'flex-end'}}>
             <ChartContainerPNL>PNL</ChartContainerPNL>
+            </EContainer>
             <FirstContainerValue>
             <FirstContainerValueStart>
             <ChartContainerPercent>{currentPnl}%</ChartContainerPercent>
@@ -882,7 +878,12 @@ const fetchPnl = async () => {
             <PnlChangePercent style={{color: pnl_24h_gap > 0 ? "#0FB63E" : "#FF395D"}}>{pnl_24h_gap}%p</PnlChangePercent>
             </FirstContainerValueStart>
             <FirstContainerValueEnd>
-            <ExcImg src={ExcIcon}></ExcImg>
+            <ExcButton>
+                <ExcImg src={ExcIcon}>
+                </ExcImg>
+                <ExcMsg src={HiddenMessage} />
+            </ExcButton>
+
             <EContainer style={{width: "4px"}}></EContainer>
             <ChartContainerMDD>MDD</ChartContainerMDD>
             <EContainer style={{width: "4px"}}></EContainer>
@@ -932,4 +933,7 @@ const fetchPnl = async () => {
     );
 }
 
+/*<EContainer style={{display:'flex', justifyContent: 'flex-start', width: '95%', maxWidth: '700px', position: 'relative', alignSelf: 'center', position: 'relative'}}>
+            <DropDown></DropDown>
+        </EContainer>*/
 export default MainTest;

@@ -7,6 +7,7 @@ import Loginpage from "./page/loginPage";
 import authService from "./services/auth.service";
 import axios from "axios";
 import MainTest from "./page/mainPage/component/mainTest";
+import Main from "./page/mainPage/component/main";
 
 const Background = styled.div`
   
