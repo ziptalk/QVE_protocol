@@ -8,6 +8,8 @@ import authService from "./services/auth.service";
 import axios from "axios";
 import MainTest from "./page/mainPage/component/mainTest";
 import Main from "./page/mainPage/component/main";
+import MainWalletX from "./page/mainPage/component/mainWalletX";
+import LandingPage from "./page/landingPage";
 
 const Background = styled.div`
   

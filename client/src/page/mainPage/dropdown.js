@@ -115,10 +115,10 @@ export default function DropDown() {
   const onOptionClicked = value => () => {
     setSelectedOption(value);
     setIsOpen(false);
-    console.log(selectedOption);
+    //console.log(selectedOption);
   };
 
-  console.log('selectOption is', selectedOption);
+  //console.log('selectOption is', selectedOption);
   return (
     <>
     <EContainer style={{height: '20px'}}></EContainer>

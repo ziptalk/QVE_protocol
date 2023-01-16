@@ -8,12 +8,17 @@ import axios from "axios";
 import { Action } from "@remix-run/router";
 import HiddenMessage from "../../../assets/hiddenMessage.png";
 import DropDown from "../dropdown";
+import pleaseConnectYourWallet from "../../../assets/PleaseConnectYourWallet.png"
+import PreWalletImg from "../../../assets/PreWalletImg.png";
+import Web3 from "web3";
 const ContainerAll = styled.div`
 height: 100%;
+z-index: -1;
 background-color: #1B1A1E;
 display: flex;
 flex-direction: column;
-align-content: center;
+align-items: center;
+justify-content: center;
 `;
 
 const EContainer = styled.div`
@@ -399,8 +404,7 @@ color: #0FB63E;
 const Asset = styled.div`
 
 /* Heading 2 */
-width: 90%;
-max-width: 700px;
+width: 373px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 700;
@@ -566,7 +570,7 @@ color: #FFFFFF;
 const ChartContainer = styled.div`
 
 /* dark/dark */
-width: 100%;
+width: 95%;
 background: #2B2B34;
 border-radius: 16px;
 `;
@@ -718,8 +722,13 @@ const ExcButton = styled.button`
 const ExcImg = styled.img`
 width: 16px;
 height: 16px;
-
 `;
+
+const ConnectWalletImg = styled.img`
+width: 160px;
+height: 108.07px;
+`;
+
 
 const LineChartContainer = styled.div`
 width: 100%;
@@ -752,10 +761,170 @@ transition: 0.3s;
 opacity: 0;
 `;
 
-const StrategyContainer = styled.div`
+const ConnectWalletContainer = styled.div`
+height: 235px;
+width: 373px;
+display: flex;
+background: #2B2B34;
+box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
+border-radius: 16px;
+justify-content: center;
+align-items: center;
 
 `;
-function MainTest() {
+
+const ConnectYourWalletContainer = styled.div`
+width: 160px;
+height: 164.07px;
+flex-direction: column;
+display: flex;
+align-items: center;
+justify-content: center;
+`;
+
+const Button = styled.button`
+box-sizing: border-box;
+all: unset;
+/* Auto layout */
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px 30px;
+gap: 10px;
+
+/* dark/primary */
+
+background: #4A3CE8;
+border-radius: 16px;
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+flex-grow: 0;
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 17px;
+/* identical to box height */
+
+
+/* dark/label */
+
+color: #FFFFFF;
+`;
+
+const StrategyContainer = styled.div`
+width: 95%;
+max-width: 700px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+
+/* dark/label */
+
+color: #B7B8CD;
+
+`;
+
+const DepositButton = styled.button`
+all: unset;
+box-sizing: border-box;
+
+/* Auto layout */
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px 30px;
+gap: 10px;
+width: 113px;
+height: 37px;
+
+/* dark/primary */
+
+background: #4A3CE8;
+border-radius: 16px;
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 17px;
+/* identical to box height */
+
+
+/* dark/label */
+
+color: #FFFFFF;
+
+`;
+
+const PreWalletConnectContainer = styled.div`
+position: absolute;
+top: 270px;
+left: calc(50%-147px);
+width: 294px;
+height: 170px;
+background: #2B2B34;
+box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
+border-radius: 16px;
+`;
+
+const PreWalletImgContainer = styled.img`
+width: 223px;
+height: 57px;
+display: flex;
+align-self: center;
+justify-content: center;
+`;
+
+const WalletConnectContainer = styled.div`
+width: 373px;
+height: 530px;
+position: absolute;
+top: 152px;
+left: (50% - 186.5px);
+background: #2B2B34;
+box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
+border-radius: 16px;
+`;
+
+const ConnectWallet = styled.div`
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 24px;
+padding-left: 30px;
+/* identical to box height, or 133% */
+
+letter-spacing: 0.02em;
+
+/* dark/label */
+
+color: #B7B8CD;
+`;
+
+function MainWalletX() {
     
     const [userMe, setUserMe] = useState('');
     const [balanceList, setBalanceList] = useState('');
@@ -765,7 +934,24 @@ function MainTest() {
     const [portfolio, setPortfolio] = useState('');
     const [excMsg, setExcMsg] = useState(0);
     const totalInitialInvestment = 79300;
+    const [account, setAccount] = useState();
+    const [secondPort, setSecondPort] = useState('');
+    const [preWallecCount, setPreWalletCount] = useState(null);
+    const web3 = new Web3(window.ethereum);
 
+    async function getAccount() {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setAccount(accounts[0]);
+}
+    /* const getAccount = async () => { 
+        console.log("web3", web3);
+        const getAccount = await web3.eth.getAccounts();
+      const account = getAccount[0];
+      console.log("account: ", account);
+    }; */
+
+    
+   
 const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
 
 
@@ -800,14 +986,24 @@ const fetchPnl = async () => {
     })
 }
 
+const fetchSecond = async () => {
+    axios.get('https://qve.today/portfolios/eth-btc-hedge-volatility/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    .then(res => {
+        setSecondPort(res.data);
+    })
+
+}
+
     useEffect(() => {
             fetchUserMe();
             fetchBalanceList();
             fetchMyBalance();
             fetchMdd();
             fetchPnl();
+            fetchSecond();
             }, [])
 
+            //getAccount();
     const navigate = useNavigate();
 
     function getKeyByValue(object, value) {
@@ -837,7 +1033,7 @@ const fetchPnl = async () => {
         var pnlValue = (balanceArray[i] - totalInitialInvestment) / totalInitialInvestment;
         pnlArray.push((pnlValue * 100).toFixed(2));
     }
-
+    let prewalleccount = 0;
     const currentPnl = pnlArray.at(-1);
     if (my_balance !== undefined) {
         my_balance = my_balance.toFixed(2);
@@ -853,17 +1049,23 @@ const fetchPnl = async () => {
     if (mdd_value != undefined) {
         mdd_value = mdd_value.toFixed(2);
     }
+
+    console.log(preWallecCount);
     return(
+        
         <>
         <ContainerAll>
         <LogoutButton onClickCapture={logout}>Disconnect</LogoutButton>
-        <EContainer style={{height: "152px"}}></EContainer>
-        /*Dropdown was here*/
-        
+        <EContainer style={{height: "105px"}}></EContainer>
+        <StrategyContainer>Strategy Selector</StrategyContainer>
+        <EContainer style={{height: '30px'}}></EContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', maxWidth: '630px', justifyContent: 'flex-end'}}>
+        <DepositButton>Deposit</DepositButton>
+        </EContainer>
         <EContainer style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
         <FirstContainer>
         <EContainer style={{height: '12px'}}>
-        Strategy Selector
+
         </EContainer>
         <ChartContainer> 
         <EContainer style={{position: 'absolute', top: '-80px'}}>
@@ -902,30 +1104,32 @@ const fetchPnl = async () => {
         <EContainer style={{height: '52px'}}></EContainer>
         <AssetContainer>
         <Asset>My Asset</Asset>
-        <AssetInitialContainer>
-            <EContainer style={{height: '30px'}}></EContainer>
-            <Initial>Initial</Initial>
-            <EContainer style={{height: '28px'}}></EContainer>
-            <InitialValue>{initialValue} USDT</InitialValue>
-        </AssetInitialContainer>
-        <AssetEContainer></AssetEContainer>
-        <AssetPresentContainer>
-            <EContainer style={{height: '30px'}}></EContainer>
-            <Present>Present</Present>
-            <PresentPercent style={{color: mdd_value > 0 ? "#0FB63E" : "#FF395D"}}>{my_margin} ({my_margin_rate}%)</PresentPercent>
-            <PresentValue>{my_balance} USDT</PresentValue>
-            <PresentDescription>수익은 성과보수를 포함한 값이며 환매 시 계약한 성과보수를 제하게 됩니다.</PresentDescription>
-        </AssetPresentContainer>
-        <AssetEContainer></AssetEContainer>
-        <AssetPeriodContainer>  
-            <EContainer style={{height: '30px'}}></EContainer>
-            <Period>Period</Period>
-            <EContainer style={{height: '20px'}}></EContainer>
-            <ContainerRow>
-            <PeriodStart>{start_date}</PeriodStart>
-            <PeriodEnd>{end_date}</PeriodEnd>
-            </ContainerRow>
-        </AssetPeriodContainer>
+        <ConnectWalletContainer>
+        <EContainer style={{height: '35px'}}></EContainer>
+        <ConnectYourWalletContainer>
+        <ConnectWalletImg src={pleaseConnectYourWallet}></ConnectWalletImg>
+        <EContainer style={{height: '19px'}}></EContainer>
+        <Button onClick={() => {setPreWalletCount(1)}}>Connect Wallet</Button>
+        <PreWalletConnectContainer style={{visibility : preWallecCount === 1 ? "visible" : "hidden"}}>
+
+        <EContainer style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
+        <EContainer style={{height: '34px'}}></EContainer>
+        <PreWalletImgContainer src={PreWalletImg}></PreWalletImgContainer>
+        <EContainer style={{height: '22px'}}></EContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center', width: '90%'}}>
+        <DepositButton onClick={() => {setPreWalletCount(null)}} style={{background: '#FFFFFF', color: '#777777'}}>Cancel</DepositButton>
+        <DepositButton onClick={() => {setPreWalletCount(2)}}>Connect</DepositButton>
+        </EContainer>
+        </EContainer>
+        </PreWalletConnectContainer>
+        <WalletConnectContainer style={{visibility : preWallecCount === 2 ? "visible" : "hidden", flexDirection: 'column'}}>
+        <EContainer style={{height: '36px'}}></EContainer>
+        <ConnectWallet>Connect wallet</ConnectWallet>
+        <EContainer style={{height: '38px'}}></EContainer>
+
+        </WalletConnectContainer>
+        </ConnectYourWalletContainer>
+        </ConnectWalletContainer>
         </AssetContainer>
         <EContainer style={{color: 'white'}}>{portfolio}</EContainer>
         <EContainer style={{height: '72px'}}></EContainer>
@@ -937,4 +1141,4 @@ const fetchPnl = async () => {
 /*<EContainer style={{display:'flex', justifyContent: 'flex-start', width: '95%', maxWidth: '700px', position: 'relative', alignSelf: 'center', position: 'relative'}}>
             <DropDown></DropDown>
         </EContainer>*/
-export default MainTest;
+export default MainWalletX;

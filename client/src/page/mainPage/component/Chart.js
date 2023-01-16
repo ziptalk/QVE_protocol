@@ -130,7 +130,7 @@ function getKeyByValue(object, value) {
     return object[value];
   }
 
-function LineChart ({balanceList, pnlArray}){
+function LineChart ({balanceList, pnlArray, pnl}){
 const [chartOptionsDay, setChartOptionsDay] = useState('');
 const [chartOptions, setChartOptions] = React.useState({
 xaxis: {
@@ -365,7 +365,7 @@ setChartOptions({
 xaxis: {
 ...chartOptions.xaxis,
 min: new Date().setDate(new Date(time.at(-1)).getDate()-1),
-max: new Date(time.at(-1)).getTime()
+max: new Date(time.at(-1)).getTime(),
 }
 })
 break
@@ -421,6 +421,22 @@ max: null
 break
 }
 }
+//console.log('Date', new Date(time.at(-1)));
+//new Date().setDate(new Date(time.at(-1)).getDate()-1)
+let mp = new Map();
+for (let i = 0; i < pnlArray.length; i++) {
+    mp.set(time[i], pnlArray[i]);
+}
+//console.log("MP", mp);
+//console.log("1day", new Date(time.at(-1).getDate()-1));
+const today = new Date()
+const yesterday = new Date(time.at(-1));
+yesterday.setDate(yesterday.getDate() - 1)
+
+//console.log(today.toDateString());
+//console.log(yesterday.toDateString());
+
+//console.log(mp.values());
 return (
 <>
 <ButtonContainer>
