@@ -898,7 +898,6 @@ justify-content: center;
 
 const WalletConnectContainer = styled.div`
 width: 373px;
-height: 530px;
 position: absolute;
 top: 152px;
 left: (50% - 186.5px);
@@ -928,6 +927,7 @@ const WalletMarketContainer = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
+
 `;
 
 const ImageContainer = styled.img`
@@ -935,7 +935,6 @@ const ImageContainer = styled.img`
 `;
 
 const WalletContainer = styled.div`
-width: 98px;
 height: 117px;
 background: #3F3F46;
 border-radius: 16px;
@@ -981,7 +980,10 @@ function MainWalletX() {
       console.log("account: ", account);
     }; */
 
-    
+   function metamask() {
+    getAccount();
+    setPreWalletCount(null);
+   } 
    
 const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
 
@@ -1109,14 +1111,14 @@ const fetchSecond = async () => {
         <ImageContainer src={XImg} style={{width: '19px', height: '19px', cursor: 'pointer', paddingRight: '30px'}} onClick={() => {setPreWalletCount(null)}}></ImageContainer>
         </EContainer>
         <EContainer style={{height: '38px'}}></EContainer>
-        <EContainer style={{height: '385px', width: '314px'}}>
+        <EContainer style={{width: '314px'}}>
         <WalletContainer style={{display:'flex', flexDirection: 'column', justifyContent:'center', alignItems:'center'}}>
-        <ImageContainer src={MetamaskImg} onClick="setPreWalletCount(null); getAccount()" style={{cursor:'pointer', borderRadius: '50%', width: '44px', height: '44px'}}></ImageContainer>
+        <ImageContainer src={MetamaskImg} onClick={metamask} style={{cursor:'pointer', borderRadius: '50%', width: '44px', height: '44px'}}></ImageContainer>
         MetaMask
         </WalletContainer>
         </EContainer>
         </WalletMarketContainer>
-        <EContainer style={{height: '38px'}}></EContainer>
+        <EContainer style={{height: '27px'}}></EContainer>
         </WalletConnectContainer>
         <DepositContainer style={{visibility : preWalletCount === 3 ? "visible" : "hidden"}}>
         

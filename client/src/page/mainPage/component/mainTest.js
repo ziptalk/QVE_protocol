@@ -11,6 +11,8 @@ import DropDown from "../dropdown";
 import MainWalletX from "./mainWalletX";
 import AssetConnected from "./assetConnected";
 import Web3 from "web3";
+import {useSwipeable} from 'react-swipeable';
+
 const ContainerAll = styled.div`
 height: 100%;
 z-index: -1;
@@ -906,8 +908,12 @@ else {
     /* console.log(secondPort);
     console.log(pnlArray); */
 
+    const swipeableHandlers = useSwipeable({
+        onSwipeLeft: () => console.log('swiped left'),
+        onSwipeRight: () => console.log('swiped right')
+    });
+
     return(
-        <>
         <ContainerAll>
         <LogoutButton onClickCapture={logout}>Disconnect</LogoutButton>
         <EContainer style={{height: "105px"}}></EContainer>
@@ -976,7 +982,6 @@ else {
         </AssetContainer>
         <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>
-        </>
     );
 }
 
