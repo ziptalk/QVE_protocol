@@ -970,8 +970,8 @@ function MainWalletX() {
     const [portfolio, setPortfolio] = useState('');
     const [excMsg, setExcMsg] = useState(0);
     const totalInitialInvestment = 79300;
-    const [account, setAccount] = useState();
     const [secondPort, setSecondPort] = useState('');
+    const [account, setAccount] = useState();
     const [preWalletCount, setPreWalletCount] = useState(null);
     const web3 = new Web3(window.ethereum);
 

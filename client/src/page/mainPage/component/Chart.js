@@ -130,7 +130,7 @@ function getKeyByValue(object, value) {
     return object[value];
   }
 
-function LineChart ({balanceList, pnlArray, secondPort, selectedOption}){
+function LineChart ({balanceList, pnlArray, secondPort, thirdPort, selectedOption}){
 const [chartOptionsDay, setChartOptionsDay] = useState('');
 const [chartOptions, setChartOptions] = React.useState({
 xaxis: {
@@ -176,6 +176,17 @@ useEffect(()=>{
                 let getSecondTime = getKeyByValue(secondPort[i], 'datetime')
                 Time.push(getSecondTime);
                 DataBalance.push(secondValueBalance);
+            }
+        }
+
+        if (selectedOption === 'Portfolio 03') {
+            DataBalance = [];
+            Time = [];
+            for (let i = 0; i < thirdPort.length; i++) {
+                let thirdValueBalance = pnlArray[i];
+                let getThirdTime = getKeyByValue(thirdPort[i], 'datetime');
+                Time.push(getThirdTime);
+                DataBalance.push(thirdValueBalance);
             }
         }
      const firstBtcValue = DataBtc[0];

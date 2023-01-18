@@ -8,6 +8,7 @@ import axios from "axios";
 import { Action } from "@remix-run/router";
 import HiddenMessage from "../../../assets/hiddenMessage.png";
 import DropDown from "../dropdown";
+import Web3 from "web3";
 const ContainerAll = styled.div`
 height: 100%;
 background-color: #1B1A1E;
@@ -865,10 +866,14 @@ function MainTest() {
     const [portfolio, setPortfolio] = useState('');
     const [excMsg, setExcMsg] = useState(0);
     const [secondPort, setSecondPort] = useState('');
+    const [thirdPort, setThirdPort] = useState('');
     const [isOpen, setIsOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
     const totalInitialInvestment = 79300;
-    const options = ["Portfolio 01", "Portfolio 02"];
+    const options = ["Portfolio 01", "Portfolio 02", "Portfolio 03"];
+    const [account, setAccount] = useState();
+    const [preWalletCount, setPreWalletCount] = useState(null);
+    const web3 = new Web3(window.ethereum);
 const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
 
 const toggling = () => setIsOpen(!isOpen);
@@ -915,6 +920,13 @@ const fetchSecond = async () => {
     })
 }
 
+const fetchThird = async () => {
+    axios.get('https://qve.today/portfolios/fundingfee-trading/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    .then(res => {
+        setThirdPort(res.data);
+    })
+}
+console.log('thirdport', thirdPort);
     useEffect(() => {
             fetchUserMe();
             fetchBalanceList();
@@ -922,6 +934,7 @@ const fetchSecond = async () => {
             fetchMdd();
             fetchPnl();
             fetchSecond();
+            fetchThird();
             }, [])
 
     const navigate = useNavigate();
@@ -937,6 +950,8 @@ const fetchSecond = async () => {
     var pnlArray = [];
     var secondPort_cr_Array = [];
     var secondPort_mdd_Array = [];
+    var thirdPort_cr_Array = [];
+    var thirdPort_mdd_Array = [];
     for (let i = 0; i < balanceList.length; i++) {
         let valueBalance = getKeyByValue(balanceList[i], "balance");
         balanceArray.push(valueBalance.toFixed(0));
@@ -957,6 +972,13 @@ const fetchSecond = async () => {
         secondPort_cr_Array.push(secondPort_cr);
         secondPort_mdd_Array.push(secondPort_mdd);
     }
+    for (let i = 0; i < thirdPort.length; i++) {
+        let thirdPort_cr = getKeyByValue(thirdPort[i], "cr");
+        let thirdPort_mdd = getKeyByValue(thirdPort[i], "mdd");
+        thirdPort_cr_Array.push(thirdPort_cr);
+        thirdPort_mdd_Array.push(thirdPort_mdd);
+    }
+
     if (selectedOption === 'Portfolio 01') {
     for (let i = 0; i < balanceArray.length; i++) {
         var pnlValue = (balanceArray[i] - totalInitialInvestment) / totalInitialInvestment;
@@ -966,6 +988,10 @@ const fetchSecond = async () => {
     for (let i = 0; i < secondPort.length; i++) {
         pnlArray.push((secondPort_cr_Array[i]));
     } 
+} else if (selectedOption === 'Portfolio 03') {
+    for (let i =0; i < thirdPort.length; i++) {
+        pnlArray.push(thirdPort_cr_Array[i]);
+    }
 }
 else {
        pnlArray = [];
@@ -982,6 +1008,9 @@ else {
     }
     else if (selectedOption === 'Portfolio 02') {
         mdd_value = secondPort_mdd_Array.at(-1);
+    }
+    else if (selectedOption === 'Portfolio 03') {
+        mdd_value = thirdPort_mdd_Array.at(-1);
     }
     mdd_value = Math.abs(mdd_value);
     
@@ -1003,8 +1032,8 @@ else {
     /* console.log('pnlArray Length', pnlArray.length);
     console.log('secondPort', secondPort.length);
     console.log('selectedOption', selectedOption); */
-    console.log(secondPort);
-    console.log(pnlArray);
+    /* console.log(secondPort);
+    console.log(pnlArray); */
     return(
         <>
         <ContainerAll>
@@ -1062,12 +1091,12 @@ else {
             </FirstContainerValueEnd>
             </FirstContainerValue>
             <EContainer style={{height: '15px'}}></EContainer>
-            <LineChartContainer><LineChart balanceList={balanceList} pnlArray={pnlArray} secondPort={secondPort} selectedOption={selectedOption}></LineChart></LineChartContainer>
+            <LineChartContainer><LineChart balanceList={balanceList} pnlArray={pnlArray} secondPort={secondPort} thirdPort={thirdPort} selectedOption={selectedOption}></LineChart></LineChartContainer>
         </ChartContainer>
         </FirstContainer>
         </EContainer>
         <EContainer style={{height: '52px'}}></EContainer>
-        <AssetContainer>
+        <AssetContainer >
         <Asset>My Asset</Asset>
         <AssetInitialContainer>
             <EContainer style={{height: '30px'}}></EContainer>
