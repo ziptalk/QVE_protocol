@@ -11,6 +11,8 @@ import DropDown from "../dropdown";
 import pleaseConnectYourWallet from "../../../assets/PleaseConnectYourWallet.png"
 import PreWalletImg from "../../../assets/PreWalletImg.png";
 import Web3 from "web3";
+import XImg from "../../../assets/X_Icon.png";
+import MetamaskImg from "../../../assets/Metamask.png";
 const ContainerAll = styled.div`
 height: 100%;
 z-index: -1;
@@ -785,6 +787,7 @@ justify-content: center;
 const Button = styled.button`
 box-sizing: border-box;
 all: unset;
+cursor: pointer;
 /* Auto layout */
 
 display: flex;
@@ -839,6 +842,7 @@ color: #B7B8CD;
 
 const DepositButton = styled.button`
 all: unset;
+cursor: pointer;
 box-sizing: border-box;
 
 /* Auto layout */
@@ -922,7 +926,39 @@ letter-spacing: 0.02em;
 /* dark/label */
 
 color: #B7B8CD;
+
 `;
+
+const WalletMarketContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+`;
+
+const ImageContainer = styled.img`
+
+`;
+
+const WalletContainer = styled.div`
+width: 98px;
+height: 117px;
+background: #3F3F46;
+border-radius: 16px;
+`;
+
+const DepositContainer = styled.div`
+position: absolute;
+top: 201px;
+left: (50% - 186.5);
+width: 373px;
+height: 390px;
+background: #2B2B34;
+box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
+border-radius: 16px;
+
+
+`;
+
 
 function MainWalletX() {
     
@@ -936,7 +972,7 @@ function MainWalletX() {
     const totalInitialInvestment = 79300;
     const [account, setAccount] = useState();
     const [secondPort, setSecondPort] = useState('');
-    const [preWallecCount, setPreWalletCount] = useState(null);
+    const [preWalletCount, setPreWalletCount] = useState(null);
     const web3 = new Web3(window.ethereum);
 
     async function getAccount() {
@@ -991,7 +1027,6 @@ const fetchSecond = async () => {
     .then(res => {
         setSecondPort(res.data);
     })
-
 }
 
     useEffect(() => {
@@ -1033,7 +1068,6 @@ const fetchSecond = async () => {
         var pnlValue = (balanceArray[i] - totalInitialInvestment) / totalInitialInvestment;
         pnlArray.push((pnlValue * 100).toFixed(2));
     }
-    let prewalleccount = 0;
     const currentPnl = pnlArray.at(-1);
     if (my_balance !== undefined) {
         my_balance = my_balance.toFixed(2);
@@ -1049,8 +1083,7 @@ const fetchSecond = async () => {
     if (mdd_value != undefined) {
         mdd_value = mdd_value.toFixed(2);
     }
-
-    console.log(preWallecCount);
+    console.log("prewalletcount", preWalletCount);
     return(
         
         <>
@@ -1060,7 +1093,7 @@ const fetchSecond = async () => {
         <StrategyContainer>Strategy Selector</StrategyContainer>
         <EContainer style={{height: '30px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', maxWidth: '630px', justifyContent: 'flex-end'}}>
-        <DepositButton>Deposit</DepositButton>
+        <DepositButton onClick={() => setPreWalletCount(3)}>Deposit</DepositButton>
         </EContainer>
         <EContainer style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
         <FirstContainer>
@@ -1084,7 +1117,7 @@ const fetchSecond = async () => {
             <ExcButton>
                 <ExcImg src={ExcIcon}>
                 </ExcImg>
-                <ExcMsg src={HiddenMessage} />
+                <ExcMsg src={XImg} />
             </ExcButton>
 
             <EContainer style={{width: "4px"}}></EContainer>
@@ -1110,7 +1143,7 @@ const fetchSecond = async () => {
         <ConnectWalletImg src={pleaseConnectYourWallet}></ConnectWalletImg>
         <EContainer style={{height: '19px'}}></EContainer>
         <Button onClick={() => {setPreWalletCount(1)}}>Connect Wallet</Button>
-        <PreWalletConnectContainer style={{visibility : preWallecCount === 1 ? "visible" : "hidden"}}>
+        <PreWalletConnectContainer style={{visibility : preWalletCount === 1 ? "visible" : "hidden"}}>
 
         <EContainer style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
         <EContainer style={{height: '34px'}}></EContainer>
@@ -1122,12 +1155,26 @@ const fetchSecond = async () => {
         </EContainer>
         </EContainer>
         </PreWalletConnectContainer>
-        <WalletConnectContainer style={{visibility : preWallecCount === 2 ? "visible" : "hidden", flexDirection: 'column'}}>
+        <WalletConnectContainer style={{visibility : preWalletCount === 2 ? "visible" : "hidden", flexDirection: 'column'}}>
         <EContainer style={{height: '36px'}}></EContainer>
+        <WalletMarketContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
         <ConnectWallet>Connect wallet</ConnectWallet>
+        <ImageContainer src={XImg} style={{width: '19px', height: '19px', cursor: 'pointer', paddingRight: '30px'}} onClick={() => {setPreWalletCount(null)}}></ImageContainer>
+        </EContainer>
         <EContainer style={{height: '38px'}}></EContainer>
-
+        <EContainer style={{height: '385px', width: '314px'}}>
+        <WalletContainer style={{display:'flex', flexDirection: 'column', justifyContent:'center', alignItems:'center'}}>
+        <ImageContainer src={MetamaskImg} onClick="setPreWalletCount(null); getAccount()" style={{cursor:'pointer', borderRadius: '50%', width: '44px', height: '44px'}}></ImageContainer>
+        MetaMask
+        </WalletContainer>
+        </EContainer>
+        </WalletMarketContainer>
+        <EContainer style={{height: '38px'}}></EContainer>
         </WalletConnectContainer>
+        <DepositContainer style={{visibility : preWalletCount === 3 ? "visible" : "hidden"}}>
+        
+        </DepositContainer>
         </ConnectYourWalletContainer>
         </ConnectWalletContainer>
         </AssetContainer>

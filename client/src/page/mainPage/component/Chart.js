@@ -130,7 +130,7 @@ function getKeyByValue(object, value) {
     return object[value];
   }
 
-function LineChart ({balanceList, pnlArray, pnl}){
+function LineChart ({balanceList, pnlArray, secondPort, selectedOption}){
 const [chartOptionsDay, setChartOptionsDay] = useState('');
 const [chartOptions, setChartOptions] = React.useState({
 xaxis: {
@@ -148,26 +148,40 @@ const [series, setSeries] = useState([{
     y: []
     }]
 }])
+
 const [xaxis, setXaxis] = useState([])
-
 useEffect(()=>{
-    var dataBalance = [];
-    var dataBtc = [];
-    var time = [];
-    for (let i = 0; i < balanceList.length; i++)
-     {
-        let valueBalance = pnlArray[i];
-        let valueBtc = getKeyByValue(balanceList[i], "btc_price");
-        let getTime = getKeyByValue(balanceList[i], "created_at");
-        dataBalance.push(valueBalance);
-        dataBtc.push(valueBtc);
-        time.push(getTime);
-     }
-     const firstBtcValue = dataBtc[0];
-
+    var DataBalance = [];
+    var DataBtc = [];
+    var Time = [];
+    if (selectedOption === 'Portfolio 01') {
+        DataBalance = [];
+        Time = [];
+        for (let i = 0; i < balanceList.length; i++)
+         {
+            let valueBalance = pnlArray[i];
+            let valueBtc = getKeyByValue(balanceList[i], "btc_price");
+            let getTime = getKeyByValue(balanceList[i], "created_at");
+            DataBalance.push(valueBalance);
+            DataBtc.push(valueBtc);
+            Time.push(getTime);
+         }
+        } 
+        
+        if (selectedOption === 'Portfolio 02') {
+            DataBalance = [];
+            Time = [];
+            for (let i = 0; i < secondPort.length; i++) {
+                let secondValueBalance = pnlArray[i];
+                let getSecondTime = getKeyByValue(secondPort[i], 'datetime')
+                Time.push(getSecondTime);
+                DataBalance.push(secondValueBalance);
+            }
+        }
+     const firstBtcValue = DataBtc[0];
+     //console.log('balanceList', balanceList);
      for (let i = 0; i < balanceList.length; i++) {
-        dataBtc[i] = (((dataBtc[i] / firstBtcValue) - 1 ) * 100).toFixed(2);
-
+        DataBtc[i] = (((DataBtc[i] / firstBtcValue) - 1 ) * 100).toFixed(2);
      }
      let tmpData = [];
      let tmpData1 = [];
@@ -175,20 +189,20 @@ useEffect(()=>{
      let tmpXdata = [];
     // if(dataBalance){
         // dataBalance.length
-        for (let i = 0; i < dataBalance.length; i++) {
+        for (let i = 0; i < DataBalance.length; i++) {
             tmpData1.push(
-                dataBalance[i]
+                DataBalance[i]
             )
             tmpData2.push(
-                dataBtc[i]
+                DataBtc[i]
             )
             tmpData.push(
                 {
-                    x: new Date(time[i]),
-                    y: dataBtc[i]
+                    x: new Date(Time[i]),
+                    y: DataBtc[i]
                 }
             )
-            tmpXdata.push(time[i])
+            tmpXdata.push(Time[i])
         }
 
         if (tmpData1 != undefined) {
@@ -351,11 +365,11 @@ useEffect(()=>{
           })
         setXaxis(tmpXdata)
     // }
-     setDataBalance(dataBalance)
-     setTime(time)
-     setDataBtc(dataBtc)
+     setDataBalance(DataBalance)
+     setTime(Time)
+     setDataBtc(DataBtc)
      setChangeDataBalance(true)
-}, [balanceList])
+}, [selectedOption  ])
 
 const setDataRange = (range) => {
 switch (range) {
@@ -436,7 +450,11 @@ yesterday.setDate(yesterday.getDate() - 1)
 //console.log(today.toDateString());
 //console.log(yesterday.toDateString());
 
-//console.log(mp.values());
+// //console.log(mp.values());
+// console.log('TimeLength', time.length);
+// console.log('DataLength', dataBalance.length);
+// console.log('DataBTcLength', dataBtc.length);
+// console.log('selectPortfolio', selectedOption);
 return (
 <>
 <ButtonContainer>

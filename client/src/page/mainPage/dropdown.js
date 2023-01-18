@@ -104,7 +104,7 @@ const EContainer = styled.div`
 
 `;
 
-const options = ["Portfolio 01", "Portfolio 02", "Portfolio 03", "Portfolio 04"];
+const options = ["Portfolio 01", "Portfolio 02"];
 
 export default function DropDown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -115,10 +115,8 @@ export default function DropDown() {
   const onOptionClicked = value => () => {
     setSelectedOption(value);
     setIsOpen(false);
-    //console.log(selectedOption);
   };
 
-  //console.log('selectOption is', selectedOption);
   return (
     <>
     <EContainer style={{height: '20px'}}></EContainer>

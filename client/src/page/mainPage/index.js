@@ -10,7 +10,7 @@ function mainPage() {
     return (
         <>
     <Header></Header>
-    <MainWalletX></MainWalletX>
+    <MainTest></MainTest>
     <Footer></Footer>
     </>);
 }
