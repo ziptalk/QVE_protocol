@@ -541,7 +541,7 @@ float: 'center'
 
 const AssetContainer = styled.div`
 display: flex;
-width: 100%;
+width: 90%;
 flex-direction: column;
 margin: auto;
 align-items: center;

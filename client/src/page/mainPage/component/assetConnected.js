@@ -27,7 +27,7 @@ const EContainer = styled.div`
 
 const AssetInitialContainer = styled.div`
 height: 117px;
-width: 100vw;
+width: 95vw;
 max-width: 700px;
 border-radius: 16px;
 background: #2B2B34;
@@ -35,7 +35,7 @@ background: #2B2B34;
 
 const AssetPresentContainer = styled.div`
 height: 136px;
-width: 100%;
+width: 95vw;
 max-width: 700px;
 float: center;
 background: #2B2B34;
@@ -43,7 +43,7 @@ border-radius: 16px;
 `;
 const AssetPeriodContainer = styled.div`
 height: 117px;
-width: 100%;
+width: 95vw;
 max-width: 700px;;
 justify-content: center;
 background: #2B2B34;
