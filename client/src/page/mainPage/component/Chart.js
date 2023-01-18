@@ -381,7 +381,8 @@ useEffect(()=>{
      setDataBtc(DataBtc)
      setChangeDataBalance(true)
 }, [selectedOption  ])
-
+console.log("time", time);
+console.log("DataBalance", dataBalance);
 const setDataRange = (range) => {
 switch (range) {
 case 'day':

@@ -738,11 +738,6 @@ height: max-content;
 float: 'center'
 `;
 
-const AssetContainer = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-`;
 
 const ContainerRow = styled.div`
 display: flex;
@@ -1087,55 +1082,6 @@ const fetchSecond = async () => {
     return(
         
         <>
-        <ContainerAll>
-        <LogoutButton onClickCapture={logout}>Disconnect</LogoutButton>
-        <EContainer style={{height: "105px"}}></EContainer>
-        <StrategyContainer>Strategy Selector</StrategyContainer>
-        <EContainer style={{height: '30px'}}></EContainer>
-        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', maxWidth: '630px', justifyContent: 'flex-end'}}>
-        <DepositButton onClick={() => setPreWalletCount(3)}>Deposit</DepositButton>
-        </EContainer>
-        <EContainer style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-        <FirstContainer>
-        <EContainer style={{height: '12px'}}>
-
-        </EContainer>
-        <ChartContainer> 
-        <EContainer style={{position: 'absolute', top: '-80px'}}>
-            <DropDown></DropDown>
-        </EContainer>
-        <EContainer style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row', alignSelf: 'flex-end'}}>
-            <ChartContainerPNL>PNL</ChartContainerPNL>
-            </EContainer>
-            <FirstContainerValue>
-            <FirstContainerValueStart>
-            <ChartContainerPercent>{currentPnl}%</ChartContainerPercent>
-            <EContainer style={{width: '5px'}}></EContainer>
-            <PnlChangePercent style={{color: pnl_24h_gap > 0 ? "#0FB63E" : "#FF395D"}}>{pnl_24h_gap}%p</PnlChangePercent>
-            </FirstContainerValueStart>
-            <FirstContainerValueEnd>
-            <ExcButton>
-                <ExcImg src={ExcIcon}>
-                </ExcImg>
-                <ExcMsg src={XImg} />
-            </ExcButton>
-
-            <EContainer style={{width: "4px"}}></EContainer>
-            <ChartContainerMDD>MDD</ChartContainerMDD>
-            <EContainer style={{width: "4px"}}></EContainer>
-            <ChartContainerMDDSplit>:</ChartContainerMDDSplit>
-            <EContainer style={{width: "4px"}}></EContainer>
-            <ChartContainerMDDValue style={{color: mdd_value < 5 ? "#0FB63E" : "#FF395D"}}>{mdd_value}</ChartContainerMDDValue>
-            <EContainer style={{width: '4px'}}></EContainer>
-            </FirstContainerValueEnd>
-            </FirstContainerValue>
-            <EContainer style={{height: '15px'}}></EContainer>
-            <LineChartContainer><LineChart balanceList={balanceList} pnlArray={pnlArray}></LineChart></LineChartContainer>
-        </ChartContainer>
-        </FirstContainer>
-        </EContainer>
-        <EContainer style={{height: '52px'}}></EContainer>
-        <AssetContainer>
         <Asset>My Asset</Asset>
         <ConnectWalletContainer>
         <EContainer style={{height: '35px'}}></EContainer>
@@ -1177,10 +1123,6 @@ const fetchSecond = async () => {
         </DepositContainer>
         </ConnectYourWalletContainer>
         </ConnectWalletContainer>
-        </AssetContainer>
-        <EContainer style={{color: 'white'}}>{portfolio}</EContainer>
-        <EContainer style={{height: '72px'}}></EContainer>
-        </ContainerAll>
         </>
     );
 }

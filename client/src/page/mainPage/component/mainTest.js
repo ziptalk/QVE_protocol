@@ -8,13 +8,17 @@ import axios from "axios";
 import { Action } from "@remix-run/router";
 import HiddenMessage from "../../../assets/hiddenMessage.png";
 import DropDown from "../dropdown";
+import MainWalletX from "./mainWalletX";
+import AssetConnected from "./assetConnected";
 import Web3 from "web3";
 const ContainerAll = styled.div`
 height: 100%;
+z-index: -1;
 background-color: #1B1A1E;
 display: flex;
 flex-direction: column;
-align-content: center;
+align-items: center;
+justify-content: center;
 `;
 
 const EContainer = styled.div`
@@ -397,173 +401,8 @@ color: #0FB63E;
 
 `;
 
-const Asset = styled.div`
-
-/* Heading 2 */
-width: 90%;
-max-width: 700px;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 36px;
-align-self: flex-start;
-/* identical to box height, or 150% */
-
-letter-spacing: 0.02em;
-
-align-self: center;
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const Initial = styled.div`
-
-/* Label Emp */
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 15px;
-/* identical to box height */
-letter-spacing: 0.02em;
-margin-left: 30px;
-/* dark/label */
-
-color: #B7B8CD;
-`;  
-
-const InitialValue = styled.div`
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 23px;
-line-height: 36px;
-/* or 157% */
-
-align-items: center;
-text-align: right;
-letter-spacing: 0.02em;
-margin-right: 30px;
-/* dark/white */
-
-color: #FFFFFF;
-`
-const Present = styled.div`
 
 
-/* Label Emp */
-margin-left: 30px;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 15px;
-/* identical to box height */
-
-letter-spacing: 0.02em;
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const PresentValue = styled.div`
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 23px;
-/* or 157% */
-margin-right: 30px;
-align-items: center;
-text-align: right;
-
-/* dark/white */
-color: #FFFFFF;
-`;
-
-const PresentPercent = styled.div`
-
-
-/* Cell Bold */
-margin-right: 30px;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 14px;
-text-align: right;
-/* identical to box height */
-`;
-
-const PresentDescription = styled.div`
-
-margin-right: 30px;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 7px;
-text-align: right;
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-const Period = styled.div`
-
-
-/* Label Emp */
-margin-left: 30px;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 15px;
-/* identical to box height */
-
-letter-spacing: 0.02em;
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const PeriodStart = styled.div`
-
-margin-left: 30px;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 22px;
-/* or 164% */
-
-align-items: center;
-letter-spacing: 0.02em;
-
-/* dark/white */
-
-color: #FFFFFF;
-`;
-
-const PeriodEnd = styled.div`
-
-margin-right: 30px;
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 22px;
-/* or 164% */
-
-align-items: center;
-text-align: right;
-letter-spacing: 0.02em;
-
-/* dark/white */
-
-color: #FFFFFF;
-`;
 const ChartContainer = styled.div`
 
 /* dark/dark */
@@ -673,35 +512,7 @@ background: #2B2B34;
 border-radius: 16px;
 `;
 
-const AssetInitialContainer = styled.div`
-height: 117px;
-width: 90%;
-max-width: 700px;
-border-radius: 16px;
-background: #2B2B34;
-`;
 
-const AssetPresentContainer = styled.div`
-height: 136px;
-width: 90%;
-max-width: 700px;
-float: center;
-background: #2B2B34;
-border-radius: 16px;
-`;
-const AssetPeriodContainer = styled.div`
-height: 117px;
-width: 90%;
-max-width: 700px;;
-justify-content: center;
-background: #2B2B34;
-border-radius: 16px;
-`;
-
-const AssetEContainer = styled.div`
-display: flex;
-height: 30px;
-`;
 
 const ExcButton = styled.button`
     all: unset;
@@ -730,15 +541,13 @@ float: 'center'
 
 const AssetContainer = styled.div`
 display: flex;
+width: 100%;
 flex-direction: column;
+margin: auto;
 align-items: center;
 `;
 
-const ContainerRow = styled.div`
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-`;
+
 
 
 const ExcMsg = styled.img`
@@ -754,8 +563,23 @@ opacity: 0;
 `;
 
 const StrategyContainer = styled.div`
+width: 95%;
+max-width: 700px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
 
+display: flex;
+align-items: center;
+
+/* dark/label */
+
+color: #B7B8CD;
 `;
+
 
 const DropDownContainer = styled("div")`
   width: 10.5em;
@@ -856,6 +680,48 @@ align-items: center;
 border-radius: 10px;
 `;
 
+const DepositButton = styled.button`
+all: unset;
+cursor: pointer;
+box-sizing: border-box;
+
+/* Auto layout */
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 10px 30px;
+gap: 10px;
+width: 113px;
+height: 37px;
+
+/* dark/primary */
+
+background: #4A3CE8;
+border-radius: 16px;
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 17px;
+/* identical to box height */
+
+
+/* dark/label */
+
+color: #FFFFFF;
+
+`;
+
 function MainTest() {
     
     const [userMe, setUserMe] = useState('');
@@ -883,6 +749,11 @@ const onOptionClicked = value => () => {
   pnlArray = [];
 };
 
+async function getAccount() {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setAccount(accounts[0]);
+}
+
 const fetchUserMe = async () => {
     axios.get('https://qve.today/user/me/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
@@ -893,6 +764,7 @@ const fetchBalanceList = async () => {
     axios.get('https://qve.today/balance/get/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setBalanceList(res.data);
+        console.log(res.data);
     }, [])
 }
 const fetchMyBalance = async () => {
@@ -926,7 +798,6 @@ const fetchThird = async () => {
         setThirdPort(res.data);
     })
 }
-console.log('thirdport', thirdPort);
     useEffect(() => {
             fetchUserMe();
             fetchBalanceList();
@@ -1034,16 +905,20 @@ else {
     console.log('selectedOption', selectedOption); */
     /* console.log(secondPort);
     console.log(pnlArray); */
+
     return(
         <>
         <ContainerAll>
         <LogoutButton onClickCapture={logout}>Disconnect</LogoutButton>
-        <EContainer style={{height: "152px"}}></EContainer>
+        <EContainer style={{height: "105px"}}></EContainer>
+        <StrategyContainer>Strategy Selector</StrategyContainer>
+        <EContainer style={{height: '30px'}}></EContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', maxWidth: '700px', justifyContent: 'flex-end'}}>
+        <DepositButton onClick={() => setPreWalletCount(3)}>Deposit</DepositButton>
+        </EContainer>
         <EContainer style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
         <FirstContainer>
-        <EContainer style={{height: '12px'}}>
-        Strategy Selector
-        </EContainer>
+        <EContainer style={{height: '12px'}}></EContainer>
         <ChartContainer> 
         <EContainer style={{position: 'absolute', top: '-80px'}}>
         <EContainer style={{height: '20px'}}></EContainer>
@@ -1096,32 +971,8 @@ else {
         </FirstContainer>
         </EContainer>
         <EContainer style={{height: '52px'}}></EContainer>
-        <AssetContainer >
-        <Asset>My Asset</Asset>
-        <AssetInitialContainer>
-            <EContainer style={{height: '30px'}}></EContainer>
-            <Initial>Initial</Initial>
-            <EContainer style={{height: '28px'}}></EContainer>
-            <InitialValue>{initialValue} USDT</InitialValue>
-        </AssetInitialContainer>
-        <AssetEContainer></AssetEContainer>
-        <AssetPresentContainer>
-            <EContainer style={{height: '30px'}}></EContainer>
-            <Present>Present</Present>
-            <PresentPercent style={{color: mdd_value > 0 ? "#0FB63E" : "#FF395D"}}>{my_margin} ({my_margin_rate}%)</PresentPercent>
-            <PresentValue>{my_balance} USDT</PresentValue>
-            <PresentDescription>수익은 성과보수를 포함한 값이며 환매 시 계약한 성과보수를 제하게 됩니다.</PresentDescription>
-        </AssetPresentContainer>
-        <AssetEContainer></AssetEContainer>
-        <AssetPeriodContainer>  
-            <EContainer style={{height: '30px'}}></EContainer>
-            <Period>Period</Period>
-            <EContainer style={{height: '20px'}}></EContainer>
-            <ContainerRow>
-            <PeriodStart>{start_date}</PeriodStart>
-            <PeriodEnd>{end_date}</PeriodEnd>
-            </ContainerRow>
-        </AssetPeriodContainer>
+        <AssetContainer>
+        {account != null ? <MainWalletX></MainWalletX> : <AssetConnected initialValue={initialValue} mdd_value={mdd_value} my_margin={my_margin} my_margin_rate={my_margin_rate} my_balance={my_balance} start_date={start_date} end_date={end_date}></AssetConnected>}
         </AssetContainer>
         <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>
