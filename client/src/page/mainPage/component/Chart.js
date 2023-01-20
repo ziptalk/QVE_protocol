@@ -124,6 +124,7 @@ margin-right: 20px;
 border: 1px solid #B7B8CD;
 border-radius: 6px;
 box-sizing: border-box;
+height: 30px;
 `;
 
 function getKeyByValue(object, value) {
@@ -155,12 +156,12 @@ useEffect(()=>{
     var DataBtc = [];
     var Time = [];
     if (selectedOption === 'Portfolio 01') {
-        DataBalance = [];
-        Time = [];
         for (let i = 0; i < balanceList.length; i++)
          {
             let valueBalance = pnlArray[i];
+            let FirstValueBtc = getKeyByValue(balanceList[0], "btc_price");
             let valueBtc = getKeyByValue(balanceList[i], "btc_price");
+            valueBtc = valueBtc / FirstValueBtc;
             let getTime = getKeyByValue(balanceList[i], "created_at");
             DataBalance.push(valueBalance);
             DataBtc.push(valueBtc);
@@ -169,31 +170,32 @@ useEffect(()=>{
         } 
         
         if (selectedOption === 'Portfolio 02') {
-            DataBalance = [];
-            Time = [];
             for (let i = 0; i < secondPort.length; i++) {
                 let secondValueBalance = pnlArray[i];
-                let getSecondTime = getKeyByValue(secondPort[i], 'datetime')
+                let secondValueBtc = getKeyByValue(secondPort[i], 'btc_cr');
+                let getSecondTime = getKeyByValue(secondPort[i], 'datetime');
                 Time.push(getSecondTime);
                 DataBalance.push(secondValueBalance);
+                DataBtc.push(secondValueBtc);
             }
         }
 
         if (selectedOption === 'Portfolio 03') {
-            DataBalance = [];
-            Time = [];
             for (let i = 0; i < thirdPort.length; i++) {
                 let thirdValueBalance = pnlArray[i];
+                let thirdValueBtc = getKeyByValue(thirdPort[i], 'btc_cr');
                 let getThirdTime = getKeyByValue(thirdPort[i], 'datetime');
                 Time.push(getThirdTime);
+                DataBtc.push(thirdValueBtc);
                 DataBalance.push(thirdValueBalance);
             }
         }
      const firstBtcValue = DataBtc[0];
-     //console.log('balanceList', balanceList);
-     for (let i = 0; i < balanceList.length; i++) {
-        DataBtc[i] = (((DataBtc[i] / firstBtcValue) - 1 ) * 100).toFixed(2);
-     }
+     console.log('DataBtc', DataBtc);
+     console.log('firstBtcValue', firstBtcValue);
+     for (let i = 0; i < DataBtc.length; i++) {
+        DataBtc[i] = ((DataBtc[i] - 1 ) * 100).toFixed(2);
+     }console.log('FinalDataBtc', DataBtc);
      let tmpData = [];
      let tmpData1 = [];
      let tmpData2 = [];
@@ -220,9 +222,24 @@ useEffect(()=>{
             for (let i = 0; i < tmpData1.length; i++) {
             }
         }
-     let arr = Object.values(tmpData2);
-     let min = Math.min(...arr);
-     let max = Math.max(...arr);
+    let min, max;
+     let arr1 = Object.values(tmpData1);
+     let arr2 = Object.values(tmpData2);
+     let min1 = Math.min(...arr1);
+     let max1 = Math.max(...arr1);
+     let min2 = Math.min(...arr2);
+     let max2 = Math.max(...arr2);
+     if (min1 > min2) {
+        min = min2;
+     } else {
+        min = min1;
+     }
+
+     if (max1 > max2) {
+        max = max1;
+     } else {
+        max = max2;
+     }
 
         const seriesForm = [
             {
@@ -288,6 +305,7 @@ useEffect(()=>{
             axisTicks: {
                 show: false,
             },
+            tickAmount: 5,
             },
             yaxis: 
             [
@@ -297,7 +315,7 @@ useEffect(()=>{
                     },
                     labels: {
                         style: {
-                            colors: '#4A3CE8',
+                            colors: '#5C5E81',
                         }
                     },
                     tooltip: {
@@ -307,70 +325,22 @@ useEffect(()=>{
                     min: min,
                     tickAmount: 5,
                 },
-                {
-                    tooltip: {
-                        enabled: true,
-                    },
-                    show: false,
-
-                },
-        ]
-          })
-
-          setChartOptionsDay({
-            chart: {
-                id: 'LineGraph',
-                toolbar: {
-                  show: false
-                },
-                dataLabels: {
-                    enabled: false
-                },
-              },
-              legend: {
-                position: 'top',
-              },
-              onItemClick: {
-                toggleDataSeries: true
-            },
-            onItemHover: {
-                highlightDataSeries: true
-            },
-            xaxis: [{
-                axisTicks: {
-                    show: false,
-                },
-            categories: tmpXdata,
-            labels: {
-                style: {
-                    colors: '#5C5E81',
-                }
-            },
-            },
-        ],
-            yaxis: 
-            [
-                {
+                {show: false,
                     axisTicks: {
-                        show: true,
+                        show: false,
                     },
                     labels: {
                         style: {
-                            colors: '#4A3CE8',
+                            colors: '#5C5E81',
                         }
                     },
                     tooltip: {
-                        enabled: true
+                        enabled: false
                     },
-                },
-                {
-                   
-                    labels: {
-                        
-                    },
-                    tooltip: {
-                        enabled: true,
-                    },
+                    max: max,
+                    min: min,
+                    tickAmount: 5,
+
                 },
         ]
           })
@@ -380,9 +350,7 @@ useEffect(()=>{
      setTime(Time)
      setDataBtc(DataBtc)
      setChangeDataBalance(true)
-}, [selectedOption  ])
-console.log("time", time);
-console.log("DataBalance", dataBalance);
+}, [selectedOption])
 const setDataRange = (range) => {
 switch (range) {
 case 'day':
@@ -467,10 +435,13 @@ yesterday.setDate(yesterday.getDate() - 1)
 // console.log('DataLength', dataBalance.length);
 // console.log('DataBTcLength', dataBtc.length);
 // console.log('selectPortfolio', selectedOption);
+
 return (
 <>
 <ButtonContainer>
-<ButtonDay onClick={() => setDataRange('day')}>1D</ButtonDay>
+{selectedOption === 'Portfolio 01' ? 
+(
+<> <ButtonDay onClick={() => setDataRange('day')}>1D</ButtonDay>
 <DayWeekSplit>|</DayWeekSplit>
 <ButtonWeek onClick={() => setDataRange('week')}>1W</ButtonWeek>
 <WeekMonthSplit>|</WeekMonthSplit>
@@ -480,7 +451,10 @@ return (
 <YearYtdSplit>|</YearYtdSplit>
 <ButtonYtd onClick={() => setDataRange('ytd')}>YTD</ButtonYtd>
 <YtdAllSplit>|</YtdAllSplit>
-<ButtonAll onClick={() => setDataRange('all')}>ALL</ButtonAll>
+<ButtonAll onClick={() => setDataRange('all')}>ALL</ButtonAll> 
+</>
+):
+<ButtonAll onClick={() => setDataRange('all')}>ALL</ButtonAll> }
 </ButtonContainer>
 <EContainer style={{height: '11px'}}></EContainer>
 <ReactApexChart style={{display: 'flex', margin: '0px 20px 0px 0px'}} type="line" options={chartOptions} series={series} 

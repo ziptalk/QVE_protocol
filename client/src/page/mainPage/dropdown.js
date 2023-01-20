@@ -104,7 +104,7 @@ const EContainer = styled.div`
 
 `;
 
-const options = ["Portfolio 01", "Portfolio 02"];
+const options = ["Portfolio 01", "Portfolio 02, Portfolio 03"];
 
 export default function DropDown() {
   const [isOpen, setIsOpen] = useState(false);

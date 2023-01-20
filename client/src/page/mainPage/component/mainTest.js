@@ -20,7 +20,7 @@ background-color: #1B1A1E;
 display: flex;
 flex-direction: column;
 align-items: center;
-justify-content: center;
+justify-content: center;;
 `;
 
 const EContainer = styled.div`
@@ -29,7 +29,6 @@ const EContainer = styled.div`
 const FirstContainer = styled.div`
 width: 95%;
 max-width: 700px;
-position: relative;
 `;
 
 const FirstContainerValue = styled.div`
@@ -51,11 +50,10 @@ flex-direction: row;
 align-self: end;
 `;
 const LogoutButton = styled.div`
-z-index: 1;
 position: fixed;
 right: 20px;
 top: 20px;
-
+z-index: -1;
 box-sizing: border-box;
 
 /* Auto layout */
@@ -736,7 +734,7 @@ function MainTest() {
     const [secondPort, setSecondPort] = useState('');
     const [thirdPort, setThirdPort] = useState('');
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedOption, setSelectedOption] = useState('Portfolio 01');
     const totalInitialInvestment = 79300;
     const options = ["Portfolio 01", "Portfolio 02", "Portfolio 03"];
     const [account, setAccount] = useState();
@@ -755,7 +753,6 @@ async function getAccount() {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         setAccount(accounts[0]);
 }
-
 const fetchUserMe = async () => {
     axios.get('https://qve.today/user/me/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
@@ -766,7 +763,6 @@ const fetchBalanceList = async () => {
     axios.get('https://qve.today/balance/get/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
         setBalanceList(res.data);
-        console.log(res.data);
     }, [])
 }
 const fetchMyBalance = async () => {
@@ -801,17 +797,16 @@ const fetchThird = async () => {
     })
 }
     useEffect(() => {
-            fetchUserMe();
-            fetchBalanceList();
-            fetchMyBalance();
-            fetchMdd();
-            fetchPnl();
-            fetchSecond();
-            fetchThird();
+        Promise.all([fetchUserMe(),
+            fetchBalanceList(),
+            fetchMyBalance(),
+            fetchMdd(),
+            fetchPnl(),
+            fetchSecond(),
+            fetchThird()])
             }, [])
 
     const navigate = useNavigate();
-
     function getKeyByValue(object, value) {
         return object[value];
       }
@@ -825,6 +820,8 @@ const fetchThird = async () => {
     var secondPort_mdd_Array = [];
     var thirdPort_cr_Array = [];
     var thirdPort_mdd_Array = [];
+    let second_max_mdd = 0;
+    let third_max_mdd = 0;
     for (let i = 0; i < balanceList.length; i++) {
         let valueBalance = getKeyByValue(balanceList[i], "balance");
         balanceArray.push(valueBalance.toFixed(0));
@@ -841,15 +838,23 @@ const fetchThird = async () => {
 
     for (let i = 0; i < secondPort.length; i++) {
         let secondPort_cr = getKeyByValue(secondPort[i], "cr");
+        secondPort_cr = (secondPort_cr - 1) * 100;
         let secondPort_mdd = getKeyByValue(secondPort[i], "mdd");
         secondPort_cr_Array.push(secondPort_cr);
         secondPort_mdd_Array.push(secondPort_mdd);
+        if (secondPort_mdd > second_max_mdd) {
+            second_max_mdd = secondPort_mdd;
+        }
     }
     for (let i = 0; i < thirdPort.length; i++) {
         let thirdPort_cr = getKeyByValue(thirdPort[i], "cr");
+        thirdPort_cr = (thirdPort_cr - 1) * 100;
         let thirdPort_mdd = getKeyByValue(thirdPort[i], "mdd");
         thirdPort_cr_Array.push(thirdPort_cr);
         thirdPort_mdd_Array.push(thirdPort_mdd);
+        if (thirdPort_mdd > third_max_mdd) {
+            third_max_mdd = thirdPort_mdd;
+        }
     }
 
     if (selectedOption === 'Portfolio 01') {
@@ -862,7 +867,7 @@ const fetchThird = async () => {
         pnlArray.push((secondPort_cr_Array[i]));
     } 
 } else if (selectedOption === 'Portfolio 03') {
-    for (let i =0; i < thirdPort.length; i++) {
+    for (let i = 0; i < thirdPort.length; i++) {
         pnlArray.push(thirdPort_cr_Array[i]);
     }
 }
@@ -880,10 +885,10 @@ else {
         mdd_value = getKeyByValue(mdd, "mdd");
     }
     else if (selectedOption === 'Portfolio 02') {
-        mdd_value = secondPort_mdd_Array.at(-1);
+        mdd_value = second_max_mdd;
     }
     else if (selectedOption === 'Portfolio 03') {
-        mdd_value = thirdPort_mdd_Array.at(-1);
+        mdd_value = third_max_mdd;
     }
     mdd_value = Math.abs(mdd_value);
     
@@ -907,14 +912,11 @@ else {
     console.log('selectedOption', selectedOption); */
     /* console.log(secondPort);
     console.log(pnlArray); */
-
-    const swipeableHandlers = useSwipeable({
-        onSwipeLeft: () => console.log('swiped left'),
-        onSwipeRight: () => console.log('swiped right')
-    });
-
+    if (balanceList != '') {
     return(
-        <ContainerAll>
+        /* <ContainerAll style={{filter: preWalletCount != null ? "blur(1px)" : "blur(0px)"}}> */
+        <ContainerAll style={{filter: preWalletCount != null ? "blur(0px)" : "blur(0px)"}}>
+
         <LogoutButton onClickCapture={logout}>Disconnect</LogoutButton>
         <EContainer style={{height: "105px"}}></EContainer>
         <StrategyContainer>Strategy Selector</StrategyContainer>
@@ -926,7 +928,7 @@ else {
         <FirstContainer>
         <EContainer style={{height: '12px'}}></EContainer>
         <ChartContainer> 
-        <EContainer style={{position: 'absolute', top: '-80px'}}>
+        <EContainer style={{position: 'absolute', top: '107px'}}>
         <EContainer style={{height: '20px'}}></EContainer>
       <DropDownContainer>
         <DropDownHeader onClick={toggling}>
@@ -967,7 +969,7 @@ else {
             <EContainer style={{width: "4px"}}></EContainer>
             <ChartContainerMDDSplit>:</ChartContainerMDDSplit>
             <EContainer style={{width: "4px"}}></EContainer>
-            <ChartContainerMDDValue style={{color: mdd_value < 5 ? "#0FB63E" : "#FF395D"}}>{mdd_value}</ChartContainerMDDValue>
+            <ChartContainerMDDValue style={{color: '#FFFFFF'}}>{mdd_value}</ChartContainerMDDValue>
             <EContainer style={{width: '4px'}}></EContainer>
             </FirstContainerValueEnd>
             </FirstContainerValue>
@@ -978,11 +980,12 @@ else {
         </EContainer>
         <EContainer style={{height: '52px'}}></EContainer>
         <AssetContainer>
-        {account != null ? <MainWalletX></MainWalletX> : <AssetConnected initialValue={initialValue} mdd_value={mdd_value} my_margin={my_margin} my_margin_rate={my_margin_rate} my_balance={my_balance} start_date={start_date} end_date={end_date}></AssetConnected>}
+        {account == null ? <MainWalletX preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount}></MainWalletX> : <AssetConnected initialValue={initialValue} mdd_value={mdd_value} my_margin={my_margin} my_margin_rate={my_margin_rate} my_balance={my_balance} start_date={start_date} end_date={end_date}></AssetConnected>}
         </AssetContainer>
         <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>
     );
+              }
 }
 
 /*<EContainer style={{display:'flex', justifyContent: 'flex-start', width: '95%', maxWidth: '700px', position: 'relative', alignSelf: 'center', position: 'relative'}}>
