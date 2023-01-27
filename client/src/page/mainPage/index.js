@@ -9,7 +9,7 @@ import styled from "styled-components";
 const Container = styled.div`
 overflow: hidden;
 `;
-function mainPage() {
+function MainPage() {
     return (
     <Container>
     <Header></Header>
@@ -18,4 +18,4 @@ function mainPage() {
     </Container>);
 }
 
-export default mainPage;
+export default MainPage;

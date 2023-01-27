@@ -14,6 +14,8 @@ import Web3 from "web3";
 import XImg from "../../../assets/X_Icon.png";
 import MetamaskImg from "../../../assets/Metamask.png";
 import Favicon from "../../../assets/Favicon.png";
+import Usdt from "../../../assets/usdt.png";
+import StakeArtifact from "../../../artifact/Stake.json";
 const ContainerAll = styled.div`
 height: 100%;
 z-index: -1;
@@ -954,24 +956,62 @@ position: absolute;
 top: 201px;
 left: (50% - 186.5);
 width: 373px;
-height: 390px;
+height: 520px;
 background: #2B2B34;
 box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
 border-radius: 16px;
-
-
 `;
 
+const TextInter = styled.div`
+font-family: 'Inter';
+font-style: normal;
+letter-spacing: 0.02em;
+color: #FFFFFF;
+`;
 
-function MainWalletX({preWalletCount, setPreWalletCount}) {
+const Input = styled.input`
+all: unset;
+position: relative;
+height: 57px;
+width: 90%;
+background: #2B2B34;
+border: 1px solid #5C5E81;
+border-radius: 16px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 600;
+font-size: 14px;
+line-height: 17px;
+/* identical to box height */
 
-    const [account, setAccount] = useState();
+
+/* dark/white */
+
+color: #FFFFFF;
+`;
+
+const TextContainer = styled.div`
+font-family: 'Inter';
+font-style: normal;
+color: #B7B8CD;
+`
+
+
+function MainWalletX({preWalletCount, setPreWalletCount, setAccount, setStakeContract, account}) {
+    const [depositAmount, setDepositAmount] = useState(0);
     const web3 = new Web3(window.ethereum);
-
+    const Stakecontract = null;
+    const contractAddress = "0xb27A31f1b0AF2946B7F582768f03239b1eC07c2c";
+    const usdtAddress= "0xdAC17F958D2ee523a2206206994597C13D831ec7";
     async function getAccount() {
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        const balance = await web3.eth.getBalance(accounts[0]);
         setAccount(accounts[0]);
+        Stakecontract = new web3.eth.Contract(StakeArtifact.abi, "0xb27A31f1b0AF2946B7F582768f03239b1eC07c2c");
+        setStakeContract(Stakecontract);
+        console.log('balance', balance);
 }
+
     /* const getAccount = async () => { 
         console.log("web3", web3);
         const getAccount = await web3.eth.getAccounts();
@@ -982,7 +1022,15 @@ function MainWalletX({preWalletCount, setPreWalletCount}) {
    function metamask() {
     getAccount();
     setPreWalletCount(null);
-   } 
+   }
+
+   async function deposit() {
+    // Approve the transfer of the specified amount of USDT from the current account to the contract
+    await Stakecontract.methods.approve(contractAddress, depositAmount).send({ from: account });
+    
+    // Deposit the approved amount of USDT to the contract
+    await Stakecontract.methods.deposit(usdtAddress, depositAmount).send({ from: account });
+}
 
     return(
         
@@ -1026,13 +1074,55 @@ function MainWalletX({preWalletCount, setPreWalletCount}) {
         <EContainer style={{height: '27px'}}></EContainer>
         </WalletConnectContainer>
         </PreWalletConnectBackground>
-        <DepositContainer style={{visibility : preWalletCount === 3 ? "visible" : "hidden"}}>
+        <PreWalletConnectBackground style={{visibility : preWalletCount === 3 ? "visible" : "hidden"}}>
+        <DepositContainer>
         <EContainer style={{height: '39px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
         <ImageContainer src={XImg} style={{width: '19px', height: '19px', cursor: 'pointer', paddingRight: '30px'}} onClick={() => {setPreWalletCount(null)}}></ImageContainer>
         </EContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
         <ImageContainer src={Favicon} style={{width: '45px', height: '40px'}}></ImageContainer>
+        </EContainer>
+        <EContainer style={{height: '8px'}}></EContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+        <TextInter style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>Deposit.QVE</TextInter>
+        </EContainer>
+        <EContainer style={{height: '5px'}}></EContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+        <TextInter style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px'}}>Ethereum</TextInter>
+        </EContainer>
+        <EContainer style={{height: '38px'}}></EContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+        <TextInter style={{fontWeight: '700', fontSize: '36px', lineHeight: '48px'}}>0.01 ETH</TextInter>
+        </EContainer>
+        <EContainer style={{height: '18px'}}></EContainer>
+        <EContainer style={{display:'flex', justifyContent:'center'}}>
+        <Input onChange={(e) => setDepositAmount(e.target.value)}>
+        </Input>
+        </EContainer>
+        <EContainer style={{height: '30px'}}></EContainer>
+        <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
+        <TextContainer style={{fontWeight: '400', fontSize: '11px', lineHeight:'13px'}}>You will receive</TextContainer>
+        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>{depositAmount} MATIC</TextContainer>
+        </EContainer>
+        </EContainer>
+        <EContainer style={{height: '10px'}}></EContainer>
+        <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
+        <TextContainer style={{fontWeight: '400', fontSize: '11px', lineHeight:'13px'}}>Exchange rate</TextContainer>
+        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>1st MATIC = 1.2345 MATIC</TextContainer>
+        </EContainer>
+        </EContainer>
+        <EContainer style={{height: '53px'}}></EContainer>
+        <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
+        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
+        <Button onClick={() => {setPreWalletCount(null)}} style={{width: '83.54px', height: '17px', background: '#5C5E81'}}>Cancel</Button>
+        <Button onClick={() => deposit()} style={{width: '83.54px', height: '17px'}}>Deposit</Button>
+        </EContainer>
+        </EContainer>
         </DepositContainer>
+        </PreWalletConnectBackground>
         </ConnectYourWalletContainer>
         </ConnectWalletContainer>
         </>

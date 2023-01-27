@@ -1,18 +1,22 @@
 import Header from "../../common/header";
-import Footer from "../mainPage/component/footer";
-import Main from "./component/main";
+import Main from "./main";
+import Footer from "../../common/footer";
 import styled from "styled-components";
-function LandingPage() {
+
 const Container = styled.div`
 overflow: hidden;
 `;
+
+function StakePage() {
+
     return (
         <Container>
         <Header></Header>
         <Main></Main>
         <Footer></Footer>
         </Container>
+
     );
 }
 
-export default LandingPage;
+export default StakePage;

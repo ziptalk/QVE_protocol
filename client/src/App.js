@@ -1,7 +1,7 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 
 import React, { useState, useEffect } from "react";
-import Mainpage from "./page/mainPage";
+import MainPage from "./page/mainPage/index"
 import styled from "styled-components";
 import Loginpage from "./page/loginPage";
 import authService from "./services/auth.service";
@@ -10,6 +10,8 @@ import MainTest from "./page/mainPage/component/mainTest";
 import Main from "./page/mainPage/component/main";
 import MainWalletX from "./page/mainPage/component/mainWalletX";
 import LandingPage from "./page/landingPage";
+import SwapPage from "./page/swapPage";
+import StakePage from "./page/stakePage";
 
 const Background = styled.div`
   
@@ -38,7 +40,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Loginpage />}></Route>
-          <Route path="/mainPage" element={<Mainpage />}></Route>
+          <Route path="/landingPage" element={<LandingPage />}></Route>
+          <Route path="/swapPage" element={<SwapPage />}></Route>
+          <Route path="/stakePage" element={<StakePage />}></Route>
+          <Route path="/mainPage" element={<MainPage />}></Route>
         </Routes>
       </BrowserRouter>
     </Background>

@@ -52,7 +52,7 @@ align-self: end;
 const LogoutButton = styled.div`
 position: fixed;
 right: 20px;
-top: 20px;
+top: 70px;
 z-index: -1;
 box-sizing: border-box;
 
@@ -738,9 +738,9 @@ function MainTest() {
     const totalInitialInvestment = 79300;
     const options = ["Portfolio 01", "Portfolio 02", "Portfolio 03"];
     const [account, setAccount] = useState();
+    const[stakeContract, setStakeContract] = useState(null);
     const [preWalletCount, setPreWalletCount] = useState(null);
-    const web3 = new Web3(window.ethereum);
-const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
+ const parsedData = JSON.parse(localStorage.getItem("user")).access_token; 
 
 const toggling = () => setIsOpen(!isOpen);
 const onOptionClicked = value => () => {
@@ -749,10 +749,9 @@ const onOptionClicked = value => () => {
   pnlArray = [];
 };
 
-async function getAccount() {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        setAccount(accounts[0]);
-}
+
+
+
 const fetchUserMe = async () => {
     axios.get('https://qve.today/user/me/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
     .then(res => {
@@ -796,14 +795,16 @@ const fetchThird = async () => {
         setThirdPort(res.data);
     })
 }
+
     useEffect(() => {
-        Promise.all([fetchUserMe(),
+         Promise.all([fetchUserMe(),
             fetchBalanceList(),
             fetchMyBalance(),
             fetchMdd(),
             fetchPnl(),
             fetchSecond(),
-            fetchThird()])
+            fetchThird()]
+            ) 
             }, [])
 
     const navigate = useNavigate();
@@ -835,7 +836,6 @@ const fetchThird = async () => {
     let mdd_value;
     let pnl_value = getKeyByValue(pnl, "pnl");
     let pnl_24h_gap = getKeyByValue(pnl, "pnl_24h_gap");
-
     for (let i = 0; i < secondPort.length; i++) {
         let secondPort_cr = getKeyByValue(secondPort[i], "cr");
         secondPort_cr = (secondPort_cr - 1) * 100;
@@ -912,6 +912,9 @@ else {
     console.log('selectedOption', selectedOption); */
     /* console.log(secondPort);
     console.log(pnlArray); */
+    console.log('account is', account);
+
+    
     if (balanceList != '') {
     return(
         /* <ContainerAll style={{filter: preWalletCount != null ? "blur(1px)" : "blur(0px)"}}> */
@@ -980,7 +983,7 @@ else {
         </EContainer>
         <EContainer style={{height: '52px'}}></EContainer>
         <AssetContainer>
-        {account == null ? <MainWalletX preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount}></MainWalletX> : <AssetConnected initialValue={initialValue} mdd_value={mdd_value} my_margin={my_margin} my_margin_rate={my_margin_rate} my_balance={my_balance} start_date={start_date} end_date={end_date}></AssetConnected>}
+        {account == null ? <MainWalletX account={account} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} setAccount={setAccount}></MainWalletX> : <AssetConnected initialValue={initialValue} mdd_value={mdd_value} my_margin={my_margin} my_margin_rate={my_margin_rate} my_balance={my_balance} start_date={start_date} end_date={end_date}></AssetConnected>}
         </AssetContainer>
         <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>
