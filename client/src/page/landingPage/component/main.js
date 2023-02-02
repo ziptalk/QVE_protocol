@@ -40,15 +40,14 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-padding: 10px 30px;
 gap: 10px;
 background: #4A3CE8;
 border-radius: 50px;
 font-family: 'Inter';
 font-style: normal;
-font-weight: 600;
-font-size: 14px;
-line-height: 17px;
+font-weight: 700;
+font-size: 18px;
+line-height: 24px;
 color: #FFFFFF;
 `;
 
@@ -61,7 +60,7 @@ background: #2B2B34;
 border: 1px solid #5C5E81;
 box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
 border-radius: 16px;
-padding: 0px 12px 0px 12px;
+padding: 0px 20px 0px 20px;
 `;
 
 const StrategyContainer = styled.div`
@@ -91,7 +90,7 @@ function Main (){
         <Text>Solution</Text>
         <Img src={SwapImage} style={{height: '438px', width: '100%'}}></Img>
         <EContainer style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
-        <Button onClick={MainPage}>Invest Now</Button>
+        <Button onClick={MainPage} style={{width: '200px', height: '60px'}}>Invest Now</Button>
         </EContainer>
         </EContainer>
         <EContainer style={{height: '45px'}}></EContainer>
@@ -129,7 +128,7 @@ function Main (){
                 <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>Arbitrage</Text>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>APR 12.3%</Text>
                 </EContainer>
-                <Button >Invest</Button>
+                <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Invest</Button>
             </EContainer>
         </StrategyContainer>
         <EContainer style={{height: '20px'}}></EContainer>
@@ -139,7 +138,7 @@ function Main (){
                 <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>XX</Text>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>APR 12.3%</Text>
                 </EContainer>
-                <Button >Invest</Button>
+                <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Invest</Button>
             </EContainer>
         </StrategyContainer>
         <EContainer style={{height: '20px'}}></EContainer>
@@ -149,11 +148,11 @@ function Main (){
                 <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>YY</Text>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>APR 12.3%</Text>
                 </EContainer>
-                <Button >Invest</Button>
+                <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Invest</Button>
             </EContainer>
         </StrategyContainer>
         <EContainer style={{height: '49px'}}></EContainer>
-        <Button onClick={MainPage}>View Portfolio</Button>
+        <Button onClick={MainPage} style={{width: '200px', height: '60px'}}>View Portfolio</Button>
         <EContainer style={{height: '97px'}}></EContainer>
         <Img src={ArrowDown} style={{width: "24px", height: "12px"}}></Img>
         <EContainer style={{height: '57px'}}></EContainer>
@@ -161,7 +160,7 @@ function Main (){
         <EContainer style={{height: '62px'}}></EContainer>
         <Img src={HowQveWorks} style={{width: "248px", height: "434px"}}></Img>
         <EContainer style={{height: '50px'}}></EContainer>
-        <Button style={{height: '60px', width: '200px', fontWeight: '700', fontSize: '29px', lineHeight: '35px'}} onClick={MainPage}>Deposit Coins</Button>
+        <Button style={{height: '60px', width: '200px'}} onClick={MainPage}>Deposit Coins</Button>
         <EContainer style={{height: "139px"}}></EContainer>
         <Text>Community</Text>
         <EContainer style={{height: '41px'}}></EContainer>

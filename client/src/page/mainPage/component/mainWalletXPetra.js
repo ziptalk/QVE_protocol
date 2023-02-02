@@ -975,18 +975,36 @@ function MainWalletX({preWalletCount, setPreWalletCount, setAccount, setStakeCon
     const usdtAddress= "0x0fC5025C764cE34df352757e82f7B5c4Df39A836";
     const AddLiquidityAddress = "0xf8e81D47203A594245E36C48e151709F0C19fBe8";
     let Usdtcontract = null;
+
+    const getAptosWallet = () => {
+        if ('aptos' in window) {
+            return window.aptos;
+        } else {
+            window.open('https://petra.app/', `_blank`);
+        }
+    };
     async function getAccount() {
-        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-        const balance = await web3.eth.getBalance(accounts[0]);
-        setAccount(accounts[0]);
-        localStorage.setItem("user", JSON.stringify(accounts[0]));
+        const wallet = getAptosWallet();
+        try {
+            const response = await wallet.connect();
+            console.log(response); // { address: string, address: string }
+            const account = await wallet.account();
+            console.log(account.address); // { address: string, address: string }
+            localStorage.setItem('user', JSON.stringify(account.address))
+            setAccount(account.address);
+        } catch (error) {
+  // { code: 4001, message: "User rejected the request."}
+}
+        /* const balance = await web3.eth.getBalance(accounts[0]);
+        setAccount(accounts[0]); */
+        /* localStorage.setItem("user", JSON.stringify(accounts[0]));
         const Stakecontract = new web3.eth.Contract(StakeArtifact.output.abi, stakeContractAddress);
         console.log("STAKECONTRACT", Stakecontract);
         Usdtcontract = new web3.eth.Contract(UsdtArtifact.output.abi, usdtAddress);
         //const LiquidityContract = new web3.eth.Contract(LiquidityArtifact , AddLiquidityAddress);
         setUsdtContract(Usdtcontract);
         setStakeContract(Stakecontract);
-       // setLiquidityContract(LiquidityContract);
+       // setLiquidityContract(LiquidityContract); */
 }
 
     /* const getAccount = async () => { 

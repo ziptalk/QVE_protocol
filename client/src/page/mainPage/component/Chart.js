@@ -155,7 +155,7 @@ useEffect(()=>{
     var DataBalance = [];
     var DataBtc = [];
     var Time = [];
-    if (selectedOption === 'Portfolio 01') {
+    if (selectedOption === 'Arbitrage') {
         for (let i = 0; i < balanceList.length; i++)
          {
             let valueBalance = pnlArray[i];
@@ -169,7 +169,7 @@ useEffect(()=>{
          }
         } 
         
-        if (selectedOption === 'Portfolio 02') {
+        if (selectedOption === 'BTC Hedge') {
             for (let i = 0; i < secondPort.length; i++) {
                 let secondValueBalance = pnlArray[i];
                 let secondValueBtc = getKeyByValue(secondPort[i], 'btc_cr');
@@ -180,7 +180,7 @@ useEffect(()=>{
             }
         }
 
-        if (selectedOption === 'Portfolio 03') {
+        if (selectedOption === 'Funding Rate') {
             for (let i = 0; i < thirdPort.length; i++) {
                 let thirdValueBalance = pnlArray[i];
                 let thirdValueBtc = getKeyByValue(thirdPort[i], 'btc_cr');
@@ -191,11 +191,9 @@ useEffect(()=>{
             }
         }
      const firstBtcValue = DataBtc[0];
-     console.log('DataBtc', DataBtc);
-     console.log('firstBtcValue', firstBtcValue);
      for (let i = 0; i < DataBtc.length; i++) {
         DataBtc[i] = ((DataBtc[i] - 1 ) * 100).toFixed(2);
-     }console.log('FinalDataBtc', DataBtc);
+     }
      let tmpData = [];
      let tmpData1 = [];
      let tmpData2 = [];
@@ -439,7 +437,7 @@ yesterday.setDate(yesterday.getDate() - 1)
 return (
 <>
 <ButtonContainer>
-{selectedOption === 'Portfolio 01' ? 
+{selectedOption === 'Arbitrage' ? 
 (
 <> <ButtonDay onClick={() => setDataRange('day')}>1D</ButtonDay>
 <DayWeekSplit>|</DayWeekSplit>

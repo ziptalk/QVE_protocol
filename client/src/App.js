@@ -11,6 +11,7 @@ import Main from "./page/mainPage/component/main";
 import MainWalletX from "./page/mainPage/component/mainWalletX";
 import LandingPage from "./page/landingPage";
 import SwapPage from "./page/swapPage";
+import PoolPage from "./page/poolPage";
 import StakePage from "./page/stakePage";
 
 const Background = styled.div`
@@ -21,29 +22,16 @@ const Background = styled.div`
 function App() {
   //const [currentUser, setCurrentUser] = useState(undefined);
 
-  useEffect(() => {
-    const user = authService.getCurrentUser();
-
-    /*if (user) {
-      setCurrentUser(user);
-    }
-  */}, []);
-
-  /*
-  const logOut = () => {
-    authService.logout();
-  }
-  */
-
   return (
     <Background className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Loginpage />}></Route>
+          <Route path="/" element={<LandingPage />}></Route>
           <Route path="/landingPage" element={<LandingPage />}></Route>
           <Route path="/swapPage" element={<SwapPage />}></Route>
-          <Route path="/stakePage" element={<StakePage />}></Route>
+          <Route path="/poolPage" element={<PoolPage />}></Route>
           <Route path="/mainPage" element={<MainPage />}></Route>
+          <Route path="stakePage" element={<StakePage />}></Route>
         </Routes>
       </BrowserRouter>
     </Background>

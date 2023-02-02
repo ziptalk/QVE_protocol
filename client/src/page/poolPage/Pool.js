@@ -11,12 +11,11 @@ font-style: normal;
 `;
 
 const PoolContainer = styled.div`
-height: 141px;
-margin-left: 20px;
-margin-right: 20px;
-padding: 40px 34px 60px 35px;
+padding: 40px 34px 25px 35px;
 background: #2B2B34;
 border-radius: 16px;
+display: flex;
+flex-direction: column;
 `;
 
 const Image = styled.img`
@@ -26,6 +25,7 @@ height: 78.41px;
 
 const Button = styled.button`
 all: unset;
+cursor: pointer;
 width: 180.77px;
 height: 55px;
 background: #5C5E81;
@@ -37,12 +37,10 @@ font-size: 14px;
 line-height: 17px;
 text-align: center;
 `;
-
-
 function Pool ({setLiquidityCount}) {
 
     return (
-        <>
+        <EContainer style={{width: '90%', maxWidth: '414px'}}>
     <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', paddingLeft: '20px', color: '#B7B8CD'}}>Pool</Text>
       <PoolContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', padding: '0px 9.5px 0px 9.5px'}}>
@@ -67,14 +65,13 @@ function Pool ({setLiquidityCount}) {
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Fees</Text>
                 <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>12.3%</Text>
             </EContainer>
-
         </EContainer>
       </PoolContainer>
-      <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '25px 20px 0px 20px'}}>
+      <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '25px 0px 0px 0px'}}>
         <Button style={{background: '#5C5E81', color: '#B7B8CD'}}>Remove Liquidity</Button>
         <Button style={{background: '#4A3CE8', color: '#FFFFFF'}} onClick={() => {setLiquidityCount(1)}}>Add Liquidity</Button>
       </EContainer>
-      </>
+      </EContainer>
       );
     }
 

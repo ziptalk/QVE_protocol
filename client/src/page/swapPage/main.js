@@ -5,6 +5,10 @@ import arbQve from "../../assets/arbQve.png"
 const Background = styled.div`
 background-color: #1B1A1E;
 height: 100vh;
+display: flex;
+flex-direction: column;
+
+align-items: center;
 `;
 const EContainer = styled.div`
 
@@ -12,6 +16,7 @@ const EContainer = styled.div`
 
 const SwapContainer = styled.div`
 width: 95%;
+max-width: 414px;
 height: 432px;
 background: #2B2B34;
 border-radius: 16px;
@@ -102,11 +107,12 @@ border: none;
 function Main() {
     return (
     <Background>
-    <EContainer style={{height: '120px'}}></EContainer>
+    <EContainer style={{height: '132px'}}></EContainer>
+    <EContainer style={{width: '95%', maxWidth: '414px'}}>
     <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', paddingLeft: '20px'}}>Swap</Text>
-  
-    <EContainer style={{height: '22px'}}></EContainer>
-    <EContainer style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+    </EContainer>
+    <EContainer style={{height: '0px'}}></EContainer>
+    <EContainer style={{display: 'flex', justifyContent: 'center'}}>
     <SwapContainer>
         <EContainer style={{height: '35px'}}></EContainer>
         <TokenOneContainer>

@@ -9,6 +9,7 @@ import { Action } from "@remix-run/router";
 import HiddenMessage from "../../../assets/hiddenMessage.png";
 import DropDown from "../dropdown";
 import MainWalletX from "./mainWalletX";
+import MainWalletXPetra from "./mainWalletXPetra";
 import AssetConnected from "./assetConnected";
 import Web3 from "web3";
 import {useSwipeable} from 'react-swipeable';
@@ -28,7 +29,7 @@ const EContainer = styled.div`
 
 const FirstContainer = styled.div`
 width: 95%;
-max-width: 700px;
+max-width: 414px;
 `;
 
 const FirstContainerValue = styled.div`
@@ -564,7 +565,7 @@ opacity: 0;
 
 const StrategyContainer = styled.div`
 width: 95%;
-max-width: 700px;
+max-width: 414px;
 font-family: 'Inter';
 font-style: normal;
 font-weight: 500;
@@ -596,7 +597,6 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 padding: 13.5px 20px;
-gap: 20px;
 
 width: 224px;
 height: 60px;
@@ -691,7 +691,6 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-padding: 10px 30px;
 gap: 10px;
 width: 113px;
 height: 37px;
@@ -724,9 +723,9 @@ color: #FFFFFF;
 
 function MainTest() {
     
-    const [userMe, setUserMe] = useState('');
+    /* const [userMe, setUserMe] = useState(''); */
     const [balanceList, setBalanceList] = useState('');
-    const [myBalance, setMyBalance] = useState('');
+    /* const [myBalance, setMyBalance] = useState(''); */
     const [mdd, setMdd] = useState('');
     const [pnl, setPnl] = useState('');
     const [portfolio, setPortfolio] = useState('');
@@ -734,13 +733,14 @@ function MainTest() {
     const [secondPort, setSecondPort] = useState('');
     const [thirdPort, setThirdPort] = useState('');
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState('Portfolio 01');
+    const [selectedOption, setSelectedOption] = useState('Arbitrage');
     const totalInitialInvestment = 79300;
-    const options = ["Portfolio 01", "Portfolio 02", "Portfolio 03"];
+    const options = ["Arbitrage", "BTC Hedge", "Funding Rate"];
     const [account, setAccount] = useState();
     const[stakeContract, setStakeContract] = useState(null);
+    const[usdtContract, setUsdtContract] = useState(null);
+    const[liquidityContract, setLiquidityContract] = useState(null);
     const [preWalletCount, setPreWalletCount] = useState(null);
- const parsedData = JSON.parse(localStorage.getItem("user")).access_token; 
 
 const toggling = () => setIsOpen(!isOpen);
 const onOptionClicked = value => () => {
@@ -752,54 +752,56 @@ const onOptionClicked = value => () => {
 
 
 
-const fetchUserMe = async () => {
-    axios.get('https://qve.today/user/me/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+/* const fetchUserMe = async () => {
+    axios.get('https://qve.today/user/me/')
     .then(res => {
         setUserMe(res.data);
-    }, [])
-}
+        
+    })
+} */
 const fetchBalanceList = async () => {
-    axios.get('https://qve.today/balance/get/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/balance/get/')
     .then(res => {
         setBalanceList(res.data);
-    }, [])
+    })
 }
-const fetchMyBalance = async () => {
-    axios.get('https://qve.today/user/mybalance/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+/* const fetchMyBalance = async () => {
+    axios.get('https://qve.today/user/mybalance/')
     .then(res => {
         setMyBalance(res.data);
-    }, [])
-}
+    })
+} */
 const fetchMdd = async () => {
-    axios.get('https://qve.today/balance/getmdd', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/balance/getmdd')
     .then(res => {
         setMdd(res.data);
     })
 }
 const fetchPnl = async () => {
-    axios.get('https://qve.today/balance/getpnl', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/balance/getpnl')
     .then(res => {
         setPnl(res.data);
     })
 }
 const fetchSecond = async () => {
-    axios.get('https://qve.today/portfolios/eth-btc-hedge-volatility/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/portfolios/eth-btc-hedge-volatility/')
     .then(res => {
         setSecondPort(res.data);
     })
 }
 
 const fetchThird = async () => {
-    axios.get('https://qve.today/portfolios/fundingfee-trading/', { headers: {"Authorization" : `Bearer ${parsedData}`}})
+    axios.get('https://qve.today/portfolios/fundingfee-trading/')
     .then(res => {
         setThirdPort(res.data);
     })
 }
 
     useEffect(() => {
-         Promise.all([fetchUserMe(),
+         Promise.all([
+            /* fetchUserMe(), */
             fetchBalanceList(),
-            fetchMyBalance(),
+            /* fetchMyBalance(), */
             fetchMdd(),
             fetchPnl(),
             fetchSecond(),
@@ -827,12 +829,12 @@ const fetchThird = async () => {
         let valueBalance = getKeyByValue(balanceList[i], "balance");
         balanceArray.push(valueBalance.toFixed(0));
     }
-    const initialValue = getKeyByValue(userMe, "initial_investment");
+    /* const initialValue = getKeyByValue(userMe, "initial_investment");
     const start_date = getKeyByValue(userMe, "start_date");
-    const end_date = getKeyByValue(userMe, "end_date");
-    let my_balance = (getKeyByValue(myBalance, "my_balance"));
+    const end_date = getKeyByValue(userMe, "end_date"); */
+    /* let my_balance = (getKeyByValue(myBalance, "my_balance"));
     let my_margin = (getKeyByValue(myBalance, "my_margin"));
-    let my_margin_rate = (getKeyByValue(myBalance, "my_margin_rate"));
+    let my_margin_rate = (getKeyByValue(myBalance, "my_margin_rate")); */
     let mdd_value;
     let pnl_value = getKeyByValue(pnl, "pnl");
     let pnl_24h_gap = getKeyByValue(pnl, "pnl_24h_gap");
@@ -857,16 +859,16 @@ const fetchThird = async () => {
         }
     }
 
-    if (selectedOption === 'Portfolio 01') {
+    if (selectedOption === 'Arbitrage') {
     for (let i = 0; i < balanceArray.length; i++) {
         var pnlValue = (balanceArray[i] - totalInitialInvestment) / totalInitialInvestment;
         pnlArray.push((pnlValue * 100).toFixed(2));
     }
-} else if (selectedOption === 'Portfolio 02') {
+} else if (selectedOption === 'BTC Hedge') {
     for (let i = 0; i < secondPort.length; i++) {
         pnlArray.push((secondPort_cr_Array[i]));
     } 
-} else if (selectedOption === 'Portfolio 03') {
+} else if (selectedOption === 'Funding Rate') {
     for (let i = 0; i < thirdPort.length; i++) {
         pnlArray.push(thirdPort_cr_Array[i]);
     }
@@ -881,23 +883,23 @@ else {
         }
     }
 
-    if (selectedOption === 'Portfolio 01') {
+    if (selectedOption === 'Arbitrage') {
         mdd_value = getKeyByValue(mdd, "mdd");
     }
-    else if (selectedOption === 'Portfolio 02') {
+    else if (selectedOption === 'BTC Hedge') {
         mdd_value = second_max_mdd;
     }
-    else if (selectedOption === 'Portfolio 03') {
+    else if (selectedOption === 'Funding Rate') {
         mdd_value = third_max_mdd;
     }
     mdd_value = Math.abs(mdd_value);
     
     const currentPnl = pnlArray.at(-1);
-    if (my_balance !== undefined) {
+    /* if (my_balance !== undefined) {
         my_balance = my_balance.toFixed(2);
         my_margin = my_margin.toFixed(2);
         my_margin_rate = my_margin_rate.toFixed(2);
-    }
+    } */
 
     if (pnl_value != undefined) {
         pnl_value = pnl_value.toFixed(2);
@@ -907,26 +909,23 @@ else {
     if (mdd_value != undefined) {
         mdd_value = mdd_value.toFixed(2);
     }
+    console.log("localStorage is ",localStorage.getItem('user'));
     /* console.log('pnlArray Length', pnlArray.length);
     console.log('secondPort', secondPort.length);
     console.log('selectedOption', selectedOption); */
     /* console.log(secondPort);
     console.log(pnlArray); */
-    console.log('account is', account);
-
-    
     if (balanceList != '') {
     return(
         /* <ContainerAll style={{filter: preWalletCount != null ? "blur(1px)" : "blur(0px)"}}> */
         <ContainerAll style={{filter: preWalletCount != null ? "blur(0px)" : "blur(0px)"}}>
-
-        <LogoutButton onClickCapture={logout}>Disconnect</LogoutButton>
         <EContainer style={{height: "105px"}}></EContainer>
         <StrategyContainer>Strategy Selector</StrategyContainer>
-        <EContainer style={{height: '30px'}}></EContainer>
-        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', maxWidth: '700px', justifyContent: 'flex-end'}}>
-        <DepositButton onClick={() => setPreWalletCount(3)}>Deposit</DepositButton>
+        <EContainer style={{height: '20px'}}></EContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', maxWidth: '414px', justifyContent: 'flex-end'}}>
+        {localStorage.getItem('user') === null ? <DepositButton onClick={() => setPreWalletCount(1)}>Deposit</DepositButton> : <DepositButton onClick={() => setPreWalletCount(3)}>Deposit</DepositButton>}
         </EContainer>
+        <EContainer style={{height: '10px'}}/>
         <EContainer style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
         <FirstContainer>
         <EContainer style={{height: '12px'}}></EContainer>
@@ -935,7 +934,7 @@ else {
         <EContainer style={{height: '20px'}}></EContainer>
       <DropDownContainer>
         <DropDownHeader onClick={toggling}>
-          {selectedOption || "Portfolio 01"}
+          {selectedOption || "Arbitrage"}
         </DropDownHeader>
         <EContainer style={{height: '4px'}}></EContainer>
         {isOpen && (
@@ -983,7 +982,7 @@ else {
         </EContainer>
         <EContainer style={{height: '52px'}}></EContainer>
         <AssetContainer>
-        {account == null ? <MainWalletX account={account} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} setAccount={setAccount}></MainWalletX> : <AssetConnected initialValue={initialValue} mdd_value={mdd_value} my_margin={my_margin} my_margin_rate={my_margin_rate} my_balance={my_balance} start_date={start_date} end_date={end_date}></AssetConnected>}
+        {localStorage.getItem('user') === null ? <MainWalletXPetra liquidityContract={liquidityContract} setLiquidityContract={setLiquidityContract} account={account} usdtContract={usdtContract} setUsdtContract={setUsdtContract} stakeContract={stakeContract} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} setAccount={setAccount}></MainWalletXPetra> : <AssetConnected account={account} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} stakeContract={stakeContract} usdtContract={usdtContract} setUsdtContract={setUsdtContract} setAccount={setAccount}></AssetConnected>}
         </AssetContainer>
         <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>

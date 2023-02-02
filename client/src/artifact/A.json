@@ -346,7 +346,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DEPOSIT/USDT.sol": "TestUSDT"
+			"contracts/DEPOSIT/MintA.sol": "TestTokenA"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -392,12 +392,12 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"contracts/DEPOSIT/USDT.sol": {
-			"keccak256": "0xff5e31b28e1a6075dfa39344b341d17d0846ad43061639a8aa2c7061a310c04f",
+		"contracts/DEPOSIT/MintA.sol": {
+			"keccak256": "0x9ce4d4f643de3a6fe28885dfa5ba7578a278700916447ad63dada9866d158910",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://791f67e3703a41d19042e437b644a3c4518f84fcea7e4ec9a0ead25f6872e08a",
-				"dweb:/ipfs/QmertGpCcc6Ujv1ctc944CQ2prp3U5im3SNUx3bMTWCU6N"
+				"bzz-raw://e00e026a400f5f3ae9e8ca86733e3df5e01d620fe5835450e780940840dc4bbd",
+				"dweb:/ipfs/QmcCMFVC7Jcd6HhqfFM6n3hTSsRuMWsCZeXFwz9fbPsJeq"
 			]
 		}
 	},
