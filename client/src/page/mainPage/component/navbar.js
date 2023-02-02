@@ -141,9 +141,14 @@ function Navbar () {
     if (selectedOption == "Stake") {
         navigate("/stakePage");
     }
+    if (selectedOption == 'Connect Wallet') {
+      localStorage.setItem('preWalletCount', JSON.stringify(1))
+    }
+
     if (selectedOption == "Disconnect") {
         localStorage.removeItem("user");
         wallet.disconnect();
+        window.location.reload();
         
     }
     if (selectedOption =="Connect Wallet") {
@@ -165,7 +170,7 @@ function Navbar () {
             {isOpen && (
           <DropDownListContainer>
             <DropDownList>
-            {options.map((option, index) => (
+            {option.map((option, index) => (
   <ListItem onClick={onOptionClicked(option)} key={index}>
     {option === 'Deposit' && <img src={DepositImg} style={{width: '15px', height: '15px'}}/>}
     {option === 'Portfolios' && <img src={PortfolioImg} style={{width: '15px', height: '15px'}}/>}
@@ -173,9 +178,10 @@ function Navbar () {
     {option === 'Pool' && <img src={PoolImg} style={{width: '15px', height: '15px'}}/>}
     {option === 'Stake' && <img src={StakeImg} style={{width: '15px', height: '15px'}}/>}
     {option === 'Disconnect' && <Button>Disconnect</Button>}
+    {option === 'Connect Wallet' && <Button>Connect Wallet</Button>}
     <EContainer style={{width: '3px'}}/>
     <EContainer style={{height: '15px'}}>
-      {option === 'Disconnect' ? '.' : option}
+      {option === 'Disconnect' ? null : (option === 'Connect Wallet' ? null : option)}
     </EContainer>
   </ListItem>
 ))}

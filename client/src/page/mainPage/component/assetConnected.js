@@ -325,6 +325,21 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
     
         console.log("Deposit success!");
     }
+
+    const DepositAptos = async(amount) => {
+        console.log("Deposit Aptos");
+        const transaction = {
+            // type: "entry_function_aptos_transfer",
+            function: `${0xa76d70d92381add3e4d13cf88b17bde8af5f56b0f940e85a27cb5176e04d4fe5}::qve::publish_balance`,
+            arguments: [],
+            type_arguments: [],
+        };
+        window.aptos.signAndSubmitTransaction(transaction).then(() => {
+            console.log("전송 성공");
+        })
+        //TODO 추후에 staking하는 코드 넣기
+    }
+    
     return (
         <EContainer>
             <Asset>My Asset</Asset>
@@ -455,7 +470,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
         <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
         <Button onClick={() => {setPreWalletCount(null)}} style={{width: '152px', height: '55px', background: '#5C5E81'}}>Cancel</Button>
-        <Button onClick={() => deposit()} style={{width: '152px', height: '55px', background: '#4A3CE8'}}>Deposit</Button>
+        <Button onClick={() => DepositAptos(depositAmount)} style={{width: '152px', height: '55px', background: '#4A3CE8'}}>Deposit</Button>
         </EContainer>
         </EContainer>
         </DepositContainer>

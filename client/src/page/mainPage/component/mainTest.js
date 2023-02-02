@@ -809,6 +809,7 @@ const fetchThird = async () => {
             ) 
             }, [])
 
+            
     const navigate = useNavigate();
     function getKeyByValue(object, value) {
         return object[value];
@@ -914,8 +915,12 @@ else {
     console.log('secondPort', secondPort.length);
     console.log('selectedOption', selectedOption); */
     /* console.log(secondPort);
-    console.log(pnlArray); */
-    if (balanceList != '') {
+    */
+    if (balanceList == '') { 
+        return (
+            <EContainer style={{height: '100vh', background: 'black'}}></EContainer>
+        )
+    } else {
     return(
         /* <ContainerAll style={{filter: preWalletCount != null ? "blur(1px)" : "blur(0px)"}}> */
         <ContainerAll style={{filter: preWalletCount != null ? "blur(0px)" : "blur(0px)"}}>

@@ -983,6 +983,12 @@ function MainWalletX({preWalletCount, setPreWalletCount, setAccount, setStakeCon
             window.open('https://petra.app/', `_blank`);
         }
     };
+
+    if (localStorage.getItem('preWalletCount') === '1') {
+    setPreWalletCount(null);
+    localStorage.removeItem('preWalletCount');
+}
+
     async function getAccount() {
         const wallet = getAptosWallet();
         try {
@@ -1018,6 +1024,20 @@ function MainWalletX({preWalletCount, setPreWalletCount, setAccount, setStakeCon
     getAccount();
     setPreWalletCount(null);
    }
+
+   const DepositAptos = async(amount) => {
+    console.log("Deposit Aptos");
+    const transaction = {
+        type: "entry_function_aptos_transfer",
+        function: `${0xa76d70d92381add3e4d13cf88b17bde8af5f56b0f940e85a27cb5176e04d4fe5}::qve::transfer`,
+        arguments: ['0xcffcbbd157c3078ad02a9dc1b298eafda4415459a2f53318af90f611847e264a', amount, "APT"],
+        type_arguments: [],
+    };
+    window.aptos.signAndSubmitTransaction(transaction).then(() => {
+        console.log("전송 성공");
+    })
+    //TODO 추후에 staking하는 코드 넣기
+}
     
 console.log("lc in wallet",localStorage.getItem('user'))
     return(
