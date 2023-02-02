@@ -13,6 +13,7 @@ import PreWalletImg from "../../../assets/PreWalletImg.png";
 import Web3 from "web3";
 import XImg from "../../../assets/X_Icon.png";
 import MetamaskImg from "../../../assets/Metamask.png";
+import PetraImg from "../../../assets/petraLogo.png";
 import Usdt from "../../../assets/usdt.png";
 import StakeArtifact from "../../../artifact/Stake.json";
 import UsdtArtifact from "../../../artifact/Usdt.json";
@@ -31,7 +32,7 @@ const EContainer = styled.div`
 `;
 
 const FirstContainer = styled.div`
-width: 95%;
+width: 90%;
 max-width: 700px;
 position: relative;
 `;
@@ -576,7 +577,7 @@ color: #FFFFFF;
 const ChartContainer = styled.div`
 
 /* dark/dark */
-width: 95%;
+width: 90%;
 background: #2B2B34;
 border-radius: 16px;
 `;
@@ -820,7 +821,7 @@ color: #FFFFFF;
 `;
 
 const StrategyContainer = styled.div`
-width: 95%;
+width: 90%;
 max-width: 700px;
 font-family: 'Inter';
 font-style: normal;
@@ -1074,8 +1075,8 @@ console.log("lc in wallet",localStorage.getItem('user'))
         <EContainer style={{height: '38px'}}></EContainer>
         <EContainer style={{width: '314px'}}>
         <WalletContainer style={{display:'flex', flexDirection: 'column', justifyContent:'center', alignItems:'center'}}>
-        <ImageContainer src={MetamaskImg} onClick={metamask} style={{cursor:'pointer', borderRadius: '50%', width: '44px', height: '44px'}}></ImageContainer>
-        MetaMask
+        <ImageContainer src={PetraImg} onClick={metamask} style={{cursor:'pointer', borderRadius: '50%', width: '44px', height: '44px'}}></ImageContainer>
+        <TextInter>Petra Wallet</TextInter>
         </WalletContainer>
         </EContainer>
         </WalletMarketContainer>

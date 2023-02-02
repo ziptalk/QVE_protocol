@@ -201,9 +201,9 @@ useEffect(()=>{
     // if(dataBalance){
         // dataBalance.length
         for (let i = 0; i < DataBalance.length; i++) {
-            tmpData1.push(
-                DataBalance[i]
-            )
+                tmpData1.push(
+                    DataBalance[i]
+                )
             tmpData2.push(
                 DataBtc[i]
             )
@@ -238,7 +238,8 @@ useEffect(()=>{
      } else {
         max = max2;
      }
-
+     max = max + (max * 0.2);
+    //  min = min + (min * 0.1);
         const seriesForm = [
             {
                 data: tmpData1,
@@ -257,6 +258,8 @@ useEffect(()=>{
         
           seriesForm
           )
+
+          if(selectedOption !== 'Arbitrage') {
           setChartOptions({
             
             chart: {
@@ -342,6 +345,94 @@ useEffect(()=>{
                 },
         ]
           })
+        } else {
+            setChartOptions({
+            
+                chart: {
+                    id: 'LineGraph',
+                    width: '100%',
+                    height: '100%',
+                    foreColor: '#B7B8CD',
+                    toolbar: {
+                      show: false
+                    },
+                    dataLabels: {
+                        enabled: false
+                    },
+                  },
+                  grid: {
+                    borderColor: '#5C5E81',
+                    strokeDashArray: 3,
+                  },
+                  legend: {
+                    position: 'top',
+                    //offsetY: -10,
+                    offsetX: 0 
+                  },
+                  onItemClick: {
+                    toggleDataSeries: true
+                },
+                stroke: {
+                    show: true,
+                    curve: 'straight',
+                    lineCap: 'butt',
+                    width: 2,
+                    dashArray: 0,      
+                },
+                onItemHover: {
+                    highlightDataSeries: true
+                },
+                xaxis: {
+                categories: tmpXdata,
+                labels: {
+                    style: {
+                        colors: '#5C5E81',
+                    }
+                },
+                axisTicks: {
+                    show: false,
+                },
+                tickAmount: 5,
+                },
+                yaxis: 
+                [
+                    {
+                        axisTicks: {
+                            show: false,
+                        },
+                        labels: {
+                            style: {
+                                colors: '#5C5E81',
+                            }
+                        },
+                        tooltip: {
+                            enabled: false
+                        },
+                        max: 7,
+                        min: -1,
+                        tickAmount: 5,
+                    },
+                    {
+                        axisTicks: {
+                            show: false,
+                        },
+                        labels: {
+                            style: {
+                                colors: '#5C5E81',
+                            }
+                        },
+                        tooltip: {
+                            enabled: false
+                        },
+                        max: max,
+                        min: min,
+                        tickAmount: 5,
+                        opposite: 'true'
+    
+                    },
+            ]
+              })
+        }
         setXaxis(tmpXdata)
     // }
      setDataBalance(DataBalance)

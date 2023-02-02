@@ -13,6 +13,7 @@ import MainWalletXPetra from "./mainWalletXPetra";
 import AssetConnected from "./assetConnected";
 import Web3 from "web3";
 import {useSwipeable} from 'react-swipeable';
+import logoImg from '../../../assets/logo.png';
 
 const ContainerAll = styled.div`
 height: 100%;
@@ -28,7 +29,7 @@ const EContainer = styled.div`
 `;
 
 const FirstContainer = styled.div`
-width: 95%;
+width: 90%;
 max-width: 414px;
 `;
 
@@ -534,6 +535,10 @@ height: 16px;
 
 `;
 
+const Image = styled.img`
+
+`;
+
 const LineChartContainer = styled.div`
 width: 100%;
 height: max-content;
@@ -564,7 +569,7 @@ opacity: 0;
 `;
 
 const StrategyContainer = styled.div`
-width: 95%;
+width: 90%;
 max-width: 414px;
 font-family: 'Inter';
 font-style: normal;
@@ -721,6 +726,22 @@ color: #FFFFFF;
 
 `;
 
+const Text = styled.div`
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 700;
+font-size: 24px;
+line-height: 30px;
+/* or 125% */
+
+text-align: center;
+letter-spacing: 0.02em;
+
+/* dark/white */
+
+color: #FFFFFF;
+`;
+
 function MainTest() {
     
     /* const [userMe, setUserMe] = useState(''); */
@@ -809,7 +830,7 @@ const fetchThird = async () => {
             ) 
             }, [])
 
-            
+
     const navigate = useNavigate();
     function getKeyByValue(object, value) {
         return object[value];
@@ -917,8 +938,12 @@ else {
     /* console.log(secondPort);
     */
     if (balanceList == '') { 
+       
         return (
-            <EContainer style={{height: '100vh', background: 'black'}}></EContainer>
+            <EContainer style={{height: '100vh', background: '#1B1A1E', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <Image src={logoImg} style={{height: '15%', width: '15%'}}></Image>
+            <Text style={{justifyContent: 'center', alignItems: 'center'}}>Loading...</Text>
+            </EContainer>
         )
     } else {
     return(

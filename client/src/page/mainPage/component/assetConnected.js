@@ -329,9 +329,10 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
     const DepositAptos = async(amount) => {
         console.log("Deposit Aptos");
         const transaction = {
-            // type: "entry_function_aptos_transfer",
-            function: `${0xa76d70d92381add3e4d13cf88b17bde8af5f56b0f940e85a27cb5176e04d4fe5}::qve::publish_balance`,
-            arguments: [],
+            type: "entry_function_aptos_transfer",
+            // function: `"0xa89f72cf5b2d03117c01c3f4358b8ffdc31aa8578b0e484852304a98a3a75d88"::qve_mint::exchange_to_entry`,
+            function: '0xa89f72cf5b2d03117c01c3f4358b8ffdc31aa8578b0e484852304a98a3a75d88::qve_mint::exchange_to_entry',
+            arguments: [amount],
             type_arguments: [],
         };
         window.aptos.signAndSubmitTransaction(transaction).then(() => {

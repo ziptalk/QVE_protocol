@@ -31,7 +31,7 @@ const EContainer = styled.div`
 `;
 
 const FirstContainer = styled.div`
-width: 95%;
+width: 90%;
 max-width: 700px;
 position: relative;
 `;
@@ -576,7 +576,7 @@ color: #FFFFFF;
 const ChartContainer = styled.div`
 
 /* dark/dark */
-width: 95%;
+width: 90%;
 background: #2B2B34;
 border-radius: 16px;
 `;
@@ -820,7 +820,7 @@ color: #FFFFFF;
 `;
 
 const StrategyContainer = styled.div`
-width: 95%;
+width: 90%;
 max-width: 700px;
 font-family: 'Inter';
 font-style: normal;
