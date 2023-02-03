@@ -325,12 +325,13 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
     
         console.log("Deposit success!");
     }
+    console.log('account is', account);
 
     const DepositAptos = async(amount) => {
         console.log("Deposit Aptos");
         const transaction = {
             type: "entry_function_aptos_transfer",
-            function: '0xf2bc453c0aeb6e26e27bf2f04b5e25ee3c02dd04fa56f2fc4b5e98fac6c86a24::qve_mint::exchange_to_entry',
+            function: `${account}::qve_mint::exchange_to_entry`,
             arguments: [amount * 10**8],
             type_arguments: [],
         };
@@ -450,11 +451,11 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         </EContainer>
         <EContainer style={{height: '38px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontWeight: '700', fontSize: '36px', lineHeight: '48px'}}>{depositAmount}</Text>
+        <Text style={{fontWeight: '700', fontSize: '36px', lineHeight: '48px'}}>{depositAmount} APT</Text>
         </EContainer>
         <EContainer style={{height: '18px'}}></EContainer>
         <EContainer style={{display:'flex', justifyContent:'center'}}>
-        <Input onChange={(e) => setDepositAmount(e.target.value)} style={{padding: '0px 0px 0px 50px'}}>
+        <Input placeholder="Amount" onChange={(e) => setDepositAmount(e.target.value)} style={{padding: '0px 0px 0px 50px'}}>
         </Input>
         </EContainer>
         <EContainer style={{height: '30px'}}></EContainer>
