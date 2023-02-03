@@ -331,7 +331,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         console.log("Deposit Aptos");
         const transaction = {
             type: "entry_function_aptos_transfer",
-            function: `${account}::qve_mint::exchange_to_entry`,
+            function: '0xf2bc453c0aeb6e26e27bf2f04b5e25ee3c02dd04fa56f2fc4b5e98fac6c86a24::qve_mint::exchange_to_entry',
             arguments: [amount * 10**8],
             type_arguments: [],
         };
