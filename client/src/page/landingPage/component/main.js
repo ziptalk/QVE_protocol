@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import SwapImage from "../../../assets/SwapImage.png";
+import LandingImg from "../../../assets/LandingImg.png";
 import ArrowDown from "../../../assets/ArrowDown.png";
 import Discord from "../../../assets/Discord.png";
 import Twitter from "../../../assets/Twitter.png";
@@ -88,7 +88,7 @@ function Main (){
         <Text style={{fontWeight: '500'}}>Decentralized</Text>
         <Text>Fund Liquidation</Text>
         <Text>Solution</Text>
-        <Img src={SwapImage} style={{height: '438px', width: '100%'}}></Img>
+        <Img src={LandingImg} style={{height: '438px', width: '100%'}}></Img>
         <EContainer style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
         <Button onClick={MainPage} style={{width: '200px', height: '60px'}}>Invest Now</Button>
         </EContainer>
@@ -124,7 +124,7 @@ function Main (){
         <EContainer style={{height: '67px'}}></EContainer>
         <StrategyContainer>
             <EContainer style={{width: '100%', padding: '20px 27px 20px 27px', display: 'flex', justifyContent: 'space-between'}}>
-                <EContainer style={{display: 'flex', flexDirection: 'column'}}>
+                <EContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
                 <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>Arbitrage</Text>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>APR 12.3%</Text>
                 </EContainer>
@@ -134,8 +134,8 @@ function Main (){
         <EContainer style={{height: '20px'}}></EContainer>
         <StrategyContainer>
         <EContainer style={{width: '100%', padding: '20px 27px 20px 27px', display: 'flex', justifyContent: 'space-between'}}>
-                <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>XX</Text>
+                <EContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>BTC Hedge</Text>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>APR 12.3%</Text>
                 </EContainer>
                 <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Invest</Button>
@@ -144,8 +144,8 @@ function Main (){
         <EContainer style={{height: '20px'}}></EContainer>
         <StrategyContainer>
         <EContainer style={{width: '100%', padding: '20px 27px 20px 27px', display: 'flex', justifyContent: 'space-between'}}>
-                <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>YY</Text>
+                <EContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start'}}>
+                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>Funding Rate</Text>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>APR 12.3%</Text>
                 </EContainer>
                 <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Invest</Button>

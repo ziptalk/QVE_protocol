@@ -1,18 +1,12 @@
 import styled from "styled-components";
 import LineChart from "./Chart";
 import React, { useState, useEffect } from "react";
-import { ReactDOM } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ExcIcon from "../../../assets/Subtract.png";
 import axios from "axios";
-import { Action } from "@remix-run/router";
 import HiddenMessage from "../../../assets/hiddenMessage.png";
-import DropDown from "../dropdown";
-import MainWalletX from "./mainWalletX";
 import MainWalletXPetra from "./mainWalletXPetra";
 import AssetConnected from "./assetConnected";
-import Web3 from "web3";
-import {useSwipeable} from 'react-swipeable';
 import logoImg from '../../../assets/logo.png';
 
 const ContainerAll = styled.div`
@@ -51,160 +45,6 @@ display: flex;
 flex-direction: row;
 align-self: end;
 `;
-const LogoutButton = styled.div`
-position: fixed;
-right: 20px;
-top: 70px;
-z-index: -1;
-box-sizing: border-box;
-
-/* Auto layout */
-
-flex-direction: row;
-justify-content: center;
-align-items: center;
-padding: 10px 29px;
-width: 127px;
-height: 37px;
-
-/* dark/dark */
-
-background: #2B2B34;
-/* dark/label */
-
-border: 1px solid #B7B8CD;
-border-radius: 21px;
-
-/* Inside auto layout */
-
-flex: none;
-order: 1;
-flex-grow: 0;
-
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 14px;
-line-height: 17px;
-/* identical to box height */
-
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const Overview = styled.div`
-width: 116px;
-height: 36px;
-
-/* Heading 2 */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 36px;
-/* identical to box height, or 150% */
-
-letter-spacing: 0.02em;
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const Change = styled.div`
-position: absolute;
-width: 156.8px;
-height: 36px;
-left: 20px;
-top: 734px;
-
-/* Heading 2 */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 36px;
-/* identical to box height, or 150% */
-
-letter-spacing: 0.02em;
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const ChangePNL = styled.div`
-position: absolute;
-width: 28px;
-height: 17px;
-left: 28px;
-top: calc(50% - 17px/2 - 23.5px);
-
-/* Cell */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 14px;
-line-height: 17px;
-/* identical to box height */
-
-
-/* dark/white */
-
-color: #FFFFFF;
-`;
-
-const ChangePNLText = styled.div`
-position: absolute;
-height: 15px;
-left: 28px;
-right: 313px;
-top: 48px;
-
-/* Label Emp */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 15px;
-/* identical to box height */
-
-letter-spacing: 0.02em;
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const ChagePNLTextValue = styled.div`
-position: absolute;
-width: 16px;
-height: 17px;
-left: 28px;
-top: calc(50% - 17px/2 + 20.5px);
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 14px;
-line-height: 17px;
-/* identical to box height */
-
-
-/* down */
-
-color: #0FB63E;
-
-`;
 
 const PnlChangePercent = styled.div`
 display: flex;
@@ -228,182 +68,6 @@ color: #FF395D;
 
 /* Inside auto layout */
 `;
-
-const ChangeSplit = styled.div`
-position: absolute;
-width: 64px;
-height: 0px;
-left: 150px;
-top: 50px;
-
-/* btc */
-
-border: 1px solid #777777;
-transform: rotate(90deg);
-`;
-
-const ChangeMDD = styled.div`
-position: absolute;
-width: 33px;
-height: 17px;
-left: 225px;
-top: calc(50% - 17px/2 - 23.5px);
-
-/* Cell */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 600;
-font-size: 14px;
-line-height: 17px;
-/* identical to box height */
-
-
-/* dark/white */
-
-color: #FFFFFF;
-`;
-
-const ChangeMDDText = styled.div`
-position: absolute;
-height: 15px;
-left: 225px;
-right: 116px;
-top: 48px;
-
-/* Label Emp */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 15px;
-/* identical to box height */
-
-letter-spacing: 0.02em;
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const ChangeMDDTextValue = styled.div`
-position: absolute;
-width: 10px;
-height: 17px;
-left: 225px;
-top: calc(50% - 17px/2 + 20.5px);
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 14px;
-line-height: 17px;
-/* identical to box height */
-
-
-/* up */
-
-color: #FF395D;
-`;
-
-const ChangeMDDPercent = styled.div`
-position: absolute;
-height: 15px;
-left: 307px;
-right: 29px;
-top: 48px;
-
-/* Label Emp */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 12px;
-line-height: 15px;
-/* identical to box height */
-
-letter-spacing: 0.02em;
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const ChangeMDDPercentValue = styled.div`
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 14px;
-line-height: 17px;
-/* identical to box height */
-
-
-/* up */
-
-color: #0FB63E;
-
-
-/* Inside auto layout */
-
-flex-direction: row;
-align-items: center;
-padding: 0px;
-gap: 4px;
-
-position: absolute;
-width: 44px;
-height: 17px;
-left: 307px;
-top: 65px;
-`;
-
-const Turnover = styled.div`
-position: absolute;
-width: 189.65px;
-height: 17.3px;
-left: 20px;
-top: 948px;
-
-/* Heading 2 */
-
-font-family: 'Inter';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 36px;
-/* or 150% */
-
-letter-spacing: 0.02em;
-
-/* dark/label */
-
-color: #B7B8CD;
-`;
-
-const TurnoverValue = styled.div`
-flex-direction: column;
-align-items: flex-start;
-padding: 0px;
-gap: 24px;
-
-position: absolute;
-width: 84px;
-height: 17px;
-left: 20px;
-top: 24px;
-
-
-color: #0FB63E;
-
-`;
-
-
 
 const ChartContainer = styled.div`
 
@@ -503,19 +167,6 @@ font-size: 14px;
 line-height: 17px;
 
 `;
-
-const TurnoverContainer = styled.div`
-position: absolute;
-width: 374px;
-height: 65px;
-left: 20px;
-top: 997px;
-background: #2B2B34;
-border-radius: 16px;
-`;
-
-
-
 const ExcButton = styled.button`
     all: unset;
     width: 16px;
@@ -552,9 +203,6 @@ flex-direction: column;
 margin: auto;
 align-items: center;
 `;
-
-
-
 
 const ExcMsg = styled.img`
 height: 50.58px;
@@ -762,6 +410,7 @@ function MainTest() {
     const[usdtContract, setUsdtContract] = useState(null);
     const[liquidityContract, setLiquidityContract] = useState(null);
     const [preWalletCount, setPreWalletCount] = useState(null);
+    const [aptosBalance, setAptosBalance] = useState(null);
 
 const toggling = () => setIsOpen(!isOpen);
 const onOptionClicked = value => () => {
@@ -1012,7 +661,7 @@ else {
         </EContainer>
         <EContainer style={{height: '52px'}}></EContainer>
         <AssetContainer>
-        {localStorage.getItem('user') === null ? <MainWalletXPetra liquidityContract={liquidityContract} setLiquidityContract={setLiquidityContract} account={account} usdtContract={usdtContract} setUsdtContract={setUsdtContract} stakeContract={stakeContract} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} setAccount={setAccount}></MainWalletXPetra> : <AssetConnected account={account} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} stakeContract={stakeContract} usdtContract={usdtContract} setUsdtContract={setUsdtContract} setAccount={setAccount}></AssetConnected>}
+        {localStorage.getItem('user') === null ? <MainWalletXPetra setAptosBalance={setAptosBalance} liquidityContract={liquidityContract} setLiquidityContract={setLiquidityContract} account={account} usdtContract={usdtContract} setUsdtContract={setUsdtContract} stakeContract={stakeContract} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} setAccount={setAccount}></MainWalletXPetra> : <AssetConnected account={account} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} stakeContract={stakeContract} usdtContract={usdtContract} setUsdtContract={setUsdtContract} setAccount={setAccount} aptosBalance={aptosBalance}></AssetConnected>}
         </AssetContainer>
         <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>
