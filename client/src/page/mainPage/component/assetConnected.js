@@ -330,15 +330,19 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         console.log("Deposit Aptos");
         const transaction = {
             type: "entry_function_aptos_transfer",
-            // function: `"0xa89f72cf5b2d03117c01c3f4358b8ffdc31aa8578b0e484852304a98a3a75d88"::qve_mint::exchange_to_entry`,
-            function: '0xa89f72cf5b2d03117c01c3f4358b8ffdc31aa8578b0e484852304a98a3a75d88::qve_mint::exchange_to_entry',
-            arguments: [amount],
+            function: '0xf2bc453c0aeb6e26e27bf2f04b5e25ee3c02dd04fa56f2fc4b5e98fac6c86a24::qve_mint::exchange_to_entry',
+            arguments: [amount * 10**8],
             type_arguments: [],
         };
         window.aptos.signAndSubmitTransaction(transaction).then(() => {
             console.log("전송 성공");
         })
         //TODO 추후에 staking하는 코드 넣기
+    }
+
+    function Deposit() {
+        DepositAptos(depositAmount);
+        setPreWalletCount(null);
     }
     
     return (
@@ -442,36 +446,36 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         </EContainer>
         <EContainer style={{height: '5px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px'}}>Ethereum</Text>
+        <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px'}}>Aptos</Text>
         </EContainer>
         <EContainer style={{height: '38px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontWeight: '700', fontSize: '36px', lineHeight: '48px'}}>0.01 ETH</Text>
+        <Text style={{fontWeight: '700', fontSize: '36px', lineHeight: '48px'}}>{depositAmount}</Text>
         </EContainer>
         <EContainer style={{height: '18px'}}></EContainer>
         <EContainer style={{display:'flex', justifyContent:'center'}}>
-        <Input onChange={(e) => setDepositAmount(e.target.value)}>
+        <Input onChange={(e) => setDepositAmount(e.target.value)} style={{padding: '0px 0px 0px 50px'}}>
         </Input>
         </EContainer>
         <EContainer style={{height: '30px'}}></EContainer>
         <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
         <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
         <TextContainer style={{fontWeight: '400', fontSize: '11px', lineHeight:'13px'}}>You will receive</TextContainer>
-        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>{depositAmount} MATIC</TextContainer>
+        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>{depositAmount} arbQve</TextContainer>
         </EContainer>
         </EContainer>
         <EContainer style={{height: '10px'}}></EContainer>
         <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
         <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
         <TextContainer style={{fontWeight: '400', fontSize: '11px', lineHeight:'13px'}}>Exchange rate</TextContainer>
-        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>1st MATIC = 1.2345 MATIC</TextContainer>
+        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>1 APT = 1 arbQve</TextContainer>
         </EContainer>
         </EContainer>
         <EContainer style={{height: '53px'}}></EContainer>
         <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
         <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
         <Button onClick={() => {setPreWalletCount(null)}} style={{width: '152px', height: '55px', background: '#5C5E81'}}>Cancel</Button>
-        <Button onClick={() => DepositAptos(depositAmount)} style={{width: '152px', height: '55px', background: '#4A3CE8'}}>Deposit</Button>
+        <Button onClick={() => Deposit()} style={{width: '152px', height: '55px', background: '#4A3CE8'}}>Deposit</Button>
         </EContainer>
         </EContainer>
         </DepositContainer>
