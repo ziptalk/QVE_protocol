@@ -126,14 +126,14 @@ function Main() {
                 <MaxButton>MAX</MaxButton>
             </EContainer>
             <EContainer style={{height: '10px'}}></EContainer>
-            <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',padding: '0px 25px 0px 25px'}}>
+            <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',padding: '0px 0px 0px 2-px'}}>
                 <EContainer style={{display: 'flex', flexDirection: 'row'}}>
                 <Image src={Qve} style={{width: '46px', height: '43px'}}></Image>
                 <EContainer style={{width: '10px'}}></EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                    <Text>QVE</Text>
+        
                     <EContainer style={{height: '4px'}}></EContainer>
-                    <Text>QVE Hub</Text>
+                    <Text>QVE</Text>
                     </EContainer>
                 </EContainer>
                 <Input placeholder="0"></Input>
@@ -147,9 +147,8 @@ function Main() {
                 <Image src={arbQve} style={{width: '46px', height: '43px'}}></Image>
                 <EContainer style={{width: '10px'}}></EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                    <Text>arbQVE</Text>
                     <EContainer style={{height: '4px'}}></EContainer>
-                    <Text>QVE Hub</Text>
+                    <Text>arbQVE</Text>
                 </EContainer>
                 </EContainer>
                 <Input placeholder="0"></Input>

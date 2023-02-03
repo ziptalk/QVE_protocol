@@ -68,7 +68,9 @@ function Stake({setCount}) {
 
 
     return (
-        <>
+        <EContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <EContainer style={{height: '132px'}}></EContainer>
+        <EContainer style={{display: 'flex', flexDirection: 'column', padding: '0px 20px 0px 20px', position: 'relative', width: '90%', maxWidth: '414px'}}>
         <EContainer style={{height: '178px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'column', padding: '0px 20px 0px 20px'}}>
         <StakeContainer>
@@ -88,7 +90,7 @@ function Stake({setCount}) {
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent:'flex-end'}}>
                         <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#FFFFFF'}}>Available</Text>
                         <EContainer style={{width: '5px'}}></EContainer>
-                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 ATOM</Text>
+                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 arbQVE</Text>
                     </EContainer>
             </DataContainer>
             <EContainer style={{height: '15px'}}/>
@@ -97,7 +99,8 @@ function Stake({setCount}) {
         </EContainer>
         <Image style={{height: '100%', width: '100%'}} src={BackgroundImage}/>
         <EContainer style={{height: '52px'}}/>
-        </>
+        </EContainer>
+        </EContainer>
     );
 }
 

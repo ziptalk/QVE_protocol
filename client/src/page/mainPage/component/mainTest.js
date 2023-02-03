@@ -586,8 +586,16 @@ else {
     console.log('selectedOption', selectedOption); */
     /* console.log(secondPort);
     */
+
     if (balanceList == '') { 
-       
+        /* function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+sleep(3000); */
         return (
             <EContainer style={{height: '100vh', background: '#1B1A1E', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
             <Image src={logoImg} style={{height: '15%', width: '15%'}}></Image>
