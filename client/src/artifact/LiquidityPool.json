@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.17+commit.8df45f5f"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -125,6 +125,44 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "getSwapAtoBReturnAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "getSwapBtoAReturnAmount",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "getTotalA",
 				"outputs": [
@@ -231,7 +269,7 @@
 		"compilationTarget": {
 			"contracts/DEPOSIT/LiquidityPool.sol": "LiquidityPool"
 		},
-		"evmVersion": "london",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -244,11 +282,11 @@
 	},
 	"sources": {
 		"contracts/DEPOSIT/LiquidityPool.sol": {
-			"keccak256": "0x666485de97f69ce0c0c6d9cf254fc419daf0bd2bc913a066f049e0253ce6cfe8",
+			"keccak256": "0x17b2bd2aec9af3bcac1d25c940d7bde92fc0829e1e53fa2bd35928a450b4cb30",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e383addda9a62da947a9a62d987c7fc17d3ea37515b9cbdd7a1433798c0531cc",
-				"dweb:/ipfs/QmVhpUkKQQp9qfqoTU1egZC7xEy6Svh6GoXyhgYm4S9XS2"
+				"bzz-raw://c761d7ecb6b68dbd17bb602d92e465dfa132a4a3b8c42973f17462c5fd3edb14",
+				"dweb:/ipfs/QmdedH1xTwmR7rBGuxcTe4QAL5GyWb1Hi5jrMjuQ4GgbQ5"
 			]
 		}
 	},

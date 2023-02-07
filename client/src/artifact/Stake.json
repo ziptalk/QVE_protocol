@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.17+commit.8df45f5f"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -8,8 +8,13 @@
 			{
 				"inputs": [
 					{
-						"internalType": "contract IERC20",
-						"name": "_usdt",
+						"internalType": "address",
+						"name": "_arbQVE",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_Qve",
 						"type": "address"
 					}
 				],
@@ -19,12 +24,88 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "Qve_stake",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "Qve_unstake",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "arbQVE_stake",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "arbQVE_unstake",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "_amount",
 						"type": "uint256"
 					}
 				],
-				"name": "deposit",
+				"name": "stake_Qve",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -32,12 +113,19 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address",
-						"name": "_account",
-						"type": "address"
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
 					}
 				],
-				"name": "getBalance",
+				"name": "stake_arbQVE",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalDeduction_Qve",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -50,12 +138,64 @@
 			},
 			{
 				"inputs": [],
-				"name": "usdt",
+				"name": "totalDeduction_arbQVE",
 				"outputs": [
 					{
-						"internalType": "contract IERC20",
+						"internalType": "uint256",
 						"name": "",
-						"type": "address"
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalStaked_Qve",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalStaked_arbQVE",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalSupply_Qve",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalSupply_arbQVE",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -69,7 +209,20 @@
 						"type": "uint256"
 					}
 				],
-				"name": "withdraw",
+				"name": "unStake_Qve",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "unStake_arbQVE",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -88,9 +241,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DEPOSIT/Staking.sol": "Staking"
+			"contracts/DEPOSIT/Stake.sol": "Stake"
 		},
-		"evmVersion": "london",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -102,12 +255,60 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/DEPOSIT/Staking.sol": {
-			"keccak256": "0x31d88dce92dfb1b14d99ed271781789d0fc90d54b193b564adc7336f1fbe4df7",
+		"@openzeppelin/contracts/token/ERC20/ERC20.sol": {
+			"keccak256": "0x4ffc0547c02ad22925310c585c0f166f8759e2648a09e9b489100c42f15dd98d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c5c90d94cd22f55ffb4a7238590e3b6e6885036d0a5d4debf7e73e1070cd9f62",
-				"dweb:/ipfs/QmQfQ1XRCv64WfEkNmgQGK2CsGrqwpMXLgpfs9AMBNvwHW"
+				"bzz-raw://15f52f51413a9de1ff191e2f6367c62178e1df7806d7880fe857a98b0b66253d",
+				"dweb:/ipfs/QmaQG1fwfgUt5E9nu2cccFiV47B2V78MM1tCy1qB7n4MsH"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x9750c6b834f7b43000631af5cc30001c5f547b3ceb3635488f140f60e897ea6b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5a7d5b1ef5d8d5889ad2ed89d8619c09383b80b72ab226e0fe7bde1636481e34",
+				"dweb:/ipfs/QmebXWgtEfumQGBdVeM6c71McLixYXQP5Bk6kKXuoY4Bmr"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+			"keccak256": "0x8de418a5503946cabe331f35fe242d3201a73f67f77aaeb7110acb1f30423aca",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5a376d3dda2cb70536c0a45c208b29b34ac560c4cb4f513a42079f96ba47d2dd",
+				"dweb:/ipfs/QmZQg6gn1sUpM8wHzwNvSnihumUCAhxD119MpXeKp8B9s8"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
+				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
+			]
+		},
+		"contracts/DEPOSIT/Mint_Qve.sol": {
+			"keccak256": "0xe73c8403535f7c5a3ff01bafae91f7b8b029bd0d5fba26634e632736db00fb16",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a88068cdef6be0de6c3c2f8eab8dcc4776d2e8a0f79f17c07b0031d56c60a33e",
+				"dweb:/ipfs/QmZfzuiBy9etMAwReKb8XZipXN9e95HH4t3UrDEY5KuVFf"
+			]
+		},
+		"contracts/DEPOSIT/Mint_arbQVE.sol": {
+			"keccak256": "0x3f50de58d5e300b7f95d42eee49871bf1773dc138eb1d95a151838beea192eed",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e64eeff0f696c6cf959323fe6c3d5c3e294b299178781d057208c8ac506cd7b4",
+				"dweb:/ipfs/QmXEwcxdksNr9ZybJLqdfUjRw3jZ79Y1zCbEfd3SV5uKCS"
+			]
+		},
+		"contracts/DEPOSIT/Stake.sol": {
+			"keccak256": "0x7a2cad65ed7da272063369d2183cb6575ead12fc52e6c6c951062e5570922617",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9b12a52137dab1c74f4b0d9ee7c804ae4186c961b2cbf35d0165e1c26a28676f",
+				"dweb:/ipfs/QmckpMrfSMEQXUUfdeRqYG83BvNcpDb3HJfSsUVHMzXWrQ"
 			]
 		}
 	},

@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import XImg from "../../assets/X_Icon.png";
 import BackgroundImage from "../../assets/SwapImage.png";
+import Web3 from "web3";
+import QveArtifact from "../../artifact/Qve.json";
+import stakeArtifact from "../../artifact/Stake.json";
+import { useState } from "react";
 const EContainer = styled.div`
 
 `;
@@ -64,7 +68,20 @@ border-radius: 16px;
 cursor: pointer;
 `;
 
-function Stake({setCount}) {
+function StakeQve({setCount}) {
+    const [amount, setAmount] = useState('');
+    const web3 = new Web3(window.ethereum);
+    let account = JSON.parse(localStorage.getItem('user'));
+    const StakeAddress = "0xD0dF443F4E73006B1b6009eE5fdB1df9E423fF94";
+    const QveAddress = "0x7c10E21A952C1979f12aE63bCA789DA3F9B2fE20"
+    const QveContract = new web3.eth.Contract(QveArtifact.output.abi, QveAddress);
+    const stakeContract = new web3.eth.Contract(stakeArtifact.output.abi, StakeAddress);
+
+    function stakeQve() {
+        QveContract.methods.approve(StakeAddress, amount).send({ from: account });
+
+        stakeContract.methods.stake_Qve(amount).send({ from: account });
+    }
 
 
     return (
@@ -76,25 +93,25 @@ function Stake({setCount}) {
         <StakeContainer>
             <EContainer style={{height: '30px'}}></EContainer>
             <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>Staking Pool</Text>
-            <Image style={{width: '19px', height: '19px', position: 'absolute', top: '31px', right:'31px', cursor: 'pointer'}} src={XImg} onClick = {() => {setCount(null)}}></Image>
+            <Image style={{width: '19px', height: '19px', position: 'absolute', top: '31px', right:'31px', cursor: 'pointer'}} src={XImg} onClick={() => setCount(0)}></Image>
             <EContainer style={{height: '41px'}}></EContainer>
             <DataContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>arbQVE</Text>
+                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>QVE</Text>
                         <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>12.3%</Text>
                     </EContainer>
-                    <Input placeholder="Amount"></Input>
+                    <Input placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
                 </EContainer>
                 <EContainer style={{height: '5px'}} />
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent:'flex-end'}}>
                         <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#FFFFFF'}}>Available</Text>
                         <EContainer style={{width: '5px'}}></EContainer>
-                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 arbQVE</Text>
+                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 QVE</Text>
                     </EContainer>
             </DataContainer>
             <EContainer style={{height: '15px'}}/>
-            <Button>Amount is Empty</Button>
+            <Button onClick={() => stakeQve()}>Amount is Empty</Button>
         </StakeContainer>
         </EContainer>
         <Image style={{height: '100%', width: '100%'}} src={BackgroundImage}/>
@@ -104,4 +121,4 @@ function Stake({setCount}) {
     );
 }
 
-export default Stake;
+export default StakeQve;

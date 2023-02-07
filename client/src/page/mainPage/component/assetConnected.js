@@ -10,6 +10,9 @@ import Favicon from "../../../assets/Favicon.png";
 import { useNavigate } from "react-router-dom";
 import AptosLogo from "../../../assets/AptosLogo.png";
 import { Types, AptosClient, CoinClient } from 'aptos';
+import arbQVEArtifact from "../../../artifact/ArbQVE.json";
+import qveArtifact from "../../../artifact/Qve.json";
+import Web3 from "web3";
 const Asset = styled.div`
 
 /* Heading 2 */
@@ -141,21 +144,27 @@ justify-content: space-between;
 
 function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStakeContract, account, stakeContract, usdtContract, setUsdtContract, liquidityContract, setLiquidityContract, aptosBalance}) {
     // console.log('Balance:', aptosWeb3.getBalance(account));
-    const stakeContractAddress = "0xe2899bddFD890e320e643044c6b95B9B0b84157A";
+    const web3 = new Web3(window.ethereum);
+    const stakeContractAddress = "0xF1EbEC1689b771464DB6258E48E200A2367C49eB";
+    const arbQVEContractAddress = "0x5258C637dF12c5ED1F244b955D57737DE22e1fAf";
+    const qveContractAddress = "0xE01dcAE6E3e5E901f1B3B218ef8390Dd60f6c851";
+    const arbQVEContract = new web3.eth.Contract(arbQVEArtifact.output.abi, arbQVEContractAddress);
+    const qveContract = new web3.eth.Contract(qveArtifact.output.abi, qveContractAddress);
     const [depositAmount, setDepositAmount] = useState(0);
     const [data, setData] = useState('');
     const navigate = useNavigate();
+    account = JSON.parse(localStorage.getItem('user'));
     
     // // client.getAccountResources(account).then(setData);
     // console.log("CHECK BALANCE", client.checkBalance(account));
     // console.log("data is", data);
-    function deposit() {
+    function DepositMetamask() {
         // Approve the transfer of the specified amount of USDT from the current account to the contract
         usdtContract.methods.approve(stakeContractAddress, depositAmount).send({ from: account });
         
         // Deposit the approved amount of USDT to the contract
         stakeContract.methods.deposit(depositAmount).send({ from: account });
-    
+
         console.log("Deposit success!");
     }
     console.log('account is', account);
@@ -175,7 +184,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
     }
 
     function Deposit() {
-        DepositAptos(depositAmount);
+        DepositMetamask();
         setPreWalletCount(null);
     }
     console.log("APTOS BALANCE IS", aptosBalance);

@@ -6,6 +6,7 @@ import ExcIcon from "../../../assets/Subtract.png";
 import axios from "axios";
 import HiddenMessage from "../../../assets/hiddenMessage.png";
 import MainWalletXPetra from "./mainWalletXPetra";
+import MainWalletX from "./mainWalletX";
 import AssetConnected from "./assetConnected";
 import logoImg from '../../../assets/logo.png';
 
@@ -669,7 +670,7 @@ sleep(3000); */
         </EContainer>
         <EContainer style={{height: '52px'}}></EContainer>
         <AssetContainer>
-        {localStorage.getItem('user') === null ? <MainWalletXPetra setAptosBalance={setAptosBalance} liquidityContract={liquidityContract} setLiquidityContract={setLiquidityContract} account={account} usdtContract={usdtContract} setUsdtContract={setUsdtContract} stakeContract={stakeContract} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} setAccount={setAccount}></MainWalletXPetra> : <AssetConnected account={account} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} stakeContract={stakeContract} usdtContract={usdtContract} setUsdtContract={setUsdtContract} setAccount={setAccount} aptosBalance={aptosBalance}></AssetConnected>}
+        {localStorage.getItem('user') === null ? <MainWalletX setAptosBalance={setAptosBalance} liquidityContract={liquidityContract} setLiquidityContract={setLiquidityContract} account={account} usdtContract={usdtContract} setUsdtContract={setUsdtContract} stakeContract={stakeContract} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} setAccount={setAccount}></MainWalletX> : <AssetConnected account={account} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} stakeContract={stakeContract} usdtContract={usdtContract} setUsdtContract={setUsdtContract} setAccount={setAccount} aptosBalance={aptosBalance}></AssetConnected>}
         </AssetContainer>
         <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>

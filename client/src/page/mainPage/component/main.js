@@ -802,7 +802,7 @@ function Main() {
     const [pnl, setPnl] = useState('');
     const totalInitialInvestment = 79300;
 
-const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
+    const parsedData = JSON.parse(localStorage.getItem("user")).access_token;
 
 
 const fetchUserMe = async () => {

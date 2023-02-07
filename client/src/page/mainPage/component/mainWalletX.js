@@ -5,7 +5,7 @@ import PreWalletImg from "../../../assets/PreWalletImg.png";
 import Web3 from "web3";
 import XImg from "../../../assets/X_Icon.png";
 import MetamaskImg from "../../../assets/Metamask.png";
-import StakeArtifact from "../../../artifact/Stake.json";
+import DepositArtifact from "../../../artifact/Deposit.json";
 import UsdtArtifact from "../../../artifact/Usdt.json";
 
 const EContainer = styled.div`
@@ -205,8 +205,8 @@ border-radius: 16px;
 
 function MainWalletX({preWalletCount, setPreWalletCount, setAccount, setStakeContract, account, stakeContract, usdtContract, setUsdtContract, liquidityContract, setLiquidityContract}) {
     const web3 = new Web3(window.ethereum);
-    const stakeContractAddress = "0xe2899bddFD890e320e643044c6b95B9B0b84157A";
-    const usdtAddress= "0x0fC5025C764cE34df352757e82f7B5c4Df39A836";
+    const depositContractAddress = "0xF1EbEC1689b771464DB6258E48E200A2367C49eB";
+    const usdtAddress= "0x0220a9C442218B281Cd866D84C9194Db9fbDf673";
     const AddLiquidityAddress = "0xf8e81D47203A594245E36C48e151709F0C19fBe8";
     let Usdtcontract = null;
 
@@ -215,7 +215,7 @@ function MainWalletX({preWalletCount, setPreWalletCount, setAccount, setStakeCon
         const balance = await web3.eth.getBalance(accounts[0]);
         setAccount(accounts[0]);
         localStorage.setItem("user", JSON.stringify(accounts[0]));
-        const Stakecontract = new web3.eth.Contract(StakeArtifact.output.abi, stakeContractAddress);
+        const Stakecontract = new web3.eth.Contract(DepositArtifact.output.abi, depositContractAddress);
         console.log("STAKECONTRACT", Stakecontract);
         Usdtcontract = new web3.eth.Contract(UsdtArtifact.output.abi, usdtAddress);
         //const LiquidityContract = new web3.eth.Contract(LiquidityArtifact , AddLiquidityAddress);

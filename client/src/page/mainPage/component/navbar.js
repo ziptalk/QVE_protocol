@@ -7,7 +7,6 @@ import PortfolioImg from "../../../assets/PortfolioImg.png";
 import StakeImg from "../../../assets/Staking.png";
 import PoolImg from "../../../assets/Liquidity.png";
 import SwapImg from "../../../assets/SwapImg.png";
-
 import Web3 from "web3";
 const MenuBar = styled.img`
 width: 24px;
@@ -90,7 +89,8 @@ function Navbar () {
     const options = ["Deposit", "Portfolios", "Swap", "Pool", "Stake", "Disconnect"];
     let option = [];
     const toggling = () => setIsOpen(!isOpen);
-    
+    const web3 = new Web3(window.ethereum);
+
     for (let i = 0; i < options.length; i++) {
         if (i === options.length - 1) {
             if (localStorage.getItem('user') == null) {
@@ -104,7 +104,7 @@ function Navbar () {
         }
     }
     console.log('option is', option);
-    const web3 = new Web3(window.ethereum);
+
 
     const onOptionClicked = value => () => {
     setSelectedOption(value);
@@ -147,7 +147,6 @@ function Navbar () {
 
     if (selectedOption == "Disconnect") {
         localStorage.removeItem("user");
-        wallet.disconnect();
         window.location.reload();
         
     }

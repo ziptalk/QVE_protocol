@@ -2,8 +2,8 @@ import styled from "styled-components";
 import XIcon from "../../assets/X_Icon.png";
 import { useState } from "react";
 import LiquidityArtifact from "../../artifact/LiquidityPool.json";
-import AArtifact from "../../artifact/A.json";
-import BArtifact from "../../artifact/B.json";
+import QveArtifact from "../../artifact/Qve.json";
+import arbQveArtifact from "../../artifact/ArbQVE.json";
 import Web3 from "web3";
 const Container = styled.div`
 background: #2B2B34;
@@ -74,15 +74,18 @@ function AddLiquidity({setLiquidityCount}) {
     const web3 = new Web3(window.ethereum);
     let account = JSON.parse(localStorage.getItem('user'));
     
-    const AddLiquidityAddress = "0xB902803EdD834E1a334C8B3Fb1e5d69DDbC2C5bC";
+    const AddLiquidityAddress = "0x38f36a2fbAEFe46a00623e1b6245ca21A7F70895";
+    const QveAddress = "0x7c10E21A952C1979f12aE63bCA789DA3F9B2fE20";
+    const arbQveAddress = "0x25d4778f9909b0a9819136B642f72c5388c0A534";
     const LiquidityContract = new web3.eth.Contract(LiquidityArtifact.output.abi , AddLiquidityAddress);
-    const ATokenContract = new web3.eth.Contract(AArtifact.output.abi , "0xA1345f013eAc0165489218B44eaE53f0d8AF052A");
-    const BTokenContract = new web3.eth.Contract(BArtifact.output.abi , "0x4E1344Bac17038aD167717643dB9d4D44383cD54");
+    const QveContract = new web3.eth.Contract(QveArtifact.output.abi, QveAddress);
+    const arbQveContract = new web3.eth.Contract(arbQveArtifact.output.abi, arbQveAddress);
+    account  = JSON.parse(localStorage.getItem('user'));
     function AddingLiquidity(amount) {
 
-        ATokenContract.methods.approve(AddLiquidityAddress, amount).send({ from: account });
+        QveContract.methods.approve(AddLiquidityAddress, amount).send({ from: account });;
 
-        BTokenContract.methods.approve(AddLiquidityAddress, amount).send({ from: account });
+        arbQveContract.methods.approve(AddLiquidityAddress, amount).send({ from: account });
         
         LiquidityContract.methods.addLiquidity(amount).send({ from: account });
     }

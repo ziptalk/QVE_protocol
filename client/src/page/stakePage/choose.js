@@ -75,7 +75,7 @@ function Choose({setCount}) {
                     <Image src={arbQve} style={{width: '54.72px', height: '57.53px'}}></Image>
                     <EContainer style={{width: '20px'}}></EContainer>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                        <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', color: '#FFFFFF'}}>QVE</Text>
+                        <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', color: '#FFFFFF'}}>arbQVE</Text>
                         <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px', color: '#5C5E81'}}>Staking Pool</Text>
                     </EContainer>
                     <EContainer style={{position: 'absolute', right: '47px', display: 'flex', flexDirection: 'column', height: '57.53px', justifyContent: 'space-evenly'}}>
@@ -84,7 +84,7 @@ function Choose({setCount}) {
                     </EContainer>
                 </EContainer>
                 <EContainer style={{height: '32px'}}></EContainer>
-                <Button onClick={() => {setCount(1)}}>Stake</Button>
+                <Button onClick={() => {setCount(2)}}>Stake</Button>
             </StakeContainer>
 
         </EContainer>
