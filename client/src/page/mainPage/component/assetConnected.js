@@ -147,7 +147,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
     const web3 = new Web3(window.ethereum);
     const stakeContractAddress = "0xF1EbEC1689b771464DB6258E48E200A2367C49eB";
     const arbQVEContractAddress = "0x5258C637dF12c5ED1F244b955D57737DE22e1fAf";
-    const qveContractAddress = "0xE01dcAE6E3e5E901f1B3B218ef8390Dd60f6c851";
+    const qveContractAddress = "0x7c10E21A952C1979f12aE63bCA789DA3F9B2fE20";
     const arbQVEContract = new web3.eth.Contract(arbQVEArtifact.output.abi, arbQVEContractAddress);
     const qveContract = new web3.eth.Contract(qveArtifact.output.abi, qveContractAddress);
     const [depositAmount, setDepositAmount] = useState(0);
@@ -165,6 +165,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         // Deposit the approved amount of USDT to the contract
         stakeContract.methods.deposit(depositAmount).send({ from: account });
 
+        // qveContract.methods.mintToken(account,account,depositAmount).send({ from : account });
         console.log("Deposit success!");
     }
     console.log('account is', account);

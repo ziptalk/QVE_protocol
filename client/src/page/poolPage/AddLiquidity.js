@@ -72,6 +72,10 @@ const Image = styled.img`
 function AddLiquidity({setLiquidityCount}) {
     const [token, setToken] = useState(0);
     const web3 = new Web3(window.ethereum);
+    const [amount, setAmount] = useState(1);
+    const [qvePrice, setQvePrice] = useState(0);
+    const [a, setA] = useState(0);
+    const [b, setB] = useState(0);
     let account = JSON.parse(localStorage.getItem('user'));
     
     const AddLiquidityAddress = "0x38f36a2fbAEFe46a00623e1b6245ca21A7F70895";
@@ -88,8 +92,33 @@ function AddLiquidity({setLiquidityCount}) {
         arbQveContract.methods.approve(AddLiquidityAddress, amount).send({ from: account });
         
         LiquidityContract.methods.addLiquidity(amount).send({ from: account });
-    }
 
+        
+    }
+    let getQVEPoolData = LiquidityContract.methods.getSwapAtoBReturnAmount(amount).call();
+    let QvePrice = 0;
+   
+    getQVEPoolData.then((result) => {
+        console.log("RESULT", result / 10**18);
+        setQvePrice(result / 10**18);
+      });
+      console.log('amount', amount)
+    let getTTotalA = LiquidityContract.methods.getTotalA().call();
+    getTTotalA.then((result)=> {
+        console.log("RESULTA", result / 10 ** 18);
+        setA(result / 10 ** 18);
+      });
+
+      let getTTotalB = LiquidityContract.methods.getTotalB().call();
+    getTTotalB.then((result)=> {
+        console.log("RESULTB", result / 10 ** 18);
+        setB(result / 10 ** 18);
+      });
+
+      console.log("IIIIIIII", LiquidityContract.methods)
+      let OutputB = (amount/10**18) * (b)/a;
+      console.log("OUPUTTT", (amount/10**18) * (b)/a);
+    //   let getTotalArb = LiquidityContract.methods. 
     return(
         <Container style={{position: 'relative'}}>
 
@@ -102,25 +131,6 @@ function AddLiquidity({setLiquidityCount}) {
             <QveArbContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', padding:'22px 12px 18px 23px', justifyContent:'space-between'}}>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>QVE</Text>
-                        <EContainer style={{height: '8px'}}></EContainer>
-                        <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>50%</Text>
-                    </EContainer>
-                <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                    <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent:'flex-end'}}>
-                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#FFFFFF'}}>Available</Text>
-                        <EContainer style={{width: '5px'}}></EContainer>
-                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 ATOM</Text>
-                    </EContainer>
-                    <EContainer style={{height: '4px'}}></EContainer>
-                    <Input value={token} onChange={(e) => setToken(e.target.value)}></Input>
-                </EContainer>
-                </EContainer>
-            </QveArbContainer>
-            <EContainer style={{height: '14px'}}></EContainer>
-            <QveArbContainer>
-            <EContainer style={{display: 'flex', flexDirection: 'row', padding:'22px 12px 18px 23px', justifyContent:'space-between'}}>
-                    <EContainer style={{display: 'flex', flexDirection: 'column'}}>
                         <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>arbQVE</Text>
                         <EContainer style={{height: '8px'}}></EContainer>
                         <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>50%</Text>
@@ -132,12 +142,31 @@ function AddLiquidity({setLiquidityCount}) {
                         <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 ATOM</Text>
                     </EContainer>
                     <EContainer style={{height: '4px'}}></EContainer>
-                    <Input value={token}></Input>
+                    <Input value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
+                </EContainer>
+                </EContainer>
+            </QveArbContainer>
+            <EContainer style={{height: '14px'}}></EContainer>
+            <QveArbContainer>
+            <EContainer style={{display: 'flex', flexDirection: 'row', padding:'22px 12px 18px 23px', justifyContent:'space-between'}}>
+                    <EContainer style={{display: 'flex', flexDirection: 'column'}}>
+                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>QVE</Text>
+                        <EContainer style={{height: '8px'}}></EContainer>
+                        <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>50%</Text>
+                    </EContainer>
+                <EContainer style={{display: 'flex', flexDirection: 'column'}}>
+                    <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent:'flex-end'}}>
+                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#FFFFFF'}}>Available</Text>
+                        <EContainer style={{width: '5px'}}></EContainer>
+                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 ATOM</Text>
+                    </EContainer>
+                    <EContainer style={{height: '4px'}}></EContainer>
+                    <Input value={OutputB/2+0.2417}></Input>
                 </EContainer>
                 </EContainer>
             </QveArbContainer>
             <EContainer style={{height: '20px'}}></EContainer>
-            <Button onClick={() => AddingLiquidity(token)}>Amount is Empty</Button>
+            <Button onClick={() => AddingLiquidity(amount)}>Amount is Empty</Button>
             <EContainer style={{height: '30px'}}/>
         </Container>
     );

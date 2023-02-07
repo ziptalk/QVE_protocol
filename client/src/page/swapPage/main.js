@@ -182,7 +182,7 @@ function Main() {
         <Text style={{fontWeight: '400', fontSize: '11px', lineHeight: '13px', paddingLeft:'35px'}}>1 QVE ≈ 12.345678 arbQVE</Text>
         <EContainer style={{height: '20px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-        <Button onClick={() => SwapAtoB()}>Swap</Button>
+        <Button onClick={() => SwapBtoA()}>Swap</Button>
         </EContainer>
         <BackgroudImage src={SwapImage}></BackgroudImage>
     </SwapContainer>
