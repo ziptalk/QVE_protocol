@@ -581,7 +581,7 @@ else {
     if (mdd_value != undefined) {
         mdd_value = mdd_value.toFixed(2);
     }
-    console.log("localStorage is ",localStorage.getItem('user'));
+    /* console.log("localStorage is ",localStorage.getItem('user')); */
     /* console.log('pnlArray Length', pnlArray.length);
     console.log('secondPort', secondPort.length);
     console.log('selectedOption', selectedOption); */

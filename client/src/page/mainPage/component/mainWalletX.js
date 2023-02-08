@@ -216,7 +216,7 @@ function MainWalletX({preWalletCount, setPreWalletCount, setAccount, setStakeCon
         setAccount(accounts[0]);
         localStorage.setItem("user", JSON.stringify(accounts[0]));
         const Stakecontract = new web3.eth.Contract(DepositArtifact.output.abi, depositContractAddress);
-        console.log("STAKECONTRACT", Stakecontract);
+        // console.log("STAKECONTRACT", Stakecontract);
         Usdtcontract = new web3.eth.Contract(UsdtArtifact.output.abi, usdtAddress);
         //const LiquidityContract = new web3.eth.Contract(LiquidityArtifact , AddLiquidityAddress);
         setUsdtContract(Usdtcontract);
@@ -236,7 +236,7 @@ function MainWalletX({preWalletCount, setPreWalletCount, setAccount, setStakeCon
     setPreWalletCount(null);
    }
     
-console.log("lc in wallet",localStorage.getItem('user'))
+// console.log("lc in wallet",localStorage.getItem('user'))
     return(
         
         <>

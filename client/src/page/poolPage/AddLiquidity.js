@@ -99,25 +99,25 @@ function AddLiquidity({setLiquidityCount}) {
     let QvePrice = 0;
    
     getQVEPoolData.then((result) => {
-        console.log("RESULT", result / 10**18);
+        // console.log("RESULT", result / 10**18);
         setQvePrice(result / 10**18);
       });
-      console.log('amount', amount)
+    //   console.log('amount', amount)
     let getTTotalA = LiquidityContract.methods.getTotalA().call();
     getTTotalA.then((result)=> {
-        console.log("RESULTA", result / 10 ** 18);
+        // console.log("RESULTA", result / 10 ** 18);
         setA(result / 10 ** 18);
       });
 
       let getTTotalB = LiquidityContract.methods.getTotalB().call();
     getTTotalB.then((result)=> {
-        console.log("RESULTB", result / 10 ** 18);
+        // console.log("RESULTB", result / 10 ** 18);
         setB(result / 10 ** 18);
       });
 
-      console.log("IIIIIIII", LiquidityContract.methods)
+    //   console.log("IIIIIIII", LiquidityContract.methods)
       let OutputB = (amount/10**18) * (b)/a;
-      console.log("OUPUTTT", (amount/10**18) * (b)/a);
+    //   console.log("OUPUTTT", (amount/10**18) * (b)/a);
     //   let getTotalArb = LiquidityContract.methods. 
     return(
         <Container style={{position: 'relative'}}>

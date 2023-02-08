@@ -5,10 +5,9 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-padding: 40px 20px;
 gap: 10px;
 width: 100% ;
-height: 90px;
+height: 135px;
 background: #292932;
 `;
 

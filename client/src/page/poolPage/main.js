@@ -22,7 +22,7 @@ const BackgroundImage = styled.img`
 function Main() {
     const [liquidityCount, setLiquidityCount] = useState(0);
     const [account, setAccount] = useState(null);
-    console.log(liquidityCount)
+    // console.log(liquidityCount)
     return (
     <Background>
       <EContainer style={{height: '120px'}}></EContainer>

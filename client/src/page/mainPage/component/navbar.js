@@ -100,10 +100,10 @@ function Navbar () {
             }
         } else {
         option.push(options[i]);
-        console.log('push is happening');
+        // console.log('push is happening');
         }
     }
-    console.log('option is', option);
+    // console.log('option is', option);
 
 
     const onOptionClicked = value => () => {
@@ -155,8 +155,8 @@ function Navbar () {
         localStorage.setItem("user", JSON.stringify(accounts[0]));
     }
   }
-  console.log("Account iSSSSSSS", localStorage.getItem("user"));
-  console.log("SELECTED OPTION", selectedOption);
+  // console.log("Account iSSSSSSS", localStorage.getItem("user"));
+  // console.log("SELECTED OPTION", selectedOption);
   useEffect(() => {
     PageSelected();
   }, [selectedOption])

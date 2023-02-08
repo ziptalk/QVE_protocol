@@ -12,6 +12,7 @@ import AptosLogo from "../../../assets/AptosLogo.png";
 import { Types, AptosClient, CoinClient } from 'aptos';
 import arbQVEArtifact from "../../../artifact/ArbQVE.json";
 import qveArtifact from "../../../artifact/Qve.json";
+import UsdtIcon from "../../../assets/UsdtIcon.png";
 import Web3 from "web3";
 const Asset = styled.div`
 
@@ -166,12 +167,12 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         stakeContract.methods.deposit(depositAmount).send({ from: account });
 
         // qveContract.methods.mintToken(account,account,depositAmount).send({ from : account });
-        console.log("Deposit success!");
+        // console.log("Deposit success!");
     }
-    console.log('account is', account);
+    // console.log('account is', account);
 
     const DepositAptos = async(amount) => {
-        console.log("Deposit Aptos");
+        // console.log("Deposit Aptos");
         const transaction = {
             type: "entry_function_aptos_transfer",
             function: '0xf2bc453c0aeb6e26e27bf2f04b5e25ee3c02dd04fa56f2fc4b5e98fac6c86a24::qve_mint::exchange_to_entry',
@@ -179,7 +180,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
             type_arguments: [],
         };
         window.aptos.signAndSubmitTransaction(transaction).then(() => {
-            console.log("전송 성공");
+            // console.log("전송 성공");
         })
         //TODO 추후에 staking하는 코드 넣기
     }
@@ -188,7 +189,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         DepositMetamask();
         setPreWalletCount(null);
     }
-    console.log("APTOS BALANCE IS", aptosBalance);
+    // console.log("APTOS BALANCE IS", aptosBalance);
     return (
         <EContainer>
             <Asset>My Asset</Asset>
@@ -202,13 +203,13 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
                             <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Deposit</Text>
                         </EContainer>
                         <EContainer style={{height: '3px'}}/>
-                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>100 APT</Text>
+                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>100 SOL</Text>
                     </EContainer>
                     <Button style={{width: '83px', height: '27px'}} onClick={() => setPreWalletCount(3)}>Deposit</Button>
                 </EContainer>
                 <EContainer style={{height: '45px'}}></EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '0px 25px 0px 25px'}}>
-                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>10 arbQve</Text>
+                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>10 arbQVE</Text>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
                         <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#0FB63E'}}>+ $ 100 (↑10%)</Text>
                         <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px', color: '#FFFFFF', display: 'flex', justifyContent:'flex-end'}}>= $ 1,100</Text>
@@ -290,18 +291,18 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         </EContainer>
         <EContainer style={{height: '5px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px'}}>Aptos</Text>
+        <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px'}}>Neon EVM Devnet</Text>
         </EContainer>
         <EContainer style={{height: '38px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontWeight: '700', fontSize: '36px', lineHeight: '48px'}}>{aptosBalance} APT</Text>
+        <Text style={{fontWeight: '700', fontSize: '36px', lineHeight: '48px'}}>{aptosBalance} USDT</Text>
         </EContainer>
         <EContainer style={{height: '18px'}}></EContainer>
         <EContainer style={{display:'flex', justifyContent:'center'}}>
             <InputContainer>
             <EContainer style={{display: 'flex', flexDirection: 'row'}}>
             <EContainer style={{width: '15px'}}/>
-            <Image src={AptosLogo} style={{height: '31px', height: '31px'}}/>
+            <Image src={UsdtIcon} style={{height: '31px', height: '31px'}}/>
             <EContainer style={{width: '10px'}}/>
             <Input placeholder="Amount" onChange={(e) => setDepositAmount(e.target.value)} />
             </EContainer>
@@ -315,14 +316,14 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
         <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
         <TextContainer style={{fontWeight: '400', fontSize: '11px', lineHeight:'13px'}}>Exchange rate</TextContainer>
-        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>1 APT = 1 arbQve</TextContainer>
+        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>1 USDT = 1 arbQve</TextContainer>
         </EContainer>
         </EContainer>
         <EContainer style={{height: '10px'}}></EContainer>
         <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
         <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
         <TextContainer style={{fontWeight: '400', fontSize: '11px', lineHeight:'13px'}}>Swap fee</TextContainer>
-        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>0.01 APT</TextContainer>
+        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>0.01 SOL</TextContainer>
         </EContainer>
         </EContainer>
         <EContainer style={{height: '10px'}}></EContainer>
