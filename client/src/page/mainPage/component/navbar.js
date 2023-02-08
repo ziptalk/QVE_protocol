@@ -114,15 +114,15 @@ function Navbar () {
 
   const navigate = useNavigate();
 
-  const getAptosWallet = () => {
-    if ('aptos' in window) {
-        return window.aptos;
-    } else {
-        window.open('https://petra.app/', `_blank`);
-    }
-};
+//   const getAptosWallet = () => {
+//     if ('aptos' in window) {
+//         return window.aptos;
+//     } else {
+//         window.open('https://petra.app/', `_blank`);
+//     }
+// };
 
-  const wallet = getAptosWallet();
+//   const wallet = getAptosWallet();
 
 
   function PageSelected() {
