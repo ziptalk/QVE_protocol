@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SwapImage from "../../assets/SwapImage.png"
+import QveImage from "../../assets/SwapImage.png"
 import Qve from "../../assets/Qve.png";
 import arbQve from "../../assets/arbQve.png"
 import LiquidityArtifact from "../../artifact/LiquidityPool.json";
@@ -111,28 +111,35 @@ border: none;
 
 function Main() {
     const [depositAmount, setDepositAmount] = useState('');
+    const [qvePriceSwap, setQvePriceSwap] = useState('');
+    const [arbQvePriceSwap, setArbQvePriceSwap] = useState('');
     const web3 = new Web3(window.ethereum);
     let account = JSON.parse(localStorage.getItem('user'));
-    const LiquidityAddress = "0x38f36a2fbAEFe46a00623e1b6245ca21A7F70895";
-    const QveAddress = "0x7c10E21A952C1979f12aE63bCA789DA3F9B2fE20";
-    const arbQveAddress = "0x25d4778f9909b0a9819136B642f72c5388c0A534";
+    const LiquidityAddress = "0x57Fc576deAf9558229B6c06468D29C16a42034c6";
+    const QveAddress = "0x90eA2B148537CafbC47ACF5B805633dCa505D7fa";
+    const arbQveAddress = "0x6735E238D15666f6af715b4f1EE9E481435Fea12";
     const LiquidityContract = new web3.eth.Contract(LiquidityArtifact.output.abi, LiquidityAddress);
     const QveContract = new web3.eth.Contract(QveArtifact.output.abi, QveAddress);
     const arbQveContract = new web3.eth.Contract(arbQveArtifact.output.abi, arbQveAddress);
     function SwapAtoB() {
         //QveContract.methods.approve(LiquidityAddress, depositAmount).send({ from: account });
-        arbQveContract.methods.approve(LiquidityAddress, depositAmount).send({ from: account });
+        arbQveContract.methods.approve(LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
 
-        LiquidityContract.methods.swapAtoB(depositAmount).send({ from: account });
+        LiquidityContract.methods.swapAtoB(web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
     }
 
     function SwapBtoA() {
-        QveContract.methods.approve(LiquidityAddress, depositAmount).send({ from: account });
+        QveContract.methods.approve(LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
 
-        LiquidityContract.methods.swapBtoA(depositAmount).send({ from: account });
+        LiquidityContract.methods.swapBtoA(web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
 
     }
 
+    const getSwapBData = LiquidityContract.methods.getSwapAtoBReturnAmount(web3.utils.toBN(depositAmount * 10**18)).call();
+    console.log('a', getSwapBData);
+    getSwapBData.then((result) => {
+        setQvePriceSwap(result);
+      });
     return (
     <Background>
     <EContainer style={{height: '132px'}}></EContainer>
@@ -160,7 +167,7 @@ function Main() {
                <EContainer style={{width: '5px'}}/>
                     <Text>QVE</Text>
                     </EContainer>
-                <Input placeholder="0" onChange={(e) => setDepositAmount(e.target.value)}></Input>
+                <Input placeholder="0" onChange={(e) => setDepositAmount((e.target.value))}></Input>
             </EContainer>
         </TokenOneContainer>
         <EContainer style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
@@ -174,7 +181,7 @@ function Main() {
                 <EContainer style={{width: '5px'}}/>
                 <Text>arbQVE</Text>
                 </EContainer>
-                <Input placeholder="0"></Input>
+                <Input placeholder="0" value={(qvePriceSwap / 10**18).toFixed(2)}></Input>
             
         </EContainer>    
         </TokenTwoContainer>
@@ -184,7 +191,8 @@ function Main() {
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
         <Button onClick={() => SwapBtoA()}>Swap</Button>
         </EContainer>
-        <BackgroudImage src={SwapImage}></BackgroudImage>
+        <BackgroudImage src={QveImage}></BackgroudImage>
+        
     </SwapContainer>
     </EContainer>
     </Background>

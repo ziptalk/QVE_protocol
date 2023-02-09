@@ -50,7 +50,7 @@ font-size: 16px;
 line-height: 19px;
 text-align: right;
 color: #B7B8CD;
-width: 200px
+width: 50%;
 `
 const Button = styled.button`
 all: unset;
@@ -68,19 +68,57 @@ border-radius: 16px;
 cursor: pointer;
 `;
 
+const InputContainer = styled.div`
+background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #202025;
+border-radius: 12px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+text-align: right;
+color: #B7B8CD;
+width: 200px;
+display: flex;
+justify-Content: flex-end;
+align-items: center;
+`;
+
+const MaxButton = styled.button`
+all: unset;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+width: 47.78px;
+height: 21px;
+background: #5C5E81;
+border-radius: 16px;
+font-family: 'Inter';
+font-style: normal;
+font-weight: 700;
+font-size: 9px;
+line-height: 11px;
+letter-spacing: 0.02em;
+
+/* dark/white */
+
+color: #FFFFFF;
+`;
+
 function StakeArbQve({setCount}) {
     const [amount, setAmount] = useState('');
     const web3 = new Web3(window.ethereum);
     let account = JSON.parse(localStorage.getItem('user'));
-    const StakeAddress = "0xD0dF443F4E73006B1b6009eE5fdB1df9E423fF94";
-    const arbQVEAddress = "0x25d4778f9909b0a9819136B642f72c5388c0A534"
+    const StakeAddress = "0xEbD58F66Cdca962e009fE304a61A591135091d9d";
+    const arbQVEAddress = "0x6735E238D15666f6af715b4f1EE9E481435Fea12"
     const arbQveContract = new web3.eth.Contract(arbQveArtifact.output.abi, arbQVEAddress);
     const stakeContract = new web3.eth.Contract(stakeArtifact.output.abi, StakeAddress);
 
     function stakeArbQve() {
-        arbQveContract.methods.approve(StakeAddress, amount).send({ from: account });
+        arbQveContract.methods.approve(StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
 
-        stakeContract.methods.stake_arbQVE(amount).send({ from: account });
+        stakeContract.methods.StakeArbQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
     }
 
 
@@ -101,7 +139,14 @@ function StakeArbQve({setCount}) {
                         <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>arbQVE</Text>
                         <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>12.3%</Text>
                     </EContainer>
+                    
+                    <InputContainer>
                     <Input placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
+                    <EContainer style={{width: '5px'}}/>
+                    <MaxButton>Max</MaxButton>
+                    <EContainer style={{width: '10px'}}/>
+                    
+                    </InputContainer>
                 </EContainer>
                 <EContainer style={{height: '5px'}} />
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent:'flex-end'}}>
@@ -122,3 +167,5 @@ function StakeArbQve({setCount}) {
 }
 
 export default StakeArbQve;
+
+//<Input placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)}></Input>

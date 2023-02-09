@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.18+commit.87f61d96"
+		"version": "0.8.17+commit.8df45f5f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -192,6 +192,11 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
 						"name": "account",
 						"type": "address"
 					},
@@ -300,14 +305,6 @@
 			}
 		],
 		"devdoc": {
-			"events": {
-				"Approval(address,address,uint256)": {
-					"details": "Emitted when the allowance of a `spender` for an `owner` is set by a call to {approve}. `value` is the new allowance."
-				},
-				"Transfer(address,address,uint256)": {
-					"details": "Emitted when `value` tokens are moved from one account (`from`) to another (`to`). Note that `value` may be zero."
-				}
-			},
 			"kind": "dev",
 			"methods": {
 				"allowance(address,address)": {
@@ -354,9 +351,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DEPOSIT/USDT.sol": "TestUSDT"
+			"contracts/QVE/USDT_mint.sol": "USDT"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -400,12 +397,12 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"contracts/DEPOSIT/USDT.sol": {
-			"keccak256": "0xff5e31b28e1a6075dfa39344b341d17d0846ad43061639a8aa2c7061a310c04f",
+		"contracts/QVE/USDT_mint.sol": {
+			"keccak256": "0x9bbebf582d9fd66ff4016d618a0cde1ee1af96e0e96bff451f32912228fd0ae6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://791f67e3703a41d19042e437b644a3c4518f84fcea7e4ec9a0ead25f6872e08a",
-				"dweb:/ipfs/QmertGpCcc6Ujv1ctc944CQ2prp3U5im3SNUx3bMTWCU6N"
+				"bzz-raw://1f72ad6045879af3af8d5068127fafd46815d5b4bf06b3cddb248ce87ea7237a",
+				"dweb:/ipfs/QmQgF5DVeKtZ5A9wfbrTvet7cJ8x2nHpmGXs7eUByiYJ8h"
 			]
 		}
 	},

@@ -142,7 +142,8 @@ function Navbar () {
         navigate("/stakePage");
     }
     if (selectedOption == 'Connect Wallet') {
-      localStorage.setItem('preWalletCount', JSON.stringify(1))
+      localStorage.setItem('preWalletCount', JSON.stringify(9));
+      window.location.reload();
     }
 
     if (selectedOption == "Disconnect") {

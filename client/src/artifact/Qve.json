@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.18+commit.87f61d96"
+		"version": "0.8.17+commit.8df45f5f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -192,7 +192,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "ownerAccount",
+						"name": "owner",
 						"type": "address"
 					},
 					{
@@ -305,14 +305,6 @@
 			}
 		],
 		"devdoc": {
-			"events": {
-				"Approval(address,address,uint256)": {
-					"details": "Emitted when the allowance of a `spender` for an `owner` is set by a call to {approve}. `value` is the new allowance."
-				},
-				"Transfer(address,address,uint256)": {
-					"details": "Emitted when `value` tokens are moved from one account (`from`) to another (`to`). Note that `value` may be zero."
-				}
-			},
 			"kind": "dev",
 			"methods": {
 				"allowance(address,address)": {
@@ -359,9 +351,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DEPOSIT/Mint_Qve.sol": "QveMint"
+			"contracts/QVE/QVE_mint.sol": "QVE"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -405,12 +397,12 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"contracts/DEPOSIT/Mint_Qve.sol": {
-			"keccak256": "0xe73c8403535f7c5a3ff01bafae91f7b8b029bd0d5fba26634e632736db00fb16",
+		"contracts/QVE/QVE_mint.sol": {
+			"keccak256": "0x3ebb59aef457f15131d48178c50567f0aa7d69a7b30be16bcc4cdf4637818d3d",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a88068cdef6be0de6c3c2f8eab8dcc4776d2e8a0f79f17c07b0031d56c60a33e",
-				"dweb:/ipfs/QmZfzuiBy9etMAwReKb8XZipXN9e95HH4t3UrDEY5KuVFf"
+				"bzz-raw://9c20475763fcc7813c8be1352be590a1b6dc14a82dfd3cad4fca96a7a2079431",
+				"dweb:/ipfs/QmQZLQBCifeNWVumqks9K2UntCZVqrSp8ERmb7wKfyjUY4"
 			]
 		}
 	},

@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.18+commit.87f61d96"
+		"version": "0.8.17+commit.8df45f5f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -119,9 +119,60 @@
 						"type": "uint256"
 					}
 				],
-				"name": "addLiquidity",
+				"name": "addLiquidity_1",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount1",
+						"type": "uint256"
+					}
+				],
+				"name": "addLiquidity_2",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "getLiquidityValue_1",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "getLiquidity_2",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -267,9 +318,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DEPOSIT/LiquidityPool.sol": "LiquidityPool"
+			"contracts/QVE/LiquidityPool.sol": "LiquidityPool"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -281,12 +332,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"contracts/DEPOSIT/LiquidityPool.sol": {
-			"keccak256": "0x17b2bd2aec9af3bcac1d25c940d7bde92fc0829e1e53fa2bd35928a450b4cb30",
+		"contracts/QVE/LiquidityPool.sol": {
+			"keccak256": "0xf9bd9da147f9ef07342a7cd1f05123d2478627224e614b2c45dee084de9fbb4c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c761d7ecb6b68dbd17bb602d92e465dfa132a4a3b8c42973f17462c5fd3edb14",
-				"dweb:/ipfs/QmdedH1xTwmR7rBGuxcTe4QAL5GyWb1Hi5jrMjuQ4GgbQ5"
+				"bzz-raw://ee697d75b911f540957a59e99751e6a48f12c5c07759a53d36bea04d8824dfc8",
+				"dweb:/ipfs/QmXbFbgrTRgSfExNoNZbGKjeFADuWhZHQ5nGQrueLa5F3E"
 			]
 		}
 	},

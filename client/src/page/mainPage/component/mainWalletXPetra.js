@@ -218,10 +218,7 @@ function MainWalletX({preWalletCount, setAptosBalance, setPreWalletCount, setAcc
             window.open('https://petra.app/', `_blank`);
         }
     };
-    if (localStorage.getItem('preWalletCount') === '1') {
-    setPreWalletCount(null);
-    localStorage.removeItem('preWalletCount');
-}
+    
 
     async function getAccount() {
         const wallet = getAptosWallet();

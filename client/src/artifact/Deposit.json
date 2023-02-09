@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.18+commit.87f61d96"
+		"version": "0.8.17+commit.8df45f5f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -13,13 +13,26 @@
 						"type": "address"
 					},
 					{
-						"internalType": "address",
-						"name": "_arbQVE",
+						"internalType": "contract arbQVE",
+						"name": "_ArbQVE",
 						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "ArbQVE",
+				"outputs": [
+					{
+						"internalType": "contract arbQVE",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			},
 			{
 				"inputs": [
@@ -93,9 +106,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/DEPOSIT/Staking.sol": "Staking"
+			"contracts/QVE/Deposit.sol": "Deposit"
 		},
-		"evmVersion": "paris",
+		"evmVersion": "london",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -139,20 +152,20 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"contracts/DEPOSIT/Mint_arbQVE.sol": {
-			"keccak256": "0x3f50de58d5e300b7f95d42eee49871bf1773dc138eb1d95a151838beea192eed",
+		"contracts/QVE/Deposit.sol": {
+			"keccak256": "0x3f3adfab0a996caf7566f19a1b8cd295cdd0667af8d4664aaefcac493fdde994",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e64eeff0f696c6cf959323fe6c3d5c3e294b299178781d057208c8ac506cd7b4",
-				"dweb:/ipfs/QmXEwcxdksNr9ZybJLqdfUjRw3jZ79Y1zCbEfd3SV5uKCS"
+				"bzz-raw://0aff9948b53d1af1e58689681e282fe049bdd1c2e9a67f64e4992c2c04c3ddcb",
+				"dweb:/ipfs/QmUG7cMZaRBXjhcECWk2C2BCmdPyXFaLSB48GCSkUCpyeJ"
 			]
 		},
-		"contracts/DEPOSIT/Staking.sol": {
-			"keccak256": "0x7813f7f4a9628ddab64eea5102c5e31660057e901c574b6794723aa442ead6a3",
+		"contracts/QVE/arbQVE.sol": {
+			"keccak256": "0x63d7737202d076c5355c000bf14731fd57b0e482e509027da2e477f34fbdfa85",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://06c077188c2f6baa7c065e6f4ad5acfb81820ae8f8d387b27e426eb6713c07af",
-				"dweb:/ipfs/QmX6nqaPNDs9otBswAjV3BTdN9rZSutKKZJNc2dANmuK5E"
+				"bzz-raw://5bf5c07c5b7a00f32f9d708f4d67cde59e985601602d9e031ef59815fc14211a",
+				"dweb:/ipfs/QmNx5oH5pbiQ6if1QUbRpAYc5TSsVkrtRFwiPphUWYyDoD"
 			]
 		}
 	},

@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import AptosLogo from "../../../assets/AptosLogo.png";
 import { Types, AptosClient, CoinClient } from 'aptos';
 import arbQVEArtifact from "../../../artifact/ArbQVE.json";
+import DepositArtifact from "../../../artifact/Deposit.json";
+import UsdtArtifact from "../../../artifact/Usdt.json";
 import qveArtifact from "../../../artifact/Qve.json";
 import UsdtIcon from "../../../assets/UsdtIcon.png";
 import Web3 from "web3";
@@ -146,31 +148,35 @@ justify-content: space-between;
 function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStakeContract, account, stakeContract, usdtContract, setUsdtContract, liquidityContract, setLiquidityContract, aptosBalance}) {
     // console.log('Balance:', aptosWeb3.getBalance(account));
     const web3 = new Web3(window.ethereum);
-    const stakeContractAddress = "0xF1EbEC1689b771464DB6258E48E200A2367C49eB";
+    const depositContractAddress = "0x71E69f74A0e340693ca39054fD64Db01517F95a8";
+    const DepositContract = new web3.eth.Contract(DepositArtifact.output.abi, depositContractAddress);
     const arbQVEContractAddress = "0x5258C637dF12c5ED1F244b955D57737DE22e1fAf";
     const qveContractAddress = "0x7c10E21A952C1979f12aE63bCA789DA3F9B2fE20";
     const arbQVEContract = new web3.eth.Contract(arbQVEArtifact.output.abi, arbQVEContractAddress);
     const qveContract = new web3.eth.Contract(qveArtifact.output.abi, qveContractAddress);
+    const usdtAddress= "0x220DCe972635D1D8acEb52C5Ec592C0e1f001B6b";
+    const Usdtcontract = new web3.eth.Contract(UsdtArtifact.output.abi, usdtAddress);
     const [depositAmount, setDepositAmount] = useState(0);
     const [data, setData] = useState('');
     const navigate = useNavigate();
-    account = JSON.parse(localStorage.getItem('user'));
-    
+    const Account = JSON.parse(localStorage.getItem('user'));
+    localStorage.getItem('user') != undefined ? account = (localStorage.getItem('user')) : account = null;
+    console.log('account', Account)
     // // client.getAccountResources(account).then(setData);
     // console.log("CHECK BALANCE", client.checkBalance(account));
     // console.log("data is", data);
     function DepositMetamask() {
-        // Approve the transfer of the specified amount of USDT from the current account to the contract
-        usdtContract.methods.approve(stakeContractAddress, depositAmount).send({ from: account });
+        console.log('account', Account)
+    // Approve the transfer of the specified amount of USDT from the current account to the contract
+        Usdtcontract.methods.approve(depositContractAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: Account });
         
         // Deposit the approved amount of USDT to the contract
-        stakeContract.methods.deposit(depositAmount).send({ from: account });
+        DepositContract.methods.deposit(web3.utils.toBN(depositAmount * 10**18)).send({ from: Account });
 
         // qveContract.methods.mintToken(account,account,depositAmount).send({ from : account });
         // console.log("Deposit success!");
     }
     // console.log('account is', account);
-
     const DepositAptos = async(amount) => {
         // console.log("Deposit Aptos");
         const transaction = {
@@ -189,6 +195,12 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         DepositMetamask();
         setPreWalletCount(null);
     }
+    window.ethereum.on('accountsChanged', async () => {
+        localStorage.removeItem('user');
+        window.location.reload();
+        console.log('account is changeed');
+
+    });
     // console.log("APTOS BALANCE IS", aptosBalance);
     return (
         <EContainer>

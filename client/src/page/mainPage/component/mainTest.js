@@ -670,7 +670,7 @@ sleep(3000); */
         </EContainer>
         <EContainer style={{height: '52px'}}></EContainer>
         <AssetContainer>
-        {localStorage.getItem('user') === null ? <MainWalletX setAptosBalance={setAptosBalance} liquidityContract={liquidityContract} setLiquidityContract={setLiquidityContract} account={account} usdtContract={usdtContract} setUsdtContract={setUsdtContract} stakeContract={stakeContract} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} setAccount={setAccount}></MainWalletX> : <AssetConnected account={account} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} stakeContract={stakeContract} usdtContract={usdtContract} setUsdtContract={setUsdtContract} setAccount={setAccount} aptosBalance={aptosBalance}></AssetConnected>}
+        {localStorage.getItem('user') === null || localStorage.getItem('user') === 'undefined' ? <MainWalletX setAptosBalance={setAptosBalance} liquidityContract={liquidityContract} setLiquidityContract={setLiquidityContract} account={account} usdtContract={usdtContract} setUsdtContract={setUsdtContract} stakeContract={stakeContract} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} setAccount={setAccount}></MainWalletX> : <AssetConnected account={account} setStakeContract={setStakeContract} preWalletCount={preWalletCount} setPreWalletCount={setPreWalletCount} stakeContract={stakeContract} usdtContract={usdtContract} setUsdtContract={setUsdtContract} setAccount={setAccount} aptosBalance={aptosBalance}></AssetConnected>}
         </AssetContainer>
         <EContainer style={{height: '72px'}}></EContainer>
         </ContainerAll>
