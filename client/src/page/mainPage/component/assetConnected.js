@@ -14,6 +14,7 @@ import arbQVEArtifact from "../../../artifact/ArbQVE.json";
 import DepositArtifact from "../../../artifact/Deposit.json";
 import UsdtArtifact from "../../../artifact/Usdt.json";
 import qveArtifact from "../../../artifact/Qve.json";
+import stakingArtifact from "../../../artifact/Stake.json";
 import UsdtIcon from "../../../assets/UsdtIcon.png";
 import Web3 from "web3";
 const Asset = styled.div`
@@ -150,14 +151,20 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
     const web3 = new Web3(window.ethereum);
     const depositContractAddress = "0x71E69f74A0e340693ca39054fD64Db01517F95a8";
     const DepositContract = new web3.eth.Contract(DepositArtifact.output.abi, depositContractAddress);
-    const arbQVEContractAddress = "0x5258C637dF12c5ED1F244b955D57737DE22e1fAf";
-    const qveContractAddress = "0x7c10E21A952C1979f12aE63bCA789DA3F9B2fE20";
+    const arbQVEContractAddress = "0x6735E238D15666f6af715b4f1EE9E481435Fea12";
+    const qveContractAddress = "0x90eA2B148537CafbC47ACF5B805633dCa505D7fa";
     const arbQVEContract = new web3.eth.Contract(arbQVEArtifact.output.abi, arbQVEContractAddress);
     const qveContract = new web3.eth.Contract(qveArtifact.output.abi, qveContractAddress);
     const usdtAddress= "0x220DCe972635D1D8acEb52C5Ec592C0e1f001B6b";
     const Usdtcontract = new web3.eth.Contract(UsdtArtifact.output.abi, usdtAddress);
+    const stakingAddress = "0xEbD58F66Cdca962e009fE304a61A591135091d9d";
+    const StakingContract = new web3.eth.Contract(stakingArtifact.output.abi, stakingAddress);
     const [depositAmount, setDepositAmount] = useState(0);
-    const [data, setData] = useState('');
+    const [usdt, setUsdt] = useState('');
+    const [qve, setQve] = useState('');
+    const [arbQve, setArbQve] = useState('');
+    const [stakedQve, setStakedQve] = useState('');
+    const [stakedArbQve, setStakedArbQve] = useState('');
     const navigate = useNavigate();
     const Account = JSON.parse(localStorage.getItem('user'));
     localStorage.getItem('user') != undefined ? account = (localStorage.getItem('user')) : account = null;
@@ -190,6 +197,32 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         })
         //TODO 추후에 staking하는 코드 넣기
     }
+    const UsdtBalance = Usdtcontract.methods.balanceOf(Account).call();
+    const qveBalance = qveContract.methods.balanceOf(Account).call();
+    const arbQVEBalance = arbQVEContract.methods.balanceOf(Account).call();
+    const qveStakedBalance = StakingContract.methods.staked_QVE(Account).call();
+    const arbQveStakedBalance = StakingContract.methods.staked_arbQVE(Account).call();
+
+    UsdtBalance.then((result) => {
+        setUsdt(result);
+      });
+
+    qveBalance.then((result) => {
+        setQve(result);
+      });
+
+    arbQVEBalance.then((result) => {
+        setArbQve(result);
+      });
+    qveStakedBalance.then((result) => {
+        setStakedQve(result);
+    })
+    arbQveStakedBalance.then((result) => {
+        setStakedArbQve(result);
+    })
+    
+   
+
 
     function Deposit() {
         DepositMetamask();
@@ -201,7 +234,6 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         console.log('account is changeed');
 
     });
-    // console.log("APTOS BALANCE IS", aptosBalance);
     return (
         <EContainer>
             <Asset>My Asset</Asset>
@@ -215,13 +247,13 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
                             <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Deposit</Text>
                         </EContainer>
                         <EContainer style={{height: '3px'}}/>
-                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>100 SOL</Text>
+                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>{usdt/10**18} USDT</Text>
                     </EContainer>
                     <Button style={{width: '83px', height: '27px'}} onClick={() => setPreWalletCount(3)}>Deposit</Button>
                 </EContainer>
                 <EContainer style={{height: '45px'}}></EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '0px 25px 0px 25px'}}>
-                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>10 arbQVE</Text>
+                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>{(arbQve/10**18).toFixed(2)} arbQVE</Text>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
                         <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#0FB63E'}}>+ $ 100 (↑10%)</Text>
                         <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px', color: '#FFFFFF', display: 'flex', justifyContent:'flex-end'}}>= $ 1,100</Text>
@@ -229,7 +261,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
                 </EContainer>
                 <EContainer style={{height: '25px'}}></EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '0px 25px 0px 25px'}}>
-                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>10 QVE</Text>
+                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>{(qve/10**18).toFixed(2)} QVE</Text>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
                         <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#0FB63E'}}>+ $ 100 (↑10%)</Text>
                         <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px', color: '#FFFFFF', display: 'flex', justifyContent:'flex-end'}}>= $ 1,100</Text>
@@ -260,7 +292,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
                 </EContainer>
                 <EContainer style={{height: '20px'}}/>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '0px 25px 0px 25px'}}>
-                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>10 QVE</Text>
+                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>{(stakedQve/10**18).toFixed(2)} QVE</Text>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
                         <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#0FB63E'}}>+ $ 100 (↑10%)</Text>
                         <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px', color: '#FFFFFF', display: 'flex', justifyContent:'flex-end'}}>= $ 1,100</Text>

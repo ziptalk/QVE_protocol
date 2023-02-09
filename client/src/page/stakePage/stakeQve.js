@@ -48,7 +48,7 @@ font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 19px;
-text-align: right;
+text-align: left;
 color: #B7B8CD;
 width: 50%;
 `
@@ -76,7 +76,7 @@ font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 19px;
-text-align: right;
+text-align: left;
 color: #B7B8CD;
 width: 200px;
 display: flex;
@@ -86,6 +86,7 @@ align-items: center;
 
 const MaxButton = styled.button`
 all: unset;
+cursor: pointer;
 display: flex;
 flex-direction: row;
 justify-content: center;
@@ -108,6 +109,7 @@ color: #FFFFFF;
 
 function StakeQve({setCount}) {
     const [amount, setAmount] = useState('');
+    const [qveBalance, setQveBalance] = useState('');
     const web3 = new Web3(window.ethereum);
     let account = JSON.parse(localStorage.getItem('user'));
     const StakeAddress = "0xEbD58F66Cdca962e009fE304a61A591135091d9d";
@@ -120,7 +122,14 @@ function StakeQve({setCount}) {
 
         stakeContract.methods.StakeQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
     }
-
+    console.log(account)
+    console.log(QveContract.methods);
+    const availableQVE = QveContract.methods.balanceOf(account).call();
+    console.log(availableQVE)
+    availableQVE.then((result) => {
+        console.log('QVEbalance',result);
+        setQveBalance(result);
+    })
 
     return (
         <EContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -140,8 +149,8 @@ function StakeQve({setCount}) {
                         <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>12.3%</Text>
                     </EContainer><InputContainer>
                     <Input placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
-                    <EContainer style={{width: '5px'}}/>
-                    <MaxButton>Max</MaxButton>
+                    <EContainer style={{width: '10px'}}/>
+                    <MaxButton onClick={() => setAmount((qveBalance/10**18).toFixed(2))}>Max</MaxButton>
                     <EContainer style={{width: '10px'}}/>
                     
                     </InputContainer>
@@ -150,11 +159,15 @@ function StakeQve({setCount}) {
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent:'flex-end'}}>
                         <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#FFFFFF'}}>Available</Text>
                         <EContainer style={{width: '5px'}}></EContainer>
-                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 QVE</Text>
+                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>{(qveBalance / 10**18).toFixed(2)} QVE</Text>
                     </EContainer>
             </DataContainer>
             <EContainer style={{height: '15px'}}/>
-            <Button onClick={() => stakeQve()}>Amount is Empty</Button>
+            {amount === '' ? 
+            <Button style={{background: '#5C5E81'}}>Amount is Empty</Button> 
+            : 
+            <Button onClick={() => stakeQve()}>Stake</Button>
+            }
         </StakeContainer>
         </EContainer>
         <Image style={{height: '100%', width: '100%'}} src={BackgroundImage}/>

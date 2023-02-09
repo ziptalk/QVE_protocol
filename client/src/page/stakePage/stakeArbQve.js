@@ -50,7 +50,8 @@ font-size: 16px;
 line-height: 19px;
 text-align: right;
 color: #B7B8CD;
-width: 50%;
+width: 70%;
+padding: '0px 0px 0px 0px'
 `
 const Button = styled.button`
 all: unset;
@@ -86,6 +87,7 @@ align-items: center;
 
 const MaxButton = styled.button`
 all: unset;
+cursor: pointer;
 display: flex;
 flex-direction: row;
 justify-content: center;
@@ -108,6 +110,7 @@ color: #FFFFFF;
 
 function StakeArbQve({setCount}) {
     const [amount, setAmount] = useState('');
+    const [arbQveBalance, setArbQveBalance] = useState('');
     const web3 = new Web3(window.ethereum);
     let account = JSON.parse(localStorage.getItem('user'));
     const StakeAddress = "0xEbD58F66Cdca962e009fE304a61A591135091d9d";
@@ -121,7 +124,12 @@ function StakeArbQve({setCount}) {
         stakeContract.methods.StakeArbQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
     }
 
-
+    const availableArbQVE = arbQveContract.methods.balanceOf(account).call();
+    availableArbQVE.then((result) => {
+        console.log('arbQVEbalance',result);
+        setArbQveBalance(result);
+    })
+    
     return (
         <EContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
         <EContainer style={{height: '132px'}}></EContainer>
@@ -142,21 +150,24 @@ function StakeArbQve({setCount}) {
                     
                     <InputContainer>
                     <Input placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
-                    <EContainer style={{width: '5px'}}/>
-                    <MaxButton>Max</MaxButton>
                     <EContainer style={{width: '10px'}}/>
-                    
+                    <MaxButton onClick={() => setAmount((arbQveBalance/10**18).toFixed(2))}>Max</MaxButton>
+                    <EContainer style={{width: '10px'}}/>
                     </InputContainer>
                 </EContainer>
                 <EContainer style={{height: '5px'}} />
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent:'flex-end'}}>
                         <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#FFFFFF'}}>Available</Text>
                         <EContainer style={{width: '5px'}}></EContainer>
-                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 arbQVE</Text>
+                        <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>{(arbQveBalance/10**18).toFixed(2)} arbQVE</Text>
                     </EContainer>
             </DataContainer>
             <EContainer style={{height: '15px'}}/>
-            <Button onClick={() => stakeArbQve()}>Amount is Empty</Button>
+            {amount === '' ? 
+            <Button style={{background: '#5C5E81'}}>Amount is Empty</Button> 
+            : 
+            <Button onClick={() => stakeArbQve()}>Stake</Button>
+            }
         </StakeContainer>
         </EContainer>
         <Image style={{height: '100%', width: '100%'}} src={BackgroundImage}/>
