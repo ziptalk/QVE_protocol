@@ -48,7 +48,7 @@ font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 19px;
-text-align: left;
+text-align: right;
 color: #B7B8CD;
 width: 50%;
 `
@@ -148,9 +148,10 @@ function StakeQve({setCount}) {
                         <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>QVE</Text>
                         <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>12.3%</Text>
                     </EContainer><InputContainer>
-                    <Input placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
-                    <EContainer style={{width: '10px'}}/>
+                    <EContainer style={{display: 'flex', gap: '5px'}}>
+                    <Input placeholder="Amount" style={{flexGrow: '1', paddingRight: '5px'}} value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
                     <MaxButton onClick={() => setAmount((qveBalance/10**18).toFixed(2))}>Max</MaxButton>
+                    </EContainer>
                     <EContainer style={{width: '10px'}}/>
                     
                     </InputContainer>
