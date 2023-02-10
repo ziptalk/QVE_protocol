@@ -15,9 +15,6 @@ width: 251px;
 height: 48px;
 left: calc(50% - 100px/2 - 81px);
 top: 227px;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 19px;
 line-height: 48px;
@@ -70,11 +67,6 @@ width: 100px;
 height: 19px;
 left: calc(50% - 100px/2 + 1px);
 top: 265px;
-
-/* Heading 4 */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 16px;
 line-height: 19px;
@@ -109,9 +101,6 @@ background: #2B2B34;
 /* dark/outline */
 
 border-radius: 8px;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 19px;
@@ -143,9 +132,6 @@ background: #2B2B34;
 
 border: 1px solid #5C5E81;
 border-radius: 8px;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 19px;
@@ -178,10 +164,6 @@ height: 15px;
 position: absolute;
 left: 20px;
 top: 48px;
-/* Label */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 500;
 font-size: 12px;
 line-height: 15px;
@@ -206,10 +188,6 @@ height: 15px;
 position: absolute;
 left: 20px;
 top: 121px;
-/* Label */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 500;
 font-size: 12px;
 line-height: 15px;

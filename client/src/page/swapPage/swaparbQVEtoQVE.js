@@ -32,8 +32,6 @@ align-items: center;
 `;
 
 const Text = styled.div`
-font-family: 'Inter';
-font-style: normal;
 color: #B7B8CD;
 `;
 
@@ -65,8 +63,6 @@ width: 90%;
 height: 55px;
 background: #4A3CE8;
 border-radius: 16px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -84,8 +80,6 @@ width: 61.07px;
 height: 31px;
 background: #5C5E81;
 border-radius: 16px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -98,8 +92,6 @@ const Image = styled.img`
 
 const Input = styled.input`
 height: 24px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 18px;
 line-height: 24px;
@@ -166,7 +158,7 @@ function SwaparbQVEtoQVE({setIcon}) {
             <EContainer style={{height: '10px'}}></EContainer>
             <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: '0px 16px 0px 16px'}}>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                <Image src={Qve} style={{width: '46px', height: '43px'}}></Image>
+                <Image src={arbQve} style={{width: '46px', height: '43px'}}></Image>
                <EContainer style={{width: '5px'}}/>
                     <Text>arbQVE</Text>
                     </EContainer>
@@ -180,7 +172,7 @@ function SwaparbQVEtoQVE({setIcon}) {
         <EContainer style={{height: '27px'}}></EContainer>
         <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: '0px 16px 0px 16px'}}>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
-                <Image src={arbQve} style={{width: '46px', height: '43px', cursor: 'pointer'}}></Image>
+                <Image src={Qve} style={{width: '46px', height: '43px', cursor: 'pointer'}}></Image>
                 <EContainer style={{width: '5px'}}/>
                 <Text>QVE</Text>
                 </EContainer>

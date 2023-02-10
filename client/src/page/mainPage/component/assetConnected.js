@@ -22,8 +22,6 @@ const Asset = styled.div`
 /* Heading 2 */
 width: 90%;
 max-width: 414px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
@@ -53,8 +51,6 @@ const PreWalletConnectBackground = styled.div`
 `;
 
 const TextContainer = styled.div`
-font-family: 'Inter';
-font-style: normal;
 color: #B7B8CD;
 `;
 
@@ -86,8 +82,6 @@ border-radius: 16px;
 `;
 
 const Text = styled.div`
-font-family: 'Inter';
-font-style: normal;
 letter-spacing: 0.02em;
 color: #FFFFFF;
 `;
@@ -102,8 +96,6 @@ align-items: center;
 gap: 10px;
 background: #5C5E81;
 border-radius: 16px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -129,8 +121,6 @@ width: 90%;
 background: #2B2B34;
 border: 1px solid #5C5E81;
 border-radius: 16px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;

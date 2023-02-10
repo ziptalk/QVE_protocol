@@ -10,8 +10,6 @@ const ButtonDay = styled.button`
 display: flex;
 align-items: flex-end;
 background-color: transparent;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -30,8 +28,6 @@ background-color: transparent;
 const ButtonWeek = styled.button`
 
 background-color: transparent;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -49,8 +45,6 @@ background-color: transparent;
 const ButtonMonth = styled.button`
 
 background-color: transparent;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -66,8 +60,6 @@ background-color: transparent;
 `;
 const Button1Year = styled.button`
 background-color: transparent;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -85,8 +77,6 @@ background-color: transparent;
 const ButtonYtd = styled.button`
 
 background-color: transparent;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -105,8 +95,6 @@ justify-content: flex-start;
 
 const ButtonAll = styled.button`
 background-color: transparent;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;

@@ -7,8 +7,6 @@ const EContainer = styled.div`
 `;
 
 const Text = styled.div`
-font-family: 'Inter';
-font-style: normal;
 `;
 
 const StakeContainer = styled.div`
@@ -31,8 +29,6 @@ height: 55px;
 width: 100%;
 background: #4A3CE8;
 border-radius: 16px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;

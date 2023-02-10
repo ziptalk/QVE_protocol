@@ -43,8 +43,6 @@ align-items: center;
 gap: 10px;
 background: #4A3CE8;
 border-radius: 50px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 18px;
 line-height: 24px;

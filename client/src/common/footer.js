@@ -15,8 +15,6 @@ const FooterDescriptionLeft =styled.div`
 left: calc(50% - 119px);
 height: 13px;
 width: 87px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 11px;
 line-height: 13px;
@@ -36,11 +34,6 @@ const FooterDescriptionRight = styled.div`
 width: 139px;
 height: 13px;
 right: calc(50% + 119px);
-
-/* body */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 400;
 font-size: 11px;
 line-height: 13px;
@@ -61,11 +54,6 @@ flex-grow: 0;
 const FooterDescriptionBottom = styled.div`
 width: 203px;
 height: 13px;
-
-/* body */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 400;
 font-size: 11px;
 line-height: 13px;

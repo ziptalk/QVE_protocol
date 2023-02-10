@@ -15,8 +15,6 @@ const Asset = styled.div`
 
 /* Heading 2 */
 width: 373px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
@@ -79,9 +77,6 @@ border-radius: 16px;
 flex: none;
 order: 0;
 flex-grow: 0;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -118,10 +113,6 @@ border-radius: 16px;
 flex: none;
 order: 1;
 flex-grow: 0;
-
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -170,8 +161,6 @@ border-radius: 16px;
 `;
 
 const ConnectWallet = styled.div`
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 18px;
 line-height: 24px;

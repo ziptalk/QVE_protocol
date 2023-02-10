@@ -20,8 +20,6 @@ position: relative;
 `;
 
 const Text = styled.div`
-font-family: 'Inter';
-font-style: normal;
 
 `;
 
@@ -43,8 +41,6 @@ const Input = styled.input`
 all:  unset;
 background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #202025;
 border-radius: 12px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 19px;
@@ -57,8 +53,6 @@ const Button = styled.button`
 all: unset;
 width: 90%;
 height: 55px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -72,8 +66,6 @@ cursor: pointer;
 const InputContainer = styled.div`
 background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #202025;
 border-radius: 12px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 19px;
@@ -96,8 +88,6 @@ width: 47.78px;
 height: 21px;
 background: #5C5E81;
 border-radius: 16px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 9px;
 line-height: 11px;

@@ -34,9 +34,6 @@ border-radius: 16px;
 order: 0;
 flex-grow: 0;
 cursor: pointer;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
@@ -86,8 +83,6 @@ display: flex;
 width: 100%;
 height: 40px;
 left: 10px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 16px;
 line-height: 19px;

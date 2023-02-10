@@ -45,10 +45,6 @@ border-radius: 21px;
 flex: none;
 order: 1;
 flex-grow: 0;
-
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -66,11 +62,6 @@ width: 116px;
 height: 36px;
 left: calc(50% - 187px);
 top: 110px;
-
-/* Heading 2 */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
@@ -89,11 +80,6 @@ width: 156.8px;
 height: 36px;
 left: 20px;
 top: 734px;
-
-/* Heading 2 */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
@@ -112,11 +98,6 @@ width: 28px;
 height: 17px;
 left: 28px;
 top: calc(50% - 17px/2 - 23.5px);
-
-/* Cell */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -134,11 +115,6 @@ height: 15px;
 left: 28px;
 right: 313px;
 top: 48px;
-
-/* Label Emp */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -157,11 +133,6 @@ width: 16px;
 height: 17px;
 left: 28px;
 top: calc(50% - 17px/2 + 20.5px);
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
@@ -180,11 +151,6 @@ top: 14%;
 left: calc(5.35% + 108px);
 width: 47px;
 height: 17px;
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
@@ -222,11 +188,6 @@ width: 33px;
 height: 17px;
 left: 225px;
 top: calc(50% - 17px/2 - 23.5px);
-
-/* Cell */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -244,11 +205,6 @@ height: 15px;
 left: 225px;
 right: 116px;
 top: 48px;
-
-/* Label Emp */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -267,11 +223,6 @@ width: 10px;
 height: 17px;
 left: 225px;
 top: calc(50% - 17px/2 + 20.5px);
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
@@ -289,11 +240,6 @@ height: 15px;
 left: 307px;
 right: 29px;
 top: 48px;
-
-/* Label Emp */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -307,11 +253,6 @@ color: #B7B8CD;
 `;
 
 const ChangeMDDPercentValue = styled.div`
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
@@ -343,11 +284,6 @@ width: 189.65px;
 height: 17.3px;
 left: 20px;
 top: 948px;
-
-/* Heading 2 */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
@@ -383,11 +319,6 @@ width: 114px;
 height: 36px;
 left: 0px;
 top: 0px;
-
-/* Heading 2 */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
@@ -405,11 +336,6 @@ position: relative;
 height: 15px;
 left: 30px;
 top: 30px;
-
-/* Label Emp */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -426,9 +352,6 @@ const InitialValue = styled.div`
 position: absolute;
 right: 30px;
 top: 73px;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 23px;
 line-height: 36px;
@@ -448,11 +371,6 @@ width: 314px;
 height: 15px;
 left: 30px;
 top: 30px;
-
-/* Label Emp */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -469,9 +387,6 @@ const PresentValue = styled.div`
 position: absolute;
 right: 30px;
 top: 72px;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 23px;
 line-height: 36px;
@@ -490,11 +405,6 @@ const PresentPercent = styled.div`
 position: absolute;
 top: 55.71px;
 right: 30px;
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
@@ -505,9 +415,6 @@ const PresentDescription = styled.div`
 position: absolute;
 right: 30px;
 top: 109px;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 7px;
 line-height: 8px;
@@ -522,11 +429,6 @@ const Period = styled.div`
 position: absolute;
 left: 30px;
 top: 30px;
-
-/* Label Emp */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 12px;
 line-height: 15px;
@@ -543,9 +445,6 @@ const PeriodStart = styled.div`
 position: absolute;
 left: 30px;
 top: 58.41px;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 22px;
 line-height: 36px;
@@ -563,9 +462,6 @@ const PeriodEnd = styled.div`
 position: absolute;
 right: 30px;
 top: 58.41px;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 22px;
 line-height: 36px;
@@ -599,11 +495,6 @@ left: 8%;
 right: 87.17%;
 top: 6.52%;
 bottom: 89.78%;
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
@@ -619,11 +510,6 @@ const ChartContainerPercent = styled.div`
 position: absolute;
 left: 7.35%;
 top: 10.49%;
-
-/* Chart Title */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 32px;
 line-height: 39px;
@@ -639,11 +525,6 @@ const ChartContainerMDD = styled.div`
 position: absolute;
 top: 14.21%;
 right: 19%;
-
-/* Cell */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -668,11 +549,6 @@ top: 14.21%;
 right: 16.5%;
 width: 5px;
 height: 17px;
-
-/* Cell */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -699,11 +575,6 @@ right: 12.5%;
 
 width: 10px;
 height: 17px;
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;

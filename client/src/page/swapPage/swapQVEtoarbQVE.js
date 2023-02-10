@@ -32,8 +32,6 @@ align-items: center;
 `;
 
 const Text = styled.div`
-font-family: 'Inter';
-font-style: normal;
 color: #B7B8CD;
 `;
 
@@ -65,8 +63,6 @@ width: 90%;
 height: 55px;
 background: #4A3CE8;
 border-radius: 16px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -84,8 +80,6 @@ width: 61.07px;
 height: 31px;
 background: #5C5E81;
 border-radius: 16px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -98,8 +92,6 @@ const Image = styled.img`
 
 const Input = styled.input`
 height: 24px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 18px;
 line-height: 24px;

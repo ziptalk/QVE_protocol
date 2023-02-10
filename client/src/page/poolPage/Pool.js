@@ -10,8 +10,6 @@ const EContainer = styled.div`
 `;
 
 const Text = styled.div`
-font-family: 'Inter';
-font-style: normal;
 letter-spacing: 0.02em;
 `;
 
@@ -35,8 +33,6 @@ width: 180.77px;
 height: 55px;
 background: #5C5E81;
 border-radius: 16px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;

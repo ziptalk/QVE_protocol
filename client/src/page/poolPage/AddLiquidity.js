@@ -20,8 +20,6 @@ const EContainer = styled.div`
 `;
 
 const Text = styled.div`
-font-family: 'Inter';
-font-style: normal;
 color: #FFFFFF;
 `;
 
@@ -36,8 +34,6 @@ const Input = styled.input`
 all: unset;
 background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #202025;
 border-radius: 12px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 18px;
 line-height: 24px;
@@ -53,8 +49,6 @@ const Button = styled.button`
 all: unset;
 width: 324px;
 height: 55px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -72,7 +66,7 @@ const Image = styled.img`
 function AddLiquidity({setLiquidityCount}) {
     const [token, setToken] = useState(0);
     const web3 = new Web3(window.ethereum);
-    const [amount, setAmount] = useState(1);
+    const [amount, setAmount] = useState(0);
     const [qvePrice, setQvePrice] = useState(0);
     const [a, setA] = useState(0);
     const [b, setB] = useState(0);
@@ -126,7 +120,7 @@ function AddLiquidity({setLiquidityCount}) {
                         <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 ATOM</Text>
                     </EContainer>
                     <EContainer style={{height: '4px'}}></EContainer>
-                    <Input value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
+                    <Input value={amount} placeholder="0" onChange={(e) => setAmount(e.target.value)}></Input>
                 </EContainer>
                 </EContainer>
             </QveArbContainer>
@@ -145,7 +139,7 @@ function AddLiquidity({setLiquidityCount}) {
                         <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 ATOM</Text>
                     </EContainer>
                     <EContainer style={{height: '4px'}}></EContainer>
-                    <Input value={qvePrice}></Input>
+                    <Input value={qvePrice} placeholder="0"></Input>
                 </EContainer>
                 </EContainer>
             </QveArbContainer>

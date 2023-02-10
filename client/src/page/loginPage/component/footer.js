@@ -12,9 +12,6 @@ width: 139px;
 height: 13px;
 left: calc(50% - 69.5px);
 top: 577px;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 400;
 font-size: 11px;
 line-height: 13px;

@@ -52,10 +52,6 @@ display: flex;
 width: 47px;
 height: 17px;
 align-self: end;
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
@@ -80,11 +76,6 @@ border-radius: 16px;
 
 const ChartContainerPNL = styled.div`
 padding: 24px 0px 0px 20px;
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
@@ -98,10 +89,6 @@ color: #B7B8CD;
 
 const ChartContainerPercent = styled.div`
 height: 39px;
-/* Chart Title */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 30px;
 line-height: 39px;
@@ -114,12 +101,6 @@ color: #FFFFFF;
 `;
 
 const ChartContainerMDD = styled.div`
-
-
-/* Cell */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -139,12 +120,6 @@ flex-grow: 0;
 `;
 
 const ChartContainerMDDSplit = styled.div`
-
-
-/* Cell */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -158,11 +133,6 @@ color: #FFFFFF;
 
 
 const ChartContainerMDDValue = styled.div`
-
-/* Cell Bold */
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
@@ -184,7 +154,8 @@ const ExcButton = styled.button`
 const ExcImg = styled.img`
 width: 16px;
 height: 16px;
-
+position: absolute;
+top:0px;
 `;
 
 const Image = styled.img`
@@ -220,8 +191,6 @@ opacity: 0;
 const StrategyContainer = styled.div`
 width: 90%;
 max-width: 414px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 500;
 font-size: 12px;
 line-height: 15px;
@@ -268,9 +237,6 @@ border-radius: 16px;
 order: 0;
 flex-grow: 0;
 cursor: pointer;
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
@@ -320,8 +286,6 @@ display: flex;
 width: 100%;
 height: 40px;
 left: 10px;
-font-family: 'Inter';
-font-style: normal;
 font-weight: 700;
 font-size: 16px;
 line-height: 19px;
@@ -359,10 +323,6 @@ border-radius: 16px;
 flex: none;
 order: 1;
 flex-grow: 0;
-
-
-font-family: 'Inter';
-font-style: normal;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
