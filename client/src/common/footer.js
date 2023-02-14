@@ -11,10 +11,7 @@ height: 135px;
 background: #292932;
 `;
 
-const FooterDescriptionLeft =styled.div`
-left: calc(50% - 119px);
-height: 13px;
-width: 87px;
+const FooterDescriptionTop =styled.div`
 font-weight: 700;
 font-size: 11px;
 line-height: 13px;
@@ -30,10 +27,7 @@ order: 0;
 flex-grow: 0;
 `;
 
-const FooterDescriptionRight = styled.div`
-width: 139px;
-height: 13px;
-right: calc(50% + 119px);
+const FooterDescriptionMiddle = styled.div`
 font-weight: 400;
 font-size: 11px;
 line-height: 13px;
@@ -52,8 +46,6 @@ flex-grow: 0;
 
 
 const FooterDescriptionBottom = styled.div`
-width: 203px;
-height: 13px;
 font-weight: 400;
 font-size: 11px;
 line-height: 13px;
@@ -73,8 +65,8 @@ flex-grow: 0;
 function Footer() {
     return(<>
     <FooterContainer>
-        <FooterDescriptionLeft>Blockwave Labs</FooterDescriptionLeft>
-        <FooterDescriptionRight>contact@blockwavelabs.io</FooterDescriptionRight>
+        <FooterDescriptionTop>Blockwave Labs</FooterDescriptionTop>
+        <FooterDescriptionMiddle>contact@blockwavelabs.io</FooterDescriptionMiddle>
         <FooterDescriptionBottom>Blockwave Labs Inc. All rights reserved</FooterDescriptionBottom>
     </FooterContainer>
     </>);
