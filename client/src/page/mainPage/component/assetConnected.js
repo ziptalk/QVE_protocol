@@ -163,12 +163,12 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         // console.log("Deposit success!");
     }
     // console.log('account is', account);
-    const DepositAptos = async(amount) => {
+    function DepositAptos () {
         // console.log("Deposit Aptos");
         const transaction = {
             type: "entry_function_aptos_transfer",
-            function: '0xf2bc453c0aeb6e26e27bf2f04b5e25ee3c02dd04fa56f2fc4b5e98fac6c86a24::qve_mint::exchange_to_entry',
-            arguments: [amount * 10**8],
+            function: '0x7e25b91bd24cc91e44d6eb3f8cf65356e258de5159c330ace70a6298812e97e4::QVE_APTOS_CONTRACT::exchange_to_entry',
+            arguments: [depositAmount * 10**8],
             type_arguments: [],
         };
         window.aptos.signAndSubmitTransaction(transaction).then(() => {
@@ -177,36 +177,36 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         //TODO 추후에 staking하는 코드 넣기
     }
 
-    useEffect(() => {
-    const UsdtBalance = qveContract.UsdtContract.methods.balanceOf(Account).call();
-    const qveBalance = qveContract.QVEContract.methods.balanceOf(Account).call();
-    const arbQVEBalance = qveContract.ArbQVEContract.methods.balanceOf(Account).call();
-    const qveStakedBalance = qveContract.StakeContract.methods.staked_QVE(Account).call();
-    const arbQveStakedBalance = qveContract.StakeContract.methods.staked_arbQVE(Account).call();
+//     useEffect(() => {
+//     const UsdtBalance = qveContract.UsdtContract.methods.balanceOf(Account).call();
+//     const qveBalance = qveContract.QVEContract.methods.balanceOf(Account).call();
+//     const arbQVEBalance = qveContract.ArbQVEContract.methods.balanceOf(Account).call();
+//     const qveStakedBalance = qveContract.StakeContract.methods.staked_QVE(Account).call();
+//     const arbQveStakedBalance = qveContract.StakeContract.methods.staked_arbQVE(Account).call();
 
-    UsdtBalance.then((result) => {
-        setUsdt(result);
-      });
+//     UsdtBalance.then((result) => {
+//         setUsdt(result);
+//       });
 
-    qveBalance.then((result) => {
-        setQve(result);
-      });
+//     qveBalance.then((result) => {
+//         setQve(result);
+//       });
 
-    arbQVEBalance.then((result) => {
-        setArbQve(result);
-      });
-    qveStakedBalance.then((result) => {
-        setStakedQve(result);
-    })
-    arbQveStakedBalance.then((result) => {
-        setStakedArbQve(result);
-    })
-},[depositAmount])
+//     arbQVEBalance.then((result) => {
+//         setArbQve(result);
+//       });
+//     qveStakedBalance.then((result) => {
+//         setStakedQve(result);
+//     })
+//     arbQveStakedBalance.then((result) => {
+//         setStakedArbQve(result);
+//     })
+// },[depositAmount])
    
 
 
     function Deposit() {
-        DepositMetamask();
+        DepositAptos();
         setPreWalletCount(null);
     }
     window.ethereum.on('accountsChanged', async () => {

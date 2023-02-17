@@ -71,27 +71,39 @@ function AddLiquidity({setLiquidityCount}) {
     const qveContract = Contract();
     const Address = ContractAddress();
     account  = JSON.parse(localStorage.getItem('user'));
-    function AddingLiquidity(amount) {
 
-        qveContract.QVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });;
-
-        qveContract.ArbQVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
+    function AddingLiquidityPetra() {
+        const transaction = {
+            type: "entry_function_aptos_transfer",
+            function: '0x7e25b91bd24cc91e44d6eb3f8cf65356e258de5159c330ace70a6298812e97e4::QVE_APTOS_CONTRACT::addLiquidity_ARB',
+            arguments: [amount * 10**8],
+            type_arguments: [],
+        };
         
-        qveContract.LiquidityContract.methods.addLiquidity_1(web3.utils.toBN(amount * 10**18)).send({ from: account });
-
-        
+        window.aptos.signAndSubmitTransaction(transaction).then(() => {
+            console.log("전송 성공");
+        })
     }
-    useEffect(()=>{
-        const updateQvePrice = async () => {
-            let getQVEPoolData =  qveContract.LiquidityContract.methods.getLiquidityValue_1(amount).call();
-           
-            await getQVEPoolData.then((result) => {
-                setQvePrice(result);
-            });
-        }
+
+    // function AddingLiquidity(amount) {
+
+    //     qveContract.QVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });;
+
+    //     qveContract.ArbQVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
         
-        updateQvePrice();
-    }, [amount])
+    //     qveContract.LiquidityContract.methods.addLiquidity_1(web3.utils.toBN(amount * 10**18)).send({ from: account });
+    // }
+    // useEffect(()=>{
+    //     const updateQvePrice = async () => {
+    //         let getQVEPoolData =  qveContract.LiquidityContract.methods.getLiquidityValue_1(amount).call();
+           
+    //         await getQVEPoolData.then((result) => {
+    //             setQvePrice(result);
+    //         });
+    //     }
+        
+    //     updateQvePrice();
+    // }, [amount])
 
     return(
         <Container style={{position: 'relative'}}>
@@ -140,7 +152,7 @@ function AddLiquidity({setLiquidityCount}) {
                 </EContainer>
             </QveArbContainer>
             <EContainer style={{height: '20px'}}></EContainer>
-            <Button onClick={() => AddingLiquidity(amount)}>Amount is Empty</Button>
+            <Button onClick={() => AddingLiquidityPetra()}>Amount is Empty</Button>
             <EContainer style={{height: '30px'}}/>
         </Container>
     );

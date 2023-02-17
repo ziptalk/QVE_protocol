@@ -108,7 +108,7 @@ function StakeArbQve({setCount}) {
     const web3 = new Web3(window.ethereum);
     let account = JSON.parse(localStorage.getItem('user'));
 
-    function stakeArbQve() {
+    /* function stakeArbQve() {
         qveContract.ArbQVEContract.methods.approve(Address.StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
 
         qveContract.StakeContract.methods.StakeArbQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
@@ -118,7 +118,20 @@ function StakeArbQve({setCount}) {
     availableArbQVE.then((result) => {
         console.log('arbQVEbalance',result);
         setArbQveBalance(result);
-    })
+    }) */
+
+    function stakeArbQvePetra() {
+        const transaction = {
+            type: "entry_function_aptos_transfer",
+            function: '0x7e25b91bd24cc91e44d6eb3f8cf65356e258de5159c330ace70a6298812e97e4::QVE_APTOS_CONTRACT::staked_arbQVE',
+            arguments: [amount * 10**8],
+            type_arguments: [],
+        };
+        
+        window.aptos.signAndSubmitTransaction(transaction).then(() => {
+            console.log("전송 성공");
+        })
+    }
     
     return (
         <EContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -156,7 +169,7 @@ function StakeArbQve({setCount}) {
             {amount === '' ? 
             <Button style={{background: '#5C5E81'}}>Amount is Empty</Button> 
             : 
-            <Button onClick={() => stakeArbQve()}>Stake</Button>
+            <Button onClick={() => stakeArbQvePetra()}>Stake</Button>
             }
         </StakeContainer>
         </EContainer>

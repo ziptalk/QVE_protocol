@@ -114,25 +114,38 @@ function SwapQVEtoarbQVE({setIcon}) {
     const web3 = new Web3(window.ethereum);
     let account = JSON.parse(localStorage.getItem('user'));
 
-    function SwapBtoA() {
-        qveContract.QVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
+    // function SwapBtoA() {
+    //     qveContract.QVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
 
-        qveContract.LiquidityContract.methods.swapBtoA(web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
+    //     qveContract.LiquidityContract.methods.swapBtoA(web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
 
+    // }
+
+    // const getSwapBData = qveContract.LiquidityContract.methods.getSwapBtoAReturnAmount(web3.utils.toBN(depositAmount * 10**18)).call();
+    // const getSwapBtoACurrency = qveContract.LiquidityContract.methods.getSwapBtoAReturnAmount(web3.utils.toBN(1 * 10**18)).call();
+    // const getMaxQve = qveContract.QVEContract.methods.balanceOf(account).call();
+    // getSwapBData.then((result) => {
+    //     setQvePriceSwap(result);
+    //   });
+    // getSwapBtoACurrency.then((result) => {
+    //     setBtoA(result);
+    // });
+    // getMaxQve.then((result) => {
+    //     setMaxQve(result)
+    // });
+
+    function SwapQVEtoArb() {
+        const transaction = {
+            type: "entry_function_aptos_transfer",
+            function: '0x7e25b91bd24cc91e44d6eb3f8cf65356e258de5159c330ace70a6298812e97e4::QVE_APTOS_CONTRACT::swapQvetoArb',
+            arguments: [depositAmount * 10**8],
+            type_arguments: [],
+        };
+        
+        window.aptos.signAndSubmitTransaction(transaction).then(() => {
+            console.log("전송 성공");
+        })
     }
-
-    const getSwapBData = qveContract.LiquidityContract.methods.getSwapBtoAReturnAmount(web3.utils.toBN(depositAmount * 10**18)).call();
-    const getSwapBtoACurrency = qveContract.LiquidityContract.methods.getSwapBtoAReturnAmount(web3.utils.toBN(1 * 10**18)).call();
-    const getMaxQve = qveContract.QVEContract.methods.balanceOf(account).call();
-    getSwapBData.then((result) => {
-        setQvePriceSwap(result);
-      });
-    getSwapBtoACurrency.then((result) => {
-        setBtoA(result);
-    });
-    getMaxQve.then((result) => {
-        setMaxQve(result)
-    });
 
     return (
     <Background>
@@ -186,7 +199,7 @@ function SwapQVEtoarbQVE({setIcon}) {
         {depositAmount === '' ? 
             <Button style={{background: '#5C5E81'}}>Swap</Button> 
             : 
-            <Button onClick={() => SwapBtoA()}>Swap</Button>
+            <Button onClick={() => SwapQVEtoArb()}>Swap</Button>
             }
         </EContainer>
         <BackgroudImage src={QveImage}></BackgroudImage>

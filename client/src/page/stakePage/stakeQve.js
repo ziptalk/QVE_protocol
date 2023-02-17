@@ -106,19 +106,32 @@ function StakeQve({setCount}) {
     const qveContract = Contract();
     const Address = ContractAddress();
     let account = JSON.parse(localStorage.getItem('user'));
-    
 
-    function stakeQve() {
-        qveContract.QVEContract.methods.approve(Address.StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
 
-        qveContract.StakeContract.methods.StakeQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
+    function stakeQvePetra() {
+        const transaction = {
+            type: "entry_function_aptos_transfer",
+            function: '0x7e25b91bd24cc91e44d6eb3f8cf65356e258de5159c330ace70a6298812e97e4::QVE_APTOS_CONTRACT::staked_Qve',
+            arguments: [amount * 10**8],
+            type_arguments: [],
+        };
+        
+        window.aptos.signAndSubmitTransaction(transaction).then(() => {
+            console.log("전송 성공");
+        })
     }
 
-    const availableQVE = qveContract.QVEContract.methods.balanceOf(account).call();
+    // function stakeQve() {
+    //     qveContract.QVEContract.methods.approve(Address.StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
 
-    availableQVE.then((result) => {
-        setQveBalance(result);
-    })
+    //     qveContract.StakeContract.methods.StakeQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
+    // }
+
+    // const availableQVE = qveContract.QVEContract.methods.balanceOf(account).call();
+
+    // availableQVE.then((result) => {
+    //     setQveBalance(result);
+    // })
 
     return (
         <EContainer style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
@@ -156,7 +169,7 @@ function StakeQve({setCount}) {
             {amount === '' ? 
             <Button style={{background: '#5C5E81'}}>Amount is Empty</Button> 
             : 
-            <Button onClick={() => stakeQve()}>Stake</Button>
+            <Button onClick={() => stakeQvePetra()}>Stake</Button>
             }
         </StakeContainer>
         </EContainer>
