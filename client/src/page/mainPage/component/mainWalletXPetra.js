@@ -217,8 +217,8 @@ function MainWalletX({preWalletCount, setAptosBalance, setPreWalletCount, setAcc
             /* console.log(account.address); // { address: string, address: string } */
             localStorage.setItem('user', JSON.stringify(account.address));
             setAccount(account.address);
-            const contractBalance = wallet.contract.getBalance('0xf2bc453c0aeb6e26e27bf2f04b5e25ee3c02dd04fa56f2fc4b5e98fac6c86a24');
-            setAptosBalance(contractBalance);
+            // const contractBalance = wallet.contract.getBalance('0xf2bc453c0aeb6e26e27bf2f04b5e25ee3c02dd04fa56f2fc4b5e98fac6c86a24');
+            // setAptosBalance(contractBalance);
         } catch (error) {
   // { code: 4001, message: "User rejected the request."}
 }

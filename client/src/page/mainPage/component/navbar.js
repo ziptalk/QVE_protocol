@@ -108,6 +108,14 @@ function Navbar () {
 
   };
 
+  const getAptosWallet = () => {
+    if ('aptos' in window) {
+        return window.aptos;
+    } else {
+        window.open('https://petra.app/', `_blank`);
+    }
+};
+
   const navigate = useNavigate();
 
 //   const getAptosWallet = () => {
@@ -144,6 +152,8 @@ function Navbar () {
 
     if (selectedOption == "Disconnect") {
         localStorage.removeItem("user");
+        const wallet = getAptosWallet();
+        wallet.disconnect();
         window.location.reload();
         
     }
