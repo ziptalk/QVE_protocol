@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import XImg from "../../assets/X_Icon.png";
-import BackgroundImage from "../../assets/SwapImage.png";
+import XImg from "../../assets/img/x.png";
+import BackgroundImage from "../../assets/img/SwapImage.png";
 import Web3 from "web3";
 import QveArtifact from "../../artifact/Qve.json";
 import stakeArtifact from "../../artifact/Stake.json";
 import { useState } from "react";
+import Contract from "../../assets/contract/contract";
+import ContractAddress from "../../assets/contract/contractAddress";
 const EContainer = styled.div`
 
 `;
@@ -101,23 +103,20 @@ function StakeQve({setCount}) {
     const [amount, setAmount] = useState('');
     const [qveBalance, setQveBalance] = useState('');
     const web3 = new Web3(window.ethereum);
+    const qveContract = Contract();
+    const Address = ContractAddress();
     let account = JSON.parse(localStorage.getItem('user'));
-    const StakeAddress = "0xEbD58F66Cdca962e009fE304a61A591135091d9d";
-    const QveAddress = "0x90eA2B148537CafbC47ACF5B805633dCa505D7fa"
-    const QveContract = new web3.eth.Contract(QveArtifact.output.abi, QveAddress);
-    const stakeContract = new web3.eth.Contract(stakeArtifact.output.abi, StakeAddress);
+    
 
     function stakeQve() {
-        QveContract.methods.approve(StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
+        qveContract.QVEContract.methods.approve(Address.StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
 
-        stakeContract.methods.StakeQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
+        qveContract.StakeContract.methods.StakeQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
     }
-    console.log(account)
-    console.log(QveContract.methods);
-    const availableQVE = QveContract.methods.balanceOf(account).call();
-    console.log(availableQVE)
+
+    const availableQVE = qveContract.QVEContract.methods.balanceOf(account).call();
+
     availableQVE.then((result) => {
-        console.log('QVEbalance',result);
         setQveBalance(result);
     })
 

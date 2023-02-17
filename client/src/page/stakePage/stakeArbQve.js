@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import XImg from "../../assets/X_Icon.png";
-import BackgroundImage from "../../assets/SwapImage.png";
+import XImg from "../../assets/img/x.png";
+import BackgroundImage from "../../assets/img/SwapImage.png";
 import Web3 from "web3";
 import arbQveArtifact from "../../artifact/ArbQVE.json";
 import stakeArtifact from "../../artifact/Stake.json";
 import { useState } from "react";
+import Contract from "../../assets/contract/contract";
+import ContractAddress from "../../assets/contract/contractAddress";
 const EContainer = styled.div`
 
 `;
@@ -101,20 +103,18 @@ color: #FFFFFF;
 function StakeArbQve({setCount}) {
     const [amount, setAmount] = useState('');
     const [arbQveBalance, setArbQveBalance] = useState('');
+    const qveContract = Contract();
+    const Address = ContractAddress();
     const web3 = new Web3(window.ethereum);
     let account = JSON.parse(localStorage.getItem('user'));
-    const StakeAddress = "0xEbD58F66Cdca962e009fE304a61A591135091d9d";
-    const arbQVEAddress = "0x6735E238D15666f6af715b4f1EE9E481435Fea12"
-    const arbQveContract = new web3.eth.Contract(arbQveArtifact.output.abi, arbQVEAddress);
-    const stakeContract = new web3.eth.Contract(stakeArtifact.output.abi, StakeAddress);
 
     function stakeArbQve() {
-        arbQveContract.methods.approve(StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
+        qveContract.ArbQVEContract.methods.approve(Address.StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
 
-        stakeContract.methods.StakeArbQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
+        qveContract.StakeContract.methods.StakeArbQVE(web3.utils.toBN(amount * 10**18)).send({ from: account });
     }
 
-    const availableArbQVE = arbQveContract.methods.balanceOf(account).call();
+    const availableArbQVE = qveContract.ArbQVEContract.methods.balanceOf(account).call();
     availableArbQVE.then((result) => {
         console.log('arbQVEbalance',result);
         setArbQveBalance(result);

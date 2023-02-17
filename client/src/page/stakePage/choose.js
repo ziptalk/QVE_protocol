@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Qve from "../../assets/Qve.png";
-import arbQve from "../../assets/arbQve.png";
-import BackgroundImage from "../../assets/SwapImage.png";
+import Qve from "../../assets/img/Qve.png";
+import arbQve from "../../assets/img/arbQve.png";
+import BackgroundImage from "../../assets/img/SwapImage.png";
 const EContainer = styled.div`
 
 `;

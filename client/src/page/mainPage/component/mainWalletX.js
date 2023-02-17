@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import React, { useState, useEffect } from "react";
-import pleaseConnectYourWallet from "../../../assets/PleaseConnectYourWallet.png"
-import PreWalletImg from "../../../assets/PreWalletImg.png";
+import pleaseConnectYourWallet from "../../../assets/img/PleaseConnectYourWallet.png"
+import PreWalletImg from "../../../assets/img/PreWalletImg.png";
 import Web3 from "web3";
-import XImg from "../../../assets/X_Icon.png";
-import MetamaskImg from "../../../assets/Metamask.png";
+import XImg from "../../../assets/img/x.png";
+import MetamaskImg from "../../../assets/img/Metamask.png";
 import DepositArtifact from "../../../artifact/Deposit.json";
 import UsdtArtifact from "../../../artifact/Usdt.json";
 
@@ -259,7 +259,7 @@ function MainWalletX({preWalletCount, setPreWalletCount, setAccount, setStakeCon
         <WalletMarketContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
         <ConnectWallet>Connect wallet</ConnectWallet>
-        <ImageContainer src={XImg} style={{width: '19px', height: '19px', cursor: 'pointer', paddingRight: '30px'}} onClick={() => {setPreWalletCount(null)}}></ImageContainer>
+        <ImageContainer src={XImg} style={{width: '19px', height: '19px', cursor: 'pointer', marginRight: '30px'}} onClick={() => {setPreWalletCount(null)}}></ImageContainer>
         </EContainer>
         <EContainer style={{height: '38px'}}></EContainer>
         <EContainer style={{width: '314px'}}>

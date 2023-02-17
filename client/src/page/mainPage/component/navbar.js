@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import Menu from "../../../assets/Menu.png";
+import Menu from "../../../assets/img/Menu.png";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import DepositImg from "../../../assets/Deposit.png";
-import PortfolioImg from "../../../assets/PortfolioImg.png";
-import StakeImg from "../../../assets/Staking.png";
-import PoolImg from "../../../assets/Liquidity.png";
-import SwapImg from "../../../assets/SwapImg.png";
+import DepositImg from "../../../assets/img/Deposit.png";
+import PortfolioImg from "../../../assets/img/PortfolioImg.png";
+import StakeImg from "../../../assets/img/Staking.png";
+import PoolImg from "../../../assets/img/Liquidity.png";
+import SwapImg from "../../../assets/img/SwapImg.png";
 import Web3 from "web3";
 const MenuBar = styled.img`
 width: 24px;

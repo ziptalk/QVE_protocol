@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ReactApexChart from 'react-apexcharts'
 import styled, { withTheme } from 'styled-components';
-import iconCalendar from "../../../assets/icon-Calendar.png";
 
 const EContainer = styled.div`
 

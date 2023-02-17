@@ -1,22 +1,18 @@
 
 import { useState } from "react";
 import styled from "styled-components";
-import DepositImg from "../../../assets/Deposit.png";
-import StakingImg from "../../../assets/Staking.png";
-import LiquidityImg from "../../../assets/Liquidity.png";
-import TotalLineImg from "../../../assets/TotalLine.png";
-import XImg from "../../../assets/X_Icon.png";
-import Favicon from "../../../assets/Favicon.png";
+import DepositImg from "../../../assets/img/Deposit.png";
+import StakingImg from "../../../assets/img/Staking.png";
+import LiquidityImg from "../../../assets/img/Liquidity.png";
+import TotalLineImg from "../../../assets/img/TotalLine.png";
+import XImg from "../../../assets/img/x.png";
+import Favicon from "../../../assets/img/Favicon.png";
 import { useNavigate } from "react-router-dom";
-import AptosLogo from "../../../assets/AptosLogo.png";
-import { Types, AptosClient, CoinClient } from 'aptos';
-import arbQVEArtifact from "../../../artifact/ArbQVE.json";
-import DepositArtifact from "../../../artifact/Deposit.json";
-import UsdtArtifact from "../../../artifact/Usdt.json";
-import qveArtifact from "../../../artifact/Qve.json";
-import stakingArtifact from "../../../artifact/Stake.json";
-import UsdtIcon from "../../../assets/UsdtIcon.png";
+import UsdtIcon from "../../../assets/img/UsdtIcon.png";
 import Web3 from "web3";
+import { useEffect } from "react";
+import Contract from "../../../assets/contract/contract";
+import ContractAddress from "../../../assets/contract/contractAddress";
 const Asset = styled.div`
 
 /* Heading 2 */
@@ -41,7 +37,8 @@ const EContainer = styled.div`
 
 const PreWalletConnectBackground = styled.div`
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    padding-top: 77px;
     backdrop-filter: blur(5px);
     position: fixed;
     left: 0; top: 0;
@@ -139,16 +136,8 @@ justify-content: space-between;
 function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStakeContract, account, stakeContract, usdtContract, setUsdtContract, liquidityContract, setLiquidityContract, aptosBalance}) {
     // console.log('Balance:', aptosWeb3.getBalance(account));
     const web3 = new Web3(window.ethereum);
-    const depositContractAddress = "0x71E69f74A0e340693ca39054fD64Db01517F95a8";
-    const DepositContract = new web3.eth.Contract(DepositArtifact.output.abi, depositContractAddress);
-    const arbQVEContractAddress = "0x6735E238D15666f6af715b4f1EE9E481435Fea12";
-    const qveContractAddress = "0x90eA2B148537CafbC47ACF5B805633dCa505D7fa";
-    const arbQVEContract = new web3.eth.Contract(arbQVEArtifact.output.abi, arbQVEContractAddress);
-    const qveContract = new web3.eth.Contract(qveArtifact.output.abi, qveContractAddress);
-    const usdtAddress= "0x220DCe972635D1D8acEb52C5Ec592C0e1f001B6b";
-    const Usdtcontract = new web3.eth.Contract(UsdtArtifact.output.abi, usdtAddress);
-    const stakingAddress = "0xEbD58F66Cdca962e009fE304a61A591135091d9d";
-    const StakingContract = new web3.eth.Contract(stakingArtifact.output.abi, stakingAddress);
+    const qveContract = Contract();
+    const Address = ContractAddress();
     const [depositAmount, setDepositAmount] = useState(0);
     const [usdt, setUsdt] = useState('');
     const [qve, setQve] = useState('');
@@ -165,10 +154,10 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
     function DepositMetamask() {
         console.log('account', Account)
     // Approve the transfer of the specified amount of USDT from the current account to the contract
-        Usdtcontract.methods.approve(depositContractAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: Account });
+        qveContract.UsdtContract.methods.approve(Address.DepositAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: Account });
         
         // Deposit the approved amount of USDT to the contract
-        DepositContract.methods.deposit(web3.utils.toBN(depositAmount * 10**18)).send({ from: Account });
+        qveContract.DepositContract.methods.deposit(web3.utils.toBN(depositAmount * 10**18)).send({ from: Account });
 
         // qveContract.methods.mintToken(account,account,depositAmount).send({ from : account });
         // console.log("Deposit success!");
@@ -187,11 +176,13 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         })
         //TODO 추후에 staking하는 코드 넣기
     }
-    const UsdtBalance = Usdtcontract.methods.balanceOf(Account).call();
-    const qveBalance = qveContract.methods.balanceOf(Account).call();
-    const arbQVEBalance = arbQVEContract.methods.balanceOf(Account).call();
-    const qveStakedBalance = StakingContract.methods.staked_QVE(Account).call();
-    const arbQveStakedBalance = StakingContract.methods.staked_arbQVE(Account).call();
+
+    useEffect(() => {
+    const UsdtBalance = qveContract.UsdtContract.methods.balanceOf(Account).call();
+    const qveBalance = qveContract.QVEContract.methods.balanceOf(Account).call();
+    const arbQVEBalance = qveContract.ArbQVEContract.methods.balanceOf(Account).call();
+    const qveStakedBalance = qveContract.StakeContract.methods.staked_QVE(Account).call();
+    const arbQveStakedBalance = qveContract.StakeContract.methods.staked_arbQVE(Account).call();
 
     UsdtBalance.then((result) => {
         setUsdt(result);
@@ -210,7 +201,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
     arbQveStakedBalance.then((result) => {
         setStakedArbQve(result);
     })
-    
+},[depositAmount])
    
 
 
@@ -314,7 +305,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         <DepositContainer>
         <EContainer style={{height: '39px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end'}}>
-        <Image src={XImg} style={{width: '19px', height: '19px', cursor: 'pointer', paddingRight: '30px'}} onClick={() => {setPreWalletCount(null)}}></Image>
+        <Image src={XImg} style={{width: '19px', height: '19px', cursor: 'pointer', marginRight: '30px'}} onClick={() => {setPreWalletCount(null)}}></Image>
         </EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignContent: 'center'}}>
         <Image src={Favicon} style={{width: '45px', height: '40px'}}></Image>
@@ -386,3 +377,5 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
 
 export default AssetConnected;
 
+// !!(preWalletCount === 3) &&
+//                     <PreWalletConnectBackground style={{visibility : preWalletCount === 3 ? "visible" : "hidden"}}></PreWalletConnectBackground>

@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import XIcon from "../../assets/X_Icon.png";
-import { useState } from "react";
-import LiquidityArtifact from "../../artifact/LiquidityPool.json";
-import QveArtifact from "../../artifact/Qve.json";
-import arbQveArtifact from "../../artifact/ArbQVE.json";
+import XIcon from "../../assets/img/x.png";
+import { useState, useEffect } from "react";
+import Contract from "../../assets/contract/contract";
+import ContractAddress from "../../assets/contract/contractAddress";
 import Web3 from "web3";
 const Container = styled.div`
 background: #2B2B34;
@@ -68,34 +67,31 @@ function AddLiquidity({setLiquidityCount}) {
     const web3 = new Web3(window.ethereum);
     const [amount, setAmount] = useState(0);
     const [qvePrice, setQvePrice] = useState(0);
-    const [a, setA] = useState(0);
-    const [b, setB] = useState(0);
     let account = JSON.parse(localStorage.getItem('user'));
-    
-    const AddLiquidityAddress = "0x57Fc576deAf9558229B6c06468D29C16a42034c6";
-    const QveAddress = "0x90eA2B148537CafbC47ACF5B805633dCa505D7fa";
-    const arbQveAddress = "0x6735E238D15666f6af715b4f1EE9E481435Fea12";
-    const LiquidityContract = new web3.eth.Contract(LiquidityArtifact.output.abi , AddLiquidityAddress);
-    const QveContract = new web3.eth.Contract(QveArtifact.output.abi, QveAddress);
-    const arbQveContract = new web3.eth.Contract(arbQveArtifact.output.abi, arbQveAddress);
+    const qveContract = Contract();
+    const Address = ContractAddress();
     account  = JSON.parse(localStorage.getItem('user'));
     function AddingLiquidity(amount) {
 
-        QveContract.methods.approve(AddLiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });;
+        qveContract.QVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });;
 
-        arbQveContract.methods.approve(AddLiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
+        qveContract.ArbQVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
         
-        LiquidityContract.methods.addLiquidity_1(web3.utils.toBN(amount * 10**18)).send({ from: account });
+        qveContract.LiquidityContract.methods.addLiquidity_1(web3.utils.toBN(amount * 10**18)).send({ from: account });
 
         
     }
-    let getQVEPoolData = LiquidityContract.methods.getLiquidityValue_1(amount).call();
-    console.log(getQVEPoolData);
-    let QvePrice = 0;
-   
-    getQVEPoolData.then((result) => {
-        setQvePrice(result);
-      });
+    useEffect(()=>{
+        const updateQvePrice = async () => {
+            let getQVEPoolData =  qveContract.LiquidityContract.methods.getLiquidityValue_1(amount).call();
+           
+            await getQVEPoolData.then((result) => {
+                setQvePrice(result);
+            });
+        }
+        
+        updateQvePrice();
+    }, [amount])
 
     return(
         <Container style={{position: 'relative'}}>

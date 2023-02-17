@@ -1,9 +1,11 @@
 import styled from "styled-components";
-import BothCoins from "../../assets/BothCoins.png";
+import BothCoins from "../../assets/img/BothCoins.png";
 import { ProgressBar } from 'react-bootstrap';
 import LiquidityArtifact from "../../artifact/LiquidityPool.json";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Web3 from "web3";
+import Contract from "../../assets/contract/contract";
+import ContractAddress from "../../assets/contract/contractAddress";
 import { useState } from "react";
 const EContainer = styled.div`
 
@@ -58,10 +60,9 @@ function Pool ({setLiquidityCount}) {
     const [qveTotal, setQveTotal] = useState('');
     const [arbQveTotal, setArbQveTotal] = useState('');
     const web3 = new Web3(window.ethereum);
-    const LiquidityAddress = '0x57Fc576deAf9558229B6c06468D29C16a42034c6';
-    const LiquidityContract = new web3.eth.Contract(LiquidityArtifact.output.abi , LiquidityAddress);
-    const arbQVETotal = LiquidityContract.methods.getTotalA().call();
-    const QVETotal = LiquidityContract.methods.getTotalB().call();
+    const qveContract = Contract();
+    const arbQVETotal = qveContract.LiquidityContract.methods.getTotalA().call();
+    const QVETotal = qveContract.LiquidityContract.methods.getTotalB().call();
     arbQVETotal.then((result) => {
         console.log(result)
         setArbQveTotal(result);

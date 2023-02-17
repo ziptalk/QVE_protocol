@@ -5,7 +5,7 @@ function Main() {
     const [icon, setIcon] = useState(0);
     return (
         <>
-        {icon === 0 ? 
+        {!!(icon === 0) ? 
         <SwaparbQVEtoQVE setIcon={setIcon}></SwaparbQVEtoQVE> 
         :
         <SwapQVEtoarbQVE setIcon={setIcon}></SwapQVEtoarbQVE>

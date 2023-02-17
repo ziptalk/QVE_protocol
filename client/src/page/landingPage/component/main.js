@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import LandingImg from "../../../assets/LandingImg.png";
-import ArrowDown from "../../../assets/ArrowDown.png";
-import Discord from "../../../assets/Discord.png";
-import Twitter from "../../../assets/Twitter.png";
-import Telegram from "../../../assets/Telegram.png";
-import HowQveWorks from "../../../assets/HowQveWorks.png"
+import LandingImg from "../../../assets/img/LandingImg.png";
+import ArrowDown from "../../../assets/img/ArrowDown.png";
+import Discord from "../../../assets/img/Discord.png";
+import Twitter from "../../../assets/img/Twitter.png";
+import Telegram from "../../../assets/img/Telegram.png";
+import HowQveWorks from "../../../assets/img/HowQveWorks.png"
 
 const Background = styled.div`
 background-color: #1B1A1E;

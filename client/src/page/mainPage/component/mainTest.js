@@ -2,13 +2,13 @@ import styled from "styled-components";
 import LineChart from "./Chart";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import ExcIcon from "../../../assets/Subtract.png";
+import ExcIcon from "../../../assets/img/Subtract.png";
 import axios from "axios";
-import HiddenMessage from "../../../assets/hiddenMessage.png";
+import HiddenMessage from "../../../assets/img/hiddenMessage.png";
 import MainWalletXPetra from "./mainWalletXPetra";
 import MainWalletX from "./mainWalletX";
 import AssetConnected from "./assetConnected";
-import logoImg from '../../../assets/logo.png';
+import logoImg from '../../../assets/img/logo.png';
 
 const ContainerAll = styled.div`
 height: 100%;

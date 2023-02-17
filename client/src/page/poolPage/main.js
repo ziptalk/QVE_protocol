@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import SwapImage from "../../assets/SwapImage.png";
+import SwapImage from "../../assets/img/SwapImage.png";
 import { useState } from "react";
 import Pool from "./Pool";
 import AddLiquidity from "./AddLiquidity";

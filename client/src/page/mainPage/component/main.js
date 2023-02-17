@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import LineChart from "./Chart";
 import React, { useState, useEffect } from "react";
-import { ReactDOM } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 

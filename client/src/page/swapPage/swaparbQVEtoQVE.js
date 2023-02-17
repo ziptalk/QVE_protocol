@@ -1,14 +1,12 @@
 import styled from "styled-components";
-import QveImage from "../../assets/SwapImage.png"
-import Qve from "../../assets/Qve.png";
-import arbQve from "../../assets/arbQve.png"
-import LiquidityArtifact from "../../artifact/LiquidityPool.json";
-import arbQveArtifact from "../../artifact/ArbQVE.json";
-import QveArtifact from "../../artifact/Qve.json";
+import QveImage from "../../assets/img/SwapImage.png"
+import Qve from "../../assets/img/Qve.png";
+import arbQve from "../../assets/img/arbQve.png"
 import Web3 from "web3";
-import SwapIcon from "../../assets/SwapIcon.png";
+import SwapIcon from "../../assets/img/SwapIcon.png";
 import { useState } from "react";
-import StakeQve from "../stakePage/stakeQve";
+import Contract from "../../assets/contract/contract.js";
+import ContractAddress from "../../assets/contract/contractAddress";
 const Background = styled.div`
 background-color: #1B1A1E;
 height: 100vh;
@@ -105,26 +103,21 @@ border: none;
 function SwaparbQVEtoQVE({setIcon}) {
     const [depositAmount, setDepositAmount] = useState('');
     const [arbQvePriceSwap, setArbQvePriceSwap] = useState('');
+    const qveContract = Contract();
+    const Address = ContractAddress();
     const [AtoB, setAtoB] = useState('');
     const [maxarbQVE, setMaxarbQVE] = useState('');
     const web3 = new Web3(window.ethereum);
     let account = JSON.parse(localStorage.getItem('user'));
-    const LiquidityAddress = "0x57Fc576deAf9558229B6c06468D29C16a42034c6";
-    const QveAddress = "0x90eA2B148537CafbC47ACF5B805633dCa505D7fa";
-    const arbQveAddress = "0x6735E238D15666f6af715b4f1EE9E481435Fea12";
-    const LiquidityContract = new web3.eth.Contract(LiquidityArtifact.output.abi, LiquidityAddress);
-    const QveContract = new web3.eth.Contract(QveArtifact.output.abi, QveAddress);
-    const arbQveContract = new web3.eth.Contract(arbQveArtifact.output.abi, arbQveAddress);
     function SwapAtoB() {
-        //QveContract.methods.approve(LiquidityAddress, depositAmount).send({ from: account });
-        arbQveContract.methods.approve(LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
+        qveContract.ArbQVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
 
-        LiquidityContract.methods.swapAtoB(web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
+        qveContract.LiquidityContract.methods.swapAtoB(web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
     }
 
-    const getSwapAData = LiquidityContract.methods.getSwapAtoBReturnAmount(web3.utils.toBN(depositAmount * 10**18)).call();
-    const getSwapAtoBCurrency = LiquidityContract.methods.getSwapAtoBReturnAmount(web3.utils.toBN(1 * 10**18)).call();
-    const getMaxarbQVE = arbQveContract.methods.balanceOf(account).call();
+    const getSwapAData = qveContract.LiquidityContract.methods.getSwapAtoBReturnAmount(web3.utils.toBN(depositAmount * 10**18)).call();
+    const getSwapAtoBCurrency = qveContract.LiquidityContract.methods.getSwapAtoBReturnAmount(web3.utils.toBN(1 * 10**18)).call();
+    const getMaxarbQVE = qveContract.ArbQVEContract.methods.balanceOf(account).call();
     getSwapAData.then((result) => {
         setArbQvePriceSwap(result);
       });

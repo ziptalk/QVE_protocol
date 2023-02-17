@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import logo from "../assets/logo.png";
-import menu from "../assets/Menu.png";
+import menu from "../assets/img/Menu.png";
 import Navbar from "../page/mainPage/component/navbar";
 import { useState } from "react";
 const HeaderContainer = styled.div`
