@@ -197,7 +197,7 @@ color: #FFFFFF;
 `;
 
 
-function MainWalletX({preWalletCount, setAptosBalance, setPreWalletCount, setAccount, setStakeContract, account, stakeContract, usdtContract, setUsdtContract, liquidityContract, setLiquidityContract}) {
+function MainWalletXPetra({preWalletCount, setAptosBalance, setPreWalletCount, setAccount, setStakeContract, account, stakeContract, usdtContract, setUsdtContract, liquidityContract, setLiquidityContract}) {
     const getAptosWallet = () => {
         if ('aptos' in window) {
             return window.aptos;
@@ -279,4 +279,4 @@ function MainWalletX({preWalletCount, setAptosBalance, setPreWalletCount, setAcc
 /*<EContainer style={{display:'flex', justifyContent: 'flex-start', width: '95%', maxWidth: '700px', position: 'relative', alignSelf: 'center', position: 'relative'}}>
             <DropDown></DropDown>
         </EContainer>*/
-export default MainWalletX;
+export default MainWalletXPetra;
