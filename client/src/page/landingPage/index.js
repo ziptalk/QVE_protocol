@@ -1,5 +1,5 @@
 import Header from "../../common/header";
-import Footer from "../mainPage/component/footer";
+import Footer from "../../common/footer";
 import Main from "./component/main";
 import styled from "styled-components";
 function LandingPage() {

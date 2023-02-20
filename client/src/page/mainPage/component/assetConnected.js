@@ -167,7 +167,7 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
         // console.log("Deposit Aptos");
         const transaction = {
             type: "entry_function_aptos_transfer",
-            function: '0x7e25b91bd24cc91e44d6eb3f8cf65356e258de5159c330ace70a6298812e97e4::QVE_APTOS_CONTRACT::exchange_to_entry',
+            function: '0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::mint::exchange_to_entry',
             arguments: [depositAmount * 10**8],
             type_arguments: [],
         };

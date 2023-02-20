@@ -58,7 +58,7 @@ background: #2B2B34;
 border: 1px solid #5C5E81;
 box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
 border-radius: 16px;
-padding: 0px 20px 0px 20px;
+padding: 0px 25px 0px 25px;
 `;
 
 const StrategyContainer = styled.div`
@@ -86,12 +86,13 @@ function Main (){
         <Text style={{fontWeight: '500'}}>Decentralized</Text>
         <Text>Fund Liquidation</Text>
         <Text>Solution</Text>
-        <Img src={LandingImg} style={{height: '438px', width: '100%'}}></Img>
+        <Img src={LandingImg} style={{height: '100%', width: '100%'}}></Img>
+        <EContainer style={{height: '15px'}}/>
         <EContainer style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
         <Button onClick={MainPage} style={{width: '200px', height: '60px'}}>Invest Now</Button>
         </EContainer>
         </EContainer>
-        <EContainer style={{height: '45px'}}></EContainer>
+        <EContainer style={{height: '50px'}}></EContainer>
         <Text style={{fontWeight: '700', fontSize: '29px', lineHeight: '35px'}}>Get Back</Text>
         <Text style={{fontWeight: '700', fontSize: '29px', lineHeight: '35px'}}>Your share of fund</Text>
         <EContainer style={{height: '25px'}}></EContainer>
@@ -101,7 +102,9 @@ function Main (){
                 <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Total</Text>
                 <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Volume</Text>
                 </EContainer>
+                <EContainer>
                 <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>$123,456</Text>
+                </EContainer>
             </ThreeContainer>
             <ThreeContainer>
                 <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Returns</Text>
