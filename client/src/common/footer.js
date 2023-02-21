@@ -1,47 +1,31 @@
 import styled from "styled-components";
-
-const FooterContainer = styled.div`
+const Backgroud = styled.div`
 display: flex;
 flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 10px;
-width: 100% ;
-height: 135px;
 background: #292932;
+align-items: center;
+`;
+
+const FooterContainer = styled.div`
+justify-content: flex-start;
+padding: 40px 88px;
+gap: 10px;
+width: 100%;
+max-width: 414px;
 `;
 
 const FooterDescriptionTop =styled.div`
 font-weight: 700;
 font-size: 11px;
 line-height: 13px;
-
-/* dark/label */
-
 color: #B7B8CD;
-
-/* Inside auto layout */
-
-flex: none;
-order: 0;
-flex-grow: 0;
 `;
 
 const FooterDescriptionMiddle = styled.div`
 font-weight: 400;
 font-size: 11px;
 line-height: 13px;
-
-/* dark/label */
-
 color: #B7B8CD;
-
-
-/* Inside auto layout */
-
-flex: none;
-order: 0;
-flex-grow: 0;
 `;
 
 
@@ -49,27 +33,26 @@ const FooterDescriptionBottom = styled.div`
 font-weight: 400;
 font-size: 11px;
 line-height: 13px;
-
-/* dark/label */
-
 color: #B7B8CD;
+`;
 
+const EContainer = styled.div`
 
-/* Inside auto layout */
-
-flex: none;
-order: 0;
-flex-grow: 0;
 `;
 
 function Footer() {
-    return(<>
+    return(<Backgroud>
     <FooterContainer>
-        <FooterDescriptionTop>Blockwave Labs</FooterDescriptionTop>
-        <FooterDescriptionMiddle>contact@blockwavelabs.io</FooterDescriptionMiddle>
-        <FooterDescriptionBottom>Blockwave Labs Inc. All rights reserved</FooterDescriptionBottom>
+        <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+            <FooterDescriptionTop>Blockwave Labs</FooterDescriptionTop>
+            <FooterDescriptionTop>|</FooterDescriptionTop>
+            <FooterDescriptionMiddle>contact@blockwavelabs.io</FooterDescriptionMiddle>
+            </EContainer>
+            <EContainer style={{height: '8px'}}/>
+            <FooterDescriptionBottom>Blockwave Labs Inc. All rights reserved</FooterDescriptionBottom>
+            <EContainer style={{height: '21px'}}/>
     </FooterContainer>
-    </>);
+    </Backgroud>);
 }
 
 export default Footer;

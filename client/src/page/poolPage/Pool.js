@@ -48,6 +48,7 @@ background: rgba(43, 43, 52, 0.9);
 border: 1px solid #3F3F46;
 border-radius: 16px;
 width: 100%;
+padding: 25px 26px 23px 26px;
 `;
 
 const CompositionContainer = styled.div`
@@ -74,8 +75,9 @@ function Pool ({setLiquidityCount}) {
     const poolTotal = ((qveTotal/ 10**18) + (arbQveTotal / 10**18)).toFixed(2);
     return (
         <EContainer style={{width: '90%', maxWidth: '414px'}}>
-    <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', paddingLeft: '20px', color: '#B7B8CD'}}>Pool</Text>
+    <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', color: '#B7B8CD'}}>Pool</Text>
       <PoolContainer>
+        <EContainer style={{height: '10px'}}/>
         <EContainer style={{display: 'flex', flexDirection: 'row', padding: '0px 9.5px 0px 9.5px'}}>
         <Image src={BothCoins}></Image>
         <EContainer style={{width: '15px'}}></EContainer>
@@ -86,43 +88,35 @@ function Pool ({setLiquidityCount}) {
         </EContainer>
         <EContainer style={{height: '15px'}}/>
         <DetailContainer>
-            <EContainer style={{height: '25px'}}/>
-            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD', paddingLeft: '26px'}}>APR</Text>
+            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>APR</Text>
             <EContainer style={{height: '25px'}}/>
             <EContainer style={{display: 'flex', justifyContent: 'flex-end'}}> 
-            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', paddingRight: '26px', color: '#FFFFFF'}}>12.3%</Text>
+            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>12.3%</Text>
             </EContainer>
-            <EContainer style={{height: '23px'}}/> 
         </DetailContainer>
         <EContainer style={{height: '20px'}}/>
         <DetailContainer>
-            <EContainer style={{height: '25px'}}/>
-            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD', paddingLeft: '26px'}}>24h Trading Volume</Text>
+            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>24h Trading Volume</Text>
             <EContainer style={{height: '25px'}}/>
             <EContainer style={{display: 'flex', justifyContent: 'flex-end'}}> 
-            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', paddingRight: '26px', color: '#FFFFFF'}}>$1,234,567</Text>
+            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>$1,234,567</Text>
             </EContainer>
-            <EContainer style={{height: '23px'}}/> 
         </DetailContainer>
         <EContainer style={{height: '20px'}}/>
         <DetailContainer>
-            <EContainer style={{height: '25px'}}/>
-            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD', paddingLeft: '26px'}}>Pool Liquidity</Text>
+            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Pool Liquidity</Text>
             <EContainer style={{height: '25px'}}/>
             <EContainer style={{display: 'flex', justifyContent: 'flex-end'}}> 
-            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', paddingRight: '26px', color: '#FFFFFF'}}>$1,234,567</Text>
+            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>$1,234,567</Text>
             </EContainer>
-            <EContainer style={{height: '23px'}}/> 
         </DetailContainer>
         <EContainer style={{height: '20px'}}/>
         <DetailContainer>
-            <EContainer style={{height: '25px'}}/>
-            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD', paddingLeft: '26px'}}>Swap Fee</Text>
+            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Swap Fee</Text>
             <EContainer style={{height: '25px'}}/>
             <EContainer style={{display: 'flex', justifyContent: 'flex-end'}}> 
-            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', paddingRight: '26px', color: '#FFFFFF'}}>0.5%</Text>
+            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>0.5%</Text>
             </EContainer>
-            <EContainer style={{height: '23px'}}/> 
         </DetailContainer>
         <EContainer style={{height: '22px'}}/>
         <Text style={{fontWeight: '700', fontSize: '12px', color: '#B7B8CD', paddingRight: '26px', color: '#B7B8CD'}}>Pool Composition</Text>

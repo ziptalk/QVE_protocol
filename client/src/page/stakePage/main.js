@@ -7,7 +7,7 @@ import StakeQve from "./stakeQve";
 
 const Background = styled.div`
 background-color: #1B1A1E;
-height: 100%;
+height: 100vh;
 `;
 
 function Main() {

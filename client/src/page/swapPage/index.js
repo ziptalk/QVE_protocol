@@ -1,5 +1,5 @@
 import Header from "../../common/header";
-import Footer from "../mainPage/component/footer";
+import Footer from "../../common/footer";
 import Main from "./main";
 import styled from "styled-components";
 function SwapPage() {
@@ -10,7 +10,8 @@ overflow: hidden;
     return (
         <Container>
         <Header />
-        <Main />
+        <Main/>
+        <Footer />
         </Container>
     );
 }

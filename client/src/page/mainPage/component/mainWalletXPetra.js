@@ -206,7 +206,8 @@ function MainWalletXPetra({preWalletCount, setAptosBalance, setPreWalletCount, s
         }
     };
     
-
+    let connectionStatus =  window.aptos.isConnected();
+    console.log('connectionStatus', connectionStatus);
     async function getAccount() {
         const wallet = getAptosWallet();
         try {
@@ -227,6 +228,11 @@ function MainWalletXPetra({preWalletCount, setAptosBalance, setPreWalletCount, s
     getAccount();
     setPreWalletCount(null);
    }
+   if (localStorage.getItem('preWalletCount') === '9') {
+    console.log('prewallet9');
+    setPreWalletCount(1);
+    localStorage.removeItem('preWalletCount');
+}
     return(
         
         <>

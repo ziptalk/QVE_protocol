@@ -8,7 +8,9 @@ import HiddenMessage from "../../../assets/img/hiddenMessage.png";
 import MainWalletXPetra from "./mainWalletXPetra";
 import MainWalletX from "./mainWalletX";
 import AssetConnected from "./assetConnected";
-import logoImg from '../../../assets/img/logo.png';
+import QveLoadingHead from "../../../assets/img/QveLoading1.png";
+import QveLoadingBase from "../../../assets/img/QveLoading2.svg";
+import DropDown from "./dropdown";
 
 const ContainerAll = styled.div`
 height: 100%;
@@ -158,9 +160,18 @@ position: absolute;
 top:0px;
 `;
 
-const Image = styled.img`
+const BaseImage = styled.img`
 
 `;
+
+const Image = styled.img`
+animation: 2s infinite slidein;
+
+@keyframes slidein {
+    50% { transform: translateY(15px); }
+}
+`;
+
 
 const LineChartContainer = styled.div`
 width: 100%;
@@ -204,22 +215,16 @@ align-items: center;
 color: #B7B8CD;
 `;
 
-
-const DropDownContainer = styled("div")`
-  width: 10.5em;
-  margin: 0 auto;
-  flex: auto;
-`;
-
 const DropDownHeader = styled("div")`
   box-sizing: border-box;
-flex-wrap: wrap;
-/* Auto layout */
+  flex-wrap: wrap;
 
 display: flex;
 flex-direction: column;
+justify-content: center;
 align-items: flex-start;
-padding: 13.5px 20px;
+align-content: space-between;
+padding: 18px 20px;
 
 width: 224px;
 height: 60px;
@@ -229,7 +234,7 @@ height: 60px;
 background: #1B1A1E;
 /* dark/primary */
 
-border: 1px solid #4A3CE8;
+border: 1px solid #3F3F46;
 border-radius: 16px;
 
 /* Inside auto layout */
@@ -247,8 +252,6 @@ letter-spacing: 0.02em;
 /* dark/label */
 
 color: #B7B8CD;
-
-
 `;
 
 const DropDownListContainer = styled("div")``;
@@ -341,13 +344,8 @@ font-style: normal;
 font-weight: 700;
 font-size: 24px;
 line-height: 30px;
-/* or 125% */
-
 text-align: center;
 letter-spacing: 0.02em;
-
-/* dark/white */
-
 color: #FFFFFF;
 `;
 
@@ -557,10 +555,13 @@ else {
   } while (currentDate - date < milliseconds);
 }
 sleep(3000); */
+console.log('localStorageis', localStorage.getItem('user'));
         return (
             <EContainer style={{height: '100vh', background: '#1B1A1E', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-            <Image src={logoImg} style={{height: '15%', width: '15%'}}></Image>
-            <Text style={{justifyContent: 'center', alignItems: 'center'}}>Loading...</Text>
+            <EContainer style={{display: 'flex', flexDirection: 'column', position: 'absolute'}}>
+            <Image src={QveLoadingHead} style={{height: '65px', width: '75px', position: 'relative', top: '150px', left: '65px'}}></Image>
+            <BaseImage src={QveLoadingBase} style={{height: '276px', width: '210px'}}></BaseImage>
+            </EContainer>
             </EContainer>
         )
     } else {
@@ -579,24 +580,7 @@ sleep(3000); */
         <EContainer style={{height: '12px'}}></EContainer>
         <ChartContainer> 
         <EContainer style={{position: 'absolute', top: '107px'}}>
-        <EContainer style={{height: '20px'}}></EContainer>
-      <DropDownContainer>
-        <DropDownHeader onClick={toggling}>
-          {selectedOption || "Arbitrage"}
-        </DropDownHeader>
-        <EContainer style={{height: '4px'}}></EContainer>
-        {isOpen && (
-          <DropDownListContainer>
-            <DropDownList>
-              {options.map(option => (
-                <ListItem onClick={onOptionClicked(option)} key={Math.random()}>
-                  {option}
-                </ListItem>
-              ))}
-            </DropDownList>
-          </DropDownListContainer>
-        )}
-      </DropDownContainer>
+        <DropDown selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>
         </EContainer>
         <EContainer style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'row', alignSelf: 'flex-end'}}>
             <ChartContainerPNL>PNL</ChartContainerPNL>
@@ -642,3 +626,4 @@ sleep(3000); */
             <DropDown></DropDown>
         </EContainer>*/
 export default MainTest;
+/* {selectedOption || "Arbitrage"} */

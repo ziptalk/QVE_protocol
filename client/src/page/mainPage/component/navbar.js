@@ -116,6 +116,17 @@ function Navbar () {
     }
 };
 
+async function Connect() {
+  console.log('connnect');
+  try {
+      await window.aptos.connect();
+      const account = await window.aptos.account();
+      localStorage.setItem('user', JSON.stringify(account.address));
+  } catch (error) {
+    console.log('errrrrrrrorrrrrr')
+}
+}
+
   const navigate = useNavigate();
 
 //   const getAptosWallet = () => {
@@ -146,10 +157,10 @@ function Navbar () {
         navigate("/stakePage");
     }
     if (selectedOption == 'Connect Wallet') {
-      localStorage.setItem('preWalletCount', JSON.stringify(9));
-      window.location.reload();
+      // localStorage.setItem('preWalletCount', JSON.stringify(9));
+      Connect();
     }
-
+console.log('localinnavbar is ', localStorage.getItem('user'))
     if (selectedOption == "Disconnect") {
         localStorage.removeItem("user");
         const wallet = getAptosWallet();
@@ -157,10 +168,11 @@ function Navbar () {
         window.location.reload();
         
     }
-    if (selectedOption =="Connect Wallet") {
-        const accounts = window.ethereum.request({ method: 'eth_requestAccounts' });
-        localStorage.setItem("user", JSON.stringify(accounts[0]));
-    }
+    // if (selectedOption =="Connect Wallet") {
+    
+    //     // const accounts = window.ethereum.request({ method: 'eth_requestAccounts' });
+    //     // localStorage.setItem("user", JSON.stringify(accounts[0]));
+    // }
   }
   // console.log("Account iSSSSSSS", localStorage.getItem("user"));
   // console.log("SELECTED OPTION", selectedOption);

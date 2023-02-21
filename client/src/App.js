@@ -20,7 +20,7 @@ const Background = styled.div`
 
 
 function App() {
-  //const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(undefined);
 
   return (
     <Background className="App">
@@ -28,10 +28,10 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />}></Route>
           <Route path="/landingPage" element={<LandingPage />}></Route>
-          <Route path="/swapPage" element={<SwapPage />}></Route>
-          <Route path="/poolPage" element={<PoolPage />}></Route>
-          <Route path="/mainPage" element={<MainPage />}></Route>
-          <Route path="stakePage" element={<StakePage />}></Route>
+          <Route path="/swapPage" element={<SwapPage currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
+          <Route path="/poolPage" element={<PoolPage currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
+          <Route path="/mainPage" element={<MainPage currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
+          <Route path="stakePage" element={<StakePage currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
         </Routes>
       </BrowserRouter>
     </Background>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
 import Web3 from "web3";
+
 const Container = styled.div`
 background: #2B2B34;
 border-radius: 16px;
@@ -12,6 +13,7 @@ flex-direction: column;
 align-items: center;
 width: 90%;
 max-width: 414px;
+padding: 22px 12px 18px 23px;
 `;
 
 const EContainer = styled.div`
@@ -30,24 +32,36 @@ width: 90%;
 `;
 
 const Input = styled.input`
-all: unset;
+all:  unset;
 background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #202025;
 border-radius: 12px;
-font-weight: 700;
-font-size: 18px;
-line-height: 24px;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
 text-align: right;
-letter-spacing: 0.02em;
 color: #B7B8CD;
-height: 40px;
+width: 70%;
+`;
+
+const InputContainer = styled.div`
+background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #202025;
+border-radius: 12px;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+text-align: right;
+color: #B7B8CD;
 width: 200px;
-padding-right: 65px;
+display: flex;
+justify-Content: flex-end;
+align-items: center;
+padding: 10px;
 `;
 
 const Button = styled.button`
 all: unset;
-width: 324px;
-height: 55px;
+padding: 19px 0px 19px 0px;
+width: 90%;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -62,11 +76,30 @@ const Image = styled.img`
 
 `;
 
+const MaxButton = styled.button`
+all: unset;
+cursor: pointer;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+width: 47.78px;
+height: 21px;
+background: #5C5E81;
+border-radius: 16px;
+font-weight: 700;
+font-size: 9px;
+line-height: 11px;
+letter-spacing: 0.02em;
+color: #FFFFFF;
+`;
+
 function AddLiquidity({setLiquidityCount}) {
     const [token, setToken] = useState(0);
+    const [connected, setConnected] = useState('');
     const web3 = new Web3(window.ethereum);
-    const [amount, setAmount] = useState(0);
-    const [qvePrice, setQvePrice] = useState(0);
+    const [amount, setAmount] = useState('');
+    const [qvePrice, setQvePrice] = useState('');
     let account = JSON.parse(localStorage.getItem('user'));
     const qveContract = Contract();
     const Address = ContractAddress();
@@ -83,6 +116,27 @@ function AddLiquidity({setLiquidityCount}) {
         window.aptos.signAndSubmitTransaction(transaction).then(() => {
             console.log("전송 성공");
         })
+    }
+
+    async function Connect() {
+        console.log('connnect');
+        setAmount('');
+        try {
+            await window.aptos.connect();
+            const account = await window.aptos.account();
+            localStorage.setItem('user', JSON.stringify(account.address));
+        } catch (error) {
+
+        }
+    }
+    try {
+        let connectionStatus = window.aptos.isConnected();
+        connectionStatus.then((result) => {
+            setConnected(result);
+        })
+    }
+    catch (error) {
+
     }
 
     // function AddingLiquidity(amount) {
@@ -106,8 +160,9 @@ function AddLiquidity({setLiquidityCount}) {
     // }, [amount])
 
     return(
+        <>
+        <EContainer style={{height: '40px'}}/>
         <Container style={{position: 'relative'}}>
-
             <EContainer style={{height: '30px'}}></EContainer>
             <EContainer style={{display: 'flex', flexDirection: 'row'}}>
             <Text style={{fontWeight:'700', fontSize: '18px', lineHeight: '24px'}}>Add Liquidity</Text>
@@ -128,7 +183,13 @@ function AddLiquidity({setLiquidityCount}) {
                         <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 ATOM</Text>
                     </EContainer>
                     <EContainer style={{height: '4px'}}></EContainer>
-                    <Input value={amount} placeholder="0" onChange={(e) => setAmount(e.target.value)}></Input>
+                    <InputContainer>
+                    <EContainer style={{display: 'flex', gap: '5px'}}>
+                    <Input placeholder="Amount" style={{flexGrow: '1', paddingRight: '5px'}} value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
+                    <MaxButton>Max</MaxButton>
+                    </EContainer>
+                    <EContainer style={{width: '10px'}}/>
+                    </InputContainer>
                 </EContainer>
                 </EContainer>
             </QveArbContainer>
@@ -147,14 +208,28 @@ function AddLiquidity({setLiquidityCount}) {
                         <Text style={{fontWeight: '700', fontSize: '9px', lineHeight: '11px', color: '#5C5E81'}}>0.000000 ATOM</Text>
                     </EContainer>
                     <EContainer style={{height: '4px'}}></EContainer>
-                    <Input value={qvePrice} placeholder="0"></Input>
+                    <InputContainer>
+                    <EContainer style={{display: 'flex', gap: '5px'}}>
+                    <Input placeholder="Amount" style={{flexGrow: '1', paddingRight: '5px'}} value={amount} onChange={(e) => setAmount(e.target.value)}></Input>
+                    <MaxButton>Max</MaxButton>
+                    </EContainer>
+                    <EContainer style={{width: '10px'}}/>
+                    </InputContainer>
                 </EContainer>
                 </EContainer>
             </QveArbContainer>
             <EContainer style={{height: '20px'}}></EContainer>
-            <Button onClick={() => AddingLiquidityPetra()}>Amount is Empty</Button>
+            { connected === false ? 
+            <Button onClick={() => Connect()}>Connect Wallet</Button>
+            : 
+            amount === '' ?
+            <Button style={{background: '#5C5E81'}}>Amount is Empty</Button> 
+            :
+            <Button onClick={() => AddingLiquidityPetra()}>Swap</Button>
+        }
             <EContainer style={{height: '30px'}}/>
         </Container>
+        </>
     );
 }
 

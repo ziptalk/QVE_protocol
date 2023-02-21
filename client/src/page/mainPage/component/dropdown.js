@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import InvertedArrow from "../../../assets/img/Invertedarrow.png";
 
 const DropDownContainer = styled("div")`
   width: 10.5em;
@@ -9,43 +10,26 @@ const DropDownContainer = styled("div")`
 
 const DropDownHeader = styled("div")`
   box-sizing: border-box;
-flex-wrap: wrap;
-/* Auto layout */
-
+  flex-wrap: wrap;
 display: flex;
 flex-direction: column;
+justify-content: center;
 align-items: flex-start;
-padding: 13.5px 20px;
-gap: 20px;
-
+align-content: space-between;
+padding: 18px 20px;
 width: 224px;
 height: 60px;
-
-/* dark/background */
-
 background: #1B1A1E;
-/* dark/primary */
-
-border: 1px solid #4A3CE8;
+border: 1px solid #3F3F46;
 border-radius: 16px;
-
-/* Inside auto layout */
-
 order: 0;
 flex-grow: 0;
 cursor: pointer;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
-/* identical to box height, or 150% */
-
 letter-spacing: 0.02em;
-
-/* dark/label */
-
 color: #B7B8CD;
-
-
 `;
 
 const DropDownListContainer = styled("div")``;
@@ -67,14 +51,9 @@ const DropDownList = styled("ul")`
   cursor: pointer;
   width: 224px;
   background: #2B2B34;
-/* dark/unactive */
-
 border: 1px solid #3F3F46;
 box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
 border-radius: 16px;
-
-/* dark/label */
-
 color: #B7B8CD;
 `;
 
@@ -87,23 +66,33 @@ font-weight: 700;
 font-size: 16px;
 line-height: 19px;
 align-items: center;
-
-/* dark/unactive */
 &:hover {
     background: #3F3F46;
 }
 border-radius: 10px;
 `;
 
+const BaseImage = styled.img`
+
+`;
+
+const Text = styled.div`
+font-weight: 700;
+font-size: 24px;
+line-height: 30px;
+text-align: center;
+letter-spacing: 0.02em;
+color: #FFFFFF;
+`;
+
 const EContainer = styled.div`
 
 `;
 
-const options = ["Portfolio 01", "Portfolio 02, Portfolio 03"];
+const options = ["Arbitrage", "BTC Hedge", "Funding Rate"];
 
-export default function DropDown() {
+export default function DropDown({selectedOption, setSelectedOption}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
 
   const toggling = () => setIsOpen(!isOpen);
 
@@ -115,9 +104,10 @@ export default function DropDown() {
   return (
     <>
     <EContainer style={{height: '20px'}}></EContainer>
-      <DropDownContainer>
-        <DropDownHeader onClick={toggling}>
-          {selectedOption || "Portfolio 01"}
+    <DropDownContainer>
+    <DropDownHeader onClick={toggling}>
+        <Text>{selectedOption}</Text>
+        <BaseImage src={InvertedArrow}></BaseImage>
         </DropDownHeader>
         <EContainer style={{height: '4px'}}></EContainer>
         {isOpen && (

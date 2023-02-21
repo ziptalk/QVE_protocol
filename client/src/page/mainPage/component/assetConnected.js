@@ -202,8 +202,15 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
 //         setStakedArbQve(result);
 //     })
 // },[depositAmount])
-   
 
+// get current connection status
+let connectionStatus = window.aptos.isConnected();
+
+// event listener for disconnecting
+window.aptos.onDisconnect(() => {
+  connectionStatus = false;
+});
+console.log('connectionStatusconnected', connectionStatus);
 
     function Deposit() {
         DepositAptos();
