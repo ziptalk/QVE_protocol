@@ -9,7 +9,7 @@ import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
 
 const Background = styled.div`
-height: 100vh;
+height: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;

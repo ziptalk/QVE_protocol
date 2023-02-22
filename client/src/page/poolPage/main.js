@@ -5,7 +5,7 @@ import Pool from "./Pool";
 import AddLiquidity from "./AddLiquidity";
 const Background = styled.div`
 background-color: #1B1A1E;
-height: 100vh;
+height: 100%;
 `;
 
 const EContainer = styled.div`

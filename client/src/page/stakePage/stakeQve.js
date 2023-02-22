@@ -8,7 +8,7 @@ import { useState } from "react";
 import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
 const Background = styled.div`
-height: 100vh;
+height: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -152,6 +152,7 @@ function StakeQve({setCount}) {
     catch (error) {
 
     }
+    console.log('connected is', connected)
 
     // function stakeQve() {
     //     qveContract.QVEContract.methods.approve(Address.StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });

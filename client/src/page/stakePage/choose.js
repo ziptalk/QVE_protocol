@@ -3,7 +3,7 @@ import Qve from "../../assets/img/Qve.png";
 import arbQve from "../../assets/img/arbQve.png";
 import BackgroundImage from "../../assets/img/SwapImage.png";
 const Background = styled.div`
-height: 100vh;
+height: 100%;
 display: flex;
 flex-direction: column;
 align-items: center;
