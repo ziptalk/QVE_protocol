@@ -4,7 +4,7 @@ import Qve from "../../assets/img/Qve.png";
 import arbQve from "../../assets/img/arbQve.png"
 import Web3 from "web3";
 import SwapIcon from "../../assets/img/SwapIcon.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Contract from "../../assets/contract/contract.js";
 import ContractAddress from "../../assets/contract/contractAddress";
 const Background = styled.div`
@@ -144,7 +144,8 @@ function SwaparbQVEtoQVE({setIcon}) {
                 console.log("전송 성공");
             }) 
     }
-    console.log('locals in arbqvetoqve', localStorage.getItem('user'))
+    console.log('locals in arbqvetoqve', localStorage.getItem('user'));
+
     async function Connect() {
         console.log('connnect');
         setDepositAmount('');
@@ -152,8 +153,10 @@ function SwaparbQVEtoQVE({setIcon}) {
             await window.aptos.connect();
             const account = await window.aptos.account();
             localStorage.setItem('user', JSON.stringify(account.address));
+            setIcon(1);
         } catch (error) {
-}
+
+        }
     }
     // get current connection status
     // console.log('conneectttttted', window.aptos.isConnected());
@@ -170,6 +173,8 @@ connectionStatus.then((result) => {
 }
 catch (error) {
 }
+
+
 
 // console.log('connectionStatusconnected', connectionStatus);
 

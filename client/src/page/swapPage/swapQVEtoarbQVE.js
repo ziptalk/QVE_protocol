@@ -10,6 +10,7 @@ import SwapIcon from "../../assets/img/SwapIcon.png";
 import { useState } from "react";
 import Contract from "../../assets/contract/contract.js";
 import ContractAddress from "../../assets/contract/contractAddress";
+import { useEffect } from "react";
 
 const Background = styled.div`
 background-color: #1B1A1E;
@@ -159,25 +160,25 @@ function SwapQVEtoarbQVE({setIcon}) {
             await window.aptos.connect();
             const account = await window.aptos.account();
             localStorage.setItem('user', JSON.stringify(account.address));
+            setIcon(0);
         } catch (error) {
-}
+
+        }
     }
-    // get current connection status
-    // console.log('conneectttttted', window.aptos.isConnected());
-// console.log('user is ', JSON.parse(localStorage.getItem('user')));
-try {
-let connectionStatus = window.aptos.isConnected();
-connectionStatus.then((result) => {
-    setConnected(result);
-})
+    try {
+        let connectionStatus = window.aptos.isConnected();
+        connectionStatus.then((result) => {
+            setConnected(result);
+        })
 // // event listener for disconnecting
 // window.aptos.onDisconnect(() => {
 //   connectionStatus = false;
 // });
-}
-catch (error) {
-}
+    }
+    catch (error) {
+    }
 
+console.log("connected is ", connected)
 return (
     <Background>
     <EContainer style={{height: '132px'}}></EContainer>
