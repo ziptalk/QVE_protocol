@@ -1,5 +1,6 @@
 import Header from "../../common/header";
 import Footer from "../../common/footer";
+import GoToTop from "../../common/GotoTop";
 import Main from "./main";
 import styled from "styled-components";
 function StakePage() {
@@ -11,6 +12,7 @@ overflow: hidden;
     <Header />
     <Main />
     <Footer />
+    <GoToTop />
     </Container>);
 }
 

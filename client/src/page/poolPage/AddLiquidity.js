@@ -3,6 +3,7 @@ import XIcon from "../../assets/img/x.png";
 import { useState, useEffect } from "react";
 import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
+import GoToTop from "../../common/GotoTop";
 import Web3 from "web3";
 
 const Container = styled.div`
@@ -161,6 +162,7 @@ function AddLiquidity({setLiquidityCount}) {
 
     return(
         <>
+        <GoToTop />
         <EContainer style={{height: '40px'}}/>
         <Container style={{position: 'relative'}}>
             <EContainer style={{height: '30px'}}></EContainer>

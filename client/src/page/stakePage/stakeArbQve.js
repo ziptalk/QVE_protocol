@@ -7,6 +7,7 @@ import stakeArtifact from "../../artifact/Stake.json";
 import { useState } from "react";
 import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
+import GoToTop from "../../common/GotoTop";
 
 const Background = styled.div`
 height: 100%;
@@ -159,9 +160,14 @@ connectionStatus.then((result) => {
 }
 catch (error) {
 }
+
+window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  }
     
     return (
         <Background>
+        <GoToTop />
         <EContainer style={{height: '188px'}} />
         <EContainer style={{width: '90%', maxWidth: '414px'}}>
         <StakeContainer>

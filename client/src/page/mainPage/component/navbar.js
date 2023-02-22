@@ -122,6 +122,7 @@ async function Connect() {
       await window.aptos.connect();
       const account = await window.aptos.account();
       localStorage.setItem('user', JSON.stringify(account.address));
+      window.location.reload();
   } catch (error) {
     console.log('errrrrrrrorrrrrr')
 }

@@ -7,6 +7,7 @@ import stakeArtifact from "../../artifact/Stake.json";
 import { useState } from "react";
 import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
+import GoToTop from "../../common/GotoTop";
 const Background = styled.div`
 height: 100%;
 display: flex;
@@ -154,6 +155,10 @@ function StakeQve({setCount}) {
     }
     console.log('connected is', connected)
 
+    window.onbeforeunload = function () {
+        window.scrollTo(0, 0);
+      }
+
     // function stakeQve() {
     //     qveContract.QVEContract.methods.approve(Address.StakeAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
 
@@ -168,6 +173,7 @@ function StakeQve({setCount}) {
 
     return (
         <Background>
+        <GoToTop />
         <EContainer style={{height: '188px'}} />
         <EContainer style={{width: '90%', maxWidth: '414px'}}>
         <StakeContainer>
