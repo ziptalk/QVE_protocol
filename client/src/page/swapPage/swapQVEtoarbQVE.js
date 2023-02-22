@@ -213,7 +213,7 @@ return (
         </TokenOneContainer>
         <EContainer style={{height: '10px'}}/>
         <EContainer style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
-        <Image src={SwapIcon} style={{position: 'relative', top: '-180px', cursor:'pointer', width: '100px', height: '100px'}} onClick={() => setIcon(1)}/>
+        <Image src={SwapIcon} style={{position: 'relative', top: '-180px', cursor:'pointer', width: '100px', height: '100px'}} onClick={() => setIcon(0)}/>
         </EContainer>
         <TokenTwoContainer>
         <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
