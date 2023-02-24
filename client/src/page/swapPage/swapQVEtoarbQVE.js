@@ -84,13 +84,13 @@ display: flex;
 justify-content: center;
 align-items: center;
 cursor: pointer;
+padding: 7px 13px;
 background: #4A3CE8;
 border-radius: 16px;
 font-weight: 600;
-font-size: 14px;
-line-height: 17px;
+font-size: 12px;
+line-height: 15px;
 color: #FFFFFF;
-padding: 7px 13px;
 `;
 
 const Image = styled.img`
