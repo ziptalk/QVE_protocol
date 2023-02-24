@@ -262,7 +262,7 @@ line-height: 17px;
 color: #FFFFFF;
 `;
 
-function MainTest() {
+function MainTest({selectedOption, setSelectedOption}) {
     
     /* const [userMe, setUserMe] = useState(''); */
     const [balanceList, setBalanceList] = useState('');
@@ -274,7 +274,6 @@ function MainTest() {
     const [secondPort, setSecondPort] = useState('');
     const [thirdPort, setThirdPort] = useState('');
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState('Arbitrage');
     const totalInitialInvestment = 79300;
     const options = ["Arbitrage", "BTC Hedge", "Funding Rate"];
     const [account, setAccount] = useState();
@@ -468,17 +467,14 @@ else {
   } while (currentDate - date < milliseconds);
 }
 sleep(3000); */
-setTimeout(() => {
-    console.log('two seconds delay');
-}, 1000);
-        return (
+    return (
             <EContainer style={{height: '100vh', background: '#1B1A1E', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
             <EContainer style={{display: 'flex', flexDirection: 'column', position: 'absolute'}}>
             <Image src={QveLoadingHead} style={{height: '65px', width: '75px', position: 'relative', top: '150px', left: '65px'}}></Image>
             <BaseImage src={QveLoadingBase} style={{height: '276px', width: '210px'}}></BaseImage>
             </EContainer>
             </EContainer>
-        )
+        );
     } else {
     return(
         /* <ContainerAll style={{filter: preWalletCount != null ? "blur(1px)" : "blur(0px)"}}> */

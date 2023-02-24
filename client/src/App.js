@@ -21,16 +21,17 @@ const Background = styled.div`
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [selectedOption, setSelectedOption] = useState('Arbitrage');
 
   return (
     <Background className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LandingPage />}></Route>
-          <Route path="/landingPage" element={<LandingPage />}></Route>
+          <Route path="/" element={<LandingPage setSelectedOption={setSelectedOption}/>}></Route>
+          <Route path="/landingPage" element={<LandingPage setSelectedOption={setSelectedOption}/>}></Route>
           <Route path="/swapPage" element={<SwapPage currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
           <Route path="/poolPage" element={<PoolPage currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
-          <Route path="/mainPage" element={<MainPage currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
+          <Route path="/mainPage" element={<MainPage currentUser={currentUser} setCurrentUser={setCurrentUser} selectedOption={selectedOption} setSelectedOption={setSelectedOption}/>}></Route>
           <Route path="stakePage" element={<StakePage currentUser={currentUser} setCurrentUser={setCurrentUser}/>}></Route>
         </Routes>
       </BrowserRouter>

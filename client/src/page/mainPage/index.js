@@ -10,11 +10,11 @@ import styled from "styled-components";
 const Container = styled.div`
 overflow: hidden;
 `;
-function MainPage() {
+function MainPage({selectedOption, setSelectedOption}) {
     return (
     <Container>
     <Header></Header>
-    <MainTest></MainTest>
+    <MainTest selectedOption={selectedOption} setSelectedOption={setSelectedOption}></MainTest>
     <Footer></Footer>
     <GoToTop />
     </Container>);

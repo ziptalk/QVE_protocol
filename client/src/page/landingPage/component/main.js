@@ -72,16 +72,27 @@ display: flex;
 flex-direction: row;
 `;
 
-function Main (){
+function Main ({setSelectedOption}){
     
     const navigate = useNavigate();
 
     function MainPage() {
+        setSelectedOption('Arbitrage');
+        navigate("/mainPage");
+    }
+
+    function MainPageHedge() {
+        setSelectedOption('BTC Hedge');
+        navigate("/mainPage");
+    }
+
+    function MainPageFunding() {
+        setSelectedOption('Funding Rate');
         navigate("/mainPage");
     }
     return (
         <Background>
-        <EContainer style={{maxWidth: "414px"}}>
+        <EContainer style={{maxWidth: "374px"}}>
         <EContainer style={{height: '159px'}}></EContainer>
         <Text style={{fontWeight: '500'}}>Decentralized</Text>
         <Text>Fund Liquidation</Text>
@@ -129,7 +140,7 @@ function Main (){
                 <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>Arbitrage</Text>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>APR 12.3%</Text>
                 </EContainer>
-                <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Invest</Button>
+                <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}} onClick={MainPage}>Invest</Button>
             </EContainer>
         </StrategyContainer>
         <EContainer style={{height: '20px'}}></EContainer>
@@ -139,7 +150,7 @@ function Main (){
                 <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>BTC Hedge</Text>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>APR 12.3%</Text>
                 </EContainer>
-                <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Invest</Button>
+                <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}} onClick={MainPageHedge}>Invest</Button>
             </EContainer>
         </StrategyContainer>
         <EContainer style={{height: '20px'}}></EContainer>
@@ -149,7 +160,7 @@ function Main (){
                 <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px'}}>Funding Rate</Text>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px'}}>APR 12.3%</Text>
                 </EContainer>
-                <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}}>Invest</Button>
+                <Button style={{width: '102px', height: '37px', fontWeight: '600', fontSize: '14px', lineHeight: '17px'}} onClick={MainPageFunding}>Invest</Button>
             </EContainer>
         </StrategyContainer>
         <EContainer style={{height: '49px'}}></EContainer>

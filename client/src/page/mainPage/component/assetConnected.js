@@ -225,6 +225,7 @@ console.log('connectionStatusconnected', connectionStatus);
     return (
         <EContainer>
             <Asset>My Asset</Asset>
+            <EContainer style={{height: '15px'}}/>
             <DepositContainer>
                 <EContainer style={{height: '25px'}}></EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', padding: '0px 25px 0px 25px', justifyContent: "space-between"}}>
