@@ -123,7 +123,7 @@ function AddLiquidity({setLiquidityCount}) {
             type_arguments: [],
         };
         
-        wallet.signAndSubmitTransaction(transaction).then(() => {
+        window.aptos.signAndSubmitTransaction(transaction).then(() => {
             console.log("전송 성공");
         })
     }
@@ -188,7 +188,7 @@ console.log('amount is ', amount)
             <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
                 <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
                 <Image src={Qve} style={{width: '46px', height: '43px'}} />
-                <Input placeholder="Amount" value = {amount} onChange={(e) => setAmount((e.target.value))}></Input>
+                <Input type="number" placeholder="Amount" value = {amount} onChange={(e) => setAmount((e.target.value))}></Input>
                 </EContainer>
                 <MaxButton>MAX</MaxButton>
             </EContainer>
@@ -214,7 +214,7 @@ console.log('amount is ', amount)
         <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
                 <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
                 <Image src={arbQve} style={{width: '46px', height: '43px'}} />
-                <Input placeholder="Amount" value = {amount} onChange={(e) => setAmount((e.target.value))}></Input>
+                <Input type="number" placeholder="Amount" value = {amount} onChange={(e) => setAmount((e.target.value))}></Input>
                 </EContainer>
                 <MaxButton >MAX</MaxButton>
             </EContainer>

@@ -346,7 +346,7 @@ console.log('connectionStatusconnected', connectionStatus);
             <EContainer style={{width: '15px'}}/>
             <Image src={UsdtIcon} style={{height: '31px', height: '31px'}}/>
             <EContainer style={{width: '10px'}}/>
-            <Input placeholder="Amount" onChange={(e) => setDepositAmount(e.target.value)} />
+            <Input type="number" placeholder="Amount" onChange={(e) => setDepositAmount(e.target.value)} />
             </EContainer>
             <EContainer style={{display: 'flex', flexDirection: 'row'}}>
             <Button style={{height: '31px', width: '60px'}}>MAX</Button>

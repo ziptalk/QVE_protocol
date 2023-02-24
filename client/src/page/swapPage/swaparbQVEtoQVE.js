@@ -131,19 +131,6 @@ function SwaparbQVEtoQVE({setIcon}) {
     // getMaxarbQVE.then((result) => {
     //     setMaxarbQVE(result)
     // });
-    function SwapArbtoQVE() {
-            const transaction = {
-                type: "entry_function_aptos_transfer",
-                function: '0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::liqpool::swapArbtoQve',
-                arguments: [depositAmount * 10**8],
-                type_arguments: [],
-            };
-            
-            wallet.signAndSubmitTransaction(transaction).then(() => {
-                console.log("전송 성공");
-            }) 
-    }
-    console.log('locals in arbqvetoqve', localStorage.getItem('user'));
     const getAptosWallet = () => {
         if ('aptos' in window) {
             return window.aptos;
@@ -152,7 +139,20 @@ function SwaparbQVEtoQVE({setIcon}) {
         }
     };
     const wallet = getAptosWallet();
-    console.log('a')
+
+    function SwapArbtoQVE() {
+            const transaction = {
+                type: "entry_function_aptos_transfer",
+                function: '0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::liqpool::swapArbtoQve',
+                arguments: [depositAmount * 10**8],
+                type_arguments: [],
+            };
+            
+            window.aptos.signAndSubmitTransaction(transaction).then(() => {
+                console.log("전송 성공");
+            }) 
+    }
+    console.log('locals in arbqvetoqve', localStorage.getItem('user'));
 
     async function Connect() {
         console.log('connnect');
@@ -200,7 +200,7 @@ catch (error) {
             <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
                 <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
                 <Image src={arbQve} style={{width: '31px', height: '32px'}} />
-                <Input placeholder="Amount" value = {depositAmount} onChange={(e) => setDepositAmount((e.target.value))}></Input>
+                <Input type="number" placeholder="Amount" value = {depositAmount} onChange={(e) => setDepositAmount((e.target.value))}></Input>
                 </EContainer>
                 <MaxButton onClick={() => setDepositAmount((maxarbQVE/10**18).toFixed(2))}>MAX</MaxButton>
             </EContainer>

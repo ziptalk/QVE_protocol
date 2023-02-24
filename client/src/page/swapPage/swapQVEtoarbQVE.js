@@ -139,7 +139,6 @@ function SwapQVEtoarbQVE({setIcon}) {
     // getMaxQve.then((result) => {
     //     setMaxQve(result)
     // });
-
     const getAptosWallet = () => {
         if ('aptos' in window) {
             return window.aptos;
@@ -157,7 +156,7 @@ function SwapQVEtoarbQVE({setIcon}) {
             type_arguments: [],
         };
         
-        wallet.signAndSubmitTransaction(transaction).then(() => {
+        window.aptos.signAndSubmitTransaction(transaction).then(() => {
             console.log("전송 성공");
         })
     }
@@ -196,7 +195,7 @@ return (
             <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
                 <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
                 <Image src={Qve} style={{width: '31px', height: '32px'}} />
-                <Input placeholder="Amount" value = {depositAmount} onChange={(e) => setDepositAmount((e.target.value))}></Input>
+                <Input type="number" placeholder="Amount" value = {depositAmount} onChange={(e) => setDepositAmount((e.target.value))}></Input>
                 </EContainer>
                 <MaxButton onClick={() => setDepositAmount((maxQve/10**18).toFixed(2))}>MAX</MaxButton>
             </EContainer>

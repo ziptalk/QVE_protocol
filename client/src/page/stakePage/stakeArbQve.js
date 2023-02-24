@@ -184,7 +184,7 @@ function StakeArbQve({setCount}) {
             </EContainer>
             <EContainer style={{height: '36px'}}/>
             <EContainer style={{display:'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Input placeholder="Amount" style={{flexGrow: '1', paddingRight: '5px'}} value={amount} onChange={(e) => setAmount(e.target.value)} />
+            <Input type="number" placeholder="Amount" style={{flexGrow: '1', paddingRight: '5px'}} value={amount} onChange={(e) => setAmount(e.target.value)} />
             <MaxButton>MAX</MaxButton>
             </EContainer>
             <EContainer style={{height: '13px'}}/>
