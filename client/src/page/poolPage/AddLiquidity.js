@@ -123,24 +123,32 @@ function AddLiquidity({setLiquidityCount}) {
             type_arguments: [],
         };
         
-        window.aptos.signAndSubmitTransaction(transaction).then(() => {
+        wallet.signAndSubmitTransaction(transaction).then(() => {
             console.log("전송 성공");
         })
     }
+    const getAptosWallet = () => {
+        if ('aptos' in window) {
+            return window.aptos;
+        } else {
+            window.open('https://petra.app/', `_blank`);
+        }
+    };
+    const wallet = getAptosWallet();
 
     async function Connect() {
         console.log('connnect');
         setAmount('');
         try {
-            await window.aptos.connect();
-            const account = await window.aptos.account();
+            await wallet.connect();
+            const account = await wallet.account();
             localStorage.setItem('user', JSON.stringify(account.address));
         } catch (error) {
 
         }
     }
     try {
-        let connectionStatus = window.aptos.isConnected();
+        let connectionStatus = wallet.isConnected();
         connectionStatus.then((result) => {
             setConnected(result);
         })

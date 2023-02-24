@@ -206,11 +206,11 @@ function MainWalletXPetra({preWalletCount, setAptosBalance, setPreWalletCount, s
             window.open('https://petra.app/', `_blank`);
         }
     };
-    
-    let connectionStatus =  window.aptos.isConnected();
+    const wallet = getAptosWallet();
+
+    let connectionStatus =  wallet.isConnected();
     console.log('connectionStatus', connectionStatus);
     async function getAccount() {
-        const wallet = getAptosWallet();
         try {
             await wallet.connect();
 

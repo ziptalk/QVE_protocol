@@ -139,18 +139,27 @@ function SwaparbQVEtoQVE({setIcon}) {
                 type_arguments: [],
             };
             
-            window.aptos.signAndSubmitTransaction(transaction).then(() => {
+            wallet.signAndSubmitTransaction(transaction).then(() => {
                 console.log("전송 성공");
             }) 
     }
     console.log('locals in arbqvetoqve', localStorage.getItem('user'));
+    const getAptosWallet = () => {
+        if ('aptos' in window) {
+            return window.aptos;
+        } else {
+            window.open('https://petra.app/', `_blank`);
+        }
+    };
+    const wallet = getAptosWallet();
+
 
     async function Connect() {
         console.log('connnect');
         setDepositAmount('');
         try {
-            await window.aptos.connect();
-            const account = await window.aptos.account();
+            await wallet.connect();
+            const account = await wallet.account();
             localStorage.setItem('user', JSON.stringify(account.address));
             setIcon(1);
         } catch (error) {
@@ -161,7 +170,7 @@ function SwaparbQVEtoQVE({setIcon}) {
     // console.log('conneectttttted', window.aptos.isConnected());
 // console.log('user is ', JSON.parse(localStorage.getItem('user')));
 try {
-let connectionStatus = window.aptos.isConnected();
+let connectionStatus = wallet.isConnected();
 connectionStatus.then((result) => {
     setConnected(result);
 })

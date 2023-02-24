@@ -204,7 +204,16 @@ function AssetConnected({preWalletCount, setPreWalletCount, setAccount, setStake
 // },[depositAmount])
 
 // get current connection status
-let connectionStatus = window.aptos.isConnected();
+const getAptosWallet = () => {
+    if ('aptos' in window) {
+        return window.aptos;
+    } else {
+        window.open('https://petra.app/', `_blank`);
+    }
+};
+const wallet = getAptosWallet();
+
+let connectionStatus = wallet.isConnected();
 
 // event listener for disconnecting
 window.aptos.onDisconnect(() => {

@@ -56,7 +56,7 @@ background: #2B2B34;
 border: 1px solid #5C5E81;
 box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
 border-radius: 16px;
-padding: 0px 15px 0px 15px;
+padding: 0px 20px;
 `;
 
 const StrategyContainer = styled.div`
