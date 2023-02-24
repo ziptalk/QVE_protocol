@@ -4,17 +4,25 @@ import { useState, useEffect } from "react";
 import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
 import GoToTop from "../../common/GotoTop";
+import PoolIcon from "../../assets/img/SwapIcon.png";
+import Qve from "../../assets/img/Qve.png";
+import arbQve from "../../assets/img/arbQve.png"
 import Web3 from "web3";
-
-const Container = styled.div`
-background: #2B2B34;
-border-radius: 16px;
+const Outer = styled.div`
 display: flex;
 flex-direction: column;
-align-items: center;
 width: 90%;
-max-width: 414px;
-padding: 22px 12px 18px 23px;
+max-width: 374px;
+height: 100vh;
+`;
+
+const Container = styled.div`
+width: 100%;
+display: flex;
+flex-direction: column;
+padding: 16px 25px 16px 25px; 
+background: rgba(43, 43, 52, 0.9);
+border-radius: 16px;
 `;
 
 const EContainer = styled.div`
@@ -22,7 +30,10 @@ const EContainer = styled.div`
 `;
 
 const Text = styled.div`
-color: #FFFFFF;
+font-weight: 700;
+font-size: 24px;
+line-height: 36px;
+letter-spacing: 0.02em;color: #B7B8CD;
 `;
 
 const QveArbContainer = styled.div`
@@ -33,15 +44,14 @@ width: 90%;
 `;
 
 const Input = styled.input`
-all:  unset;
-background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), #202025;
-border-radius: 12px;
-font-weight: 400;
-font-size: 16px;
-line-height: 19px;
-text-align: right;
+font-weight: 700;
+font-size: 18px;
+line-height: 24px;
+text-align: left;
+letter-spacing: 0.02em;
 color: #B7B8CD;
-width: 70%;
+background: transparent;
+border: none;
 `;
 
 const InputContainer = styled.div`
@@ -62,7 +72,6 @@ padding: 10px;
 const Button = styled.button`
 all: unset;
 padding: 19px 0px 19px 0px;
-width: 90%;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
@@ -79,19 +88,19 @@ const Image = styled.img`
 
 const MaxButton = styled.button`
 all: unset;
+padding: '6px 13px';
 cursor: pointer;
 display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
 width: 47.78px;
-height: 21px;
-background: #5C5E81;
+height: 27px;
+background: #4A3CE8;
 border-radius: 16px;
-font-weight: 700;
-font-size: 9px;
-line-height: 11px;
-letter-spacing: 0.02em;
+font-weight: 600;
+font-size: 12px;
+line-height: 15px;
 color: #FFFFFF;
 `;
 
@@ -159,10 +168,80 @@ function AddLiquidity({setLiquidityCount}) {
         
     //     updateQvePrice();
     // }, [amount])
-
+console.log('amount is ', amount)
     return(
-        <>
+        <Outer>
+            <GoToTop />
+            <Text>Pool</Text>
+            <EContainer style={{height: '10px'}}/>
+            <Text style={{fontSize: '18px', lineHeight: '24px'}}>Add Liquidity</Text>
+            <EContainer style={{height: '25px'}}/>
+            <Container>
+            <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
+                <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
+                <Image src={Qve} style={{width: '46px', height: '43px'}} />
+                <Input placeholder="Amount" value = {amount} onChange={(e) => setAmount((e.target.value))}></Input>
+                </EContainer>
+                <MaxButton>MAX</MaxButton>
+            </EContainer>
+            <EContainer style={{height: '9.5px'}} />
+            <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                    <EContainer style={{width: '5px'}}/>
+                    <Text style={{fontSize: '12px', lineHeight: '15px'}}>QVE</Text>
+                    <EContainer style={{width: '3px'}}/>
+                    <Text style={{fontWeight: '600', fontSize: '12px', lineHeight: '15px', color: '#5C5E81'}}>50%</Text>
+                    </EContainer>
+                <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{fontWeight: '400', fontSize: '11px', lineHeight: '13px', color: '#5C5E81'}}>Available</Text>
+                <EContainer style={{width: '4px'}}></EContainer>
+                <Text style={{fontWeight: '400', fontSize: '11px', lineHeight: '13px', color: '#4A3CE8'}}>0 QVE</Text>
+                </EContainer>
+            </EContainer>
+        </Container>
+        <EContainer style={{height: '10px'}}/>
+        <EContainer style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
+        </EContainer>
+        <Container>
+        <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
+                <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
+                <Image src={arbQve} style={{width: '46px', height: '43px'}} />
+                <Input placeholder="Amount" value = {amount} onChange={(e) => setAmount((e.target.value))}></Input>
+                </EContainer>
+                <MaxButton >MAX</MaxButton>
+            </EContainer>
+            <EContainer style={{height: '9.5px'}} />
+            <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                    <EContainer style={{width: '5px'}}/>
+                    <Text style={{fontSize: '12px', lineHeight: '15px'}}>mQVE</Text>
+                    <EContainer style={{width: '3px'}}/>
+                    <Text style={{fontWeight: '600', fontSize: '12px', lineHeight: '15px', color: '#5C5E81'}}>50%</Text>
+                    </EContainer>
+                    <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{fontWeight: '400', fontSize: '11px', lineHeight: '13px', color: '#5C5E81'}}>Available</Text>
+                <EContainer style={{width: '4px'}}></EContainer>
+                <Text style={{fontWeight: '400', fontSize: '11px', lineHeight: '13px', color: '#4A3CE8'}}>0 mQVE</Text>
+                </EContainer>
+            </EContainer>
+        </Container>
+        <EContainer style={{height: '15px'}}/>
+        {amount === '' ? 
+        <Button style={{background: '#5C5E81'}}>Amount is Empty</Button> 
+        :
+        <Button onClick={() => AddingLiquidityPetra()}>Swap</Button>
+        }
+            <EContainer style={{height: '100px'}}/>
+        </Outer>
+        
+    );
+}
+
+export default AddLiquidity;
+
+/*<>
         <GoToTop />
+        
         <EContainer style={{height: '40px'}}/>
         <Container style={{position: 'relative'}}>
             <EContainer style={{height: '30px'}}></EContainer>
@@ -231,8 +310,4 @@ function AddLiquidity({setLiquidityCount}) {
         }
             <EContainer style={{height: '30px'}}/>
         </Container>
-        </>
-    );
-}
-
-export default AddLiquidity;
+        </> */

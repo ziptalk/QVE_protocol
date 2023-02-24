@@ -27,7 +27,7 @@ const EContainer = styled.div`
 
 const FirstContainer = styled.div`
 width: 90%;
-max-width: 414px;
+max-width: 374px;
 `;
 
 const FirstContainerValue = styled.div`
@@ -57,20 +57,10 @@ align-self: end;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
-/* identical to box height */
-
-
-/* down */
-
 color: #FF395D;
-
-
-/* Inside auto layout */
 `;
 
 const ChartContainer = styled.div`
-
-/* dark/dark */
 width: 100%;
 background: #2B2B34;
 border-radius: 16px;
@@ -81,11 +71,6 @@ padding: 24px 0px 0px 20px;
 font-weight: 700;
 font-size: 14px;
 line-height: 17px;
-/* identical to box height */
-
-
-/* dark/label */
-
 color: #B7B8CD;
 `
 
@@ -94,11 +79,6 @@ height: 39px;
 font-weight: 700;
 font-size: 30px;
 line-height: 39px;
-/* identical to box height */
-
-
-/* dark/white */
-
 color: #FFFFFF;
 `;
 
@@ -106,16 +86,7 @@ const ChartContainerMDD = styled.div`
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
-/* identical to box height */
-
-
-/* dark/white */
-
 color: #FFFFFF;
-
-
-/* Inside auto layout */
-
 flex: none;
 order: 0;
 flex-grow: 0;
@@ -125,11 +96,6 @@ const ChartContainerMDDSplit = styled.div`
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
-/* identical to box height */
-
-
-/* dark/white */
-
 color: #FFFFFF;
 `;
 
@@ -201,56 +167,36 @@ opacity: 0;
 
 const StrategyContainer = styled.div`
 width: 90%;
-max-width: 414px;
+max-width: 374px;
 font-weight: 500;
 font-size: 12px;
 line-height: 15px;
-/* identical to box height */
-
 display: flex;
 align-items: center;
-
-/* dark/label */
-
 color: #B7B8CD;
 `;
 
 const DropDownHeader = styled("div")`
   box-sizing: border-box;
   flex-wrap: wrap;
-
 display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: flex-start;
 align-content: space-between;
 padding: 18px 20px;
-
 width: 224px;
 height: 60px;
-
-/* dark/background */
-
 background: #1B1A1E;
-/* dark/primary */
-
 border: 1px solid #3F3F46;
 border-radius: 16px;
-
-/* Inside auto layout */
-
 order: 0;
 flex-grow: 0;
 cursor: pointer;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
-/* identical to box height, or 150% */
-
 letter-spacing: 0.02em;
-
-/* dark/label */
-
 color: #B7B8CD;
 `;
 
@@ -273,14 +219,9 @@ const DropDownList = styled("ul")`
   cursor: pointer;
   width: 224px;
   background: #2B2B34;
-/* dark/unactive */
-
 border: 1px solid #3F3F46;
 box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
 border-radius: 16px;
-
-/* dark/label */
-
 color: #B7B8CD;
 `;
 
@@ -293,8 +234,6 @@ font-weight: 700;
 font-size: 16px;
 line-height: 19px;
 align-items: center;
-
-/* dark/unactive */
 &:hover {
     background: #3F3F46;
 }
@@ -305,9 +244,6 @@ const DepositButton = styled.button`
 all: unset;
 cursor: pointer;
 box-sizing: border-box;
-
-/* Auto layout */
-
 display: flex;
 flex-direction: row;
 justify-content: center;
@@ -315,37 +251,14 @@ align-items: center;
 gap: 10px;
 width: 113px;
 height: 37px;
-
-/* dark/primary */
-
 background: #4A3CE8;
 border-radius: 16px;
-
-/* Inside auto layout */
-
 flex: none;
 order: 1;
 flex-grow: 0;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
-/* identical to box height */
-
-
-/* dark/label */
-
-color: #FFFFFF;
-
-`;
-
-const Text = styled.div`
-font-family: 'Montserrat';
-font-style: normal;
-font-weight: 700;
-font-size: 24px;
-line-height: 30px;
-text-align: center;
-letter-spacing: 0.02em;
 color: #FFFFFF;
 `;
 
@@ -555,7 +468,9 @@ else {
   } while (currentDate - date < milliseconds);
 }
 sleep(3000); */
-console.log('localStorageis', localStorage.getItem('user'));
+setTimeout(() => {
+    console.log('two seconds delay');
+}, 1000);
         return (
             <EContainer style={{height: '100vh', background: '#1B1A1E', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
             <EContainer style={{display: 'flex', flexDirection: 'column', position: 'absolute'}}>
@@ -571,7 +486,7 @@ console.log('localStorageis', localStorage.getItem('user'));
         <EContainer style={{height: "105px"}}></EContainer>
         <StrategyContainer>Strategy Selector</StrategyContainer>
         <EContainer style={{height: '20px'}}></EContainer>
-        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', maxWidth: '414px', justifyContent: 'flex-end'}}>
+        <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', maxWidth: '374px', justifyContent: 'flex-end'}}>
         {localStorage.getItem('user') === null ? <DepositButton onClick={() => setPreWalletCount(1)}>Deposit</DepositButton> : <DepositButton onClick={() => setPreWalletCount(3)}>Deposit</DepositButton>}
         </EContainer>
         <EContainer style={{height: '10px'}}/>

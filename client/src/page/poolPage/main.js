@@ -24,9 +24,7 @@ function Main() {
       <EContainer style={{height: '132px'}}></EContainer>
       <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
       {liquidityCount === 0 ? <Pool setLiquidityCount={setLiquidityCount}/> : <AddLiquidity setLiquidityCount={setLiquidityCount} />}
-      <BackgroundImage src={SwapImage} style={{width: '90%', maxWidth: '414px'}}></BackgroundImage>
       </EContainer>
-      <EContainer style={{height: '50px'}}/>
     </Background>);
 
 }

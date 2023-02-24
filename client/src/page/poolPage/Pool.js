@@ -6,17 +6,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Web3 from "web3";
 import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
+import TotalLineImg from "../../assets/img/TotalLine.png";
 import { useState } from "react";
+import { Types } from 'aptos'; 
+const Container = styled.div`
+width: 90%;
+max-width: 374px;
+`;
+
 const EContainer = styled.div`
 
 `;
 
 const Text = styled.div`
+font-weight: 700;
+font-size: 24px;
+line-height: 36px;
 letter-spacing: 0.02em;
+color: #B7B8CD;
 `;
 
 const PoolContainer = styled.div`
-padding: 40px 34px 25px 35px;
+padding: 35px 25px 50px 25px;
 background: #2B2B34;
 border-radius: 16px;
 display: flex;
@@ -24,31 +35,29 @@ flex-direction: column;
 `;
 
 const Image = styled.img`
-width: 97.21px;
-height: 78.41px;
+
 `;
 
 const Button = styled.button`
 all: unset;
 cursor: pointer;
-width: 180.77px;
+width: 100%;
 height: 55px;
-background: #5C5E81;
+background: #4A3CE8;
 border-radius: 16px;
 font-weight: 600;
 font-size: 14px;
 line-height: 17px;
 text-align: center;
+color: #FFFFFF;
 `;
 
 const DetailContainer = styled.div`
 display: flex;
-flex-direction: column;
-background: rgba(43, 43, 52, 0.9);
-border: 1px solid #3F3F46;
-border-radius: 16px;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
 width: 100%;
-padding: 25px 26px 23px 26px;
 `;
 
 const CompositionContainer = styled.div`
@@ -60,6 +69,7 @@ padding: '0px 13px 0px 13px';
 function Pool ({setLiquidityCount}) {
     const [qveTotal, setQveTotal] = useState('');
     const [arbQveTotal, setArbQveTotal] = useState('');
+    const [connected, setConnected] = useState('');
     const web3 = new Web3(window.ethereum);
     const qveContract = Contract();
     const arbQVETotal = qveContract.LiquidityContract.methods.getTotalA().call();
@@ -73,7 +83,165 @@ function Pool ({setLiquidityCount}) {
         setQveTotal(result);
       });
     const poolTotal = ((qveTotal/ 10**18) + (arbQveTotal / 10**18)).toFixed(2);
+
+    // function getPoolBalance () {
+    //     // console.log("Deposit Aptos");
+    //     const transaction = {
+    //         type: "entry_function_aptos_transfer",
+    //         function: '0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::mint::getValueofPool',
+    //         arguments: [],
+    //         type_arguments: [],
+    //     };
+    //     window.aptos.signAndSubmitTransaction(transaction).then(() => {
+    //         // console.log("전송 성공");
+    //     })
+    //     //TODO 추후에 staking하는 코드 넣기
+    // }
+
+    async function Connect() {
+        console.log('connnect');
+        try {
+            await window.aptos.connect();
+            const account = await window.aptos.account();
+            localStorage.setItem('user', JSON.stringify(account.address));
+        } catch (error) {
+
+        }
+    }
+    try {
+        let connectionStatus = window.aptos.isConnected();
+        connectionStatus.then((result) => {
+            setConnected(result);
+        })
+    }
+    catch (error) {
+        
+    }
+
+    // function getBalance() {
+    //     Types.TransactionPayload_EntryFunctionPayload => {
+    //         return {
+    //             type: "entry_function_aptos_transfer",
+    //         function: '0x1fb229bbe295bdbc24439d3c66f6a76aa7af72894b752b1dc1aae1370ff20e2f::stake::a',
+    //         arguments: [],
+    //         type_arguments: [],
+    //         }
+    //     }
+
+    //     const transaction = {
+    //         type: "entry_function_aptos_transfer",
+    //         function: '0x1fb229bbe295bdbc24439d3c66f6a76aa7af72894b752b1dc1aae1370ff20e2f::stake::a',
+    //         arguments: [],
+    //         type_arguments: [],
+    //     };
+        
+    //     // const balance = window.aptos.signMessage(transaction);
+    //     console.log('balance is ', transaction);
+    // }
+    // const payload: Gen.ViewRequest = {
+    //     function: "0x1::coin::balance",
+    //     type_arguments: ["0x1::aptos_coin::AptosCoin"],
+    //     arguments: ['0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07'],
+    //   };
+  
+    //   const balance = client.view(payload);
+
+    // const payload: Gen.ViewRequest = {
+    //     function: "0x5de975bded5c55fd05eef4b9d0f5e8486f467c8dcc2bfedee416c1caa4ba5563::liqpool::LiquidityPool",
+    //     type_arguments: [],
+    //     arguments: [],
+    //   };
+  
+    //   const balance = client.view(payload);
+
     return (
+        <Container>
+            <Text>Pool</Text>
+            <EContainer style={{height: '15px'}}/>
+            <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px'}}>
+                Add your assets to this pool to unlock APRs.<br />
+                The longer your unbonding period, the more you make.
+            </Text>
+            <EContainer style={{height: '25px'}}/>
+            <PoolContainer>
+            <EContainer style={{display: 'flex', flexDirection: 'row'}}>
+            <Image src={BothCoins} style={{width: '97.21px', height: '78.41px'}}/>
+            <EContainer style={{width: '15px'}} />
+            <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+                <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>QVE / mQVE</Text>
+                <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px', color: '#5C5E81'}}>Staking enabled</Text>
+            </EContainer>
+            </EContainer>
+            <EContainer style={{height: '45px'}}/>
+            <DetailContainer>
+                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>APR</Text>
+                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>12.3%</Text>
+            </DetailContainer>
+            <EContainer style={{height: '33px'}}/>
+            <DetailContainer>
+                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>24h Trading Volume</Text>
+                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>$1,234,567</Text>
+            </DetailContainer>
+            <EContainer style={{height: '33px'}}/>
+            <DetailContainer>
+                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Pool Liquidity</Text>
+                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>$1,234,567</Text>
+            </DetailContainer>
+            <EContainer style={{height: '33px'}}/>
+            <DetailContainer>
+                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Swap Fee</Text>
+                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>0.5%</Text>
+            </DetailContainer>
+            <EContainer style={{height: '28px'}}/>
+            <Image src={TotalLineImg} />
+            <EContainer style={{height: '28px'}}/>
+            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Pool Composition</Text>
+            <EContainer style={{height: '16px'}}/>
+            <CompositionContainer>
+            <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: '700', fontSize: '12px', color: '#B7B8CD', color: '#B7B8CD'}}>mQVE: {((arbQveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100}%</Text>
+                <Text style={{fontWeight: '700', fontSize: '12px', color: '#B7B8CD', color: '#B7B8CD'}}>QVE: {((qveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100}%</Text>
+            </EContainer>
+            <EContainer style={{height: '15px'}}/>
+            <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>{(arbQveTotal/10**18).toFixed(2)}</Text>
+                <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>{(qveTotal/10**18).toFixed(2)}</Text>
+            </EContainer>
+            <EContainer style={{height: '20px'}}/>
+            <ProgressBar now={((arbQveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100} />
+        </CompositionContainer>
+            </PoolContainer>
+            <EContainer style={{height: '20px'}}/>
+            { connected === false ? 
+            <Button onClick={() => Connect()}>Connect Wallet</Button>
+            : 
+            <Button style={{background: '#4A3CE8', color: '#FFFFFF'}} onClick={() => {setLiquidityCount(1)}}>Add Liquidity</Button>
+            }
+            
+            <EContainer style={{height: '88px'}}/>
+        </Container>
+        
+      );
+    }
+
+    export default Pool;
+{/* <EContainer style={{height: '35px'}}></EContainer>
+        <EContainer style={{display: 'flex', padding: '0px 34px 0px 35px', justifyContent:'space-between'}}>
+            <EContainer style={{display: 'flex', flexDirection:'column', justifyContent:'space-between'}}>
+                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>APR</Text>
+                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>12.3%</Text>
+            </EContainer>
+            <EContainer>
+                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Liquidity</Text>
+                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>$12.3M</Text>
+            </EContainer>
+            <EContainer>
+                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Fees</Text>
+                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>12.3%</Text>
+            </EContainer>
+        </EContainer> */}
+
+        /*
         <EContainer style={{width: '90%', maxWidth: '414px'}}>
     <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', color: '#B7B8CD'}}>Pool</Text>
       <PoolContainer>
@@ -139,23 +307,4 @@ function Pool ({setLiquidityCount}) {
         <Button style={{background: '#5C5E81', color: '#B7B8CD'}}>Remove Liquidity</Button>
         <Button style={{background: '#4A3CE8', color: '#FFFFFF'}} onClick={() => {setLiquidityCount(1)}}>Add Liquidity</Button>
       </EContainer>
-      </EContainer>
-      );
-    }
-
-    export default Pool;
-{/* <EContainer style={{height: '35px'}}></EContainer>
-        <EContainer style={{display: 'flex', padding: '0px 34px 0px 35px', justifyContent:'space-between'}}>
-            <EContainer style={{display: 'flex', flexDirection:'column', justifyContent:'space-between'}}>
-                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>APR</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>12.3%</Text>
-            </EContainer>
-            <EContainer>
-                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Liquidity</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>$12.3M</Text>
-            </EContainer>
-            <EContainer>
-                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Fees</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>12.3%</Text>
-            </EContainer>
-        </EContainer> */}
+      </EContainer> */

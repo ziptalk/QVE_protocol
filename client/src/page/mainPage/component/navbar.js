@@ -26,22 +26,18 @@ right: 0;
 const DropDownList = styled("ul")`
   padding-left: 7px;
   padding-right: 7px;
-  background: #ffffff;
-  border: 2px solid #e5e5e5;
   box-sizing: border-box;
   color: #3faffa;
-  font-size: 1.3rem;
-  font-weight: 500;
+
   &:first-child {
     padding-top: 0.3em;
   }
   cursor: pointer;
-  width: 224px;
+  width: 210px;
   background: #2B2B34;
-border: 1px solid #3F3F46;
-box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
-border-radius: 16px;
-color: #B7B8CD;
+  box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  color: #B7B8CD;
 `;
 
 const ListItem = styled("li")`
@@ -191,20 +187,19 @@ console.log('localinnavbar is ', localStorage.getItem('user'))
             <DropDownList>
             {option.map((option, index) => (
   <ListItem onClick={onOptionClicked(option)} key={index}>
-    {option === 'Deposit' && <img src={DepositImg} style={{width: '15px', height: '15px'}}/>}
-    {option === 'Portfolios' && <img src={PortfolioImg} style={{width: '15px', height: '15px'}}/>}
-    {option === 'Swap' && <img src={SwapImg} style={{width: '15px', height: '15px'}}/>}
-    {option === 'Pool' && <img src={PoolImg} style={{width: '15px', height: '15px'}}/>}
-    {option === 'Stake' && <img src={StakeImg} style={{width: '15px', height: '15px'}}/>}
+    {option === 'Deposit' && <img src={DepositImg} style={{width: '15px', height: '14px'}}/>}
+    {option === 'Portfolios' && <img src={PortfolioImg} style={{width: '15px', height: '14px'}}/>}
+    {option === 'Swap' && <img src={SwapImg} style={{width: '15px', height: '14px'}}/>}
+    {option === 'Pool' && <img src={PoolImg} style={{width: '15px', height: '14px'}}/>}
+    {option === 'Stake' && <img src={StakeImg} style={{width: '15px', height: '14px'}}/>}
     {option === 'Disconnect' && <Button>Disconnect</Button>}
-    {option === 'Connect Wallet' && <Button>Connect Wallet</Button>}
-    <EContainer style={{width: '3px'}}/>
-    <EContainer style={{height: '15px'}}>
+    {option === 'Connect Wallet' && <Button style={{background: '#4A3CE8', pointerEvents: 'none'}}>Connect Wallet</Button>}
+    <EContainer style={{width: '5px'}}/>
+    <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
       {option === 'Disconnect' ? null : (option === 'Connect Wallet' ? null : option)}
     </EContainer>
   </ListItem>
 ))}
-
               <EContainer style={{height: '7px'}}/>
             </DropDownList>
           </DropDownListContainer>

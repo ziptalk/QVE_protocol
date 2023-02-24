@@ -20,7 +20,7 @@ const EContainer = styled.div`
 `;
 
 const SwapContainer = styled.div`
-max-width: 414px;
+max-width: 374px;
 display: flex;
 flex-direction: column;
 border-radius: 16px;
@@ -79,13 +79,12 @@ display: flex;
 justify-content: center;
 align-items: center;
 cursor: pointer;
-width: 61.07px;
-height: 31px;
-background: #5C5E81;
+padding: 7px 13px;
+background: #4A3CE8;
 border-radius: 16px;
 font-weight: 600;
-font-size: 14px;
-line-height: 17px;
+font-size: 12px;
+line-height: 15px;
 color: #FFFFFF;
 `;
 
@@ -181,7 +180,7 @@ catch (error) {
     return (
     <Background>
     <EContainer style={{height: '132px'}} />
-    <EContainer style={{width: '90%', maxWidth: '414px'}}>
+    <EContainer style={{width: '90%', maxWidth: '374px'}}>
     <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px'}}>Swap</Text>
     </EContainer>
     <EContainer style={{height: '0px'}}></EContainer>
@@ -191,7 +190,7 @@ catch (error) {
         <TokenOneContainer>
             <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
                 <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
-                <Image src={arbQve} style={{width: '46px', height: '43px'}} />
+                <Image src={arbQve} style={{width: '31px', height: '32px'}} />
                 <Input placeholder="Amount" value = {depositAmount} onChange={(e) => setDepositAmount((e.target.value))}></Input>
                 </EContainer>
                 <MaxButton onClick={() => setDepositAmount((maxarbQVE/10**18).toFixed(2))}>MAX</MaxButton>
@@ -202,7 +201,7 @@ catch (error) {
                     <EContainer style={{width: '5px'}}/>
                     <Text>mQVE</Text>
                     <EContainer style={{width: '3px'}}/>
-                    <Text style={{fontWeight: '400', fontSize: '11px', lineHeight: '13px', color: '#5C5E81'}}>mQVE Protocol</Text>
+                    <Text style={{fontWeight: '400', fontSize: '11px', lineHeight: '13px', color: '#5C5E81'}}>Market Making QVE</Text>
                     </EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={{color: '#5C5E81'}}>Available</Text>
@@ -213,15 +212,14 @@ catch (error) {
         </TokenOneContainer>
         <EContainer style={{height: '10px'}}/>
         <EContainer style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
-        <Image src={SwapIcon} style={{position: 'relative', top: '-180px', cursor:'pointer', width: '100px', height: '100px'}} onClick={() => setIcon(1)}/>
+        <Image src={SwapIcon} style={{position: 'relative', top: '-165px', cursor:'pointer', width: '100px', height: '100px'}} onClick={() => setIcon(1)}/>
         </EContainer>
         <TokenTwoContainer>
         <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
                 <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
-                <Image src={Qve} style={{width: '46px', height: '43px'}} />
+                <Image src={Qve} style={{width: '31px', height: '32px'}} />
                 <Input placeholder="Amount" value = {depositAmount} onChange={(e) => setDepositAmount((e.target.value))}></Input>
                 </EContainer>
-                <MaxButton onClick={() => setDepositAmount((maxarbQVE/10**18).toFixed(2))}>MAX</MaxButton>
             </EContainer>
             <EContainer style={{height: '9.5px'}} />
             <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -248,7 +246,7 @@ catch (error) {
             <Button onClick={() => Connect()}>Connect Wallet</Button>
             : 
             depositAmount === '' ?
-            <Button style={{background: '#5C5E81'}}>Swap</Button> 
+            <Button style={{background: '#5C5E81'}}>Amount is Empty</Button> 
             :
             <Button onClick={() => SwapArbtoQVE()}>Swap</Button>
             }

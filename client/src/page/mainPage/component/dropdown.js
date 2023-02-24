@@ -35,7 +35,7 @@ color: #B7B8CD;
 const DropDownListContainer = styled("div")``;
 
 const DropDownList = styled("ul")`
-  padding: 0;
+  padding: 9px 10px;
   margin: 0;
   padding-left: 7px;
   padding-right: 7px;
@@ -66,6 +66,7 @@ font-weight: 700;
 font-size: 16px;
 line-height: 19px;
 align-items: center;
+padding-left: 7px;
 &:hover {
     background: #3F3F46;
 }

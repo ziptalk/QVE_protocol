@@ -34,7 +34,8 @@ height: 108.07px;
 
 const ConnectWalletContainer = styled.div`
 height: 235px;
-width: 373px;
+width: 90%;
+max-width: 374px;
 display: flex;
 background: #2B2B34;
 box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
@@ -237,8 +238,9 @@ function MainWalletXPetra({preWalletCount, setAptosBalance, setPreWalletCount, s
         
         <>
         <Asset>My Asset</Asset>
+        <EContainer style={{height: '15px'}}/>
         <ConnectWalletContainer>
-        <EContainer style={{height: '35px'}}></EContainer>
+        <EContainer style={{height: '35px'}} />
         <ConnectYourWalletContainer>
         <ConnectWalletImg src={pleaseConnectYourWallet}></ConnectWalletImg>
         <EContainer style={{height: '19px'}}></EContainer>

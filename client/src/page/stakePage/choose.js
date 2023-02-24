@@ -2,8 +2,9 @@ import styled from "styled-components";
 import Qve from "../../assets/img/Qve.png";
 import arbQve from "../../assets/img/arbQve.png";
 import BackgroundImage from "../../assets/img/SwapImage.png";
+import { useState } from "react";
 const Background = styled.div`
-height: 100%;
+height: 90vh;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -59,11 +60,34 @@ color: #FFFFFF;
 `;
 
 function Choose({setCount}) {
+    const [connected, setConnected] = useState('');
+
+    async function Connect() {
+        console.log('connnect');
+        try {
+            await window.aptos.connect();
+            const account = await window.aptos.account();
+            localStorage.setItem('user', JSON.stringify(account.address));
+        } catch (error) {
+
+        }
+    }
+    
+    try {
+        let connectionStatus = window.aptos.isConnected();
+        connectionStatus.then((result) => {
+            setConnected(result);
+        })
+    }
+    catch (error) {
+
+    }
+    console.log(connected)
 
     return (
         <Background>
         <EContainer style={{height: '132px'}}></EContainer>
-        <EContainer style={{width: '90%', maxWidth: '414px'}}>
+        <EContainer style={{width: '90%', maxWidth: '374px'}}>
         <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px'}}>Stake</Text>
         <EContainer style={{height: '10px'}}/>
         <StakeContainer>
@@ -76,13 +100,24 @@ function Choose({setCount}) {
                         <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px', color: '#5C5E81'}}>Staking Pool</Text>
                     </EContainer>
                 </EContainer>
+                <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
                 <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly'}}>
-                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>APY 12.3%</Text>
-                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>TVL $12.3M</Text>
+                    <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>APY</Text>
+                    <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>TVL</Text>
+                </EContainer>
+                <EContainer style={{width: '14px'}}/>
+                <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'flex-end'}}>
+                        <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>12.3%</Text>
+                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>$12.3M</Text>
+                </EContainer>
                 </EContainer>
             </EContainer>
             <EContainer style={{height: '30px'}}/>
+            { connected === false ? 
+            <Button onClick={() => Connect()}>Connect Wallet</Button>
+            : 
             <Button onClick={() => {setCount(1)}}>Stake</Button>
+            }
         </StakeContainer>
         <EContainer style={{height: '25px'}}/>
         <StakeContainer>
@@ -95,17 +130,25 @@ function Choose({setCount}) {
                         <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px', color: '#5C5E81'}}>Staking Pool</Text>
                     </EContainer>
                 </EContainer>
+                <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
                 <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly'}}>
-                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>APY 12.3%</Text>
-                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>TVL $12.3M</Text>
+                    <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>APY</Text>
+                    <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>TVL</Text>
+                </EContainer>
+                <EContainer style={{width: '14px'}}/>
+                <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'flex-end'}}>
+                        <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>12.3%</Text>
+                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>$12.3M</Text>
+                </EContainer>
                 </EContainer>
             </EContainer>
             <EContainer style={{height: '30px'}}/>
+            { connected === false ? 
+            <Button onClick={() => Connect()}>Connect Wallet</Button>
+            : 
             <Button onClick={() => {setCount(2)}}>Stake</Button>
+            }
         </StakeContainer>
-
-
-        <Image src={BackgroundImage} style={{width: '100%'}}></Image>
         </EContainer>
         
     </Background>
