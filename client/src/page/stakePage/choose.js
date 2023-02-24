@@ -102,11 +102,11 @@ function Choose({setCount}) {
         <StakeContainer>
             <EContainer style={{display: 'flex', justifyContent: 'space-between'}}>
                 <EContainer style={{display: 'flex', flexDirection: 'row'}}>
-                <Image src={Qve} style={{width: '54.72px', height: '57.53px'}}></Image>
-                <EContainer style={{width: '20px'}} />
+                <Image src={Qve} style={{width: '40px', height: '40px'}}></Image>
+                <EContainer style={{width: '10px'}} />
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                        <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', color: '#FFFFFF'}}>QVE</Text>
-                        <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px', color: '#5C5E81'}}>Staking Pool</Text>
+                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>QVE</Text>
+                        <Text style={{fontWeight: '600', fontSize: '12px', lineHeight: '15px', color: '#5C5E81'}}>Staking Pool</Text>
                     </EContainer>
                 </EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
@@ -116,8 +116,8 @@ function Choose({setCount}) {
                 </EContainer>
                 <EContainer style={{width: '14px'}}/>
                 <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'flex-end'}}>
-                        <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>12.3%</Text>
-                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>$12.3M</Text>
+                        <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#FFFFFF'}}>12.3%</Text>
+                <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#FFFFFF'}}>$12.3M</Text>
                 </EContainer>
                 </EContainer>
             </EContainer>
@@ -132,11 +132,11 @@ function Choose({setCount}) {
         <StakeContainer>
         <EContainer style={{display: 'flex', justifyContent: 'space-between'}}>
                 <EContainer style={{display: 'flex', flexDirection: 'row'}}>
-                <Image src={arbQve} style={{width: '54.72px', height: '57.53px'}}></Image>
-                <EContainer style={{width: '20px'}} />
+                <Image src={arbQve} style={{width: '40px', height: '40px'}}></Image>
+                <EContainer style={{width: '10px'}} />
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
-                        <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', color: '#FFFFFF'}}>arbQVE</Text>
-                        <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px', color: '#5C5E81'}}>Staking Pool</Text>
+                        <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>mQVE</Text>
+                        <Text style={{fontWeight: '600', fontSize: '12px', lineHeight: '15px', color: '#5C5E81'}}>Staking Pool</Text>
                     </EContainer>
                 </EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly'}}>
@@ -146,8 +146,8 @@ function Choose({setCount}) {
                 </EContainer>
                 <EContainer style={{width: '14px'}}/>
                 <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'flex-end'}}>
-                        <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>12.3%</Text>
-                <Text style={{fontWeight: '700', fontSize: '16px', lineHeight: '19px', color: '#FFFFFF'}}>$12.3M</Text>
+                        <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#FFFFFF'}}>12.3%</Text>
+                <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#FFFFFF'}}>$12.3M</Text>
                 </EContainer>
                 </EContainer>
             </EContainer>

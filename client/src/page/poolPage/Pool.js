@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BothCoins from "../../assets/img/BothCoins.png";
+import BothCoins from "../../assets/img/BothCoins.svg";
 import { ProgressBar } from 'react-bootstrap';
 import LiquidityArtifact from "../../artifact/LiquidityPool.json";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,7 +27,7 @@ color: #B7B8CD;
 `;
 
 const PoolContainer = styled.div`
-padding: 35px 25px 50px 25px;
+padding: 32px 25px 50px 25px;
 background: #2B2B34;
 border-radius: 16px;
 display: flex;
@@ -181,25 +181,25 @@ function Pool ({setLiquidityCount}) {
                 <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px', color: '#5C5E81'}}>Staking enabled</Text>
             </EContainer>
             </EContainer>
-            <EContainer style={{height: '45px'}}/>
+            <EContainer style={{height: '40px'}}/>
             <DetailContainer>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>APR</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>12.3%</Text>
+                <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>12.3%</Text>
             </DetailContainer>
             <EContainer style={{height: '33px'}}/>
             <DetailContainer>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>24h Trading Volume</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>$1,234,567</Text>
+                <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>$1,234,567</Text>
             </DetailContainer>
             <EContainer style={{height: '33px'}}/>
             <DetailContainer>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Pool Liquidity</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>$1,234,567</Text>
+                <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>$1,234,567</Text>
             </DetailContainer>
             <EContainer style={{height: '33px'}}/>
             <DetailContainer>
                 <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Swap Fee</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>0.5%</Text>
+                <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '24px', color: '#FFFFFF'}}>0.5%</Text>
             </DetailContainer>
             <EContainer style={{height: '28px'}}/>
             <Image src={TotalLineImg} />
@@ -208,13 +208,13 @@ function Pool ({setLiquidityCount}) {
             <EContainer style={{height: '16px'}}/>
             <CompositionContainer>
             <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: '700', fontSize: '12px', color: '#B7B8CD', color: '#B7B8CD'}}>mQVE: {((arbQveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100}%</Text>
-                <Text style={{fontWeight: '700', fontSize: '12px', color: '#B7B8CD', color: '#B7B8CD'}}>QVE: {((qveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100}%</Text>
+                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD', color: '#B7B8CD'}}>mQVE: {((arbQveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100}%</Text>
+                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD', color: '#B7B8CD'}}>QVE: {((qveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100}%</Text>
             </EContainer>
             <EContainer style={{height: '15px'}}/>
             <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>{(arbQveTotal/10**18).toFixed(2)}</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>{(qveTotal/10**18).toFixed(2)}</Text>
+                <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '15px', color: '#B7B8CD', color: '#FFFFFF'}}>{(arbQveTotal/10**18).toFixed(2)}</Text>
+                <Text style={{fontWeight: '700', fontSize: '18px', lineHeight: '15px', color: '#B7B8CD', color: '#FFFFFF'}}>{(qveTotal/10**18).toFixed(2)}</Text>
             </EContainer>
             <EContainer style={{height: '20px'}}/>
             <ProgressBar now={((arbQveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100} />

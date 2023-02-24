@@ -92,9 +92,9 @@ function Main ({setSelectedOption}){
         <Background>
         <EContainer style={{maxWidth: "374px"}}>
         <EContainer style={{height: '159px'}}></EContainer>
-        <Text style={{fontWeight: '500'}}>Decentralized</Text>
-        <Text>Fund Liquidation</Text>
-        <Text>Solution</Text>
+        <Text style={{fontWeight: '500', fontFamily: 'Montserrat', fontStyle: 'normal'}}>Decentralized</Text>
+        <Text style={{fontFamily: 'Montserrat', fontStyle: 'normal'}}>Fund Liquidation</Text>
+        <Text style={{fontFamily: 'Montserrat', fontStyle: 'normal'}}>Solution</Text>
         <Img src={LandingImg} style={{height: '100%', width: '100%'}}></Img>
         <EContainer style={{height: '15px'}}/>
         <EContainer style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>

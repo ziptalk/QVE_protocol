@@ -2,8 +2,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import DepositImg from "../../../assets/img/Deposit.svg";
-import StakingImg from "../../../assets/img/Staking.png";
-import LiquidityImg from "../../../assets/img/Liquidity.png";
+import StakingImg from "../../../assets/img/Staking.svg";
+import LiquidityImg from "../../../assets/img/Liquidity.svg";
 import TotalLineImg from "../../../assets/img/TotalLine.png";
 import XImg from "../../../assets/img/x.png";
 import Favicon from "../../../assets/img/Favicon.png";
@@ -240,8 +240,7 @@ console.log('connectionStatusconnected', connectionStatus);
                 <EContainer style={{display: 'flex', flexDirection: 'row', padding: '0px 25px 0px 25px', justifyContent: "space-between"}}>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
                         <EContainer style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                            <Image src={DepositImg} style={{width: '15px', height: '15px'}}></Image>
-                            <EContainer style={{width: '3px'}}/>
+                            <Image src={DepositImg} style={{width: '24px', height: '24px'}}></Image>
                             <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Deposit</Text>
                         </EContainer>
                         <EContainer style={{height: '3px'}}/>
@@ -282,8 +281,7 @@ console.log('connectionStatusconnected', connectionStatus);
                 <EContainer style={{height: '25px'}}></EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', padding: '0px 25px 0px 25px', justifyContent: 'space-between'}}>
                 <EContainer style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <Image src={StakingImg} style={{width: '15px', height: '15px'}}></Image>
-                    <EContainer style={{width: '3px'}}/>
+                    <Image src={StakingImg} style={{width: '24px', height: '24px'}}></Image>
                     <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD', padding: '5px 0px 5px 0px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Staking Rewards</Text>
                     </EContainer>
                     <Button style={{width: '83px', height: '27px'}} onClick={() => navigate('/stakePage')}>Stake</Button>
@@ -303,8 +301,7 @@ console.log('connectionStatusconnected', connectionStatus);
             <EContainer style={{height: '25px'}}></EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', padding: '0px 25px 0px 25px', justifyContent: 'space-between'}}>
                     <EContainer style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}}>
-                    <Image src={LiquidityImg} style={{width: '15px', height: '15px'}}></Image>
-                    <EContainer style={{width: '3px'}}/>
+                    <Image src={LiquidityImg} style={{width: '24px', height: '24px'}}></Image>
                     <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD', padding: '5px 0px 5px 0px', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Liquidity Rewards</Text>
                     </EContainer>
                     <Button style={{width: '115px', height: '27px'}} onClick={() => navigate('/poolPage')}>Add Liquidity</Button>

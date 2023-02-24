@@ -187,7 +187,8 @@ console.log('amount is ', amount)
             <Container>
             <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
                 <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
-                <Image src={Qve} style={{width: '46px', height: '43px'}} />
+                <Image src={Qve} style={{width: '32px', height: '32px'}} />
+                <EContainer style={{width: '3px'}}/>
                 <Input type="number" placeholder="Amount" value = {amount} onChange={(e) => setAmount((e.target.value))}></Input>
                 </EContainer>
                 <MaxButton>MAX</MaxButton>
@@ -198,7 +199,7 @@ console.log('amount is ', amount)
                     <EContainer style={{width: '5px'}}/>
                     <Text style={{fontSize: '12px', lineHeight: '15px'}}>QVE</Text>
                     <EContainer style={{width: '3px'}}/>
-                    <Text style={{fontWeight: '600', fontSize: '12px', lineHeight: '15px', color: '#5C5E81'}}>50%</Text>
+                    <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#5C5E81'}}>50%</Text>
                     </EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={{fontWeight: '400', fontSize: '11px', lineHeight: '13px', color: '#5C5E81'}}>Available</Text>
@@ -213,7 +214,8 @@ console.log('amount is ', amount)
         <Container>
         <EContainer style={{display: 'flex',flexDirection: 'row', justifyContent: 'space-between',  alignItems:'center'}}>
                 <EContainer style={{fontWeight: '500', fontSize: '14px', lineHeight: '17px', display: 'flex', flexDirection: 'row', justifyContent:'center', alignItems:'center'}}>
-                <Image src={arbQve} style={{width: '46px', height: '43px'}} />
+                <Image src={arbQve} style={{width: '32px', height: '32px'}} />
+                <EContainer style={{width: '3px'}}/>
                 <Input type="number" placeholder="Amount" value = {amount} onChange={(e) => setAmount((e.target.value))}></Input>
                 </EContainer>
                 <MaxButton >MAX</MaxButton>
@@ -224,7 +226,7 @@ console.log('amount is ', amount)
                     <EContainer style={{width: '5px'}}/>
                     <Text style={{fontSize: '12px', lineHeight: '15px'}}>mQVE</Text>
                     <EContainer style={{width: '3px'}}/>
-                    <Text style={{fontWeight: '600', fontSize: '12px', lineHeight: '15px', color: '#5C5E81'}}>50%</Text>
+                    <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#5C5E81'}}>50%</Text>
                     </EContainer>
                     <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
                 <Text style={{fontWeight: '400', fontSize: '11px', lineHeight: '13px', color: '#5C5E81'}}>Available</Text>
