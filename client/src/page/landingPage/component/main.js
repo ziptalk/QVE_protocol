@@ -21,8 +21,6 @@ const EContainer = styled.div`
 `;
 
 const Text = styled.div`
-font-family: 'Montserrat';
-font-style: normal;
 font-weight: 700;
 font-size: 29px;
 line-height: 35px;
@@ -58,7 +56,7 @@ background: #2B2B34;
 border: 1px solid #5C5E81;
 box-shadow: 8px 8px 30px rgba(0, 0, 0, 0.2);
 border-radius: 16px;
-padding: 0px 25px 0px 25px;
+padding: 0px 15px 0px 15px;
 `;
 
 const StrategyContainer = styled.div`
@@ -104,8 +102,8 @@ function Main ({setSelectedOption}){
         </EContainer>
         </EContainer>
         <EContainer style={{height: '50px'}}></EContainer>
-        <Text style={{fontWeight: '700', fontSize: '29px', lineHeight: '35px'}}>Get Back</Text>
-        <Text style={{fontWeight: '700', fontSize: '29px', lineHeight: '35px'}}>Your share of fund</Text>
+        <Text style={{fontWeight: '700', fontSize: '29px', lineHeight: '35px', fontFamily: 'Montserrat', fontStyle: 'normal'}}>Get Back</Text>
+        <Text style={{fontWeight: '700', fontSize: '29px', lineHeight: '35px', fontFamily: 'Montserrat', fontStyle: 'normal'}}>Your share of fund</Text>
         <EContainer style={{height: '25px'}}></EContainer>
         <EContainer style={{width: '90%', maxWidth: "374px", justifyContent: 'space-between', height: "100px", display: "flex", flexDirection: "row"}}>
             <ThreeContainer>
