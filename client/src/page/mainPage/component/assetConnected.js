@@ -17,7 +17,7 @@ const Asset = styled.div`
 
 /* Heading 2 */
 width: 90%;
-max-width: 414px;
+max-width: 374px;
 font-weight: 700;
 font-size: 24px;
 line-height: 36px;
@@ -55,7 +55,7 @@ const DepositContainer = styled.div`
 display: flex;
 flex-direction: column;
 width: 90vw;
-max-width: 414px;
+max-width: 374px;
 background: #2B2B34;
 border-radius: 16px;
 `;
@@ -64,7 +64,7 @@ const StakingRewardsContainer = styled.div`
 display: flex;
 flex-direction: column;
 width: 90vw;
-max-width: 414px;
+max-width: 374px;
 background: #2B2B34;
 border-radius: 16px;
 `;
@@ -73,7 +73,7 @@ const LiquidityRewardsContainer = styled.div`
 display: flex;
 flex-direction: column;
 width: 90vw;
-max-width: 414px;
+max-width: 374px;
 background: #2B2B34;
 border-radius: 16px;
 `;
