@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import QveImage from "../../assets/img/SwapImage.png"
-import Qve from "../../assets/img/Qve.png";
-import arbQve from "../../assets/img/arbQve.png"
+import Qve from "../../assets/img/Qve.svg";
+import arbQve from "../../assets/img/arbQve.svg"
 import Web3 from "web3";
 import SwapIcon from "../../assets/img/SwapIcon.png";
 import { useState, useEffect } from "react";

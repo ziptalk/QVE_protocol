@@ -8,8 +8,8 @@ import { useState } from "react";
 import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
 import GoToTop from "../../common/GotoTop";
-import Qve from "../../assets/img/Qve.png";
-import arbQve from "../../assets/img/arbQve.png";
+import Qve from "../../assets/img/Qve.svg";
+import arbQve from "../../assets/img/arbQve.svg";
 const Background = styled.div`
 height: 90vh;
 display: flex;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import Qve from "../../assets/img/Qve.png";
-import arbQve from "../../assets/img/arbQve.png";
+import Qve from "../../assets/img/Qve.svg";
+import arbQve from "../../assets/img/arbQve.svg";
 import BackgroundImage from "../../assets/img/SwapImage.png";
 import { useState } from "react";
 const Background = styled.div`

@@ -5,8 +5,8 @@ import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
 import GoToTop from "../../common/GotoTop";
 import PoolIcon from "../../assets/img/SwapIcon.png";
-import Qve from "../../assets/img/Qve.png";
-import arbQve from "../../assets/img/arbQve.png"
+import Qve from "../../assets/img/Qve.svg";
+import arbQve from "../../assets/img/arbQve.svg"
 import Web3 from "web3";
 const Outer = styled.div`
 display: flex;
