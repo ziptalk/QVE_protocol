@@ -176,6 +176,15 @@ align-items: center;
 color: #B7B8CD;
 `;
 
+const Text = styled.div`
+font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+display: flex;
+align-items: center;
+color: #B7B8CD;
+`;
+
 const DropDownHeader = styled("div")`
   box-sizing: border-box;
   flex-wrap: wrap;
@@ -480,7 +489,7 @@ sleep(3000); */
         /* <ContainerAll style={{filter: preWalletCount != null ? "blur(1px)" : "blur(0px)"}}> */
         <ContainerAll style={{filter: preWalletCount != null ? "blur(0px)" : "blur(0px)"}}>
         <EContainer style={{height: "105px"}}></EContainer>
-        <StrategyContainer>Strategy Selector</StrategyContainer>
+        <StrategyContainer><Text>Strategy Selector</Text></StrategyContainer>
         <EContainer style={{height: '20px'}}></EContainer>
         <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', maxWidth: '374px', justifyContent: 'flex-end'}}>
         {localStorage.getItem('user') === null ? <DepositButton onClick={() => setPreWalletCount(1)}>Deposit</DepositButton> : <DepositButton onClick={() => setPreWalletCount(3)}>Deposit</DepositButton>}

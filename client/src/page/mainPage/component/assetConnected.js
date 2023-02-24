@@ -251,7 +251,7 @@ console.log('connectionStatusconnected', connectionStatus);
                 </EContainer>
                 <EContainer style={{height: '45px'}}></EContainer>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '0px 25px 0px 25px'}}>
-                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>{(arbQve/10**18).toFixed(2)} arbQVE</Text>
+                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>{(arbQve/10**18).toFixed(2)} mQVE</Text>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
                         <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#0FB63E'}}>+ $ 100 (↑10%)</Text>
                         <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px', color: '#FFFFFF', display: 'flex', justifyContent:'flex-end'}}>= $ 1,100</Text>
@@ -311,7 +311,7 @@ console.log('connectionStatusconnected', connectionStatus);
                 </EContainer>
                 <EContainer style={{height: '20px'}}/>
                 <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '0px 25px 0px 25px'}}>
-                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>arbQVE/QVE</Text>
+                    <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#B7B8CD'}}>mQVE/QVE</Text>
                     <EContainer style={{display: 'flex', flexDirection: 'column'}}>
                         <Text style={{fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: '#0FB63E'}}>+ $ 100 (↑10%)</Text>
                         <Text style={{fontWeight: '500', fontSize: '12px', lineHeight: '15px', color: '#FFFFFF', display: 'flex', justifyContent:'flex-end'}}>= $ 1,100</Text>
@@ -358,7 +358,7 @@ console.log('connectionStatusconnected', connectionStatus);
         <EContainer style={{display: 'flex', justifyContent:'center', alignItems:'center'}}>
         <EContainer style={{display: 'flex', flexDirection: 'row', width: '90%', justifyContent: 'space-between'}}>
         <TextContainer style={{fontWeight: '400', fontSize: '11px', lineHeight:'13px'}}>Exchange rate</TextContainer>
-        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>1 USDT = 1 arbQve</TextContainer>
+        <TextContainer style={{fontWeight: '700', fontSize: '12px', lineHeight:'15px'}}>1 USDT = 1 mQve</TextContainer>
         </EContainer>
         </EContainer>
         <EContainer style={{height: '10px'}}></EContainer>
