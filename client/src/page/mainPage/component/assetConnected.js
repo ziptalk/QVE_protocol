@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import styled from "styled-components";
-import DepositImg from "../../../assets/img/Deposit.png";
+import DepositImg from "../../../assets/img/Deposit.svg";
 import StakingImg from "../../../assets/img/Staking.png";
 import LiquidityImg from "../../../assets/img/Liquidity.png";
 import TotalLineImg from "../../../assets/img/TotalLine.png";

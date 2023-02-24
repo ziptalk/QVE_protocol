@@ -215,7 +215,7 @@ return (
             </EContainer>
         </TokenOneContainer>
         <EContainer style={{height: '10px'}}/>
-        <EContainer style={{display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
+        <EContainer style={{position: 'absolute'}}>
         <Image src={SwapIcon} style={{position: 'relative', top: '-165px', cursor:'pointer', width: '100px', height: '100px'}} onClick={() => setIcon(0)}/>
         </EContainer>
         <TokenTwoContainer>

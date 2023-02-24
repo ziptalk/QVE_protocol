@@ -140,20 +140,6 @@ function SwaparbQVEtoQVE({setIcon}) {
     };
     const wallet = getAptosWallet();
 
-    function SwapArbtoQVE() {
-            const transaction = {
-                type: "entry_function_aptos_transfer",
-                function: '0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::liqpool::swapArbtoQve',
-                arguments: [depositAmount * 10**8],
-                type_arguments: [],
-            };
-            
-            window.aptos.signAndSubmitTransaction(transaction).then(() => {
-                console.log("전송 성공");
-            }) 
-    }
-    console.log('locals in arbqvetoqve', localStorage.getItem('user'));
-
     async function Connect() {
         console.log('connnect');
         setDepositAmount('');
@@ -180,6 +166,19 @@ connectionStatus.then((result) => {
 // });
 }
 catch (error) {
+}
+
+function SwapArbtoQVE() {
+    const transaction = {
+        type: "entry_function_aptos_transfer",
+        function: '0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::liqpool::swapArbtoQve',
+        arguments: [depositAmount * 10**8],
+        type_arguments: [],
+    };
+    
+    window.aptos.signAndSubmitTransaction(transaction).then(() => {
+        console.log("전송 성공");
+    }) 
 }
 
 

@@ -2,11 +2,11 @@ import styled from "styled-components";
 import Menu from "../../../assets/img/Menu.png";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import DepositImg from "../../../assets/img/Deposit.png";
-import PortfolioImg from "../../../assets/img/PortfolioImg.png";
-import StakeImg from "../../../assets/img/Staking.png";
-import PoolImg from "../../../assets/img/Liquidity.png";
-import SwapImg from "../../../assets/img/SwapImg.png";
+import DepositImg from "../../../assets/img/Deposit.svg";
+import PortfolioImg from "../../../assets/img/PortfolioImg.svg";
+import StakeImg from "../../../assets/img/Staking.svg";
+import PoolImg from "../../../assets/img/Liquidity.svg";
+import SwapImg from "../../../assets/img/SwapImg.svg";
 import Web3 from "web3";
 const MenuBar = styled.img`
 width: 24px;
@@ -24,10 +24,9 @@ right: 0;
 `;
 
 const DropDownList = styled("ul")`
-  padding-left: 7px;
-  padding-right: 7px;
   box-sizing: border-box;
   color: #3faffa;
+  padding: 19px 19px 26px 19px;
 
   &:first-child {
     padding-top: 0.3em;
@@ -52,7 +51,7 @@ line-height: 19px;
 align-items: center;
 &:hover {
     background: #3F3F46;
-    width: 95%;
+    width: 100%;
 }
 border-radius: 10px;
 `;
@@ -63,7 +62,7 @@ display: flex;
 flex-direction: row;
 justify-content: center;
 align-items: center;
-width: 90%;
+width: 100%;
 height: 36px;
 font-weight: 600;
 font-size: 14px;
@@ -185,13 +184,15 @@ console.log('localinnavbar is ', localStorage.getItem('user'))
             {isOpen && (
           <DropDownListContainer>
             <DropDownList>
+            <EContainer style={{height: '17px'}}/>
             {option.map((option, index) => (
+              
   <ListItem onClick={onOptionClicked(option)} key={index}>
-    {option === 'Deposit' && <img src={DepositImg} style={{width: '15px', height: '14px'}}/>}
-    {option === 'Portfolios' && <img src={PortfolioImg} style={{width: '15px', height: '14px'}}/>}
-    {option === 'Swap' && <img src={SwapImg} style={{width: '15px', height: '14px'}}/>}
-    {option === 'Pool' && <img src={PoolImg} style={{width: '15px', height: '14px'}}/>}
-    {option === 'Stake' && <img src={StakeImg} style={{width: '15px', height: '14px'}}/>}
+    {option === 'Deposit' && <img src={DepositImg} style={{width: '24px', height: '24px'}}/>}
+    {option === 'Portfolios' && <img src={PortfolioImg} style={{width: '24px', height: '24px'}}/>}
+    {option === 'Swap' && <img src={SwapImg} style={{width: '24px', height: '24px'}}/>}
+    {option === 'Pool' && <img src={PoolImg} style={{width: '24px', height: '24px'}}/>}
+    {option === 'Stake' && <img src={StakeImg} style={{width: '24px', height: '24px'}}/>}
     {option === 'Disconnect' && <Button>Disconnect</Button>}
     {option === 'Connect Wallet' && <Button style={{background: '#4A3CE8', pointerEvents: 'none'}}>Connect Wallet</Button>}
     <EContainer style={{width: '5px'}}/>
@@ -200,7 +201,6 @@ console.log('localinnavbar is ', localStorage.getItem('user'))
     </EContainer>
   </ListItem>
 ))}
-              <EContainer style={{height: '7px'}}/>
             </DropDownList>
           </DropDownListContainer>
         )}
