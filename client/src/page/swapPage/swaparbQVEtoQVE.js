@@ -152,7 +152,7 @@ function SwaparbQVEtoQVE({setIcon}) {
         }
     };
     const wallet = getAptosWallet();
-
+    console.log('a')
 
     async function Connect() {
         console.log('connnect');
