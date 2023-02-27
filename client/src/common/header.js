@@ -5,54 +5,53 @@ import Navbar from "../page/mainPage/component/navbar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 const HeaderContainer = styled.div`
-position: fixed;
-background-color: #292932;
-height: 77px;
-top: 0;
-left: 0;
-right: 0;  
-z-index: 2;
+  position: fixed;
+  background-color: #292932;
+  height: 77px;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
 `;
 
 const Logo = styled.img`
-position: fixed;
-left: 20px;
-top: 25px;
-bottom: 23.5;
-cursor: pointer;
-width: 75px;
-height: 30px;
-flex: none;
-order: 0;
-flex-grow: 0;
+  position: fixed;
+  left: 20px;
+  top: 25px;
+  bottom: 23.5;
+  cursor: pointer;
+  width: 75px;
+  height: 30px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 `;
 
 const Menu = styled.div`
-position: fixed;
-top: 31px;
-bottom: 23.5;
-right: 20px;
-width: 24px;
-height: 24px;
-flex: none;
-order: 1;
-flex-grow: 0;
+  position: fixed;
+  top: 31px;
+  bottom: 23.5;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
 `;
 
-const EContainer = styled.div`
-
-`;
- 
+const EContainer = styled.div``;
 
 function Header() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    return(<HeaderContainer>
-        <Logo src={logo} onClick={() => navigate('/')}></Logo>
-        <Menu>
-        <Navbar/>
-        </Menu>
-    </HeaderContainer>);
+  return (
+    <HeaderContainer>
+      <Logo src={logo} onClick={() => navigate("/")}></Logo>
+      <Menu>
+        <Navbar />
+      </Menu>
+    </HeaderContainer>
+  );
 }
 
 export default Header;

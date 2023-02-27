@@ -4,16 +4,17 @@ import GoToTop from "../../common/GotoTop";
 import Main from "./main";
 import styled from "styled-components";
 function StakePage() {
-const Container = styled.div`
-overflow: hidden;
-`;
-    return (
+  const Container = styled.div`
+    overflow: hidden;
+  `;
+  return (
     <Container>
-    <Header />
-    <Main />
-    <Footer />
-    <GoToTop />
-    </Container>);
+      <Header />
+      <Main />
+      <Footer />
+      <GoToTop />
+    </Container>
+  );
 }
 
 export default StakePage;

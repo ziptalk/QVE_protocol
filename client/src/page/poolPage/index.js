@@ -5,20 +5,18 @@ import GoToTop from "../../common/GotoTop";
 import styled from "styled-components";
 
 const Container = styled.div`
-overflow: hidden;
+  overflow: hidden;
 `;
 
 function PoolPage() {
-
-    return (
-        <Container>
-        <Header></Header>
-        <Main></Main>
-        <Footer></Footer>
-        <GoToTop />
-        </Container>
-
-    );
+  return (
+    <Container>
+      <Header></Header>
+      <Main></Main>
+      <Footer></Footer>
+      <GoToTop />
+    </Container>
+  );
 }
 
 export default PoolPage;

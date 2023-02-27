@@ -11,25 +11,25 @@ const DropDownContainer = styled("div")`
 const DropDownHeader = styled("div")`
   box-sizing: border-box;
   flex-wrap: wrap;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: flex-start;
-align-content: space-between;
-padding: 18px 20px;
-width: 224px;
-height: 60px;
-background: #1B1A1E;
-border: 1px solid #3F3F46;
-border-radius: 16px;
-order: 0;
-flex-grow: 0;
-cursor: pointer;
-font-weight: 700;
-font-size: 24px;
-line-height: 36px;
-letter-spacing: 0.02em;
-color: #B7B8CD;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: space-between;
+  padding: 18px 20px;
+  width: 224px;
+  height: 60px;
+  background: #1b1a1e;
+  border: 1px solid #3f3f46;
+  border-radius: 16px;
+  order: 0;
+  flex-grow: 0;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  letter-spacing: 0.02em;
+  color: #b7b8cd;
 `;
 
 const DropDownListContainer = styled("div")``;
@@ -50,71 +50,67 @@ const DropDownList = styled("ul")`
   }
   cursor: pointer;
   width: 224px;
-  background: #2B2B34;
-border: 1px solid #3F3F46;
-box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
-border-radius: 16px;
-color: #B7B8CD;
+  background: #2b2b34;
+  border: 1px solid #3f3f46;
+  box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  color: #b7b8cd;
 `;
 
 const ListItem = styled("li")`
-display: flex;
-width: 100%;
-height: 40px;
-left: 10px;
-font-weight: 700;
-font-size: 16px;
-line-height: 19px;
-align-items: center;
-padding-left: 7px;
-&:hover {
-    background: #3F3F46;
-}
-border-radius: 10px;
+  display: flex;
+  width: 100%;
+  height: 40px;
+  left: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  align-items: center;
+  padding-left: 7px;
+  &:hover {
+    background: #3f3f46;
+  }
+  border-radius: 10px;
 `;
 
-const BaseImage = styled.img`
-
-`;
+const BaseImage = styled.img``;
 
 const Text = styled.div`
-font-weight: 700;
-font-size: 24px;
-line-height: 30px;
-text-align: center;
-letter-spacing: 0.02em;
-color: #FFFFFF;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #ffffff;
 `;
 
-const EContainer = styled.div`
-
-`;
+const EContainer = styled.div``;
 
 const options = ["Arbitrage", "BTC Hedge", "Funding Rate"];
 
-export default function DropDown({selectedOption, setSelectedOption}) {
+export default function DropDown({ selectedOption, setSelectedOption }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggling = () => setIsOpen(!isOpen);
 
-  const onOptionClicked = value => () => {
+  const onOptionClicked = (value) => () => {
     setSelectedOption(value);
     setIsOpen(false);
   };
 
   return (
     <>
-    <EContainer style={{height: '20px'}}></EContainer>
-    <DropDownContainer>
-    <DropDownHeader onClick={toggling}>
-        <Text>{selectedOption}</Text>
-        <BaseImage src={InvertedArrow}></BaseImage>
+      <EContainer style={{ height: "20px" }}></EContainer>
+      <DropDownContainer>
+        <DropDownHeader onClick={toggling}>
+          <Text>{selectedOption}</Text>
+          <BaseImage src={InvertedArrow}></BaseImage>
         </DropDownHeader>
-        <EContainer style={{height: '4px'}}></EContainer>
+        <EContainer style={{ height: "4px" }}></EContainer>
         {isOpen && (
           <DropDownListContainer>
             <DropDownList>
-              {options.map(option => (
+              {options.map((option) => (
                 <ListItem onClick={onOptionClicked(option)} key={Math.random()}>
                   {option}
                 </ListItem>
@@ -123,6 +119,6 @@ export default function DropDown({selectedOption, setSelectedOption}) {
           </DropDownListContainer>
         )}
       </DropDownContainer>
-      </>
+    </>
   );
 }

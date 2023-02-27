@@ -17,6 +17,7 @@
     "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
     "bootstrap-progress-bar": "^1.1.3",
+    "eslint": "^8.35.0",
     "jQuery": "^1.7.4",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
@@ -58,7 +59,8 @@
   },
   "devDependencies": {
     "chart.js": "^4.1.1",
-    "hardhat": "^2.12.6"
+    "hardhat": "^2.12.6",
+    "prettier": "2.8.4"
   },
   "main": "index.js",
   "keywords": [],
