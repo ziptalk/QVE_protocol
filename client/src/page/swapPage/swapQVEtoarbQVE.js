@@ -113,8 +113,10 @@ function SwapQVEtoarbQVE({ setIcon }) {
   const [arbQvePriceSwap, setArbQvePriceSwap] = useState("");
   const [BtoA, setBtoA] = useState("");
   const [maxQve, setMaxQve] = useState("");
-  const web3 = new Web3(window.ethereum);
-  let account = JSON.parse(localStorage.getItem("user"));
+
+  //솔리디티 관련 코드들
+//   const web3 = new Web3(window.ethereum);
+//   let account = JSON.parse(localStorage.getItem("user"));
 
   // function SwapBtoA() {
   //     qveContract.QVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
