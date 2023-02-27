@@ -92,10 +92,12 @@ function StakeArbQve({ setCount }) {
   const [amount, setAmount] = useState("");
   const [connected, setConnected] = useState("");
   const [arbQveBalance, setArbQveBalance] = useState("");
-  const qveContract = Contract();
-  const Address = ContractAddress();
-  const web3 = new Web3(window.ethereum);
-  let account = JSON.parse(localStorage.getItem("user"));
+
+  //솔리디티 관련 코드들
+//   const qveContract = Contract();
+//   const Address = ContractAddress();
+//   const web3 = new Web3(window.ethereum);
+//   let account = JSON.parse(localStorage.getItem("user"));
 
   //솔리티 컨트랙트 연결
   /* function stakeArbQve() {

@@ -91,10 +91,11 @@ const MaxButton = styled.button`
 function StakeQve({ setCount }) {
   const [amount, setAmount] = useState("");
   const [qveBalance, setQveBalance] = useState("");
-  const web3 = new Web3(window.ethereum);
-  const qveContract = Contract();
-  const Address = ContractAddress();
-  let account = JSON.parse(localStorage.getItem("user"));
+  //솔리디티 관련 코드들
+//   const web3 = new Web3(window.ethereum);
+//   const qveContract = Contract();
+//   const Address = ContractAddress();
+//   let account = JSON.parse(localStorage.getItem("user"));
 
   //Move 코드
   function stakeQvePetra() {

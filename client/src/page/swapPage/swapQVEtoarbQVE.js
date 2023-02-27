@@ -164,7 +164,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
       await wallet.connect();
       const account = await wallet.account();
       localStorage.setItem("user", JSON.stringify(account.address));
-      setIcon(0);
+      window.location.reload();
     } catch (error) {}
   }
 
@@ -380,7 +380,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
           </EContainer>
           <EContainer style={{ height: "20px" }}></EContainer>
 
-          {localStorage.getItem('user') === null ||  localStorage.getItem('user') === undefined ? (
+          {localStorage.getItem('user') === null ? (
             <Button onClick={() => Connect()}>Connect Wallet</Button>
           ) : depositAmount === "" ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>

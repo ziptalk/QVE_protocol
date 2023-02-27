@@ -107,11 +107,11 @@ function AddLiquidity({ setLiquidityCount }) {
   const [connected, setConnected] = useState("");
   const web3 = new Web3(window.ethereum);
   const [amount, setAmount] = useState("");
-  const [qvePrice, setQvePrice] = useState("");
-  let account = JSON.parse(localStorage.getItem("user"));
-  const qveContract = Contract();
-  const Address = ContractAddress();
-  account = JSON.parse(localStorage.getItem("user"));
+//솔리디티 관련 코드들
+//   const [qvePrice, setQvePrice] = useState("");
+//   let account = JSON.parse(localStorage.getItem("user"));
+//   const qveContract = Contract();
+//   const Address = ContractAddress();
 
   function AddingLiquidityPetra() {
     const transaction = {

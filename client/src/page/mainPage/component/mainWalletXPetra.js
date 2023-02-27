@@ -290,7 +290,7 @@ function MainWalletXPetra({
                       setPreWalletCount(2);
                     }}
                   >
-                    Connecttt
+                    Connect
                   </DepositButton>
                 </EContainer>
               </EContainer>

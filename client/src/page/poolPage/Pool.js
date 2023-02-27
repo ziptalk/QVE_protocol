@@ -382,7 +382,7 @@ function Pool({ setLiquidityCount }) {
         </CompositionContainer>
       </PoolContainer>
       <EContainer style={{ height: "20px" }} />
-      {localStorage.getItem('user') === null ||  localStorage.getItem('user') === undefined ? (
+      {localStorage.getItem('user') === null ? (
         <Button onClick={() => Connect()}>Connect Wallet</Button>
       ) : (
         <Button

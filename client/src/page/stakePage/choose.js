@@ -196,7 +196,7 @@ function Choose({ setCount }) {
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {localStorage.getItem('user') === null ||  localStorage.getItem('user') === undefined ? (
+          {localStorage.getItem('user') === null ? (
             <Button onClick={() => Connect()}>Connect Wallet</Button>
           ) : (
             <Button
@@ -310,7 +310,7 @@ function Choose({ setCount }) {
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {localStorage.getItem('user') === null ||  localStorage.getItem('user') === undefined ? (
+          {localStorage.getItem('user') === null ? (
             <Button onClick={() => Connect()}>Connect Wallet</Button>
           ) : (
             <Button
