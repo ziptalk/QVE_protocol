@@ -108,6 +108,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
   const [AtoB, setAtoB] = useState("");
   const [maxarbQVE, setMaxarbQVE] = useState("");
   const web3 = new Web3(window.ethereum);
+  console.log(".")
   // let account = JSON.parse(localStorage.getItem('user'));
   // function SwapAtoB() {
   //     qveContract.ArbQVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
