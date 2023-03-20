@@ -267,7 +267,12 @@ const DepositButton = styled.button`
   color: #ffffff;
 `;
 
-function Main({ selectedOption, setSelectedOption }) {
+function Main({
+  selectedOption,
+  setSelectedOption,
+  preWalletCount,
+  setPreWalletCount,
+}) {
   /* const [userMe, setUserMe] = useState(''); */
   const [balanceList, setBalanceList] = useState("");
   /* const [myBalance, setMyBalance] = useState(''); */
@@ -284,7 +289,7 @@ function Main({ selectedOption, setSelectedOption }) {
   const [stakeContract, setStakeContract] = useState(null);
   const [usdtContract, setUsdtContract] = useState(null);
   const [liquidityContract, setLiquidityContract] = useState(null);
-  const [preWalletCount, setPreWalletCount] = useState(null);
+  // const [preWalletCount, setPreWalletCount] = useState(null);
   const [aptosBalance, setAptosBalance] = useState(null);
   const [connected, setConnected] = useState("");
 
