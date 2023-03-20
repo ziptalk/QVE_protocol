@@ -6,18 +6,19 @@ const DropDownContainer = styled("div")`
   width: 10.5em;
   margin: 0 auto;
   flex: auto;
+  position: relative;
+  margin-top: 20px;
+  z-index: 10;
 `;
 
 const DropDownHeader = styled("div")`
   box-sizing: border-box;
-  flex-wrap: wrap;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  align-content: space-between;
-  padding: 18px 20px;
-  width: 224px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 13px 5px 13px;
+  width: 230px;
   height: 60px;
   background: #1b1a1e;
   border: 1px solid #3f3f46;
@@ -49,7 +50,7 @@ const DropDownList = styled("ul")`
     padding-top: 0.3em;
   }
   cursor: pointer;
-  width: 224px;
+  width: 230px;
   background: #2b2b34;
   border: 1px solid #3f3f46;
   box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
@@ -86,7 +87,7 @@ const Text = styled.div`
 
 const EContainer = styled.div``;
 
-const options = ["Arbitrage", "BTC Hedge", "Funding Rate"];
+const options = ["Market Making", "Arbitrage", "BTC Hedge", "Funding Rate"];
 
 export default function DropDown({ selectedOption, setSelectedOption }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -100,7 +101,6 @@ export default function DropDown({ selectedOption, setSelectedOption }) {
 
   return (
     <>
-      <EContainer style={{ height: "20px" }}></EContainer>
       <DropDownContainer>
         <DropDownHeader onClick={toggling}>
           <Text>{selectedOption}</Text>
