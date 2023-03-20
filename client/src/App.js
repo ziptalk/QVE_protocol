@@ -12,7 +12,7 @@ const Background = styled.div``;
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
-  const [selectedOption, setSelectedOption] = useState("Arbitrage");
+  const [selectedOption, setSelectedOption] = useState("Market Making");
 
   return (
     <Background className="App">
