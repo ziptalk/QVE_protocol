@@ -22,6 +22,7 @@ const PreWalletConnectBackground = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 50px;
   z-index: 11;
 `;
 
@@ -40,7 +41,7 @@ function MainPage({ selectedOption, setSelectedOption }) {
       <PreWalletConnectBackground
         style={{ visibility: preWalletCount === 3 ? "visible" : "hidden" }}
       >
-        <ModalWrapper />
+        <ModalWrapper setPreWalletCount={setPreWalletCount} />
       </PreWalletConnectBackground>
       <Footer></Footer>
       <GoToTop />

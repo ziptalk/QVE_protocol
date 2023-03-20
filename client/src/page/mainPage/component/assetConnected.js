@@ -11,7 +11,6 @@ import UsdtIcon from "../../../assets/img/UsdtIcon.png";
 import Web3 from "web3";
 import Contract from "../../../assets/contract/contract";
 import ContractAddress from "../../../assets/contract/contractAddress";
-import ModalWrapper from "./modal";
 
 const Asset = styled.div`
   /* Heading 2 */
