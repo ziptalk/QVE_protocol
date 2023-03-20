@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import DepositImg from "../../../assets/img/Deposit.svg";
 import StakingImg from "../../../assets/img/Staking.svg";
@@ -150,34 +150,45 @@ function AssetConnected({
   const [stakedArbQve, setStakedArbQve] = useState("");
   const [connected, setConnected] = useState("");
   const navigate = useNavigate();
-  
+
+  //Metamask 미설치시, 에러 발생 방지
+  const [metaMask, setMetamMask] = useState(false);
+
+  useEffect(() => {
+    if (typeof window.ethereum !== "undefined") {
+      setMetamMask(true);
+    } else {
+      alert("Metamask is not installed.\nPlease install Metamask first!");
+    }
+  }, []);
+
   //솔리디티 관련 코드
-//   const Account = JSON.parse(localStorage.getItem("user"));
-//   localStorage.getItem("user") != undefined
-//     ? (account = localStorage.getItem("user"))
-//     : (account = null);
-//   console.log("account", Account);
+  //   const Account = JSON.parse(localStorage.getItem("user"));
+  //   localStorage.getItem("user") != undefined
+  //     ? (account = localStorage.getItem("user"))
+  //     : (account = null);
+  //   console.log("account", Account);
   // // client.getAccountResources(account).then(setData);
   // console.log("CHECK BALANCE", client.checkBalance(account));
   // console.log("data is", data);
-//   function DepositMetamask() {
-//     console.log("account", Account);
-//     // Approve the transfer of the specified amount of USDT from the current account to the contract
-//     qveContract.UsdtContract.methods
-//       .approve(
-//         Address.DepositAddress,
-//         web3.utils.toBN(depositAmount * 10 ** 18)
-//       )
-//       .send({ from: Account });
+  //   function DepositMetamask() {
+  //     console.log("account", Account);
+  //     // Approve the transfer of the specified amount of USDT from the current account to the contract
+  //     qveContract.UsdtContract.methods
+  //       .approve(
+  //         Address.DepositAddress,
+  //         web3.utils.toBN(depositAmount * 10 ** 18)
+  //       )
+  //       .send({ from: Account });
 
-//     // Deposit the approved amount of USDT to the contract
-//     qveContract.DepositContract.methods
-//       .deposit(web3.utils.toBN(depositAmount * 10 ** 18))
-//       .send({ from: Account });
+  //     // Deposit the approved amount of USDT to the contract
+  //     qveContract.DepositContract.methods
+  //       .deposit(web3.utils.toBN(depositAmount * 10 ** 18))
+  //       .send({ from: Account });
 
-//     // qveContract.methods.mintToken(account,account,depositAmount).send({ from : account });
-//     // console.log("Deposit success!");
-//   }
+  //     // qveContract.methods.mintToken(account,account,depositAmount).send({ from : account });
+  //     // console.log("Deposit success!");
+  //   }
   // console.log('account is', account);
   function DepositAptos() {
     // console.log("Deposit Aptos");
@@ -221,14 +232,23 @@ function AssetConnected({
   // },[depositAmount])
 
   function Deposit() {
-    DepositAptos();
-    setPreWalletCount(null);
+    if (metaMask) {
+      DepositAptos();
+      setPreWalletCount(null);
+    } else {
+      alert("Metamask is not installed.\nPlease install Metamask first!");
+    }
   }
-  window.ethereum.on("accountsChanged", async () => {
-    localStorage.removeItem("user");
-    window.location.reload();
-    console.log("account is changeed");
-  });
+
+  useEffect(() => {
+    if (metaMask) {
+      window.ethereum.on("accountsChanged", async () => {
+        localStorage.removeItem("user");
+        window.location.reload();
+        console.log("account is changeed");
+      });
+    }
+  }, [metaMask]);
 
   return (
     <EContainer>
