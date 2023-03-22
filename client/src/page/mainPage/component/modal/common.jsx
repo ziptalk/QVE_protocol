@@ -50,6 +50,12 @@ export const Heading5 = styled.span`
   text-align: center;
 `;
 
+export const Heading4 = styled.span`
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+`;
+
 export const Heading3 = styled.span`
   font-size: 18px;
   font-weight: 700;
@@ -124,6 +130,7 @@ export const StartBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
   gap: 10px;
 `;
 
@@ -132,6 +139,7 @@ export const DescriptionBox = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px 10px;
+  gap: 3px;
 `;
 
 export const Description = styled.div`
