@@ -8,67 +8,6 @@ import StakeImg from "../../../assets/img/Staking.svg";
 import PoolImg from "../../../assets/img/Liquidity.svg";
 import SwapImg from "../../../assets/img/SwapImg.svg";
 import Web3 from "web3";
-const MenuBar = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-`;
-
-const EContainer = styled.div``;
-
-const DropDownListContainer = styled("div")`
-  position: absolute;
-  right: 0;
-`;
-
-const DropDownList = styled("ul")`
-  box-sizing: border-box;
-  color: #3faffa;
-  padding: 19px 19px 26px 19px;
-
-  &:first-child {
-    padding-top: 0.3em;
-  }
-  cursor: pointer;
-  width: 210px;
-  background: #2b2b34;
-  box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
-  border-radius: 16px;
-  color: #b7b8cd;
-`;
-
-const ListItem = styled("li")`
-  display: flex;
-  padding-left: 10px;
-  width: 100%;
-  height: 40px;
-  left: 10px;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  align-items: center;
-  &:hover {
-    background: #3f3f46;
-    width: 100%;
-  }
-  border-radius: 10px;
-`;
-
-const Button = styled.button`
-  all: unset;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 36px;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  color: #ffffff;
-  background: #5c5e81;
-  border-radius: 21px;
-`;
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +23,7 @@ function Navbar() {
   let option = [];
   const toggling = () => setIsOpen(!isOpen);
   const web3 = new Web3(window.ethereum);
-  console.log('is open iiiiii', isOpen);
+  console.log("is open iiiiii", isOpen);
   for (let i = 0; i < options.length; i++) {
     if (i === options.length - 1) {
       if (localStorage.getItem("user") == null) {
@@ -173,7 +112,6 @@ function Navbar() {
       {isOpen && (
         <DropDownListContainer>
           <DropDownList>
-            <EContainer style={{ height: "17px" }} />
             {option.map((option, index) => (
               <ListItem onClick={onOptionClicked(option)} key={index}>
                 {option === "Deposit" && (
@@ -239,3 +177,66 @@ function Navbar() {
 }
 
 export default Navbar;
+
+const MenuBar = styled.img`
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+`;
+
+const EContainer = styled.div``;
+
+const DropDownListContainer = styled("div")`
+  position: absolute;
+  right: 0;
+`;
+
+const DropDownList = styled("ul")`
+  box-sizing: border-box;
+  color: #3faffa;
+  padding: 12px;
+  cursor: pointer;
+  width: 210px;
+  background: #2b2b34;
+  box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
+  border-radius: 16px;
+  color: #b7b8cd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+`;
+
+const ListItem = styled("li")`
+  display: flex;
+  padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  left: 10px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  align-items: center;
+  &:hover:not(&:nth-child(6)) {
+    background: #3f3f46;
+    width: 100%;
+  }
+  border-radius: 10px;
+`;
+
+const Button = styled.button`
+  all: unset;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 36px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ffffff;
+  background: #5c5e81;
+  border-radius: 21px;
+  margin-top: 3px;
+`;
