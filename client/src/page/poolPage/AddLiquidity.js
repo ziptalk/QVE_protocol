@@ -51,6 +51,19 @@ const Input = styled.input`
   color: #b7b8cd;
   background: transparent;
   border: none;
+  outline: none;
+
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -107,11 +120,11 @@ function AddLiquidity({ setLiquidityCount }) {
   const [connected, setConnected] = useState("");
   const web3 = new Web3(window.ethereum);
   const [amount, setAmount] = useState("");
-//솔리디티 관련 코드들
-//   const [qvePrice, setQvePrice] = useState("");
-//   let account = JSON.parse(localStorage.getItem("user"));
-//   const qveContract = Contract();
-//   const Address = ContractAddress();
+  //솔리디티 관련 코드들
+  //   const [qvePrice, setQvePrice] = useState("");
+  //   let account = JSON.parse(localStorage.getItem("user"));
+  //   const qveContract = Contract();
+  //   const Address = ContractAddress();
 
   function AddingLiquidityPetra() {
     const transaction = {
