@@ -66,6 +66,7 @@ export const Heading1 = styled.span`
   font-size: 36px;
   font-weight: 700;
   text-align: center;
+  transition: all 0.1s;
 `;
 
 export const Input = styled.span`

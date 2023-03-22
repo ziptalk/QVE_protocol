@@ -1,45 +1,33 @@
+import { useState } from "react";
 import styled from "styled-components";
 import {
   Body,
-  Logo,
-  MaxButton,
-  StartBox,
   Heading1,
-  CustomInputWrapper,
-  InputUpperBox,
-  Heading4,
   DescriptionBox,
   Description,
   Label,
   CustomButton,
 } from "./common";
+import CustomInputBox from "./CustomInputBox";
 
-const ConfirmDeposit = ({ token, values, onEnd }) => {
+const ConfirmDeposit = ({ token, values, setValues, onEnd }) => {
+  const [focused, setFocused] = useState(false);
+
   return (
     <Container>
-      <Heading1 style={{ color: "white" }}>{values.mQve} mQVE</Heading1>
-      <CustomInputWrapper>
-        <InputUpperBox>
-          <StartBox>
-            <Logo src={token.logo} />
-            <Heading4 style={{ color: "white" }}>{values.input}</Heading4>
-          </StartBox>
-          <MaxButton
-            style={{
-              backgroundColor:
-                values.input >= values.available ? "#5C5E81" : "#4A3CE8",
-            }}
-          >
-            MAX
-          </MaxButton>
-        </InputUpperBox>
-        <InputUpperBox style={{ paddingLeft: 41, marginTop: 3 }}>
-          <Body style={{ color: "#B7B8CD" }}>{`$${values.dolar}`}</Body>
-          <Body style={{ color: "#B7B8CD" }}>
-            Available : {values.available}
-          </Body>
-        </InputUpperBox>
-      </CustomInputWrapper>
+      <Heading1 style={{ color: "white" }}>
+        <Heading1 style={{ color: focused ? "#5C5E81" : "white" }}>
+          {values.mQve}
+        </Heading1>{" "}
+        mQVE
+      </Heading1>
+      <CustomInputBox
+        token={token}
+        values={values}
+        setValues={setValues}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+      />
       <DescriptionBox>
         <Description>
           <Body style={{ color: "#B7B8CD" }}>Exchange rate</Body>

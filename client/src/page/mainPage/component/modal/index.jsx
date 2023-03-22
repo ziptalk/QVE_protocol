@@ -5,24 +5,36 @@ import { Label, TOKEN } from "./common";
 import Dropdown from "./Dropdown";
 import EnterAmount from "./EnterAmount";
 import ConfirmDeposit from "./ConfirmDeposit";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const STAGES = [Dropdown, EnterAmount, ConfirmDeposit];
+
+const DEFAULT_VALUES = {
+  available: 1.1234,
+  dolar: 1234,
+  input: "",
+  mQve: 123.45,
+};
 
 /**
  * Deposit 모달
  */
-const ModalWrapper = ({ setPreWalletCount }) => {
+const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
   const [curStage, setCurStage] = useState(0);
   const [token, setToken] = useState(TOKEN[0]);
-  const [values, setValues] = useState({
-    available: 1.1234,
-    dolar: 1234,
-    input: "",
-    mQve: 123.45,
-  });
+  const [values, setValues] = useState(DEFAULT_VALUES);
 
   const CurStage = STAGES[curStage];
+
+  const onEnd = () => {
+    if (curStage !== STAGES.length - 1) setCurStage((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    setCurStage(0);
+    setToken(TOKEN[0]);
+    setValues(DEFAULT_VALUES);
+  }, [preWalletCount]);
 
   return (
     <ModalContainer>
@@ -37,7 +49,7 @@ const ModalWrapper = ({ setPreWalletCount }) => {
       <CurStage
         token={token}
         setToken={setToken}
-        onEnd={() => setCurStage((prev) => prev + 1)}
+        onEnd={onEnd}
         values={values}
         setValues={setValues}
       />

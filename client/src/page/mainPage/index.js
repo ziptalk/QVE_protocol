@@ -41,7 +41,10 @@ function MainPage({ selectedOption, setSelectedOption }) {
       <PreWalletConnectBackground
         style={{ visibility: preWalletCount === 3 ? "visible" : "hidden" }}
       >
-        <ModalWrapper setPreWalletCount={setPreWalletCount} />
+        <ModalWrapper
+          setPreWalletCount={setPreWalletCount}
+          preWalletCount={preWalletCount}
+        />
       </PreWalletConnectBackground>
       <Footer></Footer>
       <GoToTop />
