@@ -200,6 +200,8 @@ function MainWalletXPetra({
   liquidityContract,
   setLiquidityContract,
 }) {
+  const [wallet, setWallet] = useState(null);
+
   const getAptosWallet = () => {
     if ("aptos" in window) {
       return window.aptos;
@@ -207,10 +209,13 @@ function MainWalletXPetra({
       window.open("https://petra.app/", `_blank`);
     }
   };
-  const wallet = getAptosWallet();
+  // const wallet = getAptosWallet();
+  useEffect(() => {
+    setWallet(getAptosWallet());
+  }, []);
 
-  let connectionStatus = wallet.isConnected();
-  console.log("connectionStatus", connectionStatus);
+  // let connectionStatus = wallet.isConnected();
+  // console.log("connectionStatus", connectionStatus);
   async function getAccount() {
     try {
       await wallet.connect();
@@ -253,7 +258,10 @@ function MainWalletXPetra({
             Connect Wallet
           </Button>
           <PreWalletConnectBackground
-            style={{ visibility: preWalletCount === 1 ? "visible" : "hidden" }}
+            style={{
+              visibility: preWalletCount === 1 ? "visible" : "hidden",
+              zIndex: 2,
+            }}
           >
             <PreWalletConnectContainer>
               <EContainer
@@ -300,6 +308,7 @@ function MainWalletXPetra({
             style={{
               visibility: preWalletCount === 2 ? "visible" : "hidden",
               flexDirection: "column",
+              zIndex: 2,
             }}
           >
             <WalletConnectContainer>
