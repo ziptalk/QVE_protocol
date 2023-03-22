@@ -70,7 +70,7 @@ function Main({ setSelectedOption }) {
   const navigate = useNavigate();
 
   function MainPage() {
-    setSelectedOption("Arbitrage");
+    setSelectedOption("Market Making");
     navigate("/mainPage");
   }
 

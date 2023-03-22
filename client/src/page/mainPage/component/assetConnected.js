@@ -1,16 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import DepositImg from "../../../assets/img/Deposit.svg";
 import StakingImg from "../../../assets/img/Staking.svg";
 import LiquidityImg from "../../../assets/img/Liquidity.svg";
 import TotalLineImg from "../../../assets/img/TotalLine.png";
-import XImg from "../../../assets/img/x.png";
-import Favicon from "../../../assets/img/Favicon.png";
 import { useNavigate } from "react-router-dom";
-import UsdtIcon from "../../../assets/img/UsdtIcon.png";
 import Web3 from "web3";
 import Contract from "../../../assets/contract/contract";
 import ContractAddress from "../../../assets/contract/contractAddress";
+
 const Asset = styled.div`
   /* Heading 2 */
   width: 90%;
@@ -32,15 +30,16 @@ const EContainer = styled.div``;
 
 const PreWalletConnectBackground = styled.div`
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding-top: 77px;
   backdrop-filter: blur(5px);
-  position: fixed;
+  position: absolute;
   left: 0;
   top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 11;
 `;
 
 const TextContainer = styled.div`
@@ -150,34 +149,45 @@ function AssetConnected({
   const [stakedArbQve, setStakedArbQve] = useState("");
   const [connected, setConnected] = useState("");
   const navigate = useNavigate();
-  
+
+  //Metamask 미설치시, 에러 발생 방지
+  const [metaMask, setMetamMask] = useState(false);
+
+  useEffect(() => {
+    if (typeof window.ethereum !== "undefined") {
+      setMetamMask(true);
+    } else {
+      alert("Metamask is not installed.\nPlease install Metamask first!");
+    }
+  }, []);
+
   //솔리디티 관련 코드
-//   const Account = JSON.parse(localStorage.getItem("user"));
-//   localStorage.getItem("user") != undefined
-//     ? (account = localStorage.getItem("user"))
-//     : (account = null);
-//   console.log("account", Account);
+  //   const Account = JSON.parse(localStorage.getItem("user"));
+  //   localStorage.getItem("user") != undefined
+  //     ? (account = localStorage.getItem("user"))
+  //     : (account = null);
+  //   console.log("account", Account);
   // // client.getAccountResources(account).then(setData);
   // console.log("CHECK BALANCE", client.checkBalance(account));
   // console.log("data is", data);
-//   function DepositMetamask() {
-//     console.log("account", Account);
-//     // Approve the transfer of the specified amount of USDT from the current account to the contract
-//     qveContract.UsdtContract.methods
-//       .approve(
-//         Address.DepositAddress,
-//         web3.utils.toBN(depositAmount * 10 ** 18)
-//       )
-//       .send({ from: Account });
+  //   function DepositMetamask() {
+  //     console.log("account", Account);
+  //     // Approve the transfer of the specified amount of USDT from the current account to the contract
+  //     qveContract.UsdtContract.methods
+  //       .approve(
+  //         Address.DepositAddress,
+  //         web3.utils.toBN(depositAmount * 10 ** 18)
+  //       )
+  //       .send({ from: Account });
 
-//     // Deposit the approved amount of USDT to the contract
-//     qveContract.DepositContract.methods
-//       .deposit(web3.utils.toBN(depositAmount * 10 ** 18))
-//       .send({ from: Account });
+  //     // Deposit the approved amount of USDT to the contract
+  //     qveContract.DepositContract.methods
+  //       .deposit(web3.utils.toBN(depositAmount * 10 ** 18))
+  //       .send({ from: Account });
 
-//     // qveContract.methods.mintToken(account,account,depositAmount).send({ from : account });
-//     // console.log("Deposit success!");
-//   }
+  //     // qveContract.methods.mintToken(account,account,depositAmount).send({ from : account });
+  //     // console.log("Deposit success!");
+  //   }
   // console.log('account is', account);
   function DepositAptos() {
     // console.log("Deposit Aptos");
@@ -221,30 +231,222 @@ function AssetConnected({
   // },[depositAmount])
 
   function Deposit() {
-    DepositAptos();
-    setPreWalletCount(null);
+    if (metaMask) {
+      DepositAptos();
+      setPreWalletCount(null);
+    }
   }
-  window.ethereum.on("accountsChanged", async () => {
-    localStorage.removeItem("user");
-    window.location.reload();
-    console.log("account is changeed");
-  });
+
+  useEffect(() => {
+    if (metaMask) {
+      window.ethereum.on("accountsChanged", async () => {
+        localStorage.removeItem("user");
+        window.location.reload();
+        console.log("account is changeed");
+      });
+    }
+  }, [metaMask]);
 
   return (
-    <EContainer>
-      <Asset>My Asset</Asset>
-      <EContainer style={{ height: "15px" }} />
-      <DepositContainer>
-        <EContainer style={{ height: "25px" }}></EContainer>
-        <EContainer
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            padding: "0px 25px 0px 25px",
-            justifyContent: "space-between",
-          }}
-        >
-          <EContainer style={{ display: "flex", flexDirection: "column" }}>
+    <>
+      <EContainer>
+        <Asset>My Asset</Asset>
+        <EContainer style={{ height: "15px" }} />
+        <DepositContainer>
+          <EContainer style={{ height: "25px" }}></EContainer>
+          <EContainer
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              padding: "0px 25px 0px 25px",
+              justifyContent: "space-between",
+            }}
+          >
+            <EContainer style={{ display: "flex", flexDirection: "column" }}>
+              <EContainer
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  src={DepositImg}
+                  style={{ width: "24px", height: "24px" }}
+                ></Image>
+                <Text
+                  style={{
+                    fontWeight: "700",
+                    fontSize: "12px",
+                    lineHeight: "15px",
+                    color: "#B7B8CD",
+                  }}
+                >
+                  Deposit
+                </Text>
+              </EContainer>
+              <EContainer style={{ height: "3px" }} />
+              <Text
+                style={{
+                  fontWeight: "700",
+                  fontSize: "18px",
+                  lineHeight: "24px",
+                  color: "#FFFFFF",
+                }}
+              >
+                {usdt / 10 ** 18} USDT
+              </Text>
+            </EContainer>
+            <Button
+              style={{ width: "83px", height: "27px" }}
+              onClick={() => setPreWalletCount(3)}
+            >
+              Deposit
+            </Button>
+          </EContainer>
+          <EContainer style={{ height: "45px" }}></EContainer>
+          <EContainer
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: "0px 25px 0px 25px",
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "700",
+                fontSize: "14px",
+                lineHeight: "17px",
+                color: "#B7B8CD",
+              }}
+            >
+              {(arbQve / 10 ** 18).toFixed(2)} mQVE
+            </Text>
+            <EContainer style={{ display: "flex", flexDirection: "column" }}>
+              <Text
+                style={{
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  color: "#0FB63E",
+                  textAlign: "end",
+                }}
+              >
+                {/* 여기 수정 */}+ $ 100 (↑10%)
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                  lineHeight: "15px",
+                  color: "#FFFFFF",
+                  textAlign: "end",
+                }}
+              >
+                = $ 1,100
+              </Text>
+            </EContainer>
+          </EContainer>
+          <EContainer style={{ height: "25px" }}></EContainer>
+          <EContainer
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: "0px 25px 0px 25px",
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "700",
+                fontSize: "14px",
+                lineHeight: "17px",
+                color: "#B7B8CD",
+              }}
+            >
+              {(qve / 10 ** 18).toFixed(2)} QVE
+            </Text>
+            <EContainer style={{ display: "flex", flexDirection: "column" }}>
+              <Text
+                style={{
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  color: "#0FB63E",
+                }}
+              >
+                + $ 100 (↑10%)
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                  lineHeight: "15px",
+                  color: "#FFFFFF",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                = $ 1,100
+              </Text>
+            </EContainer>
+          </EContainer>
+          <EContainer style={{ height: "20px" }}></EContainer>
+          <EContainer
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image src={TotalLineImg} style={{ width: "90%" }}></Image>
+          </EContainer>
+          <EContainer style={{ height: "20px" }}></EContainer>
+          <EContainer
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "0px 30px 0px 20px",
+              justifyContent: "flex-end",
+              alignItems: "flex-end",
+            }}
+          >
+            <Text
+              style={{
+                fontWeight: "700",
+                fontSize: "14px",
+                lineHeight: "17px",
+                color: "#0FB63E",
+              }}
+            >
+              + $ 200 (↑10%)
+            </Text>
+            <Text
+              style={{
+                fontWeight: "500",
+                fontSize: "12px",
+                lineHeight: "15px",
+                color: "#FFFFFF",
+              }}
+            >
+              = $ 2,200
+            </Text>
+          </EContainer>
+          <EContainer style={{ height: "25px" }} />
+        </DepositContainer>
+
+        <EContainer style={{ height: "20px" }} />
+        <StakingRewardsContainer>
+          <EContainer style={{ height: "25px" }}></EContainer>
+          <EContainer
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              padding: "0px 25px 0px 25px",
+              justifyContent: "space-between",
+            }}
+          >
             <EContainer
               style={{
                 display: "flex",
@@ -253,7 +455,7 @@ function AssetConnected({
               }}
             >
               <Image
-                src={DepositImg}
+                src={StakingImg}
                 style={{ width: "24px", height: "24px" }}
               ></Image>
               <Text
@@ -262,345 +464,165 @@ function AssetConnected({
                   fontSize: "12px",
                   lineHeight: "15px",
                   color: "#B7B8CD",
+                  padding: "5px 0px 5px 0px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                Deposit
+                Staking Rewards
               </Text>
             </EContainer>
-            <EContainer style={{ height: "3px" }} />
-            <Text
-              style={{
-                fontWeight: "700",
-                fontSize: "18px",
-                lineHeight: "24px",
-                color: "#FFFFFF",
-              }}
+            <Button
+              style={{ width: "83px", height: "27px" }}
+              onClick={() => navigate("/stakePage")}
             >
-              {usdt / 10 ** 18} USDT
-            </Text>
+              Stake
+            </Button>
           </EContainer>
-          <Button
-            style={{ width: "83px", height: "27px" }}
-            onClick={() => setPreWalletCount(3)}
-          >
-            Deposit
-          </Button>
-        </EContainer>
-        <EContainer style={{ height: "45px" }}></EContainer>
-        <EContainer
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            padding: "0px 25px 0px 25px",
-          }}
-        >
-          <Text
-            style={{
-              fontWeight: "700",
-              fontSize: "14px",
-              lineHeight: "17px",
-              color: "#B7B8CD",
-            }}
-          >
-            {(arbQve / 10 ** 18).toFixed(2)} mQVE
-          </Text>
-          <EContainer style={{ display: "flex", flexDirection: "column" }}>
-            <Text
-              style={{
-                fontWeight: "700",
-                fontSize: "14px",
-                lineHeight: "17px",
-                color: "#0FB63E",
-              }}
-            >
-              + $ 100 (↑10%)
-            </Text>
-            <Text
-              style={{
-                fontWeight: "500",
-                fontSize: "12px",
-                lineHeight: "15px",
-                color: "#FFFFFF",
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              = $ 1,100
-            </Text>
-          </EContainer>
-        </EContainer>
-        <EContainer style={{ height: "25px" }}></EContainer>
-        <EContainer
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            padding: "0px 25px 0px 25px",
-          }}
-        >
-          <Text
-            style={{
-              fontWeight: "700",
-              fontSize: "14px",
-              lineHeight: "17px",
-              color: "#B7B8CD",
-            }}
-          >
-            {(qve / 10 ** 18).toFixed(2)} QVE
-          </Text>
-          <EContainer style={{ display: "flex", flexDirection: "column" }}>
-            <Text
-              style={{
-                fontWeight: "700",
-                fontSize: "14px",
-                lineHeight: "17px",
-                color: "#0FB63E",
-              }}
-            >
-              + $ 100 (↑10%)
-            </Text>
-            <Text
-              style={{
-                fontWeight: "500",
-                fontSize: "12px",
-                lineHeight: "15px",
-                color: "#FFFFFF",
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              = $ 1,100
-            </Text>
-          </EContainer>
-        </EContainer>
-        <EContainer style={{ height: "20px" }}></EContainer>
-        <EContainer
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Image src={TotalLineImg} style={{ width: "90%" }}></Image>
-        </EContainer>
-        <EContainer style={{ height: "20px" }}></EContainer>
-        <EContainer
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            padding: "0px 30px 0px 20px",
-            justifyContent: "flex-end",
-            alignItems: "flex-end",
-          }}
-        >
-          <Text
-            style={{
-              fontWeight: "700",
-              fontSize: "14px",
-              lineHeight: "17px",
-              color: "#0FB63E",
-            }}
-          >
-            + $ 200 (↑10%)
-          </Text>
-          <Text
-            style={{
-              fontWeight: "500",
-              fontSize: "12px",
-              lineHeight: "15px",
-              color: "#FFFFFF",
-            }}
-          >
-            = $ 2,200
-          </Text>
-        </EContainer>
-        <EContainer style={{ height: "25px" }} />
-      </DepositContainer>
-
-      <EContainer style={{ height: "20px" }} />
-      <StakingRewardsContainer>
-        <EContainer style={{ height: "25px" }}></EContainer>
-        <EContainer
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            padding: "0px 25px 0px 25px",
-            justifyContent: "space-between",
-          }}
-        >
+          <EContainer style={{ height: "20px" }} />
           <EContainer
             style={{
               display: "flex",
               flexDirection: "row",
-              alignItems: "center",
+              justifyContent: "space-between",
+              padding: "0px 25px 0px 25px",
             }}
           >
-            <Image
-              src={StakingImg}
-              style={{ width: "24px", height: "24px" }}
-            ></Image>
-            <Text
-              style={{
-                fontWeight: "700",
-                fontSize: "12px",
-                lineHeight: "15px",
-                color: "#B7B8CD",
-                padding: "5px 0px 5px 0px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              Staking Rewards
-            </Text>
-          </EContainer>
-          <Button
-            style={{ width: "83px", height: "27px" }}
-            onClick={() => navigate("/stakePage")}
-          >
-            Stake
-          </Button>
-        </EContainer>
-        <EContainer style={{ height: "20px" }} />
-        <EContainer
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            padding: "0px 25px 0px 25px",
-          }}
-        >
-          <Text
-            style={{
-              fontWeight: "700",
-              fontSize: "14px",
-              lineHeight: "17px",
-              color: "#B7B8CD",
-            }}
-          >
-            {(stakedQve / 10 ** 18).toFixed(2)} QVE
-          </Text>
-          <EContainer style={{ display: "flex", flexDirection: "column" }}>
             <Text
               style={{
                 fontWeight: "700",
                 fontSize: "14px",
                 lineHeight: "17px",
-                color: "#0FB63E",
+                color: "#B7B8CD",
               }}
             >
-              + $ 100 (↑10%)
+              {(stakedQve / 10 ** 18).toFixed(2)} QVE
             </Text>
-            <Text
-              style={{
-                fontWeight: "500",
-                fontSize: "12px",
-                lineHeight: "15px",
-                color: "#FFFFFF",
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              = $ 1,100
-            </Text>
+            <EContainer style={{ display: "flex", flexDirection: "column" }}>
+              <Text
+                style={{
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  color: "#0FB63E",
+                }}
+              >
+                + $ 100 (↑10%)
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                  lineHeight: "15px",
+                  color: "#FFFFFF",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                = $ 1,100
+              </Text>
+            </EContainer>
           </EContainer>
-        </EContainer>
-        <EContainer style={{ height: "25px" }} />
-      </StakingRewardsContainer>
-      <EContainer style={{ height: "20px" }} />
-      <LiquidityRewardsContainer>
-        <EContainer style={{ height: "25px" }}></EContainer>
-        <EContainer
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            padding: "0px 25px 0px 25px",
-            justifyContent: "space-between",
-          }}
-        >
+          <EContainer style={{ height: "25px" }} />
+        </StakingRewardsContainer>
+        <EContainer style={{ height: "20px" }} />
+        <LiquidityRewardsContainer>
+          <EContainer style={{ height: "25px" }}></EContainer>
           <EContainer
             style={{
               display: "flex",
               flexDirection: "row",
-              alignItems: "center",
+              padding: "0px 25px 0px 25px",
+              justifyContent: "space-between",
             }}
           >
-            <Image
-              src={LiquidityImg}
-              style={{ width: "24px", height: "24px" }}
-            ></Image>
-            <Text
+            <EContainer
               style={{
-                fontWeight: "700",
-                fontSize: "12px",
-                lineHeight: "15px",
-                color: "#B7B8CD",
-                padding: "5px 0px 5px 0px",
                 display: "flex",
-                justifyContent: "center",
+                flexDirection: "row",
                 alignItems: "center",
               }}
             >
-              Liquidity Rewards
-            </Text>
+              <Image
+                src={LiquidityImg}
+                style={{ width: "24px", height: "24px" }}
+              ></Image>
+              <Text
+                style={{
+                  fontWeight: "700",
+                  fontSize: "12px",
+                  lineHeight: "15px",
+                  color: "#B7B8CD",
+                  padding: "5px 0px 5px 0px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Liquidity Rewards
+              </Text>
+            </EContainer>
+            <Button
+              style={{ width: "115px", height: "27px" }}
+              onClick={() => navigate("/poolPage")}
+            >
+              Add Liquidity
+            </Button>
           </EContainer>
-          <Button
-            style={{ width: "115px", height: "27px" }}
-            onClick={() => navigate("/poolPage")}
-          >
-            Add Liquidity
-          </Button>
-        </EContainer>
-        <EContainer style={{ height: "20px" }} />
-        <EContainer
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            padding: "0px 25px 0px 25px",
-          }}
-        >
-          <Text
+          <EContainer style={{ height: "20px" }} />
+          <EContainer
             style={{
-              fontWeight: "700",
-              fontSize: "14px",
-              lineHeight: "17px",
-              color: "#B7B8CD",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              padding: "0px 25px 0px 25px",
             }}
           >
-            mQVE/QVE
-          </Text>
-          <EContainer style={{ display: "flex", flexDirection: "column" }}>
             <Text
               style={{
                 fontWeight: "700",
                 fontSize: "14px",
                 lineHeight: "17px",
-                color: "#0FB63E",
+                color: "#B7B8CD",
               }}
             >
-              + $ 100 (↑10%)
+              mQVE/QVE
             </Text>
-            <Text
-              style={{
-                fontWeight: "500",
-                fontSize: "12px",
-                lineHeight: "15px",
-                color: "#FFFFFF",
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              = $ 1,100
-            </Text>
+            <EContainer style={{ display: "flex", flexDirection: "column" }}>
+              <Text
+                style={{
+                  fontWeight: "700",
+                  fontSize: "14px",
+                  lineHeight: "17px",
+                  color: "#0FB63E",
+                }}
+              >
+                + $ 100 (↑10%)
+              </Text>
+              <Text
+                style={{
+                  fontWeight: "500",
+                  fontSize: "12px",
+                  lineHeight: "15px",
+                  color: "#FFFFFF",
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                = $ 1,100
+              </Text>
+            </EContainer>
           </EContainer>
-        </EContainer>
-        <EContainer style={{ height: "25px" }} />
-        <PreWalletConnectBackground
-          style={{ visibility: preWalletCount === 3 ? "visible" : "hidden" }}
-        >
-          <DepositContainer>
+          <EContainer style={{ height: "25px" }} />
+        </LiquidityRewardsContainer>
+      </EContainer>
+      {/* 여기부터 모달 */}
+      {/* <PreWalletConnectBackground
+        style={{ visibility: preWalletCount === 3 ? "visible" : "hidden" }}
+      >
+        <ModalWrapper />
+        <DepositContainer>
             <EContainer style={{ height: "39px" }}></EContainer>
             <EContainer
               style={{
@@ -865,9 +887,8 @@ function AssetConnected({
             </EContainer>
             <EContainer style={{ height: "35px" }} />
           </DepositContainer>
-        </PreWalletConnectBackground>
-      </LiquidityRewardsContainer>
-    </EContainer>
+      </PreWalletConnectBackground> */}
+    </>
   );
 }
 

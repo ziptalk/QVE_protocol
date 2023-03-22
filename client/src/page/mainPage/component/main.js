@@ -254,8 +254,8 @@ const DepositButton = styled.button`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  width: 113px;
-  height: 37px;
+  width: 100px;
+  height: 40px;
   background: #4a3ce8;
   border-radius: 16px;
   flex: none;
@@ -267,7 +267,12 @@ const DepositButton = styled.button`
   color: #ffffff;
 `;
 
-function Main({ selectedOption, setSelectedOption }) {
+function Main({
+  selectedOption,
+  setSelectedOption,
+  preWalletCount,
+  setPreWalletCount,
+}) {
   /* const [userMe, setUserMe] = useState(''); */
   const [balanceList, setBalanceList] = useState("");
   /* const [myBalance, setMyBalance] = useState(''); */
@@ -284,7 +289,7 @@ function Main({ selectedOption, setSelectedOption }) {
   const [stakeContract, setStakeContract] = useState(null);
   const [usdtContract, setUsdtContract] = useState(null);
   const [liquidityContract, setLiquidityContract] = useState(null);
-  const [preWalletCount, setPreWalletCount] = useState(null);
+  // const [preWalletCount, setPreWalletCount] = useState(null);
   const [aptosBalance, setAptosBalance] = useState(null);
   const [connected, setConnected] = useState("");
 
@@ -303,9 +308,12 @@ function Main({ selectedOption, setSelectedOption }) {
     })
 } */
   const fetchBalanceList = async () => {
-    axios.get("https://qve.today/balance/get/").then((res) => {
-      setBalanceList(res.data);
-    });
+    axios
+      .get("https://qve.today/balance/get/")
+      .then((res) => {
+        setBalanceList(res.data);
+      })
+      .catch((e) => console.log(e));
   };
   /* const fetchMyBalance = async () => {
     axios.get('https://qve.today/user/mybalance/')
@@ -320,6 +328,7 @@ function Main({ selectedOption, setSelectedOption }) {
   };
   const fetchPnl = async () => {
     axios.get("https://qve.today/balance/getpnl").then((res) => {
+      console.log(res);
       setPnl(res.data);
     });
   };
@@ -359,6 +368,7 @@ function Main({ selectedOption, setSelectedOption }) {
     localStorage.removeItem("user");
     navigate("/");
   };
+
   var balanceArray = [];
   var pnlArray = [];
   var secondPort_cr_Array = [];
@@ -480,15 +490,12 @@ sleep(3000); */
       connectionStatus = wallet.isConnected();
       connectionStatus.then((result) => {
         setConnected(result);
-        console.log("ccccccc", result);
       });
     } catch (error) {}
 
     if (connected === false) {
       localStorage.removeItem("user");
     }
-    console.log("connected is", connected);
-    console.log("connectionStatusconnected", connectionStatus);
 
     return (
       <EContainer
