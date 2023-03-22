@@ -13,13 +13,8 @@ import {
 } from "./common";
 import { useState, useEffect } from "react";
 
-const EnterAmount = ({ token, onEnd }) => {
+const EnterAmount = ({ token, onEnd, values, setValues }) => {
   const [max, setMax] = useState(false);
-  const [values, setValues] = useState({
-    available: 1.1234,
-    dolar: 1234,
-    input: "",
-  });
 
   const onChangeInputNumber = (e) => {
     const newInput = e.target.value;

@@ -4,9 +4,10 @@ import Favicon from "../../../../assets/img/Favicon.png";
 import { Label, TOKEN } from "./common";
 import Dropdown from "./Dropdown";
 import EnterAmount from "./EnterAmount";
+import ConfirmDeposit from "./ConfirmDeposit";
 import { useState } from "react";
 
-const STAGES = [Dropdown, EnterAmount];
+const STAGES = [Dropdown, EnterAmount, ConfirmDeposit];
 
 /**
  * Deposit 모달
@@ -14,6 +15,11 @@ const STAGES = [Dropdown, EnterAmount];
 const ModalWrapper = ({ setPreWalletCount }) => {
   const [curStage, setCurStage] = useState(0);
   const [token, setToken] = useState(TOKEN[0]);
+  const [values, setValues] = useState({
+    available: 1.1234,
+    dolar: 1234,
+    input: "",
+  });
 
   const CurStage = STAGES[curStage];
 
@@ -31,6 +37,8 @@ const ModalWrapper = ({ setPreWalletCount }) => {
         token={token}
         setToken={setToken}
         onEnd={() => setCurStage((prev) => prev + 1)}
+        values={values}
+        setValues={setValues}
       />
     </ModalContainer>
   );
