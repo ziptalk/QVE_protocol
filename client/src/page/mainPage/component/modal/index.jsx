@@ -3,9 +3,10 @@ import XImg from "../../../../assets/img/x.png";
 import Favicon from "../../../../assets/img/Favicon.png";
 import { Label, TOKEN } from "./common";
 import Dropdown from "./Dropdown";
+import EnterAmount from "./EnterAmount";
 import { useState } from "react";
 
-const STAGES = [Dropdown];
+const STAGES = [Dropdown, EnterAmount];
 
 /**
  * Deposit 모달
