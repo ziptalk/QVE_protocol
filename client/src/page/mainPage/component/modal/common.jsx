@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import AptosLogo from "../../../../assets/img/AptosLogo.png";
 import UsdtIcon from "../../../../assets/img/UsdtIcon.png";
 
@@ -149,4 +149,45 @@ export const Description = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+`;
+
+export const LoadingBackground = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+`;
+
+export const loader = keyframes`
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+`;
+
+export const LoadingSpinner = styled.div`
+  border: 0.2em solid transparent;
+  border-top-color: currentcolor;
+  border-radius: 50%;
+  animation: 1s ${loader} linear infinite;
+  color: white;
+  font-size: 124px;
+  position: relative;
+`;
+
+export const LoadingCenter = styled.div`
+  width: 36px;
+  height: 36px;
+  background-color: #2b2b34;
+  position: absolute;
+  border-radius: 100%;
 `;
