@@ -5,9 +5,10 @@ import { Label, TOKEN } from "./common";
 import Dropdown from "./Dropdown";
 import EnterAmount from "./EnterAmount";
 import ConfirmDeposit from "./ConfirmDeposit";
+import Result from "./Result";
 import { useState, useEffect } from "react";
 
-const STAGES = [Dropdown, EnterAmount, ConfirmDeposit];
+const STAGES = [Dropdown, EnterAmount, ConfirmDeposit, Result];
 
 const DEFAULT_VALUES = {
   available: 1.1234,
@@ -39,13 +40,21 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
   return (
     <ModalContainer>
       <Xbtn src={XImg} onClick={() => setPreWalletCount(null)} />
-      <LogoWrapper>
-        <Logo src={Favicon} />
-        <Label style={{ fontWeight: 700, color: "white", marginTop: 5 }}>
-          Deposit
-        </Label>
-        <Label style={{ fontWeight: 400, color: "white" }}>Market making</Label>
-      </LogoWrapper>
+      {curStage !== STAGES.length - 1 ? (
+        <>
+          <LogoWrapper>
+            <Logo src={Favicon} />
+            <Label style={{ fontWeight: 700, color: "white", marginTop: 5 }}>
+              Deposit
+            </Label>
+            <Label style={{ fontWeight: 400, color: "white" }}>
+              Market making
+            </Label>
+          </LogoWrapper>
+        </>
+      ) : (
+        <></>
+      )}
       <CurStage
         token={token}
         setToken={setToken}
