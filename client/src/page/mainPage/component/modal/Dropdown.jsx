@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import ArrowDown from "../../../../assets/img/ArrowDown.png";
 import { useState } from "react";
-import { Cell, Caption, Body, TOKEN, Aum, CustomButton } from "./common";
+import { Cell, Caption, Body, TOKEN, Aum, CustomButton, Logo } from "./common";
 import DropdownSelector from "./DropdownSelector";
 
 /**
@@ -92,12 +92,6 @@ const LeftBox = styled.div`
   align-items: center;
   justify-content: flex-start;
   gap: 10px;
-`;
-
-const Logo = styled.img`
-  width: 31px;
-  height: 31px;
-  border-radius: 100%;
 `;
 
 const NameBox = styled.div`
