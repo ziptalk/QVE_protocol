@@ -7,6 +7,8 @@ import SwapIcon from "../../assets/img/SwapIcon.png";
 import { useState, useEffect } from "react";
 import Contract from "../../assets/contract/contract.js";
 import ContractAddress from "../../assets/contract/contractAddress";
+import NotConnectedModal from "../../common/NotConnected";
+
 const Background = styled.div`
   background-color: #1b1a1e;
   height: 100vh;
@@ -108,7 +110,18 @@ function SwaparbQVEtoQVE({ setIcon }) {
   const [AtoB, setAtoB] = useState("");
   const [maxarbQVE, setMaxarbQVE] = useState("");
   const web3 = new Web3(window.ethereum);
-  console.log(".")
+  const [wallet, setWallet] = useState(null);
+
+  /**
+   * Petra / Metamask 연동이 완료 되었는가
+   */
+  // const [connectInfo, setConnectInfo] = useState({
+  //   open: false,
+  //   content: "",
+  //   link: "",
+  // });
+
+  console.log(".");
   // let account = JSON.parse(localStorage.getItem('user'));
   // function SwapAtoB() {
   //     qveContract.ArbQVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
@@ -132,10 +145,20 @@ function SwaparbQVEtoQVE({ setIcon }) {
     if ("aptos" in window) {
       return window.aptos;
     } else {
+      // const newInfo = {
+      //   content: "Petra is not connected!",
+      //   link: "https://petra.app/",
+      //   open: true,
+      // };
+      // setConnectInfo(newInfo);
       window.open("https://petra.app/", `_blank`);
     }
   };
-  const wallet = getAptosWallet();
+  // const wallet = getAptosWalletCallback();
+
+  useEffect(() => {
+    setWallet(getAptosWallet());
+  }, []);
 
   async function Connect() {
     console.log("connnect");
@@ -392,7 +415,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
           </EContainer>
           <EContainer style={{ height: "20px" }}></EContainer>
 
-          {localStorage.getItem('user') === null ? (
+          {localStorage.getItem("user") === null ? (
             <Button onClick={() => Connect()}>Connect Wallet</Button>
           ) : depositAmount === "" ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
@@ -403,6 +426,14 @@ function SwaparbQVEtoQVE({ setIcon }) {
           <BackgroudImage src={QveImage}></BackgroudImage>
         </SwapContainer>
       </EContainer>
+      {/* {connectInfo.open ? (
+        <NotConnectedModal
+          content={connectInfo.content}
+          link={connectInfo.link}
+        />
+      ) : (
+        <></>
+      )} */}
     </Background>
   );
 }

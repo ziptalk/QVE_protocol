@@ -8,7 +8,7 @@ const DropDownContainer = styled("div")`
   flex: auto;
   position: relative;
   margin-top: 20px;
-  z-index: 10;
+  z-index: 1;
 `;
 
 const DropDownHeader = styled("div")`
