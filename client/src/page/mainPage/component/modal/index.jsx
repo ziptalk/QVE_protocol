@@ -19,6 +19,7 @@ const ModalWrapper = ({ setPreWalletCount }) => {
     available: 1.1234,
     dolar: 1234,
     input: "",
+    mQve: 123.45,
   });
 
   const CurStage = STAGES[curStage];

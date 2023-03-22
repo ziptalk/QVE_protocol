@@ -19,8 +19,7 @@ const EnterAmount = ({ token, onEnd, values, setValues }) => {
   const onChangeInputNumber = (e) => {
     const newInput = e.target.value;
     const newValues = {
-      available: values.available,
-      dolar: values.dolar,
+      ...values,
       input: newInput,
     };
     setValues(newValues);
@@ -29,8 +28,7 @@ const EnterAmount = ({ token, onEnd, values, setValues }) => {
   const onMax = () => {
     if (!max) {
       const newValues = {
-        available: values.available,
-        dolar: values.dolar,
+        ...values,
         input: values.available,
       };
       setMax(true);
@@ -41,8 +39,7 @@ const EnterAmount = ({ token, onEnd, values, setValues }) => {
   useEffect(() => {
     if (values.input >= values.available) {
       const newValues = {
-        available: values.available,
-        dolar: values.dolar,
+        ...values,
         input: values.available,
       };
       setMax(true);
