@@ -2,11 +2,18 @@ import styled from "styled-components";
 import Check from "../../../../assets/img/check.svg";
 import Deposit2 from "../../../../assets/img/Deposit2.svg";
 import { Heading3, Input } from "./common";
+import LoadingSpinner from "../../../../common/LoadingSpinner";
+import { useInterval } from "../../../../hooks/useInterval";
+import { useState } from "react";
 
 const Result = () => {
+  const [loading, setLoading] = useState(true);
+
+  useInterval(() => setLoading(false), 5000);
+
   return (
     <Container>
-      <Logo src={Check} />
+      {loading ? <LoadingSpinner /> : <Logo src={Check} />}
       <Heading3 style={{ color: "white" }}>Transaction Successfull</Heading3>
       <LinkLine>
         <Input>View Explorerr</Input>
