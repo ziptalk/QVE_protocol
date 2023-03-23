@@ -143,7 +143,9 @@ function Main({
       pnlArray.push(thirdPort_cr_Array[i]);
     }
   } else {
-    pnlArray = [];
+    for (let i = 0; i < thirdPort.length; i++) {
+      pnlArray.push(thirdPort_cr_Array[i]);
+    }
   }
 
   if (pnlArray != []) {
@@ -157,6 +159,8 @@ function Main({
   } else if (selectedOption === "BTC Hedge") {
     mdd_value = second_max_mdd;
   } else if (selectedOption === "Funding Rate") {
+    mdd_value = third_max_mdd;
+  } else {
     mdd_value = third_max_mdd;
   }
   mdd_value = Math.abs(mdd_value);

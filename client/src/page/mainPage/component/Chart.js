@@ -143,6 +143,18 @@ function LineChart({
     var DataBalance = [];
     var DataBtc = [];
     var Time = [];
+
+    if (selectedOption === "Market Making") {
+      for (let i = 0; i < thirdPort.length; i++) {
+        let thirdValueBalance = pnlArray[i];
+        let thirdValueBtc = getKeyByValue(thirdPort[i], "btc_cr");
+        let getThirdTime = getKeyByValue(thirdPort[i], "datetime");
+        Time.push(getThirdTime);
+        DataBtc.push(thirdValueBtc);
+        DataBalance.push(thirdValueBalance);
+      }
+    }
+
     if (selectedOption === "Arbitrage") {
       for (let i = 0; i < balanceList.length; i++) {
         let valueBalance = pnlArray[i];
@@ -502,7 +514,6 @@ function LineChart({
       <ButtonContainer>
         {selectedOption === "Arbitrage" ? (
           <>
-            {" "}
             <ButtonDay onClick={() => setDataRange("day")}>1D</ButtonDay>
             <DayWeekSplit>|</DayWeekSplit>
             <ButtonWeek onClick={() => setDataRange("week")}>1W</ButtonWeek>
