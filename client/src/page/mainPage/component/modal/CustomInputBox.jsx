@@ -71,7 +71,7 @@ const CustomInputBox = ({ token, values, setValues, ...props }) => {
       </InputUpperBox>
       <InputUpperBox style={{ paddingLeft: 41, marginTop: 3 }}>
         <Body style={{ color: "#B7B8CD" }}>
-          {values.input ? `$${values.dolar}` : ""}
+          {values.input ? `$ ${values.dolar}` : ""}
         </Body>
         <Body style={{ color: "#B7B8CD" }}>Available : {values.available}</Body>
       </InputUpperBox>

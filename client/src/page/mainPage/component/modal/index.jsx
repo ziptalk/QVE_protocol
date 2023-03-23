@@ -7,14 +7,15 @@ import EnterAmount from "./EnterAmount";
 import ConfirmDeposit from "./ConfirmDeposit";
 import Result from "./Result";
 import { useState, useEffect } from "react";
+import { useAvailable } from "../../../../hooks/useAvailable";
 
 const STAGES = [Dropdown, EnterAmount, ConfirmDeposit, Result];
 
 const DEFAULT_VALUES = {
-  available: 1.1234,
-  dolar: 1234,
+  available: 0,
+  dolar: 0,
   input: "",
-  mQve: 123.45,
+  rate: 0,
 };
 
 /**
@@ -24,6 +25,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
   const [curStage, setCurStage] = useState(0);
   const [token, setToken] = useState(TOKEN[0]);
   const [values, setValues] = useState(DEFAULT_VALUES);
+  const [tokenInfo] = useAvailable();
 
   const CurStage = STAGES[curStage];
 
@@ -31,11 +33,25 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
     if (curStage !== STAGES.length - 1) setCurStage((prev) => prev + 1);
   };
 
+  //모달을 닫을 때 초기화
   useEffect(() => {
     setCurStage(0);
     setToken(TOKEN[0]);
-    setValues(DEFAULT_VALUES);
+    setValues({
+      ...values,
+      available: tokenInfo[token.name].available,
+      rate: tokenInfo[token.name].rate,
+    });
   }, [preWalletCount]);
+
+  //토큰 선택시 해당 토큰 정보를 상태에 담음
+  useEffect(() => {
+    setValues({
+      ...values,
+      available: tokenInfo[token.name].available,
+      rate: tokenInfo[token.name].rate,
+    });
+  }, [token]);
 
   return (
     <ModalContainer>
