@@ -3,57 +3,6 @@ import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
 import BackgroundImage from "../../assets/img/SwapImage.png";
 import { useState } from "react";
-const Background = styled.div`
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const EContainer = styled.div``;
-
-const Text = styled.div`
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 36px;
-  /* identical to box height, or 150% */
-
-  letter-spacing: 0.02em;
-
-  /* dark/label */
-
-  color: #b7b8cd;
-`;
-
-const StakeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  background: #2b2b34;
-  border-radius: 16px;
-  padding: 30px 27px 25px 27px;
-`;
-
-const Image = styled.img``;
-
-const Button = styled.button`
-  all: unset;
-  cursor: pointer;
-  height: 55px;
-  width: 100%;
-  background: #4a3ce8;
-  border-radius: 16px;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  /* identical to box height */
-
-  text-align: center;
-
-  /* dark/white */
-
-  color: #ffffff;
-`;
 
 function Choose({ setCount }) {
   const [connected, setConnected] = useState("");
@@ -67,11 +16,11 @@ function Choose({ setCount }) {
   };
   const wallet = getAptosWallet();
 
-   function Connect() {
+  function Connect() {
     console.log("connnect");
     try {
-       wallet.connect();
-      const account =  wallet.account();
+      wallet.connect();
+      const account = wallet.account();
       localStorage.setItem("user", JSON.stringify(account.address));
       window.location.reload();
     } catch (error) {}
@@ -87,7 +36,6 @@ function Choose({ setCount }) {
 
   return (
     <Background>
-      <EContainer style={{ height: "132px" }}></EContainer>
       <EContainer style={{ width: "90%", maxWidth: "374px" }}>
         <Text
           style={{ fontWeight: "700", fontSize: "24px", lineHeight: "36px" }}
@@ -196,7 +144,7 @@ function Choose({ setCount }) {
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {localStorage.getItem('user') === null ? (
+          {localStorage.getItem("user") === null ? (
             <Button onClick={() => Connect()}>Connect Wallet</Button>
           ) : (
             <Button
@@ -310,7 +258,7 @@ function Choose({ setCount }) {
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {localStorage.getItem('user') === null ? (
+          {localStorage.getItem("user") === null ? (
             <Button onClick={() => Connect()}>Connect Wallet</Button>
           ) : (
             <Button
@@ -328,3 +276,55 @@ function Choose({ setCount }) {
 }
 
 export default Choose;
+
+const Background = styled.div`
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const EContainer = styled.div``;
+
+const Text = styled.div`
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  /* identical to box height, or 150% */
+
+  letter-spacing: 0.02em;
+
+  /* dark/label */
+
+  color: #b7b8cd;
+`;
+
+const StakeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  background: #2b2b34;
+  border-radius: 16px;
+  padding: 30px 27px 25px 27px;
+`;
+
+const Image = styled.img``;
+
+const Button = styled.button`
+  all: unset;
+  cursor: pointer;
+  height: 55px;
+  width: 100%;
+  background: #4a3ce8;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  text-align: center;
+
+  /* dark/white */
+
+  color: #ffffff;
+`;

@@ -10,92 +10,15 @@ import ContractAddress from "../../assets/contract/contractAddress";
 import GoToTop from "../../common/GotoTop";
 import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
-const Background = styled.div`
-  height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const EContainer = styled.div``;
-
-const Text = styled.div`
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 36px;
-  /* identical to box height, or 150% */
-
-  letter-spacing: 0.02em;
-
-  /* dark/label */
-
-  color: #b7b8cd;
-`;
-
-const StakeContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-
-  background: #2b2b34;
-  border-radius: 16px;
-  padding: 30px 27px 25px 27px;
-`;
-
-const Image = styled.img``;
-
-const Button = styled.button`
-  all: unset;
-  cursor: pointer;
-  height: 55px;
-  width: 100%;
-  background: #4a3ce8;
-  border-radius: 16px;
-  font-weight: 600;
-  font-size: 14px;
-  line-height: 17px;
-  /* identical to box height */
-
-  text-align: center;
-
-  /* dark/white */
-
-  color: #ffffff;
-`;
-
-const Input = styled.input`
-  all: unset;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  color: #ffffff;
-  width: 50%;
-`;
-
-const MaxButton = styled.button`
-  all: unset;
-  cursor: pointer;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background: #4a3ce8;
-  border-radius: 16px;
-  font-weight: 700;
-  font-size: 9px;
-  line-height: 11px;
-  letter-spacing: 0.02em;
-  color: #ffffff;
-  padding: 7px 13px;
-`;
 
 function StakeQve({ setCount }) {
   const [amount, setAmount] = useState("");
   const [qveBalance, setQveBalance] = useState("");
   //솔리디티 관련 코드들
-//   const web3 = new Web3(window.ethereum);
-//   const qveContract = Contract();
-//   const Address = ContractAddress();
-//   let account = JSON.parse(localStorage.getItem("user"));
+  //   const web3 = new Web3(window.ethereum);
+  //   const qveContract = Contract();
+  //   const Address = ContractAddress();
+  //   let account = JSON.parse(localStorage.getItem("user"));
 
   //Move 코드
   function stakeQvePetra() {
@@ -127,7 +50,6 @@ function StakeQve({ setCount }) {
 
   return (
     <Background>
-      <EContainer style={{ height: "132px" }}></EContainer>
       <EContainer style={{ width: "90%", maxWidth: "374px" }}>
         <Text
           style={{ fontWeight: "700", fontSize: "24px", lineHeight: "36px" }}
@@ -480,3 +402,94 @@ const [amount, setAmount] = useState('');
     //     setQveBalance(result);
     // })
 */
+
+const Background = styled.div`
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const EContainer = styled.div``;
+
+const Text = styled.div`
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 36px;
+  /* identical to box height, or 150% */
+
+  letter-spacing: 0.02em;
+
+  /* dark/label */
+
+  color: #b7b8cd;
+`;
+
+const StakeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  background: #2b2b34;
+  border-radius: 16px;
+  padding: 30px 27px 25px 27px;
+`;
+
+const Image = styled.img``;
+
+const Button = styled.button`
+  all: unset;
+  cursor: pointer;
+  height: 55px;
+  width: 100%;
+  background: #4a3ce8;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  text-align: center;
+
+  /* dark/white */
+
+  color: #ffffff;
+`;
+
+const Input = styled.input`
+  all: unset;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  color: #ffffff;
+  width: 50%;
+  outline: none;
+
+  /* Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  &[type="number"] {
+    -moz-appearance: textfield;
+  }
+`;
+
+const MaxButton = styled.button`
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background: #4a3ce8;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 9px;
+  line-height: 11px;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  padding: 7px 13px;
+`;
