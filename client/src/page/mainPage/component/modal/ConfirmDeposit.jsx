@@ -7,26 +7,11 @@ import {
   Description,
   Label,
   CustomButton,
-  LoadingBackground,
-  LoadingSpinner,
-  LoadingCenter,
 } from "./common";
 import CustomInputBox from "./CustomInputBox";
-import { useInterval } from "../../../../hooks/useInterval";
 
 const ConfirmDeposit = ({ token, values, setValues, onEnd }) => {
   const [focused, setFocused] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const confirmDeposit = () => {
-    setLoading(true);
-
-    //Deposit 통신 구문 추가
-    //아래는 임의로 시간 지연 + 로딩스피너 확인 용도
-    setTimeout(() => {
-      onEnd();
-    }, 1500);
-  };
 
   return (
     <Container>
@@ -59,17 +44,7 @@ const ConfirmDeposit = ({ token, values, setValues, onEnd }) => {
           <Label style={{ color: "#B7B8CD", fontWeight: 700 }}>~$0.00</Label>
         </Description>
       </DescriptionBox>
-      <CustomButton onClick={() => confirmDeposit()}>
-        Confirm Deposit
-      </CustomButton>
-      {loading ? (
-        <LoadingBackground>
-          <LoadingSpinner />
-          <LoadingCenter />
-        </LoadingBackground>
-      ) : (
-        <></>
-      )}
+      <CustomButton onClick={() => onEnd()}>Confirm Deposit</CustomButton>
     </Container>
   );
 };

@@ -12,14 +12,7 @@ import Web3 from "web3";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-  const options = [
-    "Deposit",
-    "Portfolios",
-    "Swap",
-    "Pool",
-    "Stake",
-    "Disconnect",
-  ];
+  const options = ["Deposit", "Swap", "Pool", "Stake", "Disconnect"];
   let option = [];
   const toggling = () => setIsOpen(!isOpen);
   const web3 = new Web3(window.ethereum);
@@ -217,7 +210,7 @@ const ListItem = styled("li")`
   font-size: 16px;
   line-height: 19px;
   align-items: center;
-  &:hover:not(&:nth-child(6)) {
+  &:hover:not(&:nth-child(5)) {
     background: #3f3f46;
     width: 100%;
   }
