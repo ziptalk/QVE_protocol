@@ -25,7 +25,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
   const [curStage, setCurStage] = useState(0);
   const [token, setToken] = useState(TOKEN[0]);
   const [values, setValues] = useState(DEFAULT_VALUES);
-  const [tokenInfo] = useAvailable();
+  const [tokenInfo] = useAvailable(preWalletCount);
 
   const CurStage = STAGES[curStage];
 

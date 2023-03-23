@@ -25,7 +25,7 @@ const DEFAULT_TOKENS_INFO = {
  * ex. 1APT당 mQVE는 몇인가
  * -> 거래 비율은 현재 임시로 1로 설정해둔 상태
  */
-export const useAvailable = () => {
+export const useAvailable = (dependency) => {
   const [values, setValues] = useState(null);
   const [tokenInfo, setTokenInfo] = useState(DEFAULT_TOKENS_INFO);
   const APT_EXCHANGE_RATE = 1;
@@ -64,7 +64,7 @@ export const useAvailable = () => {
 
   useEffect(() => {
     connectAptosWallet();
-  }, []);
+  }, [dependency]);
 
   useEffect(() => {
     if (values) {
