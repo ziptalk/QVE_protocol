@@ -4,15 +4,22 @@ import BackgroundImage from "../../assets/img/SwapImage.png";
 import Web3 from "web3";
 import QveArtifact from "../../artifact/Qve.json";
 import stakeArtifact from "../../artifact/Stake.json";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Contract from "../../assets/contract/contract";
 import ContractAddress from "../../assets/contract/contractAddress";
 import GoToTop from "../../common/GotoTop";
 import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
+import StakingModal from "./modal";
 
 function StakeArbQve({ setCount }) {
   const [amount, setAmount] = useState("");
+  const [values, setValues] = useState({
+    amount: "",
+    available: 1.2345,
+  });
+  const [max, setMax] = useState(false);
+  const [modal, setModal] = useState(false);
   const [connected, setConnected] = useState("");
   const [arbQveBalance, setArbQveBalance] = useState("");
 
@@ -37,18 +44,46 @@ function StakeArbQve({ setCount }) {
 
   //Move 칸트랙트 연결
   function stakeArbQvePetra() {
-    const transaction = {
-      type: "entry_function_aptos_transfer",
-      function:
-        "0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::stake::staked_arbQVE",
-      arguments: [amount * 10 ** 8],
-      type_arguments: [],
-    };
+    //에러 발생하는 중, 임시로 스테이킹 풀 완료되었다는 모달 첨가
+    // const transaction = {
+    //   type: "entry_function_aptos_transfer",
+    //   function:
+    //     "0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::stake::staked_arbQVE",
+    //   arguments: [amount * 10 ** 8],
+    //   type_arguments: [],
+    // };
 
-    window.aptos.signAndSubmitTransaction(transaction).then(() => {
-      console.log("전송 성공");
-    });
+    // window.aptos.signAndSubmitTransaction(transaction).then(() => {
+    //   console.log("전송 성공");
+    // });
+
+    setModal(true);
   }
+
+  const onChangeInput = (e) => {
+    const newNum = e.target.value;
+    newNum >= values.available
+      ? setValues({
+          ...values,
+          amount: values.available,
+        })
+      : setValues({
+          ...values,
+          amount: newNum,
+        });
+  };
+
+  useEffect(() => {
+    if (values.amount >= values.available) {
+      setValues({
+        ...values,
+        amount: values.available,
+      });
+      setMax(true);
+    } else {
+      setMax(false);
+    }
+  }, [values.amount]);
 
   return (
     <Background>
@@ -281,10 +316,15 @@ function StakeArbQve({ setCount }) {
               type="number"
               placeholder="Amount"
               style={{ flexGrow: "1", paddingRight: "5px" }}
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              value={values.amount}
+              onChange={onChangeInput}
             />
-            <MaxButton>MAX</MaxButton>
+            <MaxButton
+              style={{ backgroundColor: max ? "#5C5E81" : "#4A3CE8" }}
+              onClick={() => setValues({ ...values, amount: values.available })}
+            >
+              MAX
+            </MaxButton>
           </EContainer>
           <EContainer style={{ height: "13px" }} />
           <EContainer
@@ -350,18 +390,19 @@ function StakeArbQve({ setCount }) {
                   color: "#4A3CE8",
                 }}
               >
-                0 QVE
+                {`${values.available} QVE`}
               </Text>
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {amount === "" ? (
+          {values.amount === "" ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
             <Button onClick={() => stakeArbQvePetra()}>Swap</Button>
           )}
         </StakeContainer>
       </EContainer>
+      {modal ? <StakingModal setModal={setModal} /> : <></>}
     </Background>
   );
 }
@@ -459,6 +500,8 @@ const Button = styled.button`
   /* dark/white */
 
   color: #ffffff;
+
+  transition: all 0.15s;
 `;
 
 const Input = styled.input`
@@ -498,4 +541,5 @@ const MaxButton = styled.button`
   letter-spacing: 0.02em;
   color: #ffffff;
   padding: 7px 13px;
+  transition: all 0.1s;
 `;
