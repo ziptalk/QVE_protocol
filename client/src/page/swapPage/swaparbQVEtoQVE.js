@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import QveImage from "../../assets/img/SwapImage.png";
 import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
@@ -239,7 +239,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
             </EContainer>
           </TokenOneContainer>
           <EContainer style={{ height: "10px" }} />
-          <EContainer
+          {/* <EContainer
             style={{
               display: "flex",
               justifyContent: "center",
@@ -256,7 +256,14 @@ function SwaparbQVEtoQVE({ setIcon }) {
               onClick={() => setIcon(1)}
               style={{ width: 45, height: 45 }}
             />
-          </EContainer>
+          </EContainer> */}
+          <IconWrapper>
+            <Image
+              src={SwapIcon}
+              onClick={() => setIcon(1)}
+              style={{ width: 45, height: 45 }}
+            />
+          </IconWrapper>
           <TokenTwoContainer>
             <EContainer
               style={{
@@ -482,5 +489,21 @@ const Input = styled.input`
   /* Firefox */
   &[type="number"] {
     -moz-appearance: textfield;
+  }
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 81px;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    transform: translateX(-50%) rotate(-180deg);
   }
 `;
