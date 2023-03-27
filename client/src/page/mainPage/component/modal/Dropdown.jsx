@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ArrowDown from "../../../../assets/img/ArrowDown.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Cell, Caption, Body, TOKEN, Aum, CustomButton, Logo } from "./common";
 import DropdownSelector from "./DropdownSelector";
 
@@ -8,8 +8,13 @@ import DropdownSelector from "./DropdownSelector";
  * 1단계
  * 드롭다운
  */
-const Dropdown = ({ token, setToken, onEnd }) => {
+const Dropdown = ({ token, setToken, onEnd, preWalletCount }) => {
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (preWalletCount === null) setVisible(false);
+  }, [preWalletCount]);
+
   return (
     <Container>
       <DropdownHeader onClick={() => setVisible((prev) => !prev)}>
