@@ -24,12 +24,14 @@ const EnterAmount = ({ token, onEnd, values, setValues }) => {
       <DescriptionBox>
         <Description>
           <Body style={{ color: "#B7B8CD" }}>You will receive</Body>
-          <Label style={{ color: "#B7B8CD", fontWeight: 700 }}>0 mQVE</Label>
+          <Label style={{ color: "#B7B8CD", fontWeight: 700 }}>
+            {values.rate * values.input} mQVE
+          </Label>
         </Description>
         <Description>
           <Body style={{ color: "#B7B8CD" }}>Exchange rate</Body>
           <Label style={{ color: "#B7B8CD", fontWeight: 700 }}>
-            1 APT = 1 mQVE
+            1 APT = {values.rate} mQVE
           </Label>
         </Description>
       </DescriptionBox>

@@ -5,7 +5,7 @@ import Main from "./main";
 import styled from "styled-components";
 function StakePage() {
   const Container = styled.div`
-    overflow: hidden;
+    min-height: 100vh;
   `;
   return (
     <Container>

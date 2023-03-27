@@ -9,14 +9,13 @@ import PoolImg from "../../../assets/img/Liquidity.svg";
 import SwapImg from "../../../assets/img/SwapImg.svg";
 import Web3 from "web3";
 
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+function Navbar({ isOpen, setIsOpen }) {
+  // const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const options = ["Deposit", "Swap", "Pool", "Stake", "Disconnect"];
   let option = [];
   const toggling = () => setIsOpen(!isOpen);
   const web3 = new Web3(window.ethereum);
-  console.log("is open iiiiii", isOpen);
   for (let i = 0; i < options.length; i++) {
     if (i === options.length - 1) {
       if (localStorage.getItem("user") == null) {
@@ -80,7 +79,6 @@ function Navbar() {
       // localStorage.setItem('preWalletCount', JSON.stringify(9));
       Connect();
     }
-    console.log("localinnavbar is ", localStorage.getItem("user"));
     if (selectedOption == "Disconnect") {
       localStorage.removeItem("user");
       window.aptos.disconnect();
