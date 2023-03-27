@@ -16,7 +16,6 @@ function Navbar({ isOpen, setIsOpen }) {
   let option = [];
   const toggling = () => setIsOpen(!isOpen);
   const web3 = new Web3(window.ethereum);
-  console.log("is open iiiiii", isOpen);
   for (let i = 0; i < options.length; i++) {
     if (i === options.length - 1) {
       if (localStorage.getItem("user") == null) {
@@ -80,7 +79,6 @@ function Navbar({ isOpen, setIsOpen }) {
       // localStorage.setItem('preWalletCount', JSON.stringify(9));
       Connect();
     }
-    console.log("localinnavbar is ", localStorage.getItem("user"));
     if (selectedOption == "Disconnect") {
       localStorage.removeItem("user");
       window.aptos.disconnect();

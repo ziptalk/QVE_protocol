@@ -38,7 +38,6 @@ function SwaparbQVEtoQVE({ setIcon }) {
   //   link: "",
   // });
 
-  console.log(".");
   // let account = JSON.parse(localStorage.getItem('user'));
   // function SwapAtoB() {
   //     qveContract.ArbQVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(depositAmount * 10**18)).send({ from: account });
@@ -79,10 +78,6 @@ function SwaparbQVEtoQVE({ setIcon }) {
 
   async function Connect() {
     console.log("connnect");
-    setValues({
-      available: 1.1234,
-      amount: "",
-    });
     try {
       await wallet.connect();
       const account = await wallet.account();
@@ -361,7 +356,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
 
           {localStorage.getItem("user") === null ? (
             <Button onClick={() => Connect()}>Connect Wallet</Button>
-          ) : values.amount === "" ? (
+          ) : values.amount === "" || values.amount === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
             <Button onClick={() => SwapArbtoQVE()}>Swap</Button>

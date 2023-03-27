@@ -51,7 +51,6 @@ function Main({
   };
   const fetchPnl = async () => {
     axios.get("https://qve.today/balance/getpnl").then((res) => {
-      console.log(res);
       setPnl(res.data);
     });
   };
