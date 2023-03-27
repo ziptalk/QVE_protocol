@@ -3,7 +3,7 @@
   position: relative;
   width: 64px;
   height: 64px;
-  transform: scale(0.5);
+  transform: scale(0.38);
 }
 .lds-ring div {
   box-sizing: border-box;
