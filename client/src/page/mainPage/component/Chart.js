@@ -109,6 +109,18 @@ function getKeyByValue(object, value) {
   return object[value];
 }
 
+const DEFAULT_LIST = [
+  {
+    name: "Data",
+    data: [
+      {
+        x: new Date(),
+        y: [],
+      },
+    ],
+  },
+];
+
 function LineChart({
   balanceList,
   pnlArray,
@@ -137,9 +149,11 @@ function LineChart({
       ],
     },
   ]);
+  const [loading, setLoading] = useState(false);
 
   const [xaxis, setXaxis] = useState([]);
-  useEffect(() => {
+
+  const setting = () => {
     var DataBalance = [];
     var DataBtc = [];
     var Time = [];
@@ -423,7 +437,17 @@ function LineChart({
     setTime(Time);
     setDataBtc(DataBtc);
     setChangeDataBalance(true);
+  };
+
+  useEffect(() => {
+    setting();
+    setLoading(true);
+  }, []);
+
+  useEffect(() => {
+    setting();
   }, [selectedOption]);
+
   const setDataRange = (range) => {
     switch (range) {
       case "day":
@@ -535,7 +559,7 @@ function LineChart({
         style={{ display: "flex", margin: "0px 20px 0px 0px" }}
         type="line"
         options={chartOptions}
-        series={series}
+        series={loading ? series : DEFAULT_LIST}
       />
     </>
   );
