@@ -8,6 +8,7 @@ import {
   StartBox,
 } from "./common";
 import { useState, useEffect } from "react";
+import { useRate } from "../../../../hooks/useRate";
 
 /**
  * 값 조절용 커스텀 인풋박스
@@ -15,12 +16,13 @@ import { useState, useEffect } from "react";
  */
 const CustomInputBox = ({ token, values, setValues, ...props }) => {
   const [max, setMax] = useState(false);
+  const [rate] = useRate();
 
   const onChangeInputNumber = (e) => {
     const newInput = e.target.value;
     const newValues = {
       ...values,
-      input: newInput,
+      input: Math.floor(newInput * 1e6) / 1e6,
     };
     setValues(newValues);
   };
@@ -49,6 +51,10 @@ const CustomInputBox = ({ token, values, setValues, ...props }) => {
     }
   }, [values.input]);
 
+  useEffect(() => {
+    console.log(rate);
+  }, [rate]);
+
   return (
     <CustomInputWrapper>
       <InputUpperBox>
@@ -71,7 +77,9 @@ const CustomInputBox = ({ token, values, setValues, ...props }) => {
       </InputUpperBox>
       <InputUpperBox style={{ paddingLeft: 41, marginTop: 3 }}>
         <Body style={{ color: "#B7B8CD" }}>
-          {values.input ? `$ ${values.dolar}` : ""}
+          {values.input
+            ? `$ ${rate === null ? 0 : values.input * rate[token.name].USD}`
+            : ""}
         </Body>
         <Body style={{ color: "#B7B8CD" }}>Available : {values.available}</Body>
       </InputUpperBox>
