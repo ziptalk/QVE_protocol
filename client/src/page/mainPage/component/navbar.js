@@ -185,9 +185,9 @@ const DropDownListContainer = styled("div")`
 const DropDownList = styled("ul")`
   box-sizing: border-box;
   color: #3faffa;
-  padding: 12px;
+  padding: 21px 19px 25px 19px;
   cursor: pointer;
-  width: 210px;
+  width: 190px;
   background: #2b2b34;
   box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
   border-radius: 16px;

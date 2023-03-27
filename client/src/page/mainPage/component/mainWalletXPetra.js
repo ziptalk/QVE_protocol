@@ -280,7 +280,7 @@ function MainWalletXPetra({
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    justifyContent: "space-between",
+                    justifyContent: "space-evenly",
                     alignSelf: "center",
                     width: "90%",
                   }}
