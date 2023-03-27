@@ -323,7 +323,9 @@ function AssetConnected({
             >
               {(arbQve / 10 ** 18).toFixed(2)} mQVE
             </Text>
-            <EContainer style={{ display: "flex", flexDirection: "column" }}>
+            <EContainer
+              style={{ display: "flex", flexDirection: "column", gap: 3 }}
+            >
               <Text
                 style={{
                   fontWeight: "700",
@@ -367,7 +369,9 @@ function AssetConnected({
             >
               {(qve / 10 ** 18).toFixed(2)} QVE
             </Text>
-            <EContainer style={{ display: "flex", flexDirection: "column" }}>
+            <EContainer
+              style={{ display: "flex", flexDirection: "column", gap: 3 }}
+            >
               <Text
                 style={{
                   fontWeight: "700",
@@ -407,9 +411,10 @@ function AssetConnected({
             style={{
               display: "flex",
               flexDirection: "column",
-              padding: "0px 30px 0px 20px",
+              padding: "0px 26.5px 0px 20px",
               justifyContent: "flex-end",
               alignItems: "flex-end",
+              gap: 3,
             }}
           >
             <Text
@@ -487,6 +492,7 @@ function AssetConnected({
               flexDirection: "row",
               justifyContent: "space-between",
               padding: "0px 25px 0px 25px",
+              gap: 3,
             }}
           >
             <Text
@@ -499,7 +505,9 @@ function AssetConnected({
             >
               {(stakedQve / 10 ** 18).toFixed(2)} QVE
             </Text>
-            <EContainer style={{ display: "flex", flexDirection: "column" }}>
+            <EContainer
+              style={{ display: "flex", flexDirection: "column", gap: 3 }}
+            >
               <Text
                 style={{
                   fontWeight: "700",
@@ -589,7 +597,9 @@ function AssetConnected({
             >
               mQVE/QVE
             </Text>
-            <EContainer style={{ display: "flex", flexDirection: "column" }}>
+            <EContainer
+              style={{ display: "flex", flexDirection: "column", gap: 3 }}
+            >
               <Text
                 style={{
                   fontWeight: "700",
