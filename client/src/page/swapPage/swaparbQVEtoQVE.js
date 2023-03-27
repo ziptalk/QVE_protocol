@@ -478,6 +478,7 @@ const Input = styled.input`
   border: none;
   outline: none;
   margin-left: 6px;
+  color: #ffffff;
 
   /* Chrome, Safari, Edge, Opera */
   &::-webkit-outer-spin-button,
