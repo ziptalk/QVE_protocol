@@ -24,7 +24,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
   const [max, setMax] = useState(false);
 
   const [values, setValues] = useState({
-    available: 1.1234,
+    available: 0,
     amount: "",
   });
 
@@ -332,7 +332,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
 
           {localStorage.getItem("user") === null ? (
             <Button onClick={() => Connect()}>Connect Wallet</Button>
-          ) : values.amount === "" ? (
+          ) : values.amount === "" || values.amount === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
             <Button onClick={() => SwapQVEtoArb()}>Swap</Button>

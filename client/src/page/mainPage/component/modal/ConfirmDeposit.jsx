@@ -12,12 +12,11 @@ import CustomInputBox from "./CustomInputBox";
 
 const ConfirmDeposit = ({ token, values, setValues, onEnd }) => {
   const [focused, setFocused] = useState(false);
-
   return (
     <Container>
       <Heading1 style={{ color: "white" }}>
         <Heading1 style={{ color: focused ? "#5C5E81" : "white" }}>
-          {values.mQve}
+          {values.input * values.rate}
         </Heading1>{" "}
         mQVE
       </Heading1>
@@ -32,7 +31,7 @@ const ConfirmDeposit = ({ token, values, setValues, onEnd }) => {
         <Description>
           <Body style={{ color: "#B7B8CD" }}>Exchange rate</Body>
           <Label style={{ color: "#B7B8CD", fontWeight: 700 }}>
-            1 APT = 1 mQVE
+            1 APT = {values.rate} mQVE
           </Label>
         </Description>
         <Description>
@@ -44,7 +43,15 @@ const ConfirmDeposit = ({ token, values, setValues, onEnd }) => {
           <Label style={{ color: "#B7B8CD", fontWeight: 700 }}>~$0.00</Label>
         </Description>
       </DescriptionBox>
-      <CustomButton onClick={() => onEnd()}>Confirm Deposit</CustomButton>
+      <CustomButton
+        onClick={() => (Number(values.input) > 0 ? onEnd() : null)}
+        style={{
+          backgroundColor: Number(values.input) > 0 ? "#4a3ce8" : "#5C5E81",
+          color: Number(values.input) > 0 ? "white" : "#B7B8CD",
+        }}
+      >
+        {Number(values.input) > 0 ? "Confirm Deposit" : "Enter an Amount"}
+      </CustomButton>
     </Container>
   );
 };

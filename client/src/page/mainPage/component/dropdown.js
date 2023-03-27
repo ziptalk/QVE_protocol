@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import InvertedArrow from "../../../assets/img/Invertedarrow.png";
+import { useOutsideClick } from "../../../hooks/useOutsideClick";
 
 const DropDownContainer = styled("div")`
   width: 10.5em;
@@ -90,7 +91,9 @@ const EContainer = styled.div``;
 const options = ["Market Making", "Arbitrage", "BTC Hedge", "Funding Rate"];
 
 export default function DropDown({ selectedOption, setSelectedOption }) {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
+  const ref = useRef(null);
+  const [isOpen, setIsOpen] = useOutsideClick(ref, false);
 
   const toggling = () => setIsOpen(!isOpen);
 
@@ -101,7 +104,7 @@ export default function DropDown({ selectedOption, setSelectedOption }) {
 
   return (
     <>
-      <DropDownContainer>
+      <DropDownContainer ref={ref}>
         <DropDownHeader onClick={toggling}>
           <Text>{selectedOption}</Text>
           <BaseImage src={InvertedArrow}></BaseImage>

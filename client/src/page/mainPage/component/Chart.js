@@ -109,6 +109,18 @@ function getKeyByValue(object, value) {
   return object[value];
 }
 
+const DEFAULT_LIST = [
+  {
+    name: "Data",
+    data: [
+      {
+        x: new Date(),
+        y: [],
+      },
+    ],
+  },
+];
+
 function LineChart({
   balanceList,
   pnlArray,
@@ -137,12 +149,26 @@ function LineChart({
       ],
     },
   ]);
+  const [loading, setLoading] = useState(false);
 
   const [xaxis, setXaxis] = useState([]);
-  useEffect(() => {
+
+  const setting = () => {
     var DataBalance = [];
     var DataBtc = [];
     var Time = [];
+
+    if (selectedOption === "Market Making") {
+      for (let i = 0; i < thirdPort.length; i++) {
+        let thirdValueBalance = pnlArray[i];
+        let thirdValueBtc = getKeyByValue(thirdPort[i], "btc_cr");
+        let getThirdTime = getKeyByValue(thirdPort[i], "datetime");
+        Time.push(getThirdTime);
+        DataBtc.push(thirdValueBtc);
+        DataBalance.push(thirdValueBalance);
+      }
+    }
+
     if (selectedOption === "Arbitrage") {
       for (let i = 0; i < balanceList.length; i++) {
         let valueBalance = pnlArray[i];
@@ -411,7 +437,17 @@ function LineChart({
     setTime(Time);
     setDataBtc(DataBtc);
     setChangeDataBalance(true);
+  };
+
+  useEffect(() => {
+    setting();
+    setLoading(true);
+  }, []);
+
+  useEffect(() => {
+    setting();
   }, [selectedOption]);
+
   const setDataRange = (range) => {
     switch (range) {
       case "day":
@@ -502,7 +538,6 @@ function LineChart({
       <ButtonContainer>
         {selectedOption === "Arbitrage" ? (
           <>
-            {" "}
             <ButtonDay onClick={() => setDataRange("day")}>1D</ButtonDay>
             <DayWeekSplit>|</DayWeekSplit>
             <ButtonWeek onClick={() => setDataRange("week")}>1W</ButtonWeek>
@@ -524,7 +559,7 @@ function LineChart({
         style={{ display: "flex", margin: "0px 20px 0px 0px" }}
         type="line"
         options={chartOptions}
-        series={series}
+        series={loading ? series : DEFAULT_LIST}
       />
     </>
   );
