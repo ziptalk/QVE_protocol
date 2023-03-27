@@ -15,7 +15,7 @@ const PreWalletConnectBackground = styled.div`
   width: 100%;
   height: 100%;
   padding-top: 77px;
-  backdrop-filter: blur(5px);
+  background-color: #1b1a1ee7;
   position: fixed;
   left: 0;
   top: 0;

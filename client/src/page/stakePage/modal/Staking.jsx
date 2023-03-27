@@ -9,7 +9,10 @@ const Staking = ({ setStage }) => {
   }, 5000);
   return (
     <Container>
-      <LoadingSpinner />
+      <LoadingWrapper>
+        <LoadingSpinner />
+      </LoadingWrapper>
+      <EmptyBox />
       <Heading3 style={{ color: "white" }}>Staking Pool</Heading3>
       <Input
         style={{ color: "#B7B8CD" }}
@@ -25,6 +28,18 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+`;
+
+const LoadingWrapper = styled.div`
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+`;
+
+const EmptyBox = styled.div`
+  width: 33px;
+  height: 33px;
 `;
 
 export default Staking;

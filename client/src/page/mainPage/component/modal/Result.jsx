@@ -13,7 +13,16 @@ const Result = () => {
 
   return (
     <Container>
-      {loading ? <LoadingSpinner /> : <Logo src={Check} />}
+      {loading ? (
+        <>
+          <LoadingWrapper>
+            <LoadingSpinner />
+          </LoadingWrapper>
+          <div style={{ width: 33, height: 33 }} />
+        </>
+      ) : (
+        <Logo src={Check} />
+      )}
       <Heading3 style={{ color: "white" }}>Transaction Successfull</Heading3>
       <LinkLine>
         <Input>View Explorerr</Input>
@@ -30,6 +39,15 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  padding-bottom: 15px;
+  position: relative;
+`;
+
+const LoadingWrapper = styled.div`
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translate(-50%, 0%);
 `;
 
 const Logo = styled.img`

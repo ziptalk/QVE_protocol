@@ -77,6 +77,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
         onEnd={onEnd}
         values={values}
         setValues={setValues}
+        preWalletCount={preWalletCount}
       />
     </ModalContainer>
   );
