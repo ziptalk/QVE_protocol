@@ -51,10 +51,6 @@ const CustomInputBox = ({ token, values, setValues, ...props }) => {
     }
   }, [values.input]);
 
-  useEffect(() => {
-    console.log(rate);
-  }, [rate]);
-
   return (
     <CustomInputWrapper>
       <InputUpperBox>

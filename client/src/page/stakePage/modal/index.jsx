@@ -6,13 +6,13 @@ import { useState } from "react";
 
 const STAGES = [Staking, Result];
 
-const StakingModal = ({ setModal }) => {
+const StakingModal = ({ setModal, customRef }) => {
   const [curStage, setCurStage] = useState(0);
   const CurStage = STAGES[curStage];
 
   return (
     <ModalBackground>
-      <ModalContainer>
+      <ModalContainer ref={customRef}>
         <Xbtn src={XImg} onClick={() => setModal(false)} />
         <CurStage setStage={setCurStage} />
       </ModalContainer>

@@ -2,8 +2,9 @@ import styled from "styled-components";
 import logo from "../assets/img/logo.png";
 import menu from "../assets/img/Menu.png";
 import Navbar from "../page/mainPage/component/navbar";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 const HeaderContainer = styled.div`
   position: fixed;
   background-color: #292932;
@@ -43,12 +44,14 @@ const EContainer = styled.div``;
 
 function Header() {
   const navigate = useNavigate();
+  const ref = useRef(null);
+  const [isOpen, setIsOpen] = useOutsideClick(ref, false);
 
   return (
     <HeaderContainer>
       <Logo src={logo} onClick={() => navigate("/")}></Logo>
-      <Menu>
-        <Navbar />
+      <Menu ref={ref}>
+        <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
       </Menu>
     </HeaderContainer>
   );

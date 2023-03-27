@@ -9,8 +9,8 @@ import PoolImg from "../../../assets/img/Liquidity.svg";
 import SwapImg from "../../../assets/img/SwapImg.svg";
 import Web3 from "web3";
 
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+function Navbar({ isOpen, setIsOpen }) {
+  // const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const options = ["Deposit", "Swap", "Pool", "Stake", "Disconnect"];
   let option = [];

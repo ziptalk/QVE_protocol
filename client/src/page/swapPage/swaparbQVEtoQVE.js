@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import Contract from "../../assets/contract/contract.js";
 import ContractAddress from "../../assets/contract/contractAddress";
 import NotConnectedModal from "../../common/NotConnected";
+import { useAvailable } from "../../hooks/useAvailable";
 
 function SwaparbQVEtoQVE({ setIcon }) {
   const [depositAmount, setDepositAmount] = useState("");
@@ -21,8 +22,10 @@ function SwaparbQVEtoQVE({ setIcon }) {
   const [wallet, setWallet] = useState(null);
   const [max, setMax] = useState(false);
 
+  const [tokenInfo] = useAvailable();
+
   const [values, setValues] = useState({
-    available: 1.1234,
+    available: 0,
     amount: "",
   });
 

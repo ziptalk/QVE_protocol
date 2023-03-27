@@ -47,6 +47,7 @@ export const useAvailable = (dependency) => {
       getAvailable(account.address);
     } catch (error) {
       // { code: 4001, message: "User rejected the request."}
+      console.log(error);
     }
   };
 

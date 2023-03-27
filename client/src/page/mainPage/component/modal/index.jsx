@@ -35,12 +35,13 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
 
   //모달을 닫을 때 초기화
   useEffect(() => {
+    console.log(token, tokenInfo, values);
     setCurStage(0);
     setToken(TOKEN[0]);
     setValues({
       ...values,
-      available: tokenInfo[token.name].available,
-      rate: tokenInfo[token.name].rate,
+      available: tokenInfo.APT.available,
+      rate: tokenInfo.APT.rate,
     });
   }, [preWalletCount]);
 
