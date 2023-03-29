@@ -340,7 +340,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
                 <Text style={{ color: "#5C5E81" }}>Available</Text>
                 <EContainer style={{ width: "4px" }}></EContainer>
                 <Text style={{ color: "#4A3CE8" }}>
-                  {available.QVE.available} QVE
+                  {available.QVE.available.toFixed(2)} QVE
                 </Text>
               </EContainer>
             </EContainer>
