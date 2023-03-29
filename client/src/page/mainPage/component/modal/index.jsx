@@ -21,7 +21,7 @@ const DEFAULT_VALUES = {
   rate: 0,
 };
 
-export const DEVNET_NODE_URL = "https://fullnode.devnet.aptoslabs.com/v1";
+export const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
 
 const aptosClient = new AptosClient(DEVNET_NODE_URL, {
   WITH_CREDENTIALS: false,
@@ -52,6 +52,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
 
   const [successAlertMessage, setSuccessAlertMessage] = useState("");
   const [errorAlertMessage, setErrorAlertMessage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const moduleAddress =
     "0x7ced9822447b29b33304877b6fff04edb9e5924c0d50ad76219cf206f26e7baa";
@@ -62,7 +63,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
     const payload = {
       type: "entry_function_payload",
       function: `${moduleAddress}::deposit_mint::deposit_apt_get_mint`,
-      arguments: [100000000 / 10, priceUpdateData],
+      arguments: [100000000 * values.input, priceUpdateData],
       type_arguments: [`${moduleAddress}::coins::MQVE`],
     };
 
@@ -72,9 +73,11 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
       setSuccessAlertMessage(
         `https://explorer.aptoslabs.com/txn/${response?.hash}`
       );
+      return true;
     } catch (error) {
       console.log("error", error);
       setErrorAlertMessage(error);
+      return false;
     }
   };
   const [curStage, setCurStage] = useState(0);
@@ -87,7 +90,12 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
   const onEnd = () => {
     if (curStage !== STAGES.length - 2) setCurStage((prev) => prev + 1);
     else {
-      onSignAndSubmitTransaction();
+      setCurStage((prev) => prev + 1);
+      setLoading(true);
+      onSignAndSubmitTransaction().then((res) => {
+        if (res) setLoading(false);
+      });
+
       console.log("this thing should be changed", token, values, tokenInfo);
     }
   };
@@ -111,6 +119,10 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
       rate: tokenInfo[token.name].rate,
     });
   }, [token]);
+
+  useEffect(() => {
+    console.log(successAlertMessage);
+  }, []);
 
   return (
     <ModalContainer>
@@ -137,6 +149,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
         values={values}
         setValues={setValues}
         preWalletCount={preWalletCount}
+        loading={loading}
       />
     </ModalContainer>
   );

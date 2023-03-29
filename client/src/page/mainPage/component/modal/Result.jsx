@@ -3,14 +3,8 @@ import Check from "../../../../assets/img/check.svg";
 import Deposit2 from "../../../../assets/img/Deposit2.svg";
 import { Heading3, Input } from "./common";
 import LoadingSpinner from "../../../../common/LoadingSpinner";
-import { useInterval } from "../../../../hooks/useInterval";
-import { useState } from "react";
 
-const Result = () => {
-  const [loading, setLoading] = useState(true);
-
-  useInterval(() => setLoading(false), 5000);
-
+const Result = ({ loading }) => {
   return (
     <Container>
       {loading ? (
