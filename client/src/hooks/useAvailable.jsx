@@ -111,7 +111,7 @@ export const useAvailable = (dependency) => {
               rate: USDT_EXCHANGE_RATE,
             },
           };
-        } else if (value.type.includes("mQVE")) {
+        } else if (value.type.includes("MQVE")) {
           newObj = {
             ...newObj,
             mQVE: {

@@ -9,6 +9,7 @@ import Web3 from "web3";
 import Contract from "../../../assets/contract/contract";
 import ContractAddress from "../../../assets/contract/contractAddress";
 import { useAvailable } from "../../../hooks/useAvailable";
+import { useRate } from "../../../hooks/useRate";
 
 const Asset = styled.div`
   /* Heading 2 */
@@ -151,6 +152,7 @@ function AssetConnected({
   const [connected, setConnected] = useState("");
   const navigate = useNavigate();
   const [available] = useAvailable();
+  const [rate] = useRate(10000);
 
   //Metamask 미설치시, 에러 발생 방지
   const [metaMask, setMetamMask] = useState(false);
@@ -296,7 +298,7 @@ function AssetConnected({
                   color: "#FFFFFF",
                 }}
               >
-                {usdt / 10 ** 18} USDT
+                {available.mQVE.available.toFixed(6)} APT
               </Text>
             </EContainer>
             <Button
@@ -338,7 +340,7 @@ function AssetConnected({
                   textAlign: "end",
                 }}
               >
-                {/* 여기 수정 */}+ $ 100 (↑10%)
+                {/* 여기 수정 */}+ $ 0 (↑0%)
               </Text>
               <Text
                 style={{
@@ -349,7 +351,7 @@ function AssetConnected({
                   textAlign: "end",
                 }}
               >
-                = $ 1,100
+                = $ {(available.mQVE.available * rate.APT.USD).toFixed(2)}
               </Text>
             </EContainer>
           </EContainer>
@@ -383,7 +385,7 @@ function AssetConnected({
                   color: "#0FB63E",
                 }}
               >
-                + $ 100 (↑10%)
+                + $ 0 (↑0%)
               </Text>
               <Text
                 style={{
@@ -395,7 +397,7 @@ function AssetConnected({
                   justifyContent: "flex-end",
                 }}
               >
-                = $ 1,100
+                = $ {(available.QVE.available * rate.APT.USD).toFixed(2)}
               </Text>
             </EContainer>
           </EContainer>
@@ -428,7 +430,7 @@ function AssetConnected({
                 color: "#0FB63E",
               }}
             >
-              + $ 200 (↑10%)
+              + $ 0 (↑0%)
             </Text>
             <Text
               style={{
@@ -438,7 +440,12 @@ function AssetConnected({
                 color: "#FFFFFF",
               }}
             >
-              = $ 2,200
+              = ${" "}
+              {(
+                available.QVE.available * rate.APT.USD +
+                available.mQVE.available +
+                rate.APT.USD
+              ).toFixed(2)}
             </Text>
           </EContainer>
           <EContainer style={{ height: "25px" }} />

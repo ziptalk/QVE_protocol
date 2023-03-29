@@ -15,11 +15,11 @@ const DEFAULT_VALUE = {
 
 /**
  * 현재 [APT, USDT, USDC]의 달러 환율을 가져오는 훅
- * 1초에 한 번씩 최신화된다.
+ * 2초에 한 번씩 최신화된다.
  */
-export function useRate() {
+export function useRate(delay) {
   const savedCallback = useRef();
-  const delay = 2000;
+  // const delay = 2000;
   const [rate, setRate] = useState(DEFAULT_VALUE);
   const KEY = process.env.REACT_APP_CRYPTO_COMPARE_KEY;
 

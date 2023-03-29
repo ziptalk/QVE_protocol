@@ -16,7 +16,7 @@ import { useRate } from "../../../../hooks/useRate";
  */
 const CustomInputBox = ({ token, values, setValues, ...props }) => {
   const [max, setMax] = useState(false);
-  const [rate] = useRate();
+  const [rate] = useRate(2000);
 
   const onChangeInputNumber = (e) => {
     const newInput = e.target.value;
