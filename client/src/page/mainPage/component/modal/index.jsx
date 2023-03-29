@@ -8,6 +8,9 @@ import ConfirmDeposit from "./ConfirmDeposit";
 import Result from "./Result";
 import { useState, useEffect } from "react";
 import { useAvailable } from "../../../../hooks/useAvailable";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { AptosClient } from "aptos";
+import { AptosPriceServiceConnection } from "@pythnetwork/pyth-aptos-js";
 
 const STAGES = [Dropdown, EnterAmount, ConfirmDeposit, Result];
 
@@ -18,10 +21,62 @@ const DEFAULT_VALUES = {
   rate: 0,
 };
 
+export const DEVNET_NODE_URL = "https://fullnode.devnet.aptoslabs.com/v1";
+
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+});
+
 /**
  * Deposit 모달
  */
 const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
+  const {
+    connected,
+    disconnect,
+    account,
+    network,
+    wallet,
+    signAndSubmitTransaction,
+    signTransaction,
+    signMessage,
+    signMessageAndVerify,
+  } = useWallet();
+
+  const connection = new AptosPriceServiceConnection(
+    "https://xc-testnet.pyth.network"
+  );
+  const priceId = [
+    "0x44a93dddd8effa54ea51076c4e851b6cbbfd938e82eb90197de38fe8876bb66e", // APT/USD price id in testnet
+  ];
+
+  const [successAlertMessage, setSuccessAlertMessage] = useState("");
+  const [errorAlertMessage, setErrorAlertMessage] = useState("");
+
+  const moduleAddress =
+    "0x7ced9822447b29b33304877b6fff04edb9e5924c0d50ad76219cf206f26e7baa";
+
+  const onSignAndSubmitTransaction = async () => {
+    const priceUpdateData = await connection.getPriceFeedsUpdateData(priceId);
+
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::deposit_mint::deposit_apt_get_mint`,
+      arguments: [100000000 / 10, priceUpdateData],
+      type_arguments: [`${moduleAddress}::coins::MQVE`],
+    };
+
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      await aptosClient.waitForTransaction(response?.hash || "");
+      setSuccessAlertMessage(
+        `https://explorer.aptoslabs.com/txn/${response?.hash}`
+      );
+    } catch (error) {
+      console.log("error", error);
+      setErrorAlertMessage(error);
+    }
+  };
   const [curStage, setCurStage] = useState(0);
   const [token, setToken] = useState(TOKEN[0]);
   const [values, setValues] = useState(DEFAULT_VALUES);
@@ -30,7 +85,11 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
   const CurStage = STAGES[curStage];
 
   const onEnd = () => {
-    if (curStage !== STAGES.length - 1) setCurStage((prev) => prev + 1);
+    if (curStage !== STAGES.length - 2) setCurStage((prev) => prev + 1);
+    else {
+      onSignAndSubmitTransaction();
+      console.log("this thing should be changed", token, values, tokenInfo);
+    }
   };
 
   //모달을 닫을 때 초기화

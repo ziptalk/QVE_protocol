@@ -1,56 +1,63 @@
 import styled from "styled-components";
 import logo from "../assets/img/logo.png";
-import menu from "../assets/img/Menu.png";
 import Navbar from "../page/mainPage/component/navbar";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOutsideClick } from "../hooks/useOutsideClick";
+import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+
 const HeaderContainer = styled.div`
-  position: fixed;
+  position: relative;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
   background-color: #292932;
-  height: 77px;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
 `;
-
 const Logo = styled.img`
-  position: fixed;
-  left: 20px;
-  top: 25px;
-  bottom: 23.5;
-  cursor: pointer;
-  width: 75px;
-  height: 30px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  display: flex;
+  height: 42px;
+  margin-top: 2px;
 `;
-
 const Menu = styled.div`
-  position: fixed;
-  top: 31px;
-  bottom: 23.5;
-  right: 20px;
-  width: 24px;
-  height: 24px;
-  flex: none;
-  order: 1;
-  flex-grow: 0;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;
-
-const EContainer = styled.div``;
 
 function Header() {
+  const { connected, disconnect, account } = useWallet();
+
   const navigate = useNavigate();
   const ref = useRef(null);
   const [isOpen, setIsOpen] = useOutsideClick(ref, false);
+  let walletAddressRef = useRef("");
+
+  if (account && walletAddressRef.current !== account.address) {
+    localStorage.setItem("user", account.address);
+    localStorage.setItem("publicKey", account.publicKey);
+  }
 
   return (
     <HeaderContainer>
       <Logo src={logo} onClick={() => navigate("/")}></Logo>
       <Menu ref={ref}>
+        {/* <WalletSelector />
+        <button
+          className={`bg-blue-500  text-white font-bold py-2 px-4 rounded mr-4 ${
+            !connected ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+          }`}
+          onClick={disconnect}
+          disabled={!connected}
+          style={{
+            marginLeft: "10px",
+            display: connected ? "inline" : "none",
+            background: "coral",
+          }}
+        >
+          Disconnect
+        </button> */}
         <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
       </Menu>
     </HeaderContainer>
