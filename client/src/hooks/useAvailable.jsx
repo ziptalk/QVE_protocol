@@ -17,6 +17,16 @@ const DEFAULT_TOKENS_INFO = {
     available: 0,
     rate: 1,
   },
+  mQVE: {
+    isExisted: false,
+    available: 0,
+    rate: 1,
+  },
+  QVE: {
+    isExisted: false,
+    available: 0,
+    rate: 1,
+  },
 };
 
 /**
@@ -31,6 +41,8 @@ export const useAvailable = (dependency) => {
   const APT_EXCHANGE_RATE = 1;
   const USDT_EXCHANGE_RATE = 1;
   const USDC_EXCHANGE_RATE = 1;
+  const mQVE_EXCHANGE_RATE = 1;
+  const QVE_EXCHANGE_RATE = 1;
 
   const getAptosWallet = () => {
     if ("aptos" in window) {
@@ -99,9 +111,27 @@ export const useAvailable = (dependency) => {
               rate: USDT_EXCHANGE_RATE,
             },
           };
+        } else if (value.type.includes("mQVE")) {
+          newObj = {
+            ...newObj,
+            mQVE: {
+              isExisted: true,
+              available: Number(value.data.coin.value) / 10 ** 8,
+              rate: mQVE_EXCHANGE_RATE,
+            },
+          };
+        } else if (value.type.includes("QVE")) {
+          newObj = {
+            ...newObj,
+            QVE: {
+              isExisted: true,
+              available: Number(value.data.coin.value) / 10 ** 8,
+              rate: QVE_EXCHANGE_RATE,
+            },
+          };
         }
       });
-      setTokenInfo(newObj);
+      setTokenInfo({ ...tokenInfo, ...newObj });
     }
   }, [values]);
 

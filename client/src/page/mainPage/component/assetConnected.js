@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Web3 from "web3";
 import Contract from "../../../assets/contract/contract";
 import ContractAddress from "../../../assets/contract/contractAddress";
+import { useAvailable } from "../../../hooks/useAvailable";
 
 const Asset = styled.div`
   /* Heading 2 */
@@ -149,6 +150,7 @@ function AssetConnected({
   const [stakedArbQve, setStakedArbQve] = useState("");
   const [connected, setConnected] = useState("");
   const navigate = useNavigate();
+  const [available] = useAvailable();
 
   //Metamask 미설치시, 에러 발생 방지
   const [metaMask, setMetamMask] = useState(false);
@@ -321,7 +323,8 @@ function AssetConnected({
                 color: "#B7B8CD",
               }}
             >
-              {(arbQve / 10 ** 18).toFixed(2)} mQVE
+              {/* {(arbQve / 10 ** 18).toFixed(2)} mQVE */}
+              {available.mQVE.available.toFixed(2)} mQVE
             </Text>
             <EContainer
               style={{ display: "flex", flexDirection: "column", gap: 3 }}
@@ -367,7 +370,7 @@ function AssetConnected({
                 color: "#B7B8CD",
               }}
             >
-              {(qve / 10 ** 18).toFixed(2)} QVE
+              {available.QVE.available.toFixed(2)} QVE
             </Text>
             <EContainer
               style={{ display: "flex", flexDirection: "column", gap: 3 }}
