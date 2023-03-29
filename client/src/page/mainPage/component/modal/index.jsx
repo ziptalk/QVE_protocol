@@ -1,48 +1,105 @@
-import styled from "styled-components";
-import XImg from "../../../../assets/img/x.png";
-import Favicon from "../../../../assets/img/Favicon.png";
-import { Label, TOKEN } from "./common";
-import Dropdown from "./Dropdown";
-import EnterAmount from "./EnterAmount";
-import ConfirmDeposit from "./ConfirmDeposit";
-import Result from "./Result";
-import { useState, useEffect } from "react";
-import { useAvailable } from "../../../../hooks/useAvailable";
+import styled from "styled-components"
+import XImg from "../../../../assets/img/x.png"
+import Favicon from "../../../../assets/img/Favicon.png"
+import { Label, TOKEN } from "./common"
+import Dropdown from "./Dropdown"
+import EnterAmount from "./EnterAmount"
+import ConfirmDeposit from "./ConfirmDeposit"
+import Result from "./Result"
+import { useState, useEffect } from "react"
+import { useAvailable } from "../../../../hooks/useAvailable"
+import { useWallet } from "@aptos-labs/wallet-adapter-react"
+import { AptosClient } from "aptos"
+import { AptosPriceServiceConnection } from "@pythnetwork/pyth-aptos-js"
 
-const STAGES = [Dropdown, EnterAmount, ConfirmDeposit, Result];
+const STAGES = [Dropdown, EnterAmount, ConfirmDeposit, Result]
 
 const DEFAULT_VALUES = {
   available: 0,
   dolar: 0,
   input: "",
   rate: 0,
-};
+}
+
+export const DEVNET_NODE_URL = "https://fullnode.devnet.aptoslabs.com/v1"
+
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+})
 
 /**
  * Deposit 모달
  */
 const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
-  const [curStage, setCurStage] = useState(0);
-  const [token, setToken] = useState(TOKEN[0]);
-  const [values, setValues] = useState(DEFAULT_VALUES);
-  const [tokenInfo] = useAvailable(preWalletCount);
+  const {
+    connected,
+    disconnect,
+    account,
+    network,
+    wallet,
+    signAndSubmitTransaction,
+    signTransaction,
+    signMessage,
+    signMessageAndVerify,
+  } = useWallet()
 
-  const CurStage = STAGES[curStage];
+  const connection = new AptosPriceServiceConnection(
+    "https://xc-testnet.pyth.network"
+  )
+  const priceId = [
+    "0x44a93dddd8effa54ea51076c4e851b6cbbfd938e82eb90197de38fe8876bb66e", // APT/USD price id in testnet
+  ]
+
+  const [successAlertMessage, setSuccessAlertMessage] = useState("")
+  const [errorAlertMessage, setErrorAlertMessage] = useState("")
+
+  const onSignAndSubmitTransaction = async () => {
+    const priceUpdateData = await connection.getPriceFeedsUpdateData(priceId)
+
+    const payload = {
+      type: "entry_function_payload",
+      function:
+        "0x3d66336ac061c96e01e7b7a96092330217d91485a69d141fc785324e4ce9c51e::deposit_mint::get_btc_usd_price",
+      type_arguments: [],
+      arguments: [priceUpdateData],
+    }
+
+    try {
+      const response = await signAndSubmitTransaction(payload)
+      await aptosClient.waitForTransaction(response?.hash || "")
+      setSuccessAlertMessage(
+        `https://explorer.aptoslabs.com/txn/${response?.hash}`
+      )
+    } catch (error) {
+      console.log("error", error)
+      setErrorAlertMessage(error)
+    }
+  }
+  const [curStage, setCurStage] = useState(0)
+  const [token, setToken] = useState(TOKEN[0])
+  const [values, setValues] = useState(DEFAULT_VALUES)
+  const [tokenInfo] = useAvailable(preWalletCount)
+
+  const CurStage = STAGES[curStage]
 
   const onEnd = () => {
-    if (curStage !== STAGES.length - 1) setCurStage((prev) => prev + 1);
-  };
+    if (curStage !== STAGES.length - 2) setCurStage((prev) => prev + 1)
+    else {
+      onSignAndSubmitTransaction()
+      console.log("this thing should be changed", token, values, tokenInfo)
+    }
+  }
 
   //모달을 닫을 때 초기화
   useEffect(() => {
-    setCurStage(0);
-    setToken(TOKEN[0]);
+    setCurStage(0)
+    setToken(TOKEN[0])
     setValues({
       ...values,
       available: tokenInfo.APT.available,
       rate: tokenInfo.APT.rate,
-    });
-  }, [preWalletCount]);
+    })
+  }, [preWalletCount])
 
   //토큰 선택시 해당 토큰 정보를 상태에 담음
   useEffect(() => {
@@ -50,8 +107,8 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
       ...values,
       available: tokenInfo[token.name].available,
       rate: tokenInfo[token.name].rate,
-    });
-  }, [token]);
+    })
+  }, [token])
 
   return (
     <ModalContainer>
@@ -80,8 +137,8 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
         preWalletCount={preWalletCount}
       />
     </ModalContainer>
-  );
-};
+  )
+}
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -95,7 +152,7 @@ const ModalContainer = styled.div`
   padding: 50px 20px 20px 20px;
   z-index: 30;
   gap: 20px;
-`;
+`
 
 const Xbtn = styled.img`
   width: 19px;
@@ -104,7 +161,7 @@ const Xbtn = styled.img`
   position: absolute;
   top: 35px;
   right: 30px;
-`;
+`
 
 const LogoWrapper = styled.div`
   width: 100%;
@@ -112,11 +169,11 @@ const LogoWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 3px;
-`;
+`
 
 const Logo = styled.img`
   width: 45px;
   height: auto;
-`;
+`
 
-export default ModalWrapper;
+export default ModalWrapper

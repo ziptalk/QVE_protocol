@@ -1,53 +1,51 @@
-import styled from "styled-components";
-import Menu from "../../../assets/img/Menu.png";
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import DepositImg from "../../../assets/img/Deposit.svg";
-import PortfolioImg from "../../../assets/img/PortfolioImg.svg";
-import StakeImg from "../../../assets/img/Staking.svg";
-import PoolImg from "../../../assets/img/Liquidity.svg";
-import SwapImg from "../../../assets/img/SwapImg.svg";
-import Web3 from "web3";
+import styled from "styled-components"
+import Menu from "../../../assets/img/Menu.png"
+import { useState, useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import DepositImg from "../../../assets/img/Deposit.svg"
+import PortfolioImg from "../../../assets/img/PortfolioImg.svg"
+import StakeImg from "../../../assets/img/Staking.svg"
+import PoolImg from "../../../assets/img/Liquidity.svg"
+import SwapImg from "../../../assets/img/SwapImg.svg"
 
 function Navbar({ isOpen, setIsOpen }) {
   // const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const options = ["Deposit", "Swap", "Pool", "Stake", "Disconnect"];
-  let option = [];
-  const toggling = () => setIsOpen(!isOpen);
-  const web3 = new Web3(window.ethereum);
+  const [selectedOption, setSelectedOption] = useState(null)
+  const options = ["Deposit", "Swap", "Pool", "Stake", "Disconnect"]
+  let option = []
+  const toggling = () => setIsOpen(!isOpen)
   for (let i = 0; i < options.length; i++) {
     if (i === options.length - 1) {
       if (localStorage.getItem("user") == null) {
-        option.push("Connect Wallet");
+        option.push("Connect Wallet")
       } else {
-        option.push("Disconnect");
+        option.push("Disconnect")
       }
     } else {
-      option.push(options[i]);
+      option.push(options[i])
       // console.log('push is happening');
     }
   }
   // console.log('option is', option);
 
   const onOptionClicked = (value) => () => {
-    setSelectedOption(value);
-    setIsOpen(false);
-  };
+    setSelectedOption(value)
+    setIsOpen(false)
+  }
 
   async function Connect() {
-    console.log("connnect");
+    console.log("connnect")
     try {
-      await window.aptos.connect();
-      const account = await window.aptos.account();
-      localStorage.setItem("user", JSON.stringify(account.address));
-      window.location.reload();
+      await window.aptos.connect()
+      const account = await window.aptos.account()
+      localStorage.setItem("user", JSON.stringify(account.address))
+      window.location.reload()
     } catch (error) {
-      console.log("errrrrrrrorrrrrr");
+      console.log("errrrrrrrorrrrrr")
     }
   }
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   //   const getAptosWallet = () => {
   //     if ('aptos' in window) {
@@ -61,28 +59,28 @@ function Navbar({ isOpen, setIsOpen }) {
 
   async function PageSelected() {
     if (selectedOption == "Deposit") {
-      navigate("/mainPage");
+      navigate("/mainPage")
     }
     if (selectedOption == "Portfolios") {
-      navigate("/mainPage");
+      navigate("/mainPage")
     }
     if (selectedOption == "Swap") {
-      navigate("/swapPage");
+      navigate("/swapPage")
     }
     if (selectedOption == "Pool") {
-      navigate("/poolPage");
+      navigate("/poolPage")
     }
     if (selectedOption == "Stake") {
-      navigate("/stakePage");
+      navigate("/stakePage")
     }
     if (selectedOption == "Connect Wallet") {
       // localStorage.setItem('preWalletCount', JSON.stringify(9));
-      Connect();
+      Connect()
     }
     if (selectedOption == "Disconnect") {
-      localStorage.removeItem("user");
-      window.aptos.disconnect();
-      window.location.reload();
+      localStorage.removeItem("user")
+      window.aptos.disconnect()
+      window.location.reload()
     }
     // if (selectedOption =="Connect Wallet") {
 
@@ -93,8 +91,8 @@ function Navbar({ isOpen, setIsOpen }) {
   // console.log("Account iSSSSSSS", localStorage.getItem("user"));
   // console.log("SELECTED OPTION", selectedOption);
   useEffect(() => {
-    PageSelected();
-  }, [selectedOption]);
+    PageSelected()
+  }, [selectedOption])
 
   return (
     <>
@@ -164,23 +162,25 @@ function Navbar({ isOpen, setIsOpen }) {
         </DropDownListContainer>
       )}
     </>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
 
 const MenuBar = styled.img`
+  margin-left: 10px;
   width: 24px;
   height: 24px;
   cursor: pointer;
-`;
+`
 
-const EContainer = styled.div``;
+const EContainer = styled.div``
 
 const DropDownListContainer = styled("div")`
   position: absolute;
-  right: 0;
-`;
+  right: 20px;
+  top: 70px;
+`
 
 const DropDownList = styled("ul")`
   box-sizing: border-box;
@@ -196,7 +196,7 @@ const DropDownList = styled("ul")`
   flex-direction: column;
   align-items: center;
   gap: 5px;
-`;
+`
 
 const ListItem = styled("li")`
   display: flex;
@@ -213,7 +213,7 @@ const ListItem = styled("li")`
     width: 100%;
   }
   border-radius: 10px;
-`;
+`
 
 const Button = styled.button`
   all: unset;
@@ -230,4 +230,4 @@ const Button = styled.button`
   background: #5c5e81;
   border-radius: 21px;
   margin-top: 3px;
-`;
+`
