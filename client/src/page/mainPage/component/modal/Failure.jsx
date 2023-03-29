@@ -1,31 +1,15 @@
 import styled from "styled-components";
-import Check from "../../../../assets/img/check.svg";
-import xMark from "../../../../assets/img/xmark.svg";
 import Deposit2 from "../../../../assets/img/Deposit2.svg";
 import { Heading3, Input } from "./common";
-import LoadingSpinner from "../../../../common/LoadingSpinner";
+import xMark from "../../../../assets/img/xmark.svg";
 
-const Result = ({ loading, err }) => {
+const Failure = () => {
   return (
     <Container>
-      {loading ? (
-        <>
-          <LoadingWrapper>
-            <LoadingSpinner />
-          </LoadingWrapper>
-          <div style={{ width: 33, height: 33 }} />
-        </>
-      ) : // <Logo src={err ? xMark : Check} />
-      err ? (
-        <FailureIcon src={xMark} />
-      ) : (
-        <Logo src={Check} />
-      )}
-      <Heading3 style={{ color: "white" }}>
-        {err ? "Transaction Failed" : "Transaction Successfull"}
-      </Heading3>
+      <Logo src={xMark} />
+      <Heading3 style={{ color: "white" }}>Transaction Failed</Heading3>
       <LinkLine>
-        <Input>{err ? "Try Again Please!" : "View Explorerr"}</Input>
+        <Input>Try again please</Input>
         <img src={Deposit2} style={{ height: 24, width: "auto" }} />
       </LinkLine>
     </Container>
@@ -64,9 +48,4 @@ const LinkLine = styled.span`
   cursor: pointer;
 `;
 
-const FailureIcon = styled.img`
-  width: 25px;
-  height: 25px;
-`;
-
-export default Result;
+export default Failure;

@@ -6,6 +6,7 @@ import Dropdown from "./Dropdown";
 import EnterAmount from "./EnterAmount";
 import ConfirmDeposit from "./ConfirmDeposit";
 import Result from "./Result";
+import Failure from "./Failure";
 import { useState, useEffect } from "react";
 import { useAvailable } from "../../../../hooks/useAvailable";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
@@ -31,17 +32,7 @@ const aptosClient = new AptosClient(DEVNET_NODE_URL, {
  * Deposit 모달
  */
 const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
-  const {
-    connected,
-    disconnect,
-    account,
-    network,
-    wallet,
-    signAndSubmitTransaction,
-    signTransaction,
-    signMessage,
-    signMessageAndVerify,
-  } = useWallet();
+  const { signAndSubmitTransaction } = useWallet();
 
   const connection = new AptosPriceServiceConnection(
     "https://xc-testnet.pyth.network"
@@ -51,8 +42,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
   ];
 
   const [successAlertMessage, setSuccessAlertMessage] = useState("");
-  const [errorAlertMessage, setErrorAlertMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const moduleAddress =
     "0x7ced9822447b29b33304877b6fff04edb9e5924c0d50ad76219cf206f26e7baa";
@@ -73,30 +63,31 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
       setSuccessAlertMessage(
         `https://explorer.aptoslabs.com/txn/${response?.hash}`
       );
-      return true;
+      return "success";
     } catch (error) {
-      console.log("error", error);
-      setErrorAlertMessage(error);
-      return false;
+      return "err";
     }
   };
+
   const [curStage, setCurStage] = useState(0);
   const [token, setToken] = useState(TOKEN[0]);
   const [values, setValues] = useState(DEFAULT_VALUES);
   const [tokenInfo] = useAvailable(preWalletCount);
+  const [err, setErr] = useState(false);
 
   const CurStage = STAGES[curStage];
 
   const onEnd = () => {
-    if (curStage !== STAGES.length - 2) setCurStage((prev) => prev + 1);
+    if (curStage < STAGES.length - 2) setCurStage((prev) => prev + 1);
     else {
       setCurStage((prev) => prev + 1);
       setLoading(true);
       onSignAndSubmitTransaction().then((res) => {
-        if (res) setLoading(false);
+        console.log(res);
+        setLoading(false);
+        if (res === "success") setErr(false);
+        else if (res === "err") setErr(true);
       });
-
-      console.log("this thing should be changed", token, values, tokenInfo);
     }
   };
 
@@ -119,10 +110,6 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
       rate: tokenInfo[token.name].rate,
     });
   }, [token]);
-
-  useEffect(() => {
-    console.log(successAlertMessage);
-  }, []);
 
   return (
     <ModalContainer>
@@ -150,6 +137,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
         setValues={setValues}
         preWalletCount={preWalletCount}
         loading={loading}
+        err={err}
       />
     </ModalContainer>
   );
