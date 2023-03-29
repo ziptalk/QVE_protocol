@@ -11,6 +11,7 @@ import GoToTop from "../../common/GotoTop";
 import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
 import StakingModal from "./modal";
+import { useAvailable } from "../../hooks/useAvailable";
 
 function StakeArbQve({ setCount }) {
   const [amount, setAmount] = useState("");
@@ -22,6 +23,11 @@ function StakeArbQve({ setCount }) {
   const [modal, setModal] = useState(false);
   const [connected, setConnected] = useState("");
   const [arbQveBalance, setArbQveBalance] = useState("");
+  const [available] = useAvailable();
+
+  useEffect(() => {
+    setValues({ ...values, available: available.mQVE.available });
+  }, [available]);
 
   //솔리디티 관련 코드들
   //   const qveContract = Contract();
@@ -62,15 +68,19 @@ function StakeArbQve({ setCount }) {
 
   const onChangeInput = (e) => {
     const newNum = e.target.value;
-    newNum >= values.available
-      ? setValues({
-          ...values,
-          amount: values.available,
-        })
-      : setValues({
-          ...values,
-          amount: newNum,
-        });
+    if (newNum >= values.available) {
+      setValues({
+        ...values,
+        amount: values.available,
+      });
+      setMax(true);
+    } else {
+      setValues({
+        ...values,
+        amount: newNum,
+      });
+      setMax(false);
+    }
   };
 
   useEffect(() => {
@@ -390,15 +400,15 @@ function StakeArbQve({ setCount }) {
                   color: "#4A3CE8",
                 }}
               >
-                {`${values.available} QVE`}
+                {`${values.available.toFixed(2)} QVE`}
               </Text>
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {values.amount === "" ? (
+          {(values.amount === "") | (values.amount === 0) ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
-            <Button onClick={() => stakeArbQvePetra()}>Swap</Button>
+            <Button onClick={() => stakeArbQvePetra()}>Stake</Button>
           )}
         </StakeContainer>
       </EContainer>

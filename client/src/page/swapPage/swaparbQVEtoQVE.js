@@ -10,6 +10,8 @@ import ContractAddress from "../../assets/contract/contractAddress";
 import NotConnectedModal from "../../common/NotConnected";
 import { useAvailable } from "../../hooks/useAvailable";
 
+const MQVE_TO_QVE = 1;
+
 function SwaparbQVEtoQVE({ setIcon }) {
   const [depositAmount, setDepositAmount] = useState("");
   const [arbQvePriceSwap, setArbQvePriceSwap] = useState("");
@@ -22,12 +24,16 @@ function SwaparbQVEtoQVE({ setIcon }) {
   const [wallet, setWallet] = useState(null);
   const [max, setMax] = useState(false);
 
-  const [tokenInfo] = useAvailable();
+  const [available] = useAvailable();
 
   const [values, setValues] = useState({
     available: 0,
     amount: "",
   });
+
+  useEffect(() => {
+    setValues({ ...values, available: available.mQVE.available });
+  }, [available]);
 
   /**
    * Petra / Metamask 연동이 완료 되었는가
@@ -233,7 +239,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
                 <Text style={{ color: "#5C5E81" }}>Available</Text>
                 <EContainer style={{ width: "4px" }}></EContainer>
                 <Text style={{ color: "#4A3CE8" }}>
-                  {(values.available / 10 ** 18).toFixed(2)} mQVE
+                  {values.available.toFixed(2)} mQVE
                 </Text>
               </EContainer>
             </EContainer>
@@ -287,7 +293,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
                 <Image src={Qve} style={{ width: "31px", height: "32px" }} />
                 <Input
                   placeholder="Amount"
-                  value={values.amount}
+                  value={values.amount * MQVE_TO_QVE}
                   onChange={onInputAmount}
                 ></Input>
               </EContainer>
@@ -334,7 +340,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
                 <Text style={{ color: "#5C5E81" }}>Available</Text>
                 <EContainer style={{ width: "4px" }}></EContainer>
                 <Text style={{ color: "#4A3CE8" }}>
-                  {(values.available / 10 ** 18).toFixed(2)} QVE
+                  {available.QVE.available} QVE
                 </Text>
               </EContainer>
             </EContainer>
@@ -356,7 +362,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
                 color: "#B7B8CD",
               }}
             >
-              1 mQVE ≈ {(AtoB / 10 ** 18).toFixed(2)} QVE
+              1 mQVE ≈ {MQVE_TO_QVE.toFixed(2)} QVE
             </Text>
           </EContainer>
           <EContainer style={{ height: "20px" }}></EContainer>

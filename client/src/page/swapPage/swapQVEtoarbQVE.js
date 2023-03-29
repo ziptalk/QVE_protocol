@@ -11,6 +11,13 @@ import { useState } from "react";
 import Contract from "../../assets/contract/contract.js";
 import ContractAddress from "../../assets/contract/contractAddress";
 import { useEffect } from "react";
+import { useAvailable } from "../../hooks/useAvailable";
+
+/**
+ * QVE -> mQVE 전환시 비율
+ * 1QVE = 비율 * mQVE
+ */
+const QVE_TO_MQVE = 1;
 
 function SwapQVEtoarbQVE({ setIcon }) {
   const qveContract = Contract();
@@ -22,11 +29,16 @@ function SwapQVEtoarbQVE({ setIcon }) {
   const [BtoA, setBtoA] = useState("");
   const [maxQve, setMaxQve] = useState("");
   const [max, setMax] = useState(false);
+  const [available] = useAvailable();
 
   const [values, setValues] = useState({
     available: 0,
     amount: "",
   });
+
+  useEffect(() => {
+    setValues({ ...values, available: available.QVE.available });
+  }, [available]);
 
   //솔리디티 관련 코드들
   //   const web3 = new Web3(window.ethereum);
@@ -209,7 +221,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
                 <Text style={{ color: "#5C5E81" }}>Available</Text>
                 <EContainer style={{ width: "4px" }}></EContainer>
                 <Text style={{ color: "#4A3CE8" }}>
-                  {(values.available / 10 ** 18).toFixed(2)} QVE
+                  {values.available.toFixed(2)} QVE
                 </Text>
               </EContainer>
             </EContainer>
@@ -263,7 +275,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
                 <Image src={arbQve} style={{ width: "31px", height: "32px" }} />
                 <Input
                   placeholder="Amount"
-                  value={values.amount}
+                  value={values.amount * QVE_TO_MQVE}
                   onChange={onInputAmount}
                 ></Input>
               </EContainer>
@@ -310,7 +322,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
                 <Text style={{ color: "#5C5E81" }}>Available</Text>
                 <EContainer style={{ width: "4px" }}></EContainer>
                 <Text style={{ color: "#4A3CE8" }}>
-                  {(values.available / 10 ** 18).toFixed(2)} mQVE
+                  {available.mQVE.available.toFixed(2)} mQVE
                 </Text>
               </EContainer>
             </EContainer>
@@ -332,7 +344,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
                 color: "#B7B8CD",
               }}
             >
-              1 QVE ≈ {(BtoA / 10 ** 18).toFixed(2)} mQVE
+              1 QVE ≈ {QVE_TO_MQVE.toFixed(2)} mQVE
             </Text>
           </EContainer>
           <EContainer style={{ height: "20px" }}></EContainer>

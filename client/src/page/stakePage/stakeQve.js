@@ -11,6 +11,7 @@ import GoToTop from "../../common/GotoTop";
 import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
 import StakingModal from "./modal";
+import { useAvailable } from "../../hooks/useAvailable";
 
 function StakeQve({ setCount }) {
   const [amount, setAmount] = useState("");
@@ -22,10 +23,15 @@ function StakeQve({ setCount }) {
   //   let account = JSON.parse(localStorage.getItem("user"));
   const [values, setValues] = useState({
     amount: "",
-    available: 1.2345,
+    available: 0,
   });
   const [max, setMax] = useState(false);
   const [modal, setModal] = useState(false);
+  const [available] = useAvailable();
+
+  useEffect(() => {
+    setValues({ ...values, available: available.QVE.available });
+  }, [available]);
 
   //Move 코드
   function stakeQvePetra() {
@@ -60,15 +66,19 @@ function StakeQve({ setCount }) {
 
   const onChangeInput = (e) => {
     const newNum = e.target.value;
-    newNum >= values.available
-      ? setValues({
-          ...values,
-          amount: values.available,
-        })
-      : setValues({
-          ...values,
-          amount: newNum,
-        });
+    if (newNum >= values.available) {
+      setValues({
+        ...values,
+        amount: values.available,
+      });
+      setMax(true);
+    } else {
+      setValues({
+        ...values,
+        amount: newNum,
+      });
+      setMax(false);
+    }
   };
 
   useEffect(() => {
@@ -278,15 +288,15 @@ function StakeQve({ setCount }) {
                   color: "#4A3CE8",
                 }}
               >
-                {`${values.available} QVE`}
+                {`${values.available.toFixed(2)} QVE`}
               </Text>
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {values.amount === "" ? (
+          {values.amount === "" || values.amount === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
-            <Button onClick={() => stakeQvePetra()}>Swap</Button>
+            <Button onClick={() => stakeQvePetra()}>Stake</Button>
           )}
         </StakeContainer>
         <EContainer style={{ height: "25px" }} />
