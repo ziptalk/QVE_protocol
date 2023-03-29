@@ -38,6 +38,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
 
   useEffect(() => {
     setValues({ ...values, available: available.QVE.available });
+    if (available.QVE.available > values.amount) setMax(false);
   }, [available]);
 
   //솔리디티 관련 코드들

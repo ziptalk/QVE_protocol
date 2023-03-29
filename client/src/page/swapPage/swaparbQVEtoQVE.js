@@ -33,6 +33,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
 
   useEffect(() => {
     setValues({ ...values, available: available.mQVE.available });
+    if (available.mQVE.available > values.amount) setMax(false);
   }, [available]);
 
   /**
