@@ -22,10 +22,20 @@ const Result = ({ loading, err }) => {
         <Logo src={Check} />
       )}
       <Heading3 style={{ color: "white" }}>
-        {err ? "Transaction Failed" : "Transaction Successfull"}
+        {loading
+          ? "Transaction Loading..."
+          : err
+          ? "Transaction Failed"
+          : "Transaction Successfull"}
       </Heading3>
       <LinkLine>
-        <Input>{err ? "Try Again Please!" : "View Explorerr"}</Input>
+        <Input>
+          {loading
+            ? "Wait Please"
+            : err
+            ? "Try Again Please!"
+            : "View Explorerr"}
+        </Input>
         <img src={Deposit2} style={{ height: 24, width: "auto" }} />
       </LinkLine>
     </Container>

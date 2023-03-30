@@ -95,7 +95,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount, title }) => {
     setCurStage(0);
     setToken(TOKEN[0]);
     setValues({
-      ...values,
+      ...DEFAULT_VALUES,
       available: tokenInfo.APT.available,
       rate: tokenInfo.APT.rate,
     });
