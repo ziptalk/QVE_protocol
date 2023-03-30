@@ -58,6 +58,7 @@ function Main({
     axios
       .get("https://qve.today/portfolios/eth-btc-hedge-volatility/")
       .then((res) => {
+        console.log(JSON.stringify(res.data));
         setSecondPort(res.data);
       });
   };

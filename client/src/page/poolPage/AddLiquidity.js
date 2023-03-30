@@ -9,6 +9,7 @@ import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
 import Web3 from "web3";
 import { useAvailable } from "../../hooks/useAvailable";
+import Modal from "../../common/modal";
 
 const Outer = styled.div`
   display: flex;
@@ -137,14 +138,18 @@ function AddLiquidity({ setLiquidityCount }) {
   const [mQve, setMqve] = useState(0);
   const [qveMax, setQveMax] = useState(false);
   const [mqveMax, setMqveMax] = useState(false);
-
-  console.log(qve);
+  const [modal, setModal] = useState(false);
 
   //솔리디티 관련 코드들
   //   const [qvePrice, setQvePrice] = useState("");
   //   let account = JSON.parse(localStorage.getItem("user"));
   //   const qveContract = Contract();
   //   const Address = ContractAddress();
+
+  const onOpenModal = () => {
+    setModal(true);
+    AddingLiquidityPetra();
+  };
 
   function AddingLiquidityPetra() {
     const transaction = {
@@ -428,11 +433,21 @@ function AddLiquidity({ setLiquidityCount }) {
       </Container>
       <EContainer style={{ height: "15px" }} />
       {qve !== "" && mQve !== "" && qve !== 0 && mQve !== 0 ? (
-        <Button onClick={() => AddingLiquidityPetra()}>Swap</Button>
+        <Button onClick={() => onOpenModal()}>Swap</Button>
       ) : (
         <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
       )}
       <EContainer style={{ height: "100px" }} />
+      {modal ? (
+        <Modal
+          setModal={setModal}
+          title={"Adding Liquidity"}
+          subtitle={`Waiting for Add Liquidity to be\nincluded in the block`}
+          success={`Add Liquidity Successful!`}
+        />
+      ) : (
+        <></>
+      )}
     </Outer>
   );
 }
