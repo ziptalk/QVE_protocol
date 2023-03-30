@@ -93,6 +93,11 @@ function StakeQve({ setCount }) {
     }
   }, [values.amount]);
 
+  useEffect(() => {
+    if (available.QVE.available <= values.amount) setMax(false);
+    else if (available.QVE.available > values.amount) setMax(false);
+  }, [available.QVE.available]);
+
   return (
     <Background>
       <EContainer style={{ width: "90%", maxWidth: "374px" }}>
@@ -466,8 +471,9 @@ const [amount, setAmount] = useState('');
 const Background = styled.div`
   height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 45px;
 `;
 
 const EContainer = styled.div``;

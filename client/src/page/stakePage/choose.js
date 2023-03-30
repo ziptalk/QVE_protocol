@@ -32,7 +32,6 @@ function Choose({ setCount }) {
       setConnected(result);
     });
   } catch (error) {}
-  console.log(connected);
 
   return (
     <Background>
@@ -280,8 +279,9 @@ export default Choose;
 const Background = styled.div`
   height: 90vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 45px;
 `;
 
 const EContainer = styled.div``;
