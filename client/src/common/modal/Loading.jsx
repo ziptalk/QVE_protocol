@@ -5,7 +5,7 @@ import { useInterval } from "../../hooks/useInterval";
 
 const Loading = ({ setStage, title, subtitle }) => {
   useInterval(() => {
-    setStage((prev) => prev + 1);
+    setStage((prev) => prev + 2);
   }, 5000);
 
   return (

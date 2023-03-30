@@ -3,8 +3,9 @@ import Loading from "./Loading";
 import Result from "./Result";
 import XImg from "../../assets/img/x.png";
 import { useState } from "react";
+import Failure from "./Failure";
 
-const STAGES = [Loading, Result];
+const STAGES = [Loading, Result, Failure];
 
 const Modal = ({ setModal, customRef, title, subtitle, success }) => {
   const [curStage, setCurStage] = useState(0);
