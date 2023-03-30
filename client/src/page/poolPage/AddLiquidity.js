@@ -138,18 +138,18 @@ const aptosClient = new AptosClient(DEVNET_NODE_URL, {
 
 function AddLiquidity({ setLiquidityCount, rate }) {
   const { signAndSubmitTransaction } = useWallet();
-
-  const [amount, setAmount] = useState("");
   const [available] = useAvailable();
-  const [qve, setQve] = useState(0);
-  const [mQve, setMqve] = useState(0);
-  const [qveMax, setQveMax] = useState(false);
-  const [mqveMax, setMqveMax] = useState(false);
+  const POOL_RATE = Math.ceil(rate);
   const [modal, setModal] = useState(false);
-
-  const [successAlertMessage, setSuccessAlertMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(false);
+
+  const [values, setValues] = useState({
+    QVE: 0,
+    mQVE: 0,
+  });
+  const [maxValue, setMaxValue] = useState({ QVE: 0, mQVE: 0 });
+  const [max, setMax] = useState(false);
 
   const AddingLiquidityPetra = async () => {
     const moduleAddress = process.env.REACT_APP_MODULE_ADDRESS;
@@ -157,7 +157,7 @@ function AddLiquidity({ setLiquidityCount, rate }) {
     const payload = {
       type: "entry_function_payload",
       function: `${moduleAddress}::pool::add_liquidity_stable`,
-      arguments: [100000000 * qve, 100000000 * mQve],
+      arguments: [100000000 * values.QVE, 100000000 * values.mQVE],
       type_arguments: [
         `${moduleAddress}::coins::QVE`,
         `${moduleAddress}::coins::MQVE`,
@@ -167,9 +167,6 @@ function AddLiquidity({ setLiquidityCount, rate }) {
     try {
       const response = await signAndSubmitTransaction(payload);
       await aptosClient.waitForTransaction(response?.hash || "");
-      setSuccessAlertMessage(
-        `https://explorer.aptoslabs.com/txn/${response?.hash}`
-      );
       return "success";
     } catch (error) {
       return "err";
@@ -186,31 +183,45 @@ function AddLiquidity({ setLiquidityCount, rate }) {
     });
   };
 
-  const maximum = (token) => {
-    if (token === "qve") {
-      setQve(available.QVE.available);
-      setQveMax(true);
-    } else if (token === "mqve") {
-      setMqve(available.mQVE.available);
-      setMqveMax(true);
+  const onChangeInput = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    switch (name) {
+      case "QVE":
+        if (maxValue.QVE <= value) {
+          setValues({ QVE: maxValue.QVE, mQVE: maxValue.mQVE });
+          setMax(true);
+          break;
+        }
+        setValues({ QVE: value, mQVE: value * POOL_RATE });
+        setMax(false);
+        break;
+      case "mQVE":
+        if (available.mQVE.available <= value) {
+          setValues({ QVE: maxValue.QVE, mQVE: maxValue.mQVE });
+          setMax(true);
+          break;
+        }
+        setValues({ QVE: value / POOL_RATE, mQVE: value });
+        setMax(false);
+        break;
     }
   };
 
   useEffect(() => {
-    if (qve >= available.QVE.available) {
-      setQve(available.QVE.available);
-      setQveMax(true);
-    } else if (qve < available.QVE.available) setQveMax(false);
-    if (mQve >= available.mQVE.available) {
-      setMqve(available.mQVE.available);
-      setMqveMax(true);
-    } else if (mQve < available.mQVE.available) setMqveMax(false);
-  }, [qve, mQve]);
-
-  useEffect(() => {
-    if (available.QVE.available > qve) setQveMax(false);
-    if (available.mQVE.available > mQve) setMqveMax(false);
-  }, [available.QVE, available.mQVE]);
+    //QVE에게 맞춰야하는 상황
+    if (available.QVE.available * POOL_RATE <= available.mQVE.available)
+      setMaxValue({
+        QVE: available.QVE.available,
+        mQVE: available.QVE.available * POOL_RATE,
+      });
+    //mQVE한테 맞춰야하는 상황
+    else
+      setMaxValue({
+        QVE: available.mQVE.available / POOL_RATE,
+        mQVE: available.mQVE.available,
+      });
+  }, [available.QVE.available, available.mQVE.available]);
 
   useEffect(() => {
     setLoading(true);
@@ -251,15 +262,14 @@ function AddLiquidity({ setLiquidityCount, rate }) {
             <Input
               type="number"
               placeholder="Amount"
-              value={qve}
-              onChange={(e) => {
-                setQve(e.target.value);
-              }}
+              value={values.QVE}
+              name="QVE"
+              onChange={onChangeInput}
             ></Input>
           </EContainer>
           <MaxButton
-            onClick={() => maximum("qve")}
-            style={{ backgroundColor: qveMax ? "#5C5E81" : "#4a3ce8" }}
+            onClick={() => setValues(maxValue)}
+            style={{ backgroundColor: max ? "#5C5E81" : "#4a3ce8" }}
           >
             MAX
           </MaxButton>
@@ -361,15 +371,14 @@ function AddLiquidity({ setLiquidityCount, rate }) {
             <Input
               type="number"
               placeholder="Amount"
-              value={mQve}
-              onChange={(e) => {
-                setMqve(e.target.value);
-              }}
+              value={values.mQVE}
+              name="mQVE"
+              onChange={onChangeInput}
             ></Input>
           </EContainer>
           <MaxButton
-            onClick={() => maximum("mqve")}
-            style={{ backgroundColor: mqveMax ? "#5C5E81" : "#4a3ce8" }}
+            onClick={() => setValues(maxValue)}
+            style={{ backgroundColor: max ? "#5C5E81" : "#4a3ce8" }}
           >
             MAX
           </MaxButton>
@@ -438,7 +447,10 @@ function AddLiquidity({ setLiquidityCount, rate }) {
         </EContainer>
       </Container>
       <EContainer style={{ height: "15px" }} />
-      {qve !== "" && mQve !== "" && qve !== 0 && mQve !== 0 ? (
+      {values.QVE !== "" &&
+      values.QVE !== 0 &&
+      values.mQVE !== "" &&
+      values.mQVE !== 0 ? (
         <Button onClick={() => onOpenModal()}>Add Liquidity</Button>
       ) : (
         <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>

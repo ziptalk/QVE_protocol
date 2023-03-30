@@ -62,7 +62,7 @@ const CompositionContainer = styled.div`
   padding: "0px 13px 0px 13px";
 `;
 
-function Pool({ setLiquidityCount }) {
+function Pool({ setLiquidityCount, setRate }) {
   const [qveTotal, setQveTotal] = useState("");
   const [arbQveTotal, setArbQveTotal] = useState("");
 
@@ -78,6 +78,7 @@ function Pool({ setLiquidityCount }) {
   QVETotal.then((result) => {
     setQveTotal(result);
   });
+
   const poolTotal = (qveTotal / 10 ** 18 + arbQveTotal / 10 ** 18).toFixed(2);
 
   const [poolTotals, setPoolTotals] = useState([]);
@@ -111,6 +112,10 @@ function Pool({ setLiquidityCount }) {
   useEffect(() => {
     getPoolInfo();
   }, []);
+
+  useEffect(() => {
+    setRate(poolTotals[1] / poolTotals[0]);
+  }, [poolTotals]);
 
   return (
     <Container>

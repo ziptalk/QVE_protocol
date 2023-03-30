@@ -14,7 +14,8 @@ const BackgroundImage = styled.img``;
 function Main() {
   const [liquidityCount, setLiquidityCount] = useState(0);
   const [account, setAccount] = useState(null);
-  // console.log(liquidityCount)
+  const [rate, setRate] = useState(1);
+
   return (
     <Background>
       <EContainer style={{ height: "45px" }}></EContainer>
@@ -27,9 +28,9 @@ function Main() {
         }}
       >
         {liquidityCount === 0 ? (
-          <Pool setLiquidityCount={setLiquidityCount} />
+          <Pool setLiquidityCount={setLiquidityCount} setRate={setRate} />
         ) : (
-          <AddLiquidity setLiquidityCount={setLiquidityCount} />
+          <AddLiquidity setLiquidityCount={setLiquidityCount} rate={rate} />
         )}
       </EContainer>
     </Background>
