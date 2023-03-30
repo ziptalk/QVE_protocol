@@ -8,6 +8,8 @@ import PoolIcon from "../../assets/img/SwapIcon.png";
 import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
 import Web3 from "web3";
+import { useAvailable } from "../../hooks/useAvailable";
+
 const Outer = styled.div`
   display: flex;
   flex-direction: column;
@@ -52,6 +54,7 @@ const Input = styled.input`
   background: transparent;
   border: none;
   outline: none;
+  margin-left: 3px;
 
   /* Chrome, Safari, Edge, Opera */
   &::-webkit-outer-spin-button,
@@ -107,7 +110,6 @@ const MaxButton = styled.button`
   align-items: center;
   width: 47.78px;
   height: 27px;
-  background: #4a3ce8;
   border-radius: 16px;
   font-weight: 600;
   font-size: 12px;
@@ -115,11 +117,29 @@ const MaxButton = styled.button`
   color: #ffffff;
 `;
 
+const DEFAULT_LP = {
+  QVE: 0,
+  mQVE: 0,
+};
+
+const DEFAULT_MAX = {
+  QVE: false,
+  mQVE: false,
+};
+
 function AddLiquidity({ setLiquidityCount }) {
   const [token, setToken] = useState(0);
   const [connected, setConnected] = useState("");
   const web3 = new Web3(window.ethereum);
   const [amount, setAmount] = useState("");
+  const [available] = useAvailable();
+  const [qve, setQve] = useState(0);
+  const [mQve, setMqve] = useState(0);
+  const [qveMax, setQveMax] = useState(false);
+  const [mqveMax, setMqveMax] = useState(false);
+
+  console.log(qve);
+
   //솔리디티 관련 코드들
   //   const [qvePrice, setQvePrice] = useState("");
   //   let account = JSON.parse(localStorage.getItem("user"));
@@ -159,7 +179,33 @@ function AddLiquidity({ setLiquidityCount }) {
 
   //     updateQvePrice();
   // }, [amount])
-  console.log("amount is ", amount);
+
+  const maximum = (token) => {
+    if (token === "qve") {
+      setQve(available.QVE.available);
+      setQveMax(true);
+    } else if (token === "mqve") {
+      setMqve(available.mQVE.available);
+      setMqveMax(true);
+    }
+  };
+
+  useEffect(() => {
+    if (qve >= available.QVE.available) {
+      setQve(available.QVE.available);
+      setQveMax(true);
+    } else if (qve < available.QVE.available) setQveMax(false);
+    if (mQve >= available.mQVE.available) {
+      setMqve(available.mQVE.available);
+      setMqveMax(true);
+    } else if (mQve < available.mQVE.available) setMqveMax(false);
+  }, [qve, mQve]);
+
+  useEffect(() => {
+    if (available.QVE.available > qve) setQveMax(false);
+    if (available.mQVE.available > mQve) setMqveMax(false);
+  }, [available.QVE, available.mQVE]);
+
   return (
     <Outer>
       <GoToTop />
@@ -194,11 +240,18 @@ function AddLiquidity({ setLiquidityCount }) {
             <Input
               type="number"
               placeholder="Amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              value={qve}
+              onChange={(e) => {
+                setQve(e.target.value);
+              }}
             ></Input>
           </EContainer>
-          <MaxButton>MAX</MaxButton>
+          <MaxButton
+            onClick={() => maximum("qve")}
+            style={{ backgroundColor: qveMax ? "#5C5E81" : "#4a3ce8" }}
+          >
+            MAX
+          </MaxButton>
         </EContainer>
         <EContainer style={{ height: "9.5px" }} />
         <EContainer
@@ -258,7 +311,7 @@ function AddLiquidity({ setLiquidityCount }) {
                 color: "#4A3CE8",
               }}
             >
-              0 QVE
+              {available.QVE.available.toFixed(2)} QVE
             </Text>
           </EContainer>
         </EContainer>
@@ -297,11 +350,18 @@ function AddLiquidity({ setLiquidityCount }) {
             <Input
               type="number"
               placeholder="Amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              value={mQve}
+              onChange={(e) => {
+                setMqve(e.target.value);
+              }}
             ></Input>
           </EContainer>
-          <MaxButton>MAX</MaxButton>
+          <MaxButton
+            onClick={() => maximum("mqve")}
+            style={{ backgroundColor: mqveMax ? "#5C5E81" : "#4a3ce8" }}
+          >
+            MAX
+          </MaxButton>
         </EContainer>
         <EContainer style={{ height: "9.5px" }} />
         <EContainer
@@ -361,16 +421,16 @@ function AddLiquidity({ setLiquidityCount }) {
                 color: "#4A3CE8",
               }}
             >
-              0 mQVE
+              {available.mQVE.available.toFixed(2)} mQVE
             </Text>
           </EContainer>
         </EContainer>
       </Container>
       <EContainer style={{ height: "15px" }} />
-      {amount === "" ? (
-        <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
-      ) : (
+      {qve !== "" && mQve !== "" && qve !== 0 && mQve !== 0 ? (
         <Button onClick={() => AddingLiquidityPetra()}>Swap</Button>
+      ) : (
+        <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
       )}
       <EContainer style={{ height: "100px" }} />
     </Outer>
