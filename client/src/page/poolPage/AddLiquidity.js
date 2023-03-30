@@ -51,7 +51,7 @@ const Input = styled.input`
   line-height: 24px;
   text-align: left;
   letter-spacing: 0.02em;
-  color: #b7b8cd;
+  color: #ffffff;
   background: transparent;
   border: none;
   outline: none;
