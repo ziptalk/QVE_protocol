@@ -87,7 +87,7 @@ function Main({ setSelectedOption }) {
   return (
     <Background>
       <EContainer style={{ maxWidth: "374px" }}>
-        <EContainer style={{ height: "159px" }}></EContainer>
+        <EContainer style={{ height: "90px" }}></EContainer>
         <Text
           style={{
             fontWeight: "500",

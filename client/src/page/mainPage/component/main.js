@@ -246,7 +246,7 @@ function Main({
       <ContainerAll
         style={{ filter: preWalletCount != null ? "blur(0px)" : "blur(0px)" }}
       >
-        <EContainer style={{ height: "105px" }}></EContainer>
+        <EContainer style={{ height: "35px" }}></EContainer>
         <StrategyContainer>
           <Text>Strategy Selector</Text>
         </StrategyContainer>
@@ -277,7 +277,7 @@ function Main({
           <FirstContainer>
             <EContainer style={{ height: "12px" }}></EContainer>
             <ChartContainer>
-              <EContainer style={{ position: "absolute", top: "107px" }}>
+              <EContainer style={{ position: "absolute", top: "37px" }}>
                 <DropDown
                   selectedOption={selectedOption}
                   setSelectedOption={setSelectedOption}

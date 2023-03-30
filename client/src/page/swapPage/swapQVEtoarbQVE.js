@@ -127,7 +127,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
 
   return (
     <Background>
-      <EContainer style={{ height: "132px" }}></EContainer>
+      <EContainer style={{ height: "45px" }}></EContainer>
       <EContainer style={{ width: "90%", maxWidth: "374px" }}>
         <Text
           style={{ fontWeight: "700", fontSize: "24px", lineHeight: "36px" }}

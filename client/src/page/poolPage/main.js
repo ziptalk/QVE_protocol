@@ -5,7 +5,7 @@ import Pool from "./Pool";
 import AddLiquidity from "./AddLiquidity";
 const Background = styled.div`
   background-color: #1b1a1e;
-  height: 100%;
+  height: 180%;
 `;
 
 const EContainer = styled.div``;
@@ -17,7 +17,7 @@ function Main() {
   // console.log(liquidityCount)
   return (
     <Background>
-      <EContainer style={{ height: "132px" }}></EContainer>
+      <EContainer style={{ height: "45px" }}></EContainer>
       <EContainer
         style={{
           display: "flex",
