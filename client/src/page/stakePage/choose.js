@@ -3,9 +3,12 @@ import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
 import BackgroundImage from "../../assets/img/SwapImage.png";
 import { useState } from "react";
+import { CustomWalletSelector } from "../../common/CustomConnectButton";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 function Choose({ setCount }) {
-  const [connected, setConnected] = useState("");
+  // const [connected, setConnected] = useState("");
+  const { connected } = useWallet();
 
   const getAptosWallet = () => {
     if ("aptos" in window) {
@@ -16,22 +19,22 @@ function Choose({ setCount }) {
   };
   const wallet = getAptosWallet();
 
-  function Connect() {
-    console.log("connnect");
-    try {
-      wallet.connect();
-      const account = wallet.account();
-      localStorage.setItem("user", JSON.stringify(account.address));
-      window.location.reload();
-    } catch (error) {}
-  }
+  // function Connect() {
+  //   console.log("connnect");
+  //   try {
+  //     wallet.connect();
+  //     const account = wallet.account();
+  //     localStorage.setItem("user", JSON.stringify(account.address));
+  //     window.location.reload();
+  //   } catch (error) {}
+  // }
 
-  try {
-    let connectionStatus = window.aptos.isConnected();
-    connectionStatus.then((result) => {
-      setConnected(result);
-    });
-  } catch (error) {}
+  // try {
+  //   let connectionStatus = window.aptos.isConnected();
+  //   connectionStatus.then((result) => {
+  //     setConnected(result);
+  //   });
+  // } catch (error) {}
 
   return (
     <Background>
@@ -143,8 +146,9 @@ function Choose({ setCount }) {
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {localStorage.getItem("user") === null ? (
-            <Button onClick={() => Connect()}>Connect Wallet</Button>
+          {!connected ? (
+            // <Button onClick={() => Connect()}>Connect Wallet</Button>
+            <CustomWalletSelector style={{ height: 55, borderRadius: 16 }} />
           ) : (
             <Button
               onClick={() => {
@@ -257,8 +261,9 @@ function Choose({ setCount }) {
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {localStorage.getItem("user") === null ? (
-            <Button onClick={() => Connect()}>Connect Wallet</Button>
+          {!connected ? (
+            // <Button onClick={() => Connect()}>Connect Wallet</Button>
+            <CustomWalletSelector style={{ height: 55, borderRadius: 16 }} />
           ) : (
             <Button
               onClick={() => {

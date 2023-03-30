@@ -11,6 +11,8 @@ import SwapImg from "../../../assets/img/SwapImg.svg";
 import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
+import { CustomWalletSelector } from "../../../common/CustomConnectButton";
+
 function Navbar({ isOpen, setIsOpen }) {
   // const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -128,7 +130,7 @@ function Navbar({ isOpen, setIsOpen }) {
             {connected ? (
               <Button onClick={() => disconnectWallet()}>Disconnect</Button>
             ) : (
-              <WalletSelector style={{ marginTop: 10 }} />
+              <CustomWalletSelector type={"logo"} style={{ marginTop: 5 }} />
             )}
           </DropDownList>
         </DropDownListContainer>

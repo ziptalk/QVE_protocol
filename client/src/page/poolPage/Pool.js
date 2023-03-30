@@ -9,6 +9,8 @@ import ContractAddress from "../../assets/contract/contractAddress";
 import TotalLineImg from "../../assets/img/TotalLine.png";
 import { useState } from "react";
 import { Types } from "aptos";
+import { CustomWalletSelector } from "../../common/CustomConnectButton";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 const Container = styled.div`
   width: 90%;
   max-width: 374px;
@@ -65,11 +67,12 @@ const CompositionContainer = styled.div`
 function Pool({ setLiquidityCount }) {
   const [qveTotal, setQveTotal] = useState("");
   const [arbQveTotal, setArbQveTotal] = useState("");
-  const [connected, setConnected] = useState("");
+  // const [connected, setConnected] = useState("");
   const web3 = new Web3(window.ethereum);
   const qveContract = Contract();
   const arbQVETotal = qveContract.LiquidityContract.methods.getTotalA().call();
   const QVETotal = qveContract.LiquidityContract.methods.getTotalB().call();
+  const { connected } = useWallet();
   arbQVETotal.then((result) => {
     console.log(result);
     setArbQveTotal(result);
@@ -103,21 +106,21 @@ function Pool({ setLiquidityCount }) {
   };
   const wallet = getAptosWallet();
 
-  async function Connect() {
-    try {
-      await wallet.connect();
-      const account = await wallet.account();
-      localStorage.setItem("user", JSON.stringify(account.address));
-      setLiquidityCount(1)
-    } catch (error) {}
-  }
+  // async function Connect() {
+  //   try {
+  //     await wallet.connect();
+  //     const account = await wallet.account();
+  //     localStorage.setItem("user", JSON.stringify(account.address));
+  //     setLiquidityCount(1);
+  //   } catch (error) {}
+  // }
 
-  try {
-    let connectionStatus = window.aptos.isConnected();
-    connectionStatus.then((result) => {
-      setConnected(result);
-    });
-  } catch (error) {}
+  // try {
+  //   let connectionStatus = window.aptos.isConnected();
+  //   connectionStatus.then((result) => {
+  //     setConnected(result);
+  //   });
+  // } catch (error) {}
 
   // function getBalance() {
   //     Types.TransactionPayload_EntryFunctionPayload => {
@@ -382,8 +385,9 @@ function Pool({ setLiquidityCount }) {
         </CompositionContainer>
       </PoolContainer>
       <EContainer style={{ height: "20px" }} />
-      {localStorage.getItem('user') === null ? (
-        <Button onClick={() => Connect()}>Connect Wallet</Button>
+      {!connected ? (
+        // <Button onClick={() => Connect()}>Connect Wallet</Button>
+        <CustomWalletSelector style={{ height: 55, borderRadius: 16 }} />
       ) : (
         <Button
           style={{ background: "#4A3CE8", color: "#FFFFFF" }}

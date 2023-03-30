@@ -13,6 +13,8 @@ import ContractAddress from "../../assets/contract/contractAddress";
 import { useEffect } from "react";
 import { useAvailable } from "../../hooks/useAvailable";
 import Modal from "../../common/modal";
+import { CustomWalletSelector } from "../../common/CustomConnectButton";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 /**
  * QVE -> mQVE 전환시 비율
@@ -24,7 +26,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
   const qveContract = Contract();
   const Address = ContractAddress();
   const [depositAmount, setDepositAmount] = useState("");
-  const [connected, setConnected] = useState("");
+  // const [connected, setConnected] = useState("");
   const [qvePriceSwap, setQvePriceSwap] = useState("");
   const [arbQvePriceSwap, setArbQvePriceSwap] = useState("");
   const [BtoA, setBtoA] = useState("");
@@ -32,6 +34,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
   const [max, setMax] = useState(false);
   const [available] = useAvailable();
   const [modal, setModal] = useState(false);
+  const { connected } = useWallet();
 
   const [values, setValues] = useState({
     available: 0,
@@ -94,22 +97,22 @@ function SwapQVEtoarbQVE({ setIcon }) {
     SwapQVEtoArb();
   };
 
-  async function Connect() {
-    console.log("connnect");
-    try {
-      await wallet.connect();
-      const account = await wallet.account();
-      localStorage.setItem("user", JSON.stringify(account.address));
-      window.location.reload();
-    } catch (error) {}
-  }
+  // async function Connect() {
+  //   console.log("connnect");
+  //   try {
+  //     await wallet.connect();
+  //     const account = await wallet.account();
+  //     localStorage.setItem("user", JSON.stringify(account.address));
+  //     window.location.reload();
+  //   } catch (error) {}
+  // }
 
-  try {
-    let connectionStatus = wallet.isConnected();
-    connectionStatus.then((result) => {
-      setConnected(result);
-    });
-  } catch (error) {}
+  // try {
+  //   let connectionStatus = wallet.isConnected();
+  //   connectionStatus.then((result) => {
+  //     setConnected(result);
+  //   });
+  // } catch (error) {}
 
   const onInputAmount = (e) => {
     const newValues = {
@@ -357,8 +360,9 @@ function SwapQVEtoarbQVE({ setIcon }) {
           </EContainer>
           <EContainer style={{ height: "20px" }}></EContainer>
 
-          {localStorage.getItem("user") === null ? (
-            <Button onClick={() => Connect()}>Connect Wallet</Button>
+          {!connected ? (
+            // <Button onClick={() => Connect()}>Connect Wallet</Button>
+            <CustomWalletSelector style={{ height: 55, borderRadius: 16 }} />
           ) : values.amount === "" || values.amount === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (

@@ -10,6 +10,7 @@ import AssetConnected from "./assetConnected";
 import QveLoadingHead from "../../../assets/img/QveLoading1.png";
 import QveLoadingBase from "../../../assets/img/QveLoading2.svg";
 import DropDown from "./dropdown";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 function Main({
   selectedOption,
@@ -32,8 +33,11 @@ function Main({
   const [usdtContract, setUsdtContract] = useState(null);
   const [liquidityContract, setLiquidityContract] = useState(null);
   const [aptosBalance, setAptosBalance] = useState(null);
-  const [connected, setConnected] = useState("");
+  // const [connected, setConnected] = useState("");
   const [notConnected, setNotConnected] = useState(false);
+  const { connected } = useWallet();
+
+  console.log(connected);
 
   const fetchBalanceList = async () => {
     axios
@@ -58,7 +62,6 @@ function Main({
     axios
       .get("https://qve.today/portfolios/eth-btc-hedge-volatility/")
       .then((res) => {
-        console.log(JSON.stringify(res.data));
         setSecondPort(res.data);
       });
   };
@@ -336,7 +339,7 @@ function Main({
         </EContainer>
         <EContainer style={{ height: "52px" }}></EContainer>
         <AssetContainer>
-          {localStorage.getItem("user") === null ? (
+          {!connected ? (
             <MainWalletXPetra
               setAptosBalance={setAptosBalance}
               liquidityContract={liquidityContract}

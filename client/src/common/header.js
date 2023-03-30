@@ -4,7 +4,6 @@ import Navbar from "../page/mainPage/component/navbar";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useOutsideClick } from "../hooks/useOutsideClick";
-import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 const HeaderContainer = styled.div`

@@ -10,13 +10,15 @@ import ContractAddress from "../../assets/contract/contractAddress";
 import NotConnectedModal from "../../common/NotConnected";
 import { useAvailable } from "../../hooks/useAvailable";
 import Modal from "../../common/modal";
+import { CustomWalletSelector } from "../../common/CustomConnectButton";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 const MQVE_TO_QVE = 1;
 
 function SwaparbQVEtoQVE({ setIcon }) {
   const [depositAmount, setDepositAmount] = useState("");
   const [arbQvePriceSwap, setArbQvePriceSwap] = useState("");
-  const [connected, setConnected] = useState("");
+  // const [connected, setConnected] = useState("");
   const qveContract = Contract();
   const Address = ContractAddress();
   const [AtoB, setAtoB] = useState("");
@@ -25,6 +27,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
   const [wallet, setWallet] = useState(null);
   const [max, setMax] = useState(false);
   const [modal, setModal] = useState(false);
+  const { connected } = useWallet();
 
   const [available] = useAvailable();
 
@@ -97,16 +100,16 @@ function SwaparbQVEtoQVE({ setIcon }) {
   // get current connection status
   // console.log('conneectttttted', window.aptos.isConnected());
   // console.log('user is ', JSON.parse(localStorage.getItem('user')));
-  try {
-    let connectionStatus = wallet.isConnected();
-    connectionStatus.then((result) => {
-      setConnected(result);
-    });
-    // // event listener for disconnecting
-    // window.aptos.onDisconnect(() => {
-    //   connectionStatus = false;
-    // });
-  } catch (error) {}
+  // try {
+  //   let connectionStatus = wallet.isConnected();
+  //   connectionStatus.then((result) => {
+  //     setConnected(result);
+  //   });
+  //   // // event listener for disconnecting
+  //   // window.aptos.onDisconnect(() => {
+  //   //   connectionStatus = false;
+  //   // });
+  // } catch (error) {}
 
   function SwapArbtoQVE() {
     const transaction = {
@@ -375,10 +378,12 @@ function SwaparbQVEtoQVE({ setIcon }) {
           </EContainer>
           <EContainer style={{ height: "20px" }}></EContainer>
 
-          {localStorage.getItem("user") === null ? (
-            <Button onClick={() => Connect()}>Connect Wallet</Button>
+          {!connected ? (
+            <CustomWalletSelector style={{ height: 55 }} />
           ) : values.amount === "" || values.amount === 0 ? (
-            <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
+            <Button style={{ background: "#5C5E81", borderRadius: 16 }}>
+              Amount is Empty
+            </Button>
           ) : (
             <Button onClick={() => onSwap()}>Swap</Button>
           )}
