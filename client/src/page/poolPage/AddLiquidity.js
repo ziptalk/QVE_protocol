@@ -136,7 +136,7 @@ const aptosClient = new AptosClient(DEVNET_NODE_URL, {
   WITH_CREDENTIALS: false,
 });
 
-function AddLiquidity({ setLiquidityCount }) {
+function AddLiquidity({ setLiquidityCount, rate }) {
   const { signAndSubmitTransaction } = useWallet();
 
   const [amount, setAmount] = useState("");
@@ -211,6 +211,11 @@ function AddLiquidity({ setLiquidityCount }) {
     if (available.QVE.available > qve) setQveMax(false);
     if (available.mQVE.available > mQve) setMqveMax(false);
   }, [available.QVE, available.mQVE]);
+
+  useEffect(() => {
+    setLoading(true);
+    setErr(false);
+  }, [modal]);
 
   return (
     <Outer>

@@ -12,6 +12,13 @@ import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
 import { useAvailable } from "../../hooks/useAvailable";
 import Modal from "../../common/modal";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { AptosClient } from "aptos";
+
+const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+});
 
 function StakeQve({ setCount }) {
   const [amount, setAmount] = useState("");
@@ -28,28 +35,44 @@ function StakeQve({ setCount }) {
   const [max, setMax] = useState(false);
   const [modal, setModal] = useState(false);
   const [available] = useAvailable();
+  const { signAndSubmitTransaction } = useWallet();
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(false);
 
   useEffect(() => {
     setValues({ ...values, available: available.QVE.available });
   }, [available]);
 
   //Move 코드
-  function stakeQvePetra() {
-    //에러
-    // const transaction = {
-    //   type: "entry_function_aptos_transfer",
-    //   function:
-    //     "0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::stake::staked_Qve",
-    //   arguments: [amount * 10 ** 8],
-    //   type_arguments: [],
-    // };
+  const stakeQve = async () => {
+    const moduleAddress =
+      "0x98c572593f715bd814aef03711a5a5a1705b8eba67f1686a725502f55fc92bb9";
 
-    // window.aptos.signAndSubmitTransaction(transaction).then(() => {
-    //   console.log("전송 성공");
-    // });
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::coins::deposit_coin_entry`,
+      arguments: [100000000 * values.amount],
+      type_arguments: [`${moduleAddress}::coins::QVE`],
+    };
 
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      await aptosClient.waitForTransaction(response?.hash || "");
+      return "success";
+    } catch (error) {
+      return "err";
+    }
+  };
+
+  const onStake = () => {
     setModal(true);
-  }
+    stakeQve().then((res) => {
+      console.log(res);
+      setLoading(false);
+      if (res === "success") setErr(false);
+      else if (res === "err") setErr(true);
+    });
+  };
 
   //solidity 코드
   // function stakeQve() {
@@ -301,7 +324,7 @@ function StakeQve({ setCount }) {
           {values.amount === "" || values.amount === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
-            <Button onClick={() => stakeQvePetra()}>Stake</Button>
+            <Button onClick={() => onStake()}>Stake</Button>
           )}
         </StakeContainer>
         <EContainer style={{ height: "25px" }} />
@@ -418,6 +441,8 @@ function StakeQve({ setCount }) {
       {modal ? (
         <Modal
           setModal={setModal}
+          loading={loading}
+          err={err}
           title={"Staking Pool"}
           subtitle={"Waiting for staking pool to be\nincluded in the block"}
           success={"Transaction Successfull!"}

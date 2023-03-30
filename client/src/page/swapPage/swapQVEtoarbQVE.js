@@ -160,6 +160,11 @@ function SwapQVEtoarbQVE({ setIcon }) {
     }
   }, [values.amount]);
 
+  useEffect(() => {
+    setLoading(true);
+    setErr(false);
+  }, [modal]);
+
   return (
     <Background>
       <EContainer style={{ height: "45px" }}></EContainer>
