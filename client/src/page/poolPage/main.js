@@ -16,6 +16,9 @@ function Main() {
   const [account, setAccount] = useState(null);
   const [rate, setRate] = useState(1);
 
+  //퍼센트에이지, qve->mqve순서
+  const [rates, setRates] = useState([]);
+
   return (
     <Background>
       <EContainer style={{ height: "45px" }}></EContainer>
@@ -28,9 +31,17 @@ function Main() {
         }}
       >
         {liquidityCount === 0 ? (
-          <Pool setLiquidityCount={setLiquidityCount} setRate={setRate} />
+          <Pool
+            setLiquidityCount={setLiquidityCount}
+            setRate={setRate}
+            setRates={setRates}
+          />
         ) : (
-          <AddLiquidity setLiquidityCount={setLiquidityCount} rate={rate} />
+          <AddLiquidity
+            setLiquidityCount={setLiquidityCount}
+            rate={rate}
+            rates={rates}
+          />
         )}
       </EContainer>
     </Background>

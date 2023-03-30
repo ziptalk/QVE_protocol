@@ -62,7 +62,7 @@ const CompositionContainer = styled.div`
   padding: "0px 13px 0px 13px";
 `;
 
-function Pool({ setLiquidityCount, setRate }) {
+function Pool({ setLiquidityCount, setRate, setRates }) {
   const [qveTotal, setQveTotal] = useState("");
   const [arbQveTotal, setArbQveTotal] = useState("");
 
@@ -79,18 +79,7 @@ function Pool({ setLiquidityCount, setRate }) {
     setQveTotal(result);
   });
 
-  const poolTotal = (qveTotal / 10 ** 18 + arbQveTotal / 10 ** 18).toFixed(2);
-
   const [poolTotals, setPoolTotals] = useState([]);
-
-  const getAptosWallet = () => {
-    if ("aptos" in window) {
-      return window.aptos;
-    } else {
-      window.open("https://petra.app/", `_blank`);
-    }
-  };
-  const wallet = getAptosWallet();
 
   const getPoolInfo = async () => {
     const MODULE =
@@ -115,6 +104,10 @@ function Pool({ setLiquidityCount, setRate }) {
 
   useEffect(() => {
     setRate(poolTotals[1] / poolTotals[0]);
+    setRates([
+      ((poolTotals[0] / (poolTotals[0] + poolTotals[1])) * 100).toFixed(2),
+      ((poolTotals[1] / (poolTotals[0] + poolTotals[1])) * 100).toFixed(2),
+    ]);
   }, [poolTotals]);
 
   return (

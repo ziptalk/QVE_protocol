@@ -136,7 +136,7 @@ const aptosClient = new AptosClient(DEVNET_NODE_URL, {
   WITH_CREDENTIALS: false,
 });
 
-function AddLiquidity({ setLiquidityCount, rate }) {
+function AddLiquidity({ setLiquidityCount, rate, rates }) {
   const { signAndSubmitTransaction } = useWallet();
   const [available] = useAvailable();
   const POOL_RATE = Math.ceil(rate);
@@ -302,7 +302,7 @@ function AddLiquidity({ setLiquidityCount, rate }) {
                 color: "#5C5E81",
               }}
             >
-              50%
+              {rates[0]}%
             </Text>
           </EContainer>
           <EContainer
@@ -411,7 +411,7 @@ function AddLiquidity({ setLiquidityCount, rate }) {
                 color: "#5C5E81",
               }}
             >
-              50%
+              {rates[1]}%
             </Text>
           </EContainer>
           <EContainer
