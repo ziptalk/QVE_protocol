@@ -458,6 +458,7 @@ function AddLiquidity({ setLiquidityCount, rate, rates }) {
       <EContainer style={{ height: "100px" }} />
       {modal ? (
         <Modal
+          modal={modal}
           setModal={setModal}
           loading={loading}
           err={err}

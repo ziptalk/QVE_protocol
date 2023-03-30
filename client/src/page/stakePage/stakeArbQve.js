@@ -459,6 +459,7 @@ function StakeArbQve({ setCount }) {
       </EContainer>
       {modal ? (
         <Modal
+          modal={modal}
           loading={loading}
           err={err}
           setModal={setModal}

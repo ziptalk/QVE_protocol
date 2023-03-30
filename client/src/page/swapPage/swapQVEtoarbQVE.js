@@ -404,6 +404,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
       </EContainer>
       {modal ? (
         <Modal
+          modal={modal}
           setModal={setModal}
           loading={loading}
           err={err}

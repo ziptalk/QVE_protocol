@@ -8,6 +8,7 @@ import Failure from "./Failure";
 const STAGES = [Loading, Result, Failure];
 
 const Modal = ({
+  modal,
   setModal,
   loading,
   err,
@@ -23,6 +24,10 @@ const Modal = ({
     if (!loading && !err) setCurStage(curStage + 1);
     else if (!loading && err) setCurStage(curStage + 2);
   }, [loading, err]);
+
+  useEffect(() => {
+    setCurStage(0);
+  }, [modal]);
 
   return (
     <ModalBackground>

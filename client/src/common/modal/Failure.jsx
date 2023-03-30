@@ -21,14 +21,14 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   padding-bottom: 9px;
   position: relative;
 `;
 
 const Logo = styled.img`
-  width: 33px;
-  height: 33px;
+  width: 25px;
+  height: 25px;
 `;
 
 const LinkLine = styled.span`

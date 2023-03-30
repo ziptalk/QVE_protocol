@@ -426,6 +426,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
       )} */}
       {modal ? (
         <Modal
+          modal={modal}
           setModal={setModal}
           loading={loading}
           err={err}
