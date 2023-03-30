@@ -433,7 +433,7 @@ function AddLiquidity({ setLiquidityCount }) {
       </Container>
       <EContainer style={{ height: "15px" }} />
       {qve !== "" && mQve !== "" && qve !== 0 && mQve !== 0 ? (
-        <Button onClick={() => onOpenModal()}>Swap</Button>
+        <Button onClick={() => onOpenModal()}>Add Liquidity</Button>
       ) : (
         <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
       )}
