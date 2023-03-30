@@ -10,8 +10,8 @@ import ContractAddress from "../../assets/contract/contractAddress";
 import GoToTop from "../../common/GotoTop";
 import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
-import StakingModal from "./modal";
 import { useAvailable } from "../../hooks/useAvailable";
+import Modal from "../../common/modal";
 
 function StakeArbQve({ setCount }) {
   const [amount, setAmount] = useState("");
@@ -412,7 +412,16 @@ function StakeArbQve({ setCount }) {
           )}
         </StakeContainer>
       </EContainer>
-      {modal ? <StakingModal setModal={setModal} /> : <></>}
+      {modal ? (
+        <Modal
+          setModal={setModal}
+          title={"Staking Pool"}
+          subtitle={"Waiting for staking pool to be\nincluded in the block"}
+          success={"Transaction Successfull!"}
+        />
+      ) : (
+        <></>
+      )}
     </Background>
   );
 }
