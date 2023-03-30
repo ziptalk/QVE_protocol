@@ -526,7 +526,7 @@ function AssetConnected({
                   color: "#0FB63E",
                 }}
               >
-                + $ 100 (↑10%)
+                + $ 0 (↑0%)
               </Text>
               <Text
                 style={{
@@ -538,7 +538,7 @@ function AssetConnected({
                   justifyContent: "flex-end",
                 }}
               >
-                = $ 1,100
+                = $ 0
               </Text>
             </EContainer>
           </EContainer>
@@ -618,7 +618,7 @@ function AssetConnected({
                   color: "#0FB63E",
                 }}
               >
-                + $ 100 (↑10%)
+                + $ 0 (↑0%)
               </Text>
               <Text
                 style={{
@@ -630,7 +630,7 @@ function AssetConnected({
                   justifyContent: "flex-end",
                 }}
               >
-                = $ 1,100
+                = $ 0
               </Text>
             </EContainer>
           </EContainer>

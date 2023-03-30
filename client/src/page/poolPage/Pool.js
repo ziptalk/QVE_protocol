@@ -1,16 +1,14 @@
 import styled from "styled-components";
 import BothCoins from "../../assets/img/BothCoins.svg";
 import { ProgressBar } from "react-bootstrap";
-import LiquidityArtifact from "../../artifact/LiquidityPool.json";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Web3 from "web3";
 import Contract from "../../assets/contract/contract";
-import ContractAddress from "../../assets/contract/contractAddress";
 import TotalLineImg from "../../assets/img/TotalLine.png";
-import { useState } from "react";
-import { Types } from "aptos";
+import { useState, useEffect } from "react";
 import { CustomWalletSelector } from "../../common/CustomConnectButton";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import axios from "axios";
+
 const Container = styled.div`
   width: 90%;
   max-width: 374px;
@@ -67,8 +65,7 @@ const CompositionContainer = styled.div`
 function Pool({ setLiquidityCount }) {
   const [qveTotal, setQveTotal] = useState("");
   const [arbQveTotal, setArbQveTotal] = useState("");
-  // const [connected, setConnected] = useState("");
-  const web3 = new Web3(window.ethereum);
+
   const qveContract = Contract();
   const arbQVETotal = qveContract.LiquidityContract.methods.getTotalA().call();
   const QVETotal = qveContract.LiquidityContract.methods.getTotalB().call();
@@ -83,19 +80,7 @@ function Pool({ setLiquidityCount }) {
   });
   const poolTotal = (qveTotal / 10 ** 18 + arbQveTotal / 10 ** 18).toFixed(2);
 
-  // function getPoolBalance () {
-  //     // console.log("Deposit Aptos");
-  //     const transaction = {
-  //         type: "entry_function_aptos_transfer",
-  //         function: '0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::mint::getValueofPool',
-  //         arguments: [],
-  //         type_arguments: [],
-  //     };
-  //     window.aptos.signAndSubmitTransaction(transaction).then(() => {
-  //         // console.log("전송 성공");
-  //     })
-  //     //TODO 추후에 staking하는 코드 넣기
-  // }
+  const [poolTotals, setPoolTotals] = useState([]);
 
   const getAptosWallet = () => {
     if ("aptos" in window) {
@@ -106,57 +91,26 @@ function Pool({ setLiquidityCount }) {
   };
   const wallet = getAptosWallet();
 
-  // async function Connect() {
-  //   try {
-  //     await wallet.connect();
-  //     const account = await wallet.account();
-  //     localStorage.setItem("user", JSON.stringify(account.address));
-  //     setLiquidityCount(1);
-  //   } catch (error) {}
-  // }
+  const getPoolInfo = async () => {
+    const MODULE =
+      "0x98c572593f715bd814aef03711a5a5a1705b8eba67f1686a725502f55fc92bb9";
+    axios
+      .post("https://fullnode.testnet.aptoslabs.com/v1/view", {
+        function: `${MODULE}::pool::get_reserve_stable`,
+        type_arguments: [`${MODULE}::coins::QVE`, `${MODULE}::coins::MQVE`],
+        arguments: [],
+      })
+      .then((res) => {
+        // console.log(res.data.map((p) => Number(p) / 10 ** 8));
+        const newValue = res.data.map((p) => Number(p) / 10 ** 8);
+        setPoolTotals(newValue);
+      })
+      .catch((err) => console.log(err));
+  };
 
-  // try {
-  //   let connectionStatus = window.aptos.isConnected();
-  //   connectionStatus.then((result) => {
-  //     setConnected(result);
-  //   });
-  // } catch (error) {}
-
-  // function getBalance() {
-  //     Types.TransactionPayload_EntryFunctionPayload => {
-  //         return {
-  //             type: "entry_function_aptos_transfer",
-  //         function: '0x1fb229bbe295bdbc24439d3c66f6a76aa7af72894b752b1dc1aae1370ff20e2f::stake::a',
-  //         arguments: [],
-  //         type_arguments: [],
-  //         }
-  //     }
-
-  //     const transaction = {
-  //         type: "entry_function_aptos_transfer",
-  //         function: '0x1fb229bbe295bdbc24439d3c66f6a76aa7af72894b752b1dc1aae1370ff20e2f::stake::a',
-  //         arguments: [],
-  //         type_arguments: [],
-  //     };
-
-  //     // const balance = window.aptos.signMessage(transaction);
-  //     console.log('balance is ', transaction);
-  // }
-  // const payload: Gen.ViewRequest = {
-  //     function: "0x1::coin::balance",
-  //     type_arguments: ["0x1::aptos_coin::AptosCoin"],
-  //     arguments: ['0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07'],
-  //   };
-
-  //   const balance = client.view(payload);
-
-  // const payload: Gen.ViewRequest = {
-  //     function: "0x5de975bded5c55fd05eef4b9d0f5e8486f467c8dcc2bfedee416c1caa4ba5563::liqpool::LiquidityPool",
-  //     type_arguments: [],
-  //     arguments: [],
-  //   };
-
-  //   const balance = client.view(payload);
+  useEffect(() => {
+    getPoolInfo();
+  }, []);
 
   return (
     <Container>
@@ -327,10 +281,11 @@ function Pool({ setLiquidityCount }) {
                 color: "#B7B8CD",
               }}
             >
-              mQVE:{" "}
-              {((arbQveTotal / 10 ** 18).toFixed(2) / poolTotal).toFixed(2) *
-                100}
-              %
+              mQVE:
+              {` ${(
+                (poolTotals[1] / (poolTotals[0] + poolTotals[1])) *
+                100
+              ).toFixed(2)}%`}
             </Text>
             <Text
               style={{
@@ -341,8 +296,11 @@ function Pool({ setLiquidityCount }) {
                 color: "#B7B8CD",
               }}
             >
-              QVE:{" "}
-              {((qveTotal / 10 ** 18).toFixed(2) / poolTotal).toFixed(2) * 100}%
+              QVE:
+              {` ${(
+                (poolTotals[0] / (poolTotals[0] + poolTotals[1])) *
+                100
+              ).toFixed(2)}%`}
             </Text>
           </EContainer>
           <EContainer style={{ height: "15px" }} />
@@ -362,7 +320,7 @@ function Pool({ setLiquidityCount }) {
                 color: "#FFFFFF",
               }}
             >
-              {(arbQveTotal / 10 ** 18).toFixed(2)}
+              {poolTotals[1] ? poolTotals[1].toFixed(4) : 0.0}
             </Text>
             <Text
               style={{
@@ -373,14 +331,15 @@ function Pool({ setLiquidityCount }) {
                 color: "#FFFFFF",
               }}
             >
-              {(qveTotal / 10 ** 18).toFixed(2)}
+              {poolTotals[0] ? poolTotals[0].toFixed(4) : 0.0}
             </Text>
           </EContainer>
           <EContainer style={{ height: "20px" }} />
           <ProgressBar
-            now={
-              ((arbQveTotal / 10 ** 18).toFixed(2) / poolTotal).toFixed(2) * 100
-            }
+            now={(
+              (poolTotals[1] / (poolTotals[0] + poolTotals[1])) *
+              100
+            ).toFixed(2)}
           />
         </CompositionContainer>
       </PoolContainer>
