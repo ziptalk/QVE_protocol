@@ -31,7 +31,7 @@ const aptosClient = new AptosClient(DEVNET_NODE_URL, {
 /**
  * Deposit 모달
  */
-const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
+const ModalWrapper = ({ setPreWalletCount, preWalletCount, title }) => {
   const { signAndSubmitTransaction } = useWallet();
 
   const connection = new AptosPriceServiceConnection(
@@ -120,9 +120,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
             <Label style={{ fontWeight: 700, color: "white", marginTop: 5 }}>
               Deposit
             </Label>
-            <Label style={{ fontWeight: 400, color: "white" }}>
-              Market making
-            </Label>
+            <Label style={{ fontWeight: 400, color: "white" }}>{title}</Label>
           </LogoWrapper>
         </>
       ) : (
