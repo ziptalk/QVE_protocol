@@ -47,7 +47,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
   });
 
   const [successAlertMessage, setSuccessAlertMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(false);
 
   useEffect(() => {
@@ -93,7 +93,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
     const payload = {
       type: "entry_function_payload",
       function: `${moduleAddress}::pool::stable_swap`,
-      arguments: [100000000 * 1],
+      arguments: [100000000 * values.amount],
       type_arguments: [
         `${moduleAddress}::coins::QVE`,
         `${moduleAddress}::coins::MQVE`,

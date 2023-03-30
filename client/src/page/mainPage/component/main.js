@@ -37,8 +37,6 @@ function Main({
   const [notConnected, setNotConnected] = useState(false);
   const { connected } = useWallet();
 
-  console.log(connected);
-
   const fetchBalanceList = async () => {
     axios
       .get("https://qve.today/balance/get/")

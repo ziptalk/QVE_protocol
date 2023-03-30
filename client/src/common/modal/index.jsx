@@ -20,8 +20,8 @@ const Modal = ({
   const CurStage = STAGES[curStage];
 
   useEffect(() => {
-    if (!loading && !err) setCurStage((prev) => prev + 1);
-    else if (!loading & err) setCurStage((prev) => prev + 2);
+    if (!loading && !err) setCurStage(curStage + 1);
+    else if (!loading && err) setCurStage(curStage + 2);
   }, [loading, err]);
 
   return (

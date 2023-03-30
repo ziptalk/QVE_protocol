@@ -12,8 +12,13 @@ import { useAvailable } from "../../hooks/useAvailable";
 import Modal from "../../common/modal";
 import { CustomWalletSelector } from "../../common/CustomConnectButton";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { AptosClient } from "aptos";
 
 const MQVE_TO_QVE = 1;
+const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+});
 
 function SwaparbQVEtoQVE({ setIcon }) {
   const [depositAmount, setDepositAmount] = useState("");
@@ -27,7 +32,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
   const [wallet, setWallet] = useState(null);
   const [max, setMax] = useState(false);
   const [modal, setModal] = useState(false);
-  const { connected } = useWallet();
+  const { connected, signAndSubmitTransaction } = useWallet();
 
   const [available] = useAvailable();
 
@@ -88,15 +93,15 @@ function SwaparbQVEtoQVE({ setIcon }) {
     setWallet(getAptosWallet());
   }, []);
 
-  async function Connect() {
-    console.log("connnect");
-    try {
-      await wallet.connect();
-      const account = await wallet.account();
-      localStorage.setItem("user", JSON.stringify(account.address));
-      window.location.reload();
-    } catch (error) {}
-  }
+  // async function Connect() {
+  //   console.log("connnect");
+  //   try {
+  //     await wallet.connect();
+  //     const account = await wallet.account();
+  //     localStorage.setItem("user", JSON.stringify(account.address));
+  //     window.location.reload();
+  //   } catch (error) {}
+  // }
   // get current connection status
   // console.log('conneectttttted', window.aptos.isConnected());
   // console.log('user is ', JSON.parse(localStorage.getItem('user')));
@@ -111,19 +116,29 @@ function SwaparbQVEtoQVE({ setIcon }) {
   //   // });
   // } catch (error) {}
 
-  function SwapArbtoQVE() {
-    const transaction = {
-      type: "entry_function_aptos_transfer",
-      function:
-        "0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::liqpool::swapArbtoQve",
-      arguments: [values.amount * 10 ** 8],
-      type_arguments: [],
-    };
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(false);
 
-    window.aptos.signAndSubmitTransaction(transaction).then(() => {
-      console.log("전송 성공");
-    });
-  }
+  const SwapArbtoQVE = async () => {
+    const moduleAddress = process.env.REACT_APP_MODULE_ADDRESS;
+
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::pool::stable_swap`,
+      arguments: [100000000 * values.amount],
+      type_arguments: [
+        `${moduleAddress}::coins::MQVE`,
+        `${moduleAddress}::coins::QVE`,
+      ],
+    };
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      await aptosClient.waitForTransaction(response?.hash || "");
+      return "success";
+    } catch (error) {
+      return "err";
+    }
+  };
 
   // console.log('connectionStatusconnected', connectionStatus);
 
@@ -137,7 +152,12 @@ function SwaparbQVEtoQVE({ setIcon }) {
 
   const onSwap = () => {
     setModal(true);
-    SwapArbtoQVE();
+    SwapArbtoQVE().then((res) => {
+      console.log(res);
+      setLoading(false);
+      if (res === "success") setErr(false);
+      else if (res === "err") setErr(true);
+    });
   };
 
   useEffect(() => {
@@ -402,6 +422,8 @@ function SwaparbQVEtoQVE({ setIcon }) {
       {modal ? (
         <Modal
           setModal={setModal}
+          loading={loading}
+          err={err}
           title={"Transaction Broadcasting"}
           subtitle={"Waiting for transaction to be\nincluded in the block"}
           success={"Transaction Successfull!"}
