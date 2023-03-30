@@ -1,33 +1,24 @@
 import styled from "styled-components";
 import Menu from "../../../assets/img/Menu.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import DepositImg from "../../../assets/img/Deposit.svg";
 import PortfolioImg from "../../../assets/img/PortfolioImg.svg";
 import StakeImg from "../../../assets/img/Staking.svg";
 import PoolImg from "../../../assets/img/Liquidity.svg";
 import SwapImg from "../../../assets/img/SwapImg.svg";
-import Web3 from "web3";
+
+import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+
+import { CustomWalletSelector } from "../../../common/CustomConnectButton";
 
 function Navbar({ isOpen, setIsOpen }) {
   // const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
-  const options = ["Deposit", "Swap", "Pool", "Stake", "Disconnect"];
-  let option = [];
+  const options = ["Deposit", "Swap", "Pool", "Stake"];
   const toggling = () => setIsOpen(!isOpen);
-  const web3 = new Web3(window.ethereum);
-  for (let i = 0; i < options.length; i++) {
-    if (i === options.length - 1) {
-      if (localStorage.getItem("user") == null) {
-        option.push("Connect Wallet");
-      } else {
-        option.push("Disconnect");
-      }
-    } else {
-      option.push(options[i]);
-      // console.log('push is happening');
-    }
-  }
+  const { disconnect, account, connected } = useWallet();
   // console.log('option is', option);
 
   const onOptionClicked = (value) => () => {
@@ -35,29 +26,14 @@ function Navbar({ isOpen, setIsOpen }) {
     setIsOpen(false);
   };
 
-  async function Connect() {
-    console.log("connnect");
-    try {
-      await window.aptos.connect();
-      const account = await window.aptos.account();
-      localStorage.setItem("user", JSON.stringify(account.address));
-      window.location.reload();
-    } catch (error) {
-      console.log("errrrrrrrorrrrrr");
-    }
+  //auto conenct 관련 함수
+  let walletAddressRef = useRef("");
+  if (account && walletAddressRef.current !== account.address) {
+    localStorage.setItem("user", account.address);
+    localStorage.setItem("publicKey", account.publicKey);
   }
 
   const navigate = useNavigate();
-
-  //   const getAptosWallet = () => {
-  //     if ('aptos' in window) {
-  //         return window.aptos;
-  //     } else {
-  //         window.open('https://petra.app/', `_blank`);
-  //     }
-  // };
-
-  //   const wallet = getAptosWallet();
 
   async function PageSelected() {
     if (selectedOption == "Deposit") {
@@ -75,23 +51,20 @@ function Navbar({ isOpen, setIsOpen }) {
     if (selectedOption == "Stake") {
       navigate("/stakePage");
     }
-    if (selectedOption == "Connect Wallet") {
-      // localStorage.setItem('preWalletCount', JSON.stringify(9));
-      Connect();
-    }
     if (selectedOption == "Disconnect") {
       localStorage.removeItem("user");
-      window.aptos.disconnect();
-      window.location.reload();
+      // window.aptos.disconnect();
+      // window.location.reload();
+      disconnect();
     }
-    // if (selectedOption =="Connect Wallet") {
-
-    //     // const accounts = window.ethereum.request({ method: 'eth_requestAccounts' });
-    //     // localStorage.setItem("user", JSON.stringify(accounts[0]));
-    // }
   }
-  // console.log("Account iSSSSSSS", localStorage.getItem("user"));
-  // console.log("SELECTED OPTION", selectedOption);
+
+  const disconnectWallet = () => {
+    disconnect();
+    localStorage.removeItem("user");
+    localStorage.removeItem("publicKey");
+  };
+
   useEffect(() => {
     PageSelected();
   }, [selectedOption]);
@@ -103,7 +76,7 @@ function Navbar({ isOpen, setIsOpen }) {
       {isOpen && (
         <DropDownListContainer>
           <DropDownList>
-            {option.map((option, index) => (
+            {options.map((option, index) => (
               <ListItem onClick={onOptionClicked(option)} key={index}>
                 {option === "Deposit" && (
                   <img
@@ -136,13 +109,7 @@ function Navbar({ isOpen, setIsOpen }) {
                   />
                 )}
                 {option === "Disconnect" && <Button>Disconnect</Button>}
-                {option === "Connect Wallet" && (
-                  <Button
-                    style={{ background: "#4A3CE8", pointerEvents: "none" }}
-                  >
-                    Connect Wallet
-                  </Button>
-                )}
+                {option === "Connect Wallet" && <></>}
                 <EContainer style={{ width: "5px" }} />
                 <EContainer
                   style={{
@@ -160,6 +127,11 @@ function Navbar({ isOpen, setIsOpen }) {
                 </EContainer>
               </ListItem>
             ))}
+            {connected ? (
+              <Button onClick={() => disconnectWallet()}>Disconnect</Button>
+            ) : (
+              <CustomWalletSelector type={"logo"} style={{ marginTop: 5 }} />
+            )}
           </DropDownList>
         </DropDownListContainer>
       )}
@@ -170,6 +142,7 @@ function Navbar({ isOpen, setIsOpen }) {
 export default Navbar;
 
 const MenuBar = styled.img`
+  margin-left: 10px;
   width: 24px;
   height: 24px;
   cursor: pointer;
@@ -179,7 +152,8 @@ const EContainer = styled.div``;
 
 const DropDownListContainer = styled("div")`
   position: absolute;
-  right: 0;
+  right: 20px;
+  top: 70px;
 `;
 
 const DropDownList = styled("ul")`
@@ -187,7 +161,7 @@ const DropDownList = styled("ul")`
   color: #3faffa;
   padding: 21px 19px 25px 19px;
   cursor: pointer;
-  width: 190px;
+  width: 210px;
   background: #2b2b34;
   box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
   border-radius: 16px;
@@ -196,6 +170,8 @@ const DropDownList = styled("ul")`
   flex-direction: column;
   align-items: center;
   gap: 5px;
+  position: relative;
+  z-index: 5;
 `;
 
 const ListItem = styled("li")`
@@ -230,4 +206,14 @@ const Button = styled.button`
   background: #5c5e81;
   border-radius: 21px;
   margin-top: 3px;
+  gap: 7px;
+`;
+
+const Icon = styled.img`
+  width: 15px;
+  height: 14px;
+`;
+
+const ButtonWrapper = styled.div`
+  position: relative;
 `;

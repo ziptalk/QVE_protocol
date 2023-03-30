@@ -5,7 +5,7 @@ import Pool from "./Pool";
 import AddLiquidity from "./AddLiquidity";
 const Background = styled.div`
   background-color: #1b1a1e;
-  height: 100%;
+  height: 180%;
 `;
 
 const EContainer = styled.div``;
@@ -14,10 +14,14 @@ const BackgroundImage = styled.img``;
 function Main() {
   const [liquidityCount, setLiquidityCount] = useState(0);
   const [account, setAccount] = useState(null);
-  // console.log(liquidityCount)
+  const [rate, setRate] = useState(1);
+
+  //퍼센트에이지, qve->mqve순서
+  const [rates, setRates] = useState([]);
+
   return (
     <Background>
-      <EContainer style={{ height: "132px" }}></EContainer>
+      <EContainer style={{ height: "45px" }}></EContainer>
       <EContainer
         style={{
           display: "flex",
@@ -27,9 +31,17 @@ function Main() {
         }}
       >
         {liquidityCount === 0 ? (
-          <Pool setLiquidityCount={setLiquidityCount} />
+          <Pool
+            setLiquidityCount={setLiquidityCount}
+            setRate={setRate}
+            setRates={setRates}
+          />
         ) : (
-          <AddLiquidity setLiquidityCount={setLiquidityCount} />
+          <AddLiquidity
+            setLiquidityCount={setLiquidityCount}
+            rate={rate}
+            rates={rates}
+          />
         )}
       </EContainer>
     </Background>

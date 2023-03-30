@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 import styled, { withTheme } from "styled-components";
+import { MARKET_MAKING_CHART_DATA } from "../../../assets/contract/mqvec";
 
 const EContainer = styled.div``;
 const ButtonDay = styled.button`
@@ -159,10 +160,16 @@ function LineChart({
     var Time = [];
 
     if (selectedOption === "Market Making") {
-      for (let i = 0; i < thirdPort.length; i++) {
+      for (let i = 0; i < MARKET_MAKING_CHART_DATA.length; i++) {
         let thirdValueBalance = pnlArray[i];
-        let thirdValueBtc = getKeyByValue(thirdPort[i], "btc_cr");
-        let getThirdTime = getKeyByValue(thirdPort[i], "datetime");
+        let thirdValueBtc = getKeyByValue(
+          MARKET_MAKING_CHART_DATA[i],
+          "btc_cr"
+        );
+        let getThirdTime = getKeyByValue(
+          MARKET_MAKING_CHART_DATA[i],
+          "datetime"
+        );
         Time.push(getThirdTime);
         DataBtc.push(thirdValueBtc);
         DataBalance.push(thirdValueBalance);

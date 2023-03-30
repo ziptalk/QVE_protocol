@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import Check from "../../../assets/img/check.svg";
-import Deposit2 from "../../../assets/img/Deposit2.svg";
+import Deposit2 from "../../../../assets/img/Deposit2.svg";
 import { Heading3, Input } from "./common";
+import xMark from "../../../../assets/img/xmark.svg";
 
-const Result = () => {
+const Failure = () => {
   return (
     <Container>
-      <Logo src={Check} />
-      <Heading3 style={{ color: "white" }}>Staking Pool Successful!</Heading3>
+      <Logo src={xMark} />
+      <Heading3 style={{ color: "white" }}>Transaction Failed</Heading3>
       <LinkLine>
-        <Input>View Explorerr</Input>
+        <Input>Try again please</Input>
         <img src={Deposit2} style={{ height: 24, width: "auto" }} />
       </LinkLine>
     </Container>
@@ -23,6 +23,15 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   gap: 8px;
+  padding-bottom: 15px;
+  position: relative;
+`;
+
+const LoadingWrapper = styled.div`
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translate(-50%, 0%);
 `;
 
 const Logo = styled.img`
@@ -39,4 +48,4 @@ const LinkLine = styled.span`
   cursor: pointer;
 `;
 
-export default Result;
+export default Failure;

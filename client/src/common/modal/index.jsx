@@ -1,20 +1,44 @@
 import styled from "styled-components";
-import Staking from "./Staking";
+import Loading from "./Loading";
 import Result from "./Result";
-import XImg from "../../../assets/img/x.png";
-import { useState } from "react";
+import XImg from "../../assets/img/x.png";
+import { useState, useEffect } from "react";
+import Failure from "./Failure";
 
-const STAGES = [Staking, Result];
+const STAGES = [Loading, Result, Failure];
 
-const StakingModal = ({ setModal, customRef }) => {
+const Modal = ({
+  modal,
+  setModal,
+  loading,
+  err,
+  customRef,
+  title,
+  subtitle,
+  success,
+}) => {
   const [curStage, setCurStage] = useState(0);
   const CurStage = STAGES[curStage];
+
+  useEffect(() => {
+    if (!loading && !err) setCurStage(curStage + 1);
+    else if (!loading && err) setCurStage(curStage + 2);
+  }, [loading, err]);
+
+  useEffect(() => {
+    setCurStage(0);
+  }, [modal]);
 
   return (
     <ModalBackground>
       <ModalContainer ref={customRef}>
         <Xbtn src={XImg} onClick={() => setModal(false)} />
-        <CurStage setStage={setCurStage} />
+        <CurStage
+          setStage={setCurStage}
+          title={title}
+          subtitle={subtitle}
+          success={success}
+        />
       </ModalContainer>
     </ModalBackground>
   );
@@ -57,4 +81,4 @@ const Xbtn = styled.img`
   right: 30px;
 `;
 
-export default StakingModal;
+export default Modal;

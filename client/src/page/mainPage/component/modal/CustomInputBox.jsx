@@ -9,6 +9,7 @@ import {
 } from "./common";
 import { useState, useEffect } from "react";
 import { useRate } from "../../../../hooks/useRate";
+import { inputNumberReg } from "../../../../hooks/reg";
 
 /**
  * 값 조절용 커스텀 인풋박스
@@ -16,13 +17,14 @@ import { useRate } from "../../../../hooks/useRate";
  */
 const CustomInputBox = ({ token, values, setValues, ...props }) => {
   const [max, setMax] = useState(false);
-  const [rate] = useRate();
+  const [rate] = useRate(2000);
 
   const onChangeInputNumber = (e) => {
-    const newInput = e.target.value;
+    const newInput = inputNumberReg(e);
     const newValues = {
       ...values,
-      input: Math.floor(newInput * 1e6) / 1e6,
+      // input: Math.floor(newInput * 1e6) / 1e6,
+      input: newInput,
     };
     setValues(newValues);
   };
@@ -60,7 +62,6 @@ const CustomInputBox = ({ token, values, setValues, ...props }) => {
             placeholder="Amout"
             value={values.input}
             onChange={onChangeInputNumber}
-            type="number"
             {...props}
           />
         </StartBox>

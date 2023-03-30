@@ -6,8 +6,12 @@ import Dropdown from "./Dropdown";
 import EnterAmount from "./EnterAmount";
 import ConfirmDeposit from "./ConfirmDeposit";
 import Result from "./Result";
+import Failure from "./Failure";
 import { useState, useEffect } from "react";
 import { useAvailable } from "../../../../hooks/useAvailable";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { AptosClient } from "aptos";
+import { AptosPriceServiceConnection } from "@pythnetwork/pyth-aptos-js";
 
 const STAGES = [Dropdown, EnterAmount, ConfirmDeposit, Result];
 
@@ -18,19 +22,72 @@ const DEFAULT_VALUES = {
   rate: 0,
 };
 
+export const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
+
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+});
+
 /**
  * Deposit 모달
  */
-const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
+const ModalWrapper = ({ setPreWalletCount, preWalletCount, title }) => {
+  const { signAndSubmitTransaction } = useWallet();
+
+  const connection = new AptosPriceServiceConnection(
+    "https://xc-testnet.pyth.network"
+  );
+  const priceId = [
+    "0x44a93dddd8effa54ea51076c4e851b6cbbfd938e82eb90197de38fe8876bb66e", // APT/USD price id in testnet
+  ];
+
+  const [successAlertMessage, setSuccessAlertMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  const moduleAddress = process.env.REACT_APP_MODULE_ADDRESS;
+
+  const onSignAndSubmitTransaction = async () => {
+    const priceUpdateData = await connection.getPriceFeedsUpdateData(priceId);
+
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::deposit_mint::deposit_apt_get_mint`,
+      arguments: [100000000 * values.input, priceUpdateData],
+      type_arguments: [`${moduleAddress}::coins::MQVE`],
+    };
+
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      await aptosClient.waitForTransaction(response?.hash || "");
+      setSuccessAlertMessage(
+        `https://explorer.aptoslabs.com/txn/${response?.hash}`
+      );
+      return "success";
+    } catch (error) {
+      return "err";
+    }
+  };
+
   const [curStage, setCurStage] = useState(0);
   const [token, setToken] = useState(TOKEN[0]);
   const [values, setValues] = useState(DEFAULT_VALUES);
   const [tokenInfo] = useAvailable(preWalletCount);
+  const [err, setErr] = useState(false);
 
   const CurStage = STAGES[curStage];
 
   const onEnd = () => {
-    if (curStage !== STAGES.length - 1) setCurStage((prev) => prev + 1);
+    if (curStage < STAGES.length - 2) setCurStage((prev) => prev + 1);
+    else {
+      setCurStage((prev) => prev + 1);
+      setLoading(true);
+      onSignAndSubmitTransaction().then((res) => {
+        console.log(res);
+        setLoading(false);
+        if (res === "success") setErr(false);
+        else if (res === "err") setErr(true);
+      });
+    }
   };
 
   //모달을 닫을 때 초기화
@@ -38,7 +95,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
     setCurStage(0);
     setToken(TOKEN[0]);
     setValues({
-      ...values,
+      ...DEFAULT_VALUES,
       available: tokenInfo.APT.available,
       rate: tokenInfo.APT.rate,
     });
@@ -63,9 +120,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
             <Label style={{ fontWeight: 700, color: "white", marginTop: 5 }}>
               Deposit
             </Label>
-            <Label style={{ fontWeight: 400, color: "white" }}>
-              Market making
-            </Label>
+            <Label style={{ fontWeight: 400, color: "white" }}>{title}</Label>
           </LogoWrapper>
         </>
       ) : (
@@ -78,6 +133,8 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
         values={values}
         setValues={setValues}
         preWalletCount={preWalletCount}
+        loading={loading}
+        err={err}
       />
     </ModalContainer>
   );

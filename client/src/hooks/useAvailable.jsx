@@ -89,7 +89,9 @@ export const useAvailable = (dependency) => {
             ...newObj,
             APT: {
               isExisted: true,
-              available: Number(value.data.coin.value) / 10 ** 8,
+              available:
+                Math.floor((Number(value.data.coin.value) / 10 ** 8) * 1e6) /
+                1e6,
               rate: APT_EXCHANGE_RATE,
             },
           };
@@ -98,7 +100,9 @@ export const useAvailable = (dependency) => {
             ...newObj,
             USDC: {
               isExisted: true,
-              available: Number(value.data.coin.value) / 10 ** 8,
+              available:
+                Math.floor((Number(value.data.coin.value) / 10 ** 8) * 1e6) /
+                1e6,
               rate: USDC_EXCHANGE_RATE,
             },
           };
@@ -107,16 +111,20 @@ export const useAvailable = (dependency) => {
             ...newObj,
             USDT: {
               isExisted: true,
-              available: Number(value.data.coin.value) / 10 ** 8,
+              available:
+                Math.floor((Number(value.data.coin.value) / 10 ** 8) * 1e6) /
+                1e6,
               rate: USDT_EXCHANGE_RATE,
             },
           };
-        } else if (value.type.includes("mQVE")) {
+        } else if (value.type.includes("MQVE")) {
           newObj = {
             ...newObj,
             mQVE: {
               isExisted: true,
-              available: Number(value.data.coin.value) / 10 ** 8,
+              available:
+                Math.floor((Number(value.data.coin.value) / 10 ** 8) * 1e6) /
+                1e6,
               rate: mQVE_EXCHANGE_RATE,
             },
           };
@@ -125,7 +133,9 @@ export const useAvailable = (dependency) => {
             ...newObj,
             QVE: {
               isExisted: true,
-              available: Number(value.data.coin.value) / 10 ** 8,
+              available:
+                Math.floor((Number(value.data.coin.value) / 10 ** 8) * 1e6) /
+                1e6,
               rate: QVE_EXCHANGE_RATE,
             },
           };

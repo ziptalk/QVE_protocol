@@ -1,60 +1,38 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-@font-face {
-  font-family: "montserrat";
-  src: url("./assets/font/Montserrat.ttf");
-}
-
-:root {
-  --font-montserrat: "montserrat";
-}
-
-/* src/styles.css */
 .ant-menu {
   border: none !important;
 }
+
 .ant-menu-item {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 15px;
   height: auto !important;
   margin-bottom: 10px !important;
 }
+
 .ant-menu-item-selected {
   background-color: rgba(0, 0, 0, 0.06) !important;
   color: black !important;
 }
+
 .wallet-selector-text {
   font-size: 14px;
 }
+
 .wallet-connect-button-text {
   color: white;
 }
+
 .wallet-menu-wrapper {
   display: flex;
   justify-content: space-between;
   font-size: 20px;
 }
+
 .wallet-name-wrapper {
   display: flex;
   align-items: center;
 }
-.wallet-connect-button {
-  align-self: center;
-  background-color: #3f67ff;
-  height: auto;
-}
+
 .wallet-connect-install {
   align-self: center;
   color: #3f67ff;
@@ -63,6 +41,7 @@ code {
   padding-top: 3px;
   padding-bottom: 3px;
 }
+
 .wallet-button {
   padding: 10px 20px;
   height: auto;
@@ -70,6 +49,7 @@ code {
   background-color: #3f67ff;
   color: white;
 }
+
 .wallet-modal-title {
   text-align: center;
   font-size: 2rem;

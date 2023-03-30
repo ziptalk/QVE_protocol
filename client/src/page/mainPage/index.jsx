@@ -44,6 +44,7 @@ function MainPage({ selectedOption, setSelectedOption }) {
         <ModalWrapper
           setPreWalletCount={setPreWalletCount}
           preWalletCount={preWalletCount}
+          title={selectedOption}
         />
       </PreWalletConnectBackground>
       <Footer></Footer>

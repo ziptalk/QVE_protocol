@@ -10,8 +10,16 @@ import ContractAddress from "../../assets/contract/contractAddress";
 import GoToTop from "../../common/GotoTop";
 import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
-import StakingModal from "./modal";
 import { useAvailable } from "../../hooks/useAvailable";
+import Modal from "../../common/modal";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { AptosClient } from "aptos";
+import { inputNumberReg } from "../../hooks/reg";
+
+const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+});
 
 function StakeArbQve({ setCount }) {
   const [amount, setAmount] = useState("");
@@ -24,6 +32,39 @@ function StakeArbQve({ setCount }) {
   const [connected, setConnected] = useState("");
   const [arbQveBalance, setArbQveBalance] = useState("");
   const [available] = useAvailable();
+  const { signAndSubmitTransaction } = useWallet();
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(false);
+
+  const stakeQve = async () => {
+    const moduleAddress =
+      "0x98c572593f715bd814aef03711a5a5a1705b8eba67f1686a725502f55fc92bb9";
+
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::coins::deposit_coin_entry`,
+      arguments: [100000000 * values.amount],
+      type_arguments: [`${moduleAddress}::coins::MQVE`],
+    };
+
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      await aptosClient.waitForTransaction(response?.hash || "");
+      return "success";
+    } catch (error) {
+      return "err";
+    }
+  };
+
+  const onStake = () => {
+    setModal(true);
+    stakeQve().then((res) => {
+      console.log(res);
+      setLoading(false);
+      if (res === "success") setErr(false);
+      else if (res === "err") setErr(true);
+    });
+  };
 
   useEffect(() => {
     setValues({ ...values, available: available.mQVE.available });
@@ -67,7 +108,7 @@ function StakeArbQve({ setCount }) {
   }
 
   const onChangeInput = (e) => {
-    const newNum = e.target.value;
+    const newNum = inputNumberReg(e);
     if (newNum >= values.available) {
       setValues({
         ...values,
@@ -94,6 +135,11 @@ function StakeArbQve({ setCount }) {
       setMax(false);
     }
   }, [values.amount]);
+
+  useEffect(() => {
+    if (available.mQVE.available <= values.amount) setMax(true);
+    else if (available.mQVE.available > values.amount) setMax(false);
+  }, [available.mQVE.available]);
 
   return (
     <Background>
@@ -233,7 +279,7 @@ function StakeArbQve({ setCount }) {
                     color: "#FFFFFF",
                   }}
                 >
-                  arbQVE
+                  mQVE
                 </Text>
                 <Text
                   style={{
@@ -323,7 +369,6 @@ function StakeArbQve({ setCount }) {
             }}
           >
             <Input
-              type="number"
               placeholder="Amount"
               style={{ flexGrow: "1", paddingRight: "5px" }}
               value={values.amount}
@@ -405,14 +450,26 @@ function StakeArbQve({ setCount }) {
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {(values.amount === "") | (values.amount === 0) ? (
+          {values.amount === "" || Number(values.amount) === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
-            <Button onClick={() => stakeArbQvePetra()}>Stake</Button>
+            <Button onClick={() => onStake()}>Stake</Button>
           )}
         </StakeContainer>
       </EContainer>
-      {modal ? <StakingModal setModal={setModal} /> : <></>}
+      {modal ? (
+        <Modal
+          modal={modal}
+          loading={loading}
+          err={err}
+          setModal={setModal}
+          title={"Staking Pool"}
+          subtitle={"Waiting for staking pool to be\nincluded in the block"}
+          success={"Transaction Successfull!"}
+        />
+      ) : (
+        <></>
+      )}
     </Background>
   );
 }
@@ -463,8 +520,9 @@ const [amount, setAmount] = useState('');
 const Background = styled.div`
   height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 45px;
 `;
 
 const EContainer = styled.div``;

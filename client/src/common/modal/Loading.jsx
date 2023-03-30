@@ -1,22 +1,16 @@
 import styled from "styled-components";
 import { Heading3, Input } from "./common";
-import LoadingSpinner from "../../../common/LoadingSpinner";
-import { useInterval } from "../../../hooks/useInterval";
+import LoadingSpinner from "../LoadingSpinner";
 
-const Staking = ({ setStage }) => {
-  useInterval(() => {
-    setStage((prev) => prev + 1);
-  }, 5000);
+const Loading = ({ title, subtitle }) => {
   return (
     <Container>
       <LoadingWrapper>
         <LoadingSpinner />
       </LoadingWrapper>
       <EmptyBox />
-      <Heading3 style={{ color: "white" }}>Staking Pool</Heading3>
-      <Input
-        style={{ color: "#B7B8CD" }}
-      >{`Waiting for staking pool to be\nincluded in the block`}</Input>
+      <Heading3 style={{ color: "white" }}>{title}</Heading3>
+      <Input style={{ color: "#B7B8CD" }}>{subtitle}</Input>
     </Container>
   );
 };
@@ -42,4 +36,4 @@ const EmptyBox = styled.div`
   height: 33px;
 `;
 
-export default Staking;
+export default Loading;

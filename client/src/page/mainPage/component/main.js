@@ -10,6 +10,8 @@ import AssetConnected from "./assetConnected";
 import QveLoadingHead from "../../../assets/img/QveLoading1.png";
 import QveLoadingBase from "../../../assets/img/QveLoading2.svg";
 import DropDown from "./dropdown";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import Chart from "../../../assets/img/chart.png";
 
 function Main({
   selectedOption,
@@ -32,8 +34,9 @@ function Main({
   const [usdtContract, setUsdtContract] = useState(null);
   const [liquidityContract, setLiquidityContract] = useState(null);
   const [aptosBalance, setAptosBalance] = useState(null);
-  const [connected, setConnected] = useState("");
+  // const [connected, setConnected] = useState("");
   const [notConnected, setNotConnected] = useState(false);
+  const { connected } = useWallet();
 
   const fetchBalanceList = async () => {
     axios
@@ -246,7 +249,7 @@ function Main({
       <ContainerAll
         style={{ filter: preWalletCount != null ? "blur(0px)" : "blur(0px)" }}
       >
-        <EContainer style={{ height: "105px" }}></EContainer>
+        <EContainer style={{ height: "35px" }}></EContainer>
         <StrategyContainer>
           <Text>Strategy Selector</Text>
         </StrategyContainer>
@@ -277,7 +280,7 @@ function Main({
           <FirstContainer>
             <EContainer style={{ height: "12px" }}></EContainer>
             <ChartContainer>
-              <EContainer style={{ position: "absolute", top: "107px" }}>
+              <EContainer style={{ position: "absolute", top: "37px" }}>
                 <DropDown
                   selectedOption={selectedOption}
                   setSelectedOption={setSelectedOption}
@@ -295,12 +298,15 @@ function Main({
               </EContainer>
               <FirstContainerValue>
                 <FirstContainerValueStart>
-                  <ChartContainerPercent>{currentPnl}%</ChartContainerPercent>
+                  <ChartContainerPercent>
+                    {selectedOption === "Market Making" ? "8" : currentPnl}%
+                  </ChartContainerPercent>
                   <EContainer style={{ width: "5px" }}></EContainer>
                   <PnlChangePercent
                     style={{ color: pnl_24h_gap > 0 ? "#0FB63E" : "#FF395D" }}
                   >
-                    {pnl_24h_gap}%p
+                    {selectedOption === "Market Making" ? "+0.5" : pnl_24h_gap}
+                    %p
                   </PnlChangePercent>
                 </FirstContainerValueStart>
                 <FirstContainerValueEnd>
@@ -321,21 +327,27 @@ function Main({
                 </FirstContainerValueEnd>
               </FirstContainerValue>
               <EContainer style={{ height: "15px" }}></EContainer>
-              <LineChartContainer>
-                <LineChart
-                  balanceList={balanceList}
-                  pnlArray={pnlArray}
-                  secondPort={secondPort}
-                  thirdPort={thirdPort}
-                  selectedOption={selectedOption}
-                ></LineChart>
-              </LineChartContainer>
+              {selectedOption === "Market Making" ? (
+                <MarketMakingBox>
+                  <MarketMakingChart src={Chart} />
+                </MarketMakingBox>
+              ) : (
+                <LineChartContainer>
+                  <LineChart
+                    balanceList={balanceList}
+                    pnlArray={pnlArray}
+                    secondPort={secondPort}
+                    thirdPort={thirdPort}
+                    selectedOption={selectedOption}
+                  ></LineChart>
+                </LineChartContainer>
+              )}
             </ChartContainer>
           </FirstContainer>
         </EContainer>
         <EContainer style={{ height: "52px" }}></EContainer>
         <AssetContainer>
-          {localStorage.getItem("user") === null ? (
+          {!connected ? (
             <MainWalletXPetra
               setAptosBalance={setAptosBalance}
               liquidityContract={liquidityContract}
@@ -539,70 +551,6 @@ const Text = styled.div`
   color: #b7b8cd;
 `;
 
-const DropDownHeader = styled("div")`
-  box-sizing: border-box;
-  flex-wrap: wrap;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  align-content: space-between;
-  padding: 18px 20px;
-  width: 224px;
-  height: 60px;
-  background: #1b1a1e;
-  border: 1px solid #3f3f46;
-  border-radius: 16px;
-  order: 0;
-  flex-grow: 0;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 36px;
-  letter-spacing: 0.02em;
-  color: #b7b8cd;
-`;
-
-const DropDownListContainer = styled("div")``;
-
-const DropDownList = styled("ul")`
-  padding: 0;
-  margin: 0;
-  padding-left: 7px;
-  padding-right: 7px;
-  background: #ffffff;
-  border: 2px solid #e5e5e5;
-  box-sizing: border-box;
-  color: #3faffa;
-  font-size: 1.3rem;
-  font-weight: 500;
-  &:first-child {
-    padding-top: 0.3em;
-  }
-  cursor: pointer;
-  width: 224px;
-  background: #2b2b34;
-  border: 1px solid #3f3f46;
-  box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.4);
-  border-radius: 16px;
-  color: #b7b8cd;
-`;
-
-const ListItem = styled("li")`
-  display: flex;
-  width: 100%;
-  height: 40px;
-  left: 10px;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 19px;
-  align-items: center;
-  &:hover {
-    background: #3f3f46;
-  }
-  border-radius: 10px;
-`;
-
 const DepositButton = styled.button`
   all: unset;
   cursor: pointer;
@@ -623,4 +571,16 @@ const DepositButton = styled.button`
   font-size: 14px;
   line-height: 17px;
   color: #ffffff;
+`;
+
+const MarketMakingBox = styled.div`
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MarketMakingChart = styled.img`
+  width: 100%;
 `;

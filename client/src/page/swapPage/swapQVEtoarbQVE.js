@@ -12,32 +12,48 @@ import Contract from "../../assets/contract/contract.js";
 import ContractAddress from "../../assets/contract/contractAddress";
 import { useEffect } from "react";
 import { useAvailable } from "../../hooks/useAvailable";
+import Modal from "../../common/modal";
+import { CustomWalletSelector } from "../../common/CustomConnectButton";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { AptosClient } from "aptos";
+import { inputNumberReg } from "../../hooks/reg";
 
 /**
  * QVE -> mQVE 전환시 비율
  * 1QVE = 비율 * mQVE
  */
 const QVE_TO_MQVE = 1;
+const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+});
 
 function SwapQVEtoarbQVE({ setIcon }) {
   const qveContract = Contract();
   const Address = ContractAddress();
   const [depositAmount, setDepositAmount] = useState("");
-  const [connected, setConnected] = useState("");
+  // const [connected, setConnected] = useState("");
   const [qvePriceSwap, setQvePriceSwap] = useState("");
   const [arbQvePriceSwap, setArbQvePriceSwap] = useState("");
   const [BtoA, setBtoA] = useState("");
   const [maxQve, setMaxQve] = useState("");
   const [max, setMax] = useState(false);
   const [available] = useAvailable();
+  const [modal, setModal] = useState(false);
+  const { connected, signAndSubmitTransaction } = useWallet();
 
   const [values, setValues] = useState({
     available: 0,
     amount: "",
   });
 
+  const [successAlertMessage, setSuccessAlertMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(false);
+
   useEffect(() => {
     setValues({ ...values, available: available.QVE.available });
+    if (available.QVE.available > values.amount) setMax(false);
   }, [available]);
 
   //솔리디티 관련 코드들
@@ -72,41 +88,62 @@ function SwapQVEtoarbQVE({ setIcon }) {
   };
   const wallet = getAptosWallet();
 
-  function SwapQVEtoArb() {
-    const transaction = {
-      type: "entry_function_aptos_transfer",
-      function:
-        "0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::liqpool::swapQvetoArb",
-      arguments: [depositAmount * 10 ** 8],
-      type_arguments: [],
+  const SwapQVEtoArb = async () => {
+    const moduleAddress = process.env.REACT_APP_MODULE_ADDRESS;
+
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::pool::stable_swap`,
+      arguments: [parseInt(100000000 * values.amount)],
+      type_arguments: [
+        `${moduleAddress}::coins::QVE`,
+        `${moduleAddress}::coins::MQVE`,
+      ],
     };
 
-    window.aptos.signAndSubmitTransaction(transaction).then(() => {
-      console.log("전송 성공");
-    });
-  }
-
-  async function Connect() {
-    console.log("connnect");
     try {
-      await wallet.connect();
-      const account = await wallet.account();
-      localStorage.setItem("user", JSON.stringify(account.address));
-      window.location.reload();
-    } catch (error) {}
-  }
+      const response = await signAndSubmitTransaction(payload);
+      await aptosClient.waitForTransaction(response?.hash || "");
+      setSuccessAlertMessage(
+        `https://explorer.aptoslabs.com/txn/${response?.hash}`
+      );
+      return "success";
+    } catch (error) {
+      return "err";
+    }
+  };
 
-  try {
-    let connectionStatus = wallet.isConnected();
-    connectionStatus.then((result) => {
-      setConnected(result);
+  const onSwap = () => {
+    setModal(true);
+    SwapQVEtoArb().then((res) => {
+      console.log(res);
+      setLoading(false);
+      if (res === "success") setErr(false);
+      else if (res === "err") setErr(true);
     });
-  } catch (error) {}
+  };
+
+  // async function Connect() {
+  //   console.log("connnect");
+  //   try {
+  //     await wallet.connect();
+  //     const account = await wallet.account();
+  //     localStorage.setItem("user", JSON.stringify(account.address));
+  //     window.location.reload();
+  //   } catch (error) {}
+  // }
+
+  // try {
+  //   let connectionStatus = wallet.isConnected();
+  //   connectionStatus.then((result) => {
+  //     setConnected(result);
+  //   });
+  // } catch (error) {}
 
   const onInputAmount = (e) => {
     const newValues = {
       ...values,
-      amount: e.target.value,
+      amount: inputNumberReg(e),
     };
     setValues(newValues);
   };
@@ -124,9 +161,14 @@ function SwapQVEtoarbQVE({ setIcon }) {
     }
   }, [values.amount]);
 
+  useEffect(() => {
+    setLoading(true);
+    setErr(false);
+  }, [modal]);
+
   return (
     <Background>
-      <EContainer style={{ height: "132px" }}></EContainer>
+      <EContainer style={{ height: "45px" }}></EContainer>
       <EContainer style={{ width: "90%", maxWidth: "374px" }}>
         <Text
           style={{ fontWeight: "700", fontSize: "24px", lineHeight: "36px" }}
@@ -349,17 +391,31 @@ function SwapQVEtoarbQVE({ setIcon }) {
           </EContainer>
           <EContainer style={{ height: "20px" }}></EContainer>
 
-          {localStorage.getItem("user") === null ? (
-            <Button onClick={() => Connect()}>Connect Wallet</Button>
+          {!connected ? (
+            // <Button onClick={() => Connect()}>Connect Wallet</Button>
+            <CustomWalletSelector style={{ height: 55, borderRadius: 16 }} />
           ) : values.amount === "" || values.amount === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
-            <Button onClick={() => SwapQVEtoArb()}>Swap</Button>
+            <Button onClick={() => onSwap()}>Swap</Button>
           )}
 
           <BackgroudImage src={QveImage}></BackgroudImage>
         </SwapContainer>
       </EContainer>
+      {modal ? (
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          loading={loading}
+          err={err}
+          title={"Transaction Broadcasting"}
+          subtitle={"Waiting for transaction to be\nincluded in the block"}
+          success={"Transaction Successfull!"}
+        />
+      ) : (
+        <></>
+      )}
     </Background>
   );
 }

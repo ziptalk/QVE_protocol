@@ -8,6 +8,12 @@ import PoolIcon from "../../assets/img/SwapIcon.png";
 import Qve from "../../assets/img/Qve.svg";
 import arbQve from "../../assets/img/arbQve.svg";
 import Web3 from "web3";
+import { useAvailable } from "../../hooks/useAvailable";
+import Modal from "../../common/modal";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { AptosClient } from "aptos";
+import { inputNumberReg } from "../../hooks/reg";
+
 const Outer = styled.div`
   display: flex;
   flex-direction: column;
@@ -48,10 +54,11 @@ const Input = styled.input`
   line-height: 24px;
   text-align: left;
   letter-spacing: 0.02em;
-  color: #b7b8cd;
+  color: #ffffff;
   background: transparent;
   border: none;
   outline: none;
+  margin-left: 3px;
 
   /* Chrome, Safari, Edge, Opera */
   &::-webkit-outer-spin-button,
@@ -107,7 +114,6 @@ const MaxButton = styled.button`
   align-items: center;
   width: 47.78px;
   height: 27px;
-  background: #4a3ce8;
   border-radius: 16px;
   font-weight: 600;
   font-size: 12px;
@@ -115,51 +121,122 @@ const MaxButton = styled.button`
   color: #ffffff;
 `;
 
-function AddLiquidity({ setLiquidityCount }) {
-  const [token, setToken] = useState(0);
-  const [connected, setConnected] = useState("");
-  const web3 = new Web3(window.ethereum);
-  const [amount, setAmount] = useState("");
-  //솔리디티 관련 코드들
-  //   const [qvePrice, setQvePrice] = useState("");
-  //   let account = JSON.parse(localStorage.getItem("user"));
-  //   const qveContract = Contract();
-  //   const Address = ContractAddress();
+const DEFAULT_LP = {
+  QVE: 0,
+  mQVE: 0,
+};
 
-  function AddingLiquidityPetra() {
-    const transaction = {
-      type: "entry_function_aptos_transfer",
-      function:
-        "0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::liqpool::addLiquidity_ARB",
-      arguments: [amount * 10 ** 8],
-      type_arguments: [],
+const DEFAULT_MAX = {
+  QVE: false,
+  mQVE: false,
+};
+
+export const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
+
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+});
+
+function AddLiquidity({ setLiquidityCount, rate, rates }) {
+  const { signAndSubmitTransaction } = useWallet();
+  const [available] = useAvailable();
+  const POOL_RATE = Math.ceil(rate);
+  const [modal, setModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(false);
+
+  const [values, setValues] = useState({
+    QVE: 0,
+    mQVE: 0,
+  });
+  const [maxValue, setMaxValue] = useState({ QVE: 0, mQVE: 0 });
+  const [max, setMax] = useState(false);
+
+  const AddingLiquidityPetra = async () => {
+    const moduleAddress = process.env.REACT_APP_MODULE_ADDRESS;
+
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::pool::add_liquidity_stable`,
+      arguments: [
+        parseInt(100000000 * values.QVE),
+        parseInt(100000000 * values.mQVE),
+      ],
+      type_arguments: [
+        `${moduleAddress}::coins::QVE`,
+        `${moduleAddress}::coins::MQVE`,
+      ],
     };
 
-    window.aptos.signAndSubmitTransaction(transaction).then(() => {
-      console.log("전송 성공");
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      await aptosClient.waitForTransaction(response?.hash || "");
+      return "success";
+    } catch (error) {
+      return "err";
+    }
+  };
+
+  const onOpenModal = () => {
+    setModal(true);
+    AddingLiquidityPetra().then((res) => {
+      console.log(res);
+      setLoading(false);
+      if (res === "success") setErr(false);
+      else if (res === "err") setErr(true);
     });
-  }
+  };
 
-  // function AddingLiquidity(amount) {
+  const regNumber = (value) => {
+    const regex = /^-?\d+(?:\.\d{1,6})?/;
+    return Number(value.toString().match(regex)[0]);
+  };
 
-  //     qveContract.QVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });;
+  const onChangeInput = (e) => {
+    const name = e.target.name;
+    const value = inputNumberReg(e);
+    switch (name) {
+      case "QVE":
+        if (maxValue.QVE <= value) {
+          setValues({ QVE: maxValue.QVE, mQVE: maxValue.mQVE });
+          setMax(true);
+          break;
+        }
+        setValues({ QVE: value, mQVE: regNumber(value * POOL_RATE) });
+        setMax(false);
+        break;
+      case "mQVE":
+        if (available.mQVE.available <= value) {
+          setValues({ QVE: maxValue.QVE, mQVE: maxValue.mQVE });
+          setMax(true);
+          break;
+        }
+        setValues({ QVE: regNumber(value / POOL_RATE), mQVE: value });
+        setMax(false);
+        break;
+    }
+  };
 
-  //     qveContract.ArbQVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
+  useEffect(() => {
+    //QVE에게 맞춰야하는 상황
+    if (available.QVE.available * POOL_RATE <= available.mQVE.available)
+      setMaxValue({
+        QVE: regNumber(available.QVE.available),
+        mQVE: regNumber(available.QVE.available * POOL_RATE),
+      });
+    //mQVE한테 맞춰야하는 상황
+    else
+      setMaxValue({
+        QVE: regNumber(available.mQVE.available / POOL_RATE),
+        mQVE: regNumber(available.mQVE.available),
+      });
+  }, [available.QVE.available, available.mQVE.available]);
 
-  //     qveContract.LiquidityContract.methods.addLiquidity_1(web3.utils.toBN(amount * 10**18)).send({ from: account });
-  // }
-  // useEffect(()=>{
-  //     const updateQvePrice = async () => {
-  //         let getQVEPoolData =  qveContract.LiquidityContract.methods.getLiquidityValue_1(amount).call();
+  useEffect(() => {
+    setLoading(true);
+    setErr(false);
+  }, [modal]);
 
-  //         await getQVEPoolData.then((result) => {
-  //             setQvePrice(result);
-  //         });
-  //     }
-
-  //     updateQvePrice();
-  // }, [amount])
-  console.log("amount is ", amount);
   return (
     <Outer>
       <GoToTop />
@@ -192,13 +269,21 @@ function AddLiquidity({ setLiquidityCount }) {
             <Image src={Qve} style={{ width: "32px", height: "32px" }} />
             <EContainer style={{ width: "3px" }} />
             <Input
-              type="number"
               placeholder="Amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              value={values.QVE}
+              name="QVE"
+              onChange={onChangeInput}
             ></Input>
           </EContainer>
-          <MaxButton>MAX</MaxButton>
+          <MaxButton
+            onClick={() => {
+              setValues(maxValue);
+              setMax(true);
+            }}
+            style={{ backgroundColor: max ? "#5C5E81" : "#4a3ce8" }}
+          >
+            MAX
+          </MaxButton>
         </EContainer>
         <EContainer style={{ height: "9.5px" }} />
         <EContainer
@@ -228,7 +313,7 @@ function AddLiquidity({ setLiquidityCount }) {
                 color: "#5C5E81",
               }}
             >
-              50%
+              {rates[0]}%
             </Text>
           </EContainer>
           <EContainer
@@ -258,7 +343,7 @@ function AddLiquidity({ setLiquidityCount }) {
                 color: "#4A3CE8",
               }}
             >
-              0 QVE
+              {available.QVE.available.toFixed(2)} QVE
             </Text>
           </EContainer>
         </EContainer>
@@ -297,11 +382,17 @@ function AddLiquidity({ setLiquidityCount }) {
             <Input
               type="number"
               placeholder="Amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
+              value={values.mQVE}
+              name="mQVE"
+              onChange={onChangeInput}
             ></Input>
           </EContainer>
-          <MaxButton>MAX</MaxButton>
+          <MaxButton
+            onClick={() => setValues(maxValue)}
+            style={{ backgroundColor: max ? "#5C5E81" : "#4a3ce8" }}
+          >
+            MAX
+          </MaxButton>
         </EContainer>
         <EContainer style={{ height: "9.5px" }} />
         <EContainer
@@ -331,7 +422,7 @@ function AddLiquidity({ setLiquidityCount }) {
                 color: "#5C5E81",
               }}
             >
-              50%
+              {rates[1]}%
             </Text>
           </EContainer>
           <EContainer
@@ -361,18 +452,34 @@ function AddLiquidity({ setLiquidityCount }) {
                 color: "#4A3CE8",
               }}
             >
-              0 mQVE
+              {available.mQVE.available.toFixed(2)} mQVE
             </Text>
           </EContainer>
         </EContainer>
       </Container>
       <EContainer style={{ height: "15px" }} />
-      {amount === "" ? (
-        <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
+      {values.QVE !== "" &&
+      values.QVE !== 0 &&
+      values.mQVE !== "" &&
+      values.mQVE !== 0 ? (
+        <Button onClick={() => onOpenModal()}>Add Liquidity</Button>
       ) : (
-        <Button onClick={() => AddingLiquidityPetra()}>Swap</Button>
+        <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
       )}
       <EContainer style={{ height: "100px" }} />
+      {modal ? (
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          loading={loading}
+          err={err}
+          title={"Adding Liquidity"}
+          subtitle={`Waiting for Add Liquidity to be\nincluded in the block`}
+          success={`Add Liquidity Successful!`}
+        />
+      ) : (
+        <></>
+      )}
     </Outer>
   );
 }

@@ -5,6 +5,7 @@ import PreWalletImg from "../../../assets/img/PreWalletImg.png";
 import Web3 from "web3";
 import XImg from "../../../assets/img/x.png";
 import PetraImg from "../../../assets/img/petraLogo.png";
+import { CustomWalletSelector } from "../../../common/CustomConnectButton";
 
 const EContainer = styled.div``;
 
@@ -106,9 +107,7 @@ const DepositButton = styled.button`
   /* Inside auto layout */
 
   flex: none;
-  order: 1;
-  flex-grow: 0;
-  font-weight: 600;
+  font-weight: 800;
   font-size: 14px;
   line-height: 17px;
   /* identical to box height */
@@ -240,6 +239,7 @@ function MainWalletXPetra({
     setPreWalletCount(1);
     localStorage.removeItem("preWalletCount");
   }
+
   return (
     <>
       <Asset>My Asset</Asset>
@@ -249,14 +249,15 @@ function MainWalletXPetra({
         <ConnectYourWalletContainer>
           <ConnectWalletImg src={pleaseConnectYourWallet}></ConnectWalletImg>
           <EContainer style={{ height: "19px" }}></EContainer>
-          <Button
+          {/* <Button
             onClick={() => {
               setPreWalletCount(1);
             }}
             style={{ width: "156px", height: "37px" }}
           >
             Connect Wallet
-          </Button>
+          </Button> */}
+          <CustomWalletSelector />
           <PreWalletConnectBackground
             style={{
               visibility: preWalletCount === 1 ? "visible" : "hidden",
@@ -280,9 +281,10 @@ function MainWalletXPetra({
                   style={{
                     display: "flex",
                     flexDirection: "row",
-                    justifyContent: "space-evenly",
+                    justifyContent: "center",
                     alignSelf: "center",
                     width: "90%",
+                    gap: 10,
                   }}
                 >
                   <DepositButton
@@ -293,13 +295,17 @@ function MainWalletXPetra({
                   >
                     Cancel
                   </DepositButton>
-                  <DepositButton
+                  {/* <DepositButton
                     onClick={() => {
                       setPreWalletCount(2);
                     }}
                   >
                     Connect
-                  </DepositButton>
+                  </DepositButton> */}
+                  <CustomWalletSelector
+                    short={true}
+                    style={{ width: 113, height: 37, borderRadius: 16 }}
+                  />
                 </EContainer>
               </EContainer>
             </PreWalletConnectContainer>
