@@ -12,6 +12,7 @@ import Contract from "../../assets/contract/contract.js";
 import ContractAddress from "../../assets/contract/contractAddress";
 import { useEffect } from "react";
 import { useAvailable } from "../../hooks/useAvailable";
+import Modal from "../../common/modal";
 
 /**
  * QVE -> mQVE 전환시 비율
@@ -30,6 +31,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
   const [maxQve, setMaxQve] = useState("");
   const [max, setMax] = useState(false);
   const [available] = useAvailable();
+  const [modal, setModal] = useState(false);
 
   const [values, setValues] = useState({
     available: 0,
@@ -86,6 +88,11 @@ function SwapQVEtoarbQVE({ setIcon }) {
       console.log("전송 성공");
     });
   }
+
+  const onSwap = () => {
+    setModal(true);
+    SwapQVEtoArb();
+  };
 
   async function Connect() {
     console.log("connnect");
@@ -355,12 +362,22 @@ function SwapQVEtoarbQVE({ setIcon }) {
           ) : values.amount === "" || values.amount === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
-            <Button onClick={() => SwapQVEtoArb()}>Swap</Button>
+            <Button onClick={() => onSwap()}>Swap</Button>
           )}
 
           <BackgroudImage src={QveImage}></BackgroudImage>
         </SwapContainer>
       </EContainer>
+      {modal ? (
+        <Modal
+          setModal={setModal}
+          title={"Transaction Broadcasting"}
+          subtitle={"Waiting for transaction to be\nincluded in the block"}
+          success={"Transaction Successfull!"}
+        />
+      ) : (
+        <></>
+      )}
     </Background>
   );
 }

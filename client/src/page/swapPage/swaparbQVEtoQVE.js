@@ -9,6 +9,7 @@ import Contract from "../../assets/contract/contract.js";
 import ContractAddress from "../../assets/contract/contractAddress";
 import NotConnectedModal from "../../common/NotConnected";
 import { useAvailable } from "../../hooks/useAvailable";
+import Modal from "../../common/modal";
 
 const MQVE_TO_QVE = 1;
 
@@ -23,6 +24,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
   const web3 = new Web3(window.ethereum);
   const [wallet, setWallet] = useState(null);
   const [max, setMax] = useState(false);
+  const [modal, setModal] = useState(false);
 
   const [available] = useAvailable();
 
@@ -128,6 +130,11 @@ function SwaparbQVEtoQVE({ setIcon }) {
       amount: e.target.value,
     };
     setValues(newValues);
+  };
+
+  const onSwap = () => {
+    setModal(true);
+    SwapArbtoQVE();
   };
 
   useEffect(() => {
@@ -373,7 +380,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
           ) : values.amount === "" || values.amount === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
-            <Button onClick={() => SwapArbtoQVE()}>Swap</Button>
+            <Button onClick={() => onSwap()}>Swap</Button>
           )}
 
           <BackgroudImage src={QveImage}></BackgroudImage>
@@ -387,6 +394,16 @@ function SwaparbQVEtoQVE({ setIcon }) {
       ) : (
         <></>
       )} */}
+      {modal ? (
+        <Modal
+          setModal={setModal}
+          title={"Transaction Broadcasting"}
+          subtitle={"Waiting for transaction to be\nincluded in the block"}
+          success={"Transaction Successfull!"}
+        />
+      ) : (
+        <></>
+      )}
     </Background>
   );
 }
