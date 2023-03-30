@@ -321,7 +321,7 @@ function StakeQve({ setCount }) {
             </EContainer>
           </EContainer>
           <EContainer style={{ height: "30px" }} />
-          {values.amount === "" || values.amount === 0 ? (
+          {values.amount === "" || Number(values.amount) === 0 ? (
             <Button style={{ background: "#5C5E81" }}>Amount is Empty</Button>
           ) : (
             <Button onClick={() => onStake()}>Stake</Button>
