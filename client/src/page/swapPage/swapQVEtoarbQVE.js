@@ -16,6 +16,7 @@ import Modal from "../../common/modal";
 import { CustomWalletSelector } from "../../common/CustomConnectButton";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosClient } from "aptos";
+import { inputNumberReg } from "../../hooks/reg";
 
 /**
  * QVE -> mQVE 전환시 비율
@@ -93,7 +94,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
     const payload = {
       type: "entry_function_payload",
       function: `${moduleAddress}::pool::stable_swap`,
-      arguments: [100000000 * values.amount],
+      arguments: [parseInt(100000000 * values.amount)],
       type_arguments: [
         `${moduleAddress}::coins::QVE`,
         `${moduleAddress}::coins::MQVE`,
@@ -142,7 +143,7 @@ function SwapQVEtoarbQVE({ setIcon }) {
   const onInputAmount = (e) => {
     const newValues = {
       ...values,
-      amount: e.target.value,
+      amount: inputNumberReg(e),
     };
     setValues(newValues);
   };

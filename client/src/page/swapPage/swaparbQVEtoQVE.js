@@ -13,6 +13,7 @@ import Modal from "../../common/modal";
 import { CustomWalletSelector } from "../../common/CustomConnectButton";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosClient } from "aptos";
+import { inputNumberReg } from "../../hooks/reg";
 
 const MQVE_TO_QVE = 1;
 const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
@@ -125,7 +126,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
     const payload = {
       type: "entry_function_payload",
       function: `${moduleAddress}::pool::stable_swap`,
-      arguments: [100000000 * values.amount],
+      arguments: [parseInt(100000000 * values.amount)],
       type_arguments: [
         `${moduleAddress}::coins::MQVE`,
         `${moduleAddress}::coins::QVE`,
@@ -145,7 +146,7 @@ function SwaparbQVEtoQVE({ setIcon }) {
   const onInputAmount = (e) => {
     const newValues = {
       ...values,
-      amount: e.target.value,
+      amount: inputNumberReg(e),
     };
     setValues(newValues);
   };
@@ -214,7 +215,6 @@ function SwaparbQVEtoQVE({ setIcon }) {
               >
                 <Image src={arbQve} style={{ width: "31px", height: "32px" }} />
                 <Input
-                  type="number"
                   placeholder="Amount"
                   value={values.amount}
                   onChange={onInputAmount}

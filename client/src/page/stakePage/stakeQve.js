@@ -14,6 +14,7 @@ import { useAvailable } from "../../hooks/useAvailable";
 import Modal from "../../common/modal";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosClient } from "aptos";
+import { inputNumberReg } from "../../hooks/reg";
 
 const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
 const aptosClient = new AptosClient(DEVNET_NODE_URL, {
@@ -88,7 +89,7 @@ function StakeQve({ setCount }) {
   // })
 
   const onChangeInput = (e) => {
-    const newNum = e.target.value;
+    const newNum = inputNumberReg(e);
     if (newNum >= values.available) {
       setValues({
         ...values,
@@ -239,7 +240,6 @@ function StakeQve({ setCount }) {
             }}
           >
             <Input
-              type="number"
               placeholder="Amount"
               style={{ flexGrow: "1", paddingRight: "5px" }}
               value={values.amount}
@@ -347,7 +347,7 @@ function StakeQve({ setCount }) {
                     color: "#FFFFFF",
                   }}
                 >
-                  arbQVE
+                  mQVE
                 </Text>
                 <Text
                   style={{

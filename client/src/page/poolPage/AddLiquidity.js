@@ -12,6 +12,7 @@ import { useAvailable } from "../../hooks/useAvailable";
 import Modal from "../../common/modal";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { AptosClient } from "aptos";
+import { inputNumberReg } from "../../hooks/reg";
 
 const Outer = styled.div`
   display: flex;
@@ -157,7 +158,10 @@ function AddLiquidity({ setLiquidityCount, rate, rates }) {
     const payload = {
       type: "entry_function_payload",
       function: `${moduleAddress}::pool::add_liquidity_stable`,
-      arguments: [100000000 * values.QVE, 100000000 * values.mQVE],
+      arguments: [
+        parseInt(100000000 * values.QVE),
+        parseInt(100000000 * values.mQVE),
+      ],
       type_arguments: [
         `${moduleAddress}::coins::QVE`,
         `${moduleAddress}::coins::MQVE`,
@@ -183,9 +187,14 @@ function AddLiquidity({ setLiquidityCount, rate, rates }) {
     });
   };
 
+  const regNumber = (value) => {
+    const regex = /^-?\d+(?:\.\d{1,6})?/;
+    return Number(value.toString().match(regex)[0]);
+  };
+
   const onChangeInput = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
+    const value = inputNumberReg(e);
     switch (name) {
       case "QVE":
         if (maxValue.QVE <= value) {
@@ -193,7 +202,7 @@ function AddLiquidity({ setLiquidityCount, rate, rates }) {
           setMax(true);
           break;
         }
-        setValues({ QVE: value, mQVE: value * POOL_RATE });
+        setValues({ QVE: value, mQVE: regNumber(value * POOL_RATE) });
         setMax(false);
         break;
       case "mQVE":
@@ -202,7 +211,7 @@ function AddLiquidity({ setLiquidityCount, rate, rates }) {
           setMax(true);
           break;
         }
-        setValues({ QVE: value / POOL_RATE, mQVE: value });
+        setValues({ QVE: regNumber(value / POOL_RATE), mQVE: value });
         setMax(false);
         break;
     }
@@ -212,14 +221,14 @@ function AddLiquidity({ setLiquidityCount, rate, rates }) {
     //QVE에게 맞춰야하는 상황
     if (available.QVE.available * POOL_RATE <= available.mQVE.available)
       setMaxValue({
-        QVE: available.QVE.available,
-        mQVE: available.QVE.available * POOL_RATE,
+        QVE: regNumber(available.QVE.available),
+        mQVE: regNumber(available.QVE.available * POOL_RATE),
       });
     //mQVE한테 맞춰야하는 상황
     else
       setMaxValue({
-        QVE: available.mQVE.available / POOL_RATE,
-        mQVE: available.mQVE.available,
+        QVE: regNumber(available.mQVE.available / POOL_RATE),
+        mQVE: regNumber(available.mQVE.available),
       });
   }, [available.QVE.available, available.mQVE.available]);
 
@@ -260,7 +269,6 @@ function AddLiquidity({ setLiquidityCount, rate, rates }) {
             <Image src={Qve} style={{ width: "32px", height: "32px" }} />
             <EContainer style={{ width: "3px" }} />
             <Input
-              type="number"
               placeholder="Amount"
               value={values.QVE}
               name="QVE"
@@ -268,7 +276,10 @@ function AddLiquidity({ setLiquidityCount, rate, rates }) {
             ></Input>
           </EContainer>
           <MaxButton
-            onClick={() => setValues(maxValue)}
+            onClick={() => {
+              setValues(maxValue);
+              setMax(true);
+            }}
             style={{ backgroundColor: max ? "#5C5E81" : "#4a3ce8" }}
           >
             MAX
