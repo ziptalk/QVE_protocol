@@ -10,6 +10,8 @@ import arbQve from "../../assets/img/arbQve.svg";
 import Web3 from "web3";
 import { useAvailable } from "../../hooks/useAvailable";
 import Modal from "../../common/modal";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { AptosClient } from "aptos";
 
 const Outer = styled.div`
   display: flex;
@@ -128,10 +130,15 @@ const DEFAULT_MAX = {
   mQVE: false,
 };
 
+export const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
+
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+});
+
 function AddLiquidity({ setLiquidityCount }) {
-  const [token, setToken] = useState(0);
-  const [connected, setConnected] = useState("");
-  const web3 = new Web3(window.ethereum);
+  const { signAndSubmitTransaction } = useWallet();
+
   const [amount, setAmount] = useState("");
   const [available] = useAvailable();
   const [qve, setQve] = useState(0);
@@ -140,50 +147,44 @@ function AddLiquidity({ setLiquidityCount }) {
   const [mqveMax, setMqveMax] = useState(false);
   const [modal, setModal] = useState(false);
 
-  //솔리디티 관련 코드들
-  //   const [qvePrice, setQvePrice] = useState("");
-  //   let account = JSON.parse(localStorage.getItem("user"));
-  //   const qveContract = Contract();
-  //   const Address = ContractAddress();
+  const [successAlertMessage, setSuccessAlertMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState(false);
+
+  const AddingLiquidityPetra = async () => {
+    const moduleAddress = process.env.REACT_APP_MODULE_ADDRESS;
+
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::pool::add_liquidity_stable`,
+      arguments: [100000000 * qve, 100000000 * mQve],
+      type_arguments: [
+        `${moduleAddress}::coins::QVE`,
+        `${moduleAddress}::coins::MQVE`,
+      ],
+    };
+
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      await aptosClient.waitForTransaction(response?.hash || "");
+      setSuccessAlertMessage(
+        `https://explorer.aptoslabs.com/txn/${response?.hash}`
+      );
+      return "success";
+    } catch (error) {
+      return "err";
+    }
+  };
 
   const onOpenModal = () => {
     setModal(true);
-    AddingLiquidityPetra();
-  };
-
-  function AddingLiquidityPetra() {
-    const transaction = {
-      type: "entry_function_aptos_transfer",
-      function:
-        "0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::liqpool::addLiquidity_ARB",
-      arguments: [amount * 10 ** 8],
-      type_arguments: [],
-    };
-
-    window.aptos.signAndSubmitTransaction(transaction).then(() => {
-      console.log("전송 성공");
+    AddingLiquidityPetra().then((res) => {
+      console.log(res);
+      setLoading(false);
+      if (res === "success") setErr(false);
+      else if (res === "err") setErr(true);
     });
-  }
-
-  // function AddingLiquidity(amount) {
-
-  //     qveContract.QVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });;
-
-  //     qveContract.ArbQVEContract.methods.approve(Address.LiquidityAddress, web3.utils.toBN(amount * 10**18)).send({ from: account });
-
-  //     qveContract.LiquidityContract.methods.addLiquidity_1(web3.utils.toBN(amount * 10**18)).send({ from: account });
-  // }
-  // useEffect(()=>{
-  //     const updateQvePrice = async () => {
-  //         let getQVEPoolData =  qveContract.LiquidityContract.methods.getLiquidityValue_1(amount).call();
-
-  //         await getQVEPoolData.then((result) => {
-  //             setQvePrice(result);
-  //         });
-  //     }
-
-  //     updateQvePrice();
-  // }, [amount])
+  };
 
   const maximum = (token) => {
     if (token === "qve") {
@@ -441,6 +442,8 @@ function AddLiquidity({ setLiquidityCount }) {
       {modal ? (
         <Modal
           setModal={setModal}
+          loading={loading}
+          err={err}
           title={"Adding Liquidity"}
           subtitle={`Waiting for Add Liquidity to be\nincluded in the block`}
           success={`Add Liquidity Successful!`}

@@ -15,12 +15,17 @@ import { useAvailable } from "../../hooks/useAvailable";
 import Modal from "../../common/modal";
 import { CustomWalletSelector } from "../../common/CustomConnectButton";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
+import { AptosClient } from "aptos";
 
 /**
  * QVE -> mQVE 전환시 비율
  * 1QVE = 비율 * mQVE
  */
 const QVE_TO_MQVE = 1;
+const DEVNET_NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1";
+const aptosClient = new AptosClient(DEVNET_NODE_URL, {
+  WITH_CREDENTIALS: false,
+});
 
 function SwapQVEtoarbQVE({ setIcon }) {
   const qveContract = Contract();
@@ -34,12 +39,16 @@ function SwapQVEtoarbQVE({ setIcon }) {
   const [max, setMax] = useState(false);
   const [available] = useAvailable();
   const [modal, setModal] = useState(false);
-  const { connected } = useWallet();
+  const { connected, signAndSubmitTransaction } = useWallet();
 
   const [values, setValues] = useState({
     available: 0,
     amount: "",
   });
+
+  const [successAlertMessage, setSuccessAlertMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [err, setErr] = useState(false);
 
   useEffect(() => {
     setValues({ ...values, available: available.QVE.available });
@@ -78,23 +87,39 @@ function SwapQVEtoarbQVE({ setIcon }) {
   };
   const wallet = getAptosWallet();
 
-  function SwapQVEtoArb() {
-    const transaction = {
-      type: "entry_function_aptos_transfer",
-      function:
-        "0x393368cfe77fda732c00f6a2b865bf89cf5bcf723c93a20547ebcd6f7a02ea07::liqpool::swapQvetoArb",
-      arguments: [depositAmount * 10 ** 8],
-      type_arguments: [],
+  const SwapQVEtoArb = async () => {
+    const moduleAddress = process.env.REACT_APP_MODULE_ADDRESS;
+
+    const payload = {
+      type: "entry_function_payload",
+      function: `${moduleAddress}::pool::stable_swap`,
+      arguments: [100000000 * 1],
+      type_arguments: [
+        `${moduleAddress}::coins::QVE`,
+        `${moduleAddress}::coins::MQVE`,
+      ],
     };
 
-    window.aptos.signAndSubmitTransaction(transaction).then(() => {
-      console.log("전송 성공");
-    });
-  }
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      await aptosClient.waitForTransaction(response?.hash || "");
+      setSuccessAlertMessage(
+        `https://explorer.aptoslabs.com/txn/${response?.hash}`
+      );
+      return "success";
+    } catch (error) {
+      return "err";
+    }
+  };
 
   const onSwap = () => {
     setModal(true);
-    SwapQVEtoArb();
+    SwapQVEtoArb().then((res) => {
+      console.log(res);
+      setLoading(false);
+      if (res === "success") setErr(false);
+      else if (res === "err") setErr(true);
+    });
   };
 
   // async function Connect() {
@@ -375,6 +400,8 @@ function SwapQVEtoarbQVE({ setIcon }) {
       {modal ? (
         <Modal
           setModal={setModal}
+          loading={loading}
+          err={err}
           title={"Transaction Broadcasting"}
           subtitle={"Waiting for transaction to be\nincluded in the block"}
           success={"Transaction Successfull!"}

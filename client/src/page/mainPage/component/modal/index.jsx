@@ -44,8 +44,7 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount }) => {
   const [successAlertMessage, setSuccessAlertMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const moduleAddress =
-    "0x7ced9822447b29b33304877b6fff04edb9e5924c0d50ad76219cf206f26e7baa";
+  const moduleAddress = process.env.REACT_APP_MODULE_ADDRESS;
 
   const onSignAndSubmitTransaction = async () => {
     const priceUpdateData = await connection.getPriceFeedsUpdateData(priceId);

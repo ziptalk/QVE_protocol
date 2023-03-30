@@ -2,14 +2,27 @@ import styled from "styled-components";
 import Loading from "./Loading";
 import Result from "./Result";
 import XImg from "../../assets/img/x.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Failure from "./Failure";
 
 const STAGES = [Loading, Result, Failure];
 
-const Modal = ({ setModal, customRef, title, subtitle, success }) => {
+const Modal = ({
+  setModal,
+  loading,
+  err,
+  customRef,
+  title,
+  subtitle,
+  success,
+}) => {
   const [curStage, setCurStage] = useState(0);
   const CurStage = STAGES[curStage];
+
+  useEffect(() => {
+    if (!loading && !err) setCurStage((prev) => prev + 1);
+    else if (!loading & err) setCurStage((prev) => prev + 2);
+  }, [loading, err]);
 
   return (
     <ModalBackground>
