@@ -72,8 +72,8 @@ With market making, the subject needs much more money and various of benefit fro
 <a href="https://github.com/Jun99uu">
     <img src="https://avatars.githubusercontent.com/u/44965706?v=4" width="90">
 </a>
-<a href="https://github.com/Jun99uu">
-    <img src="https://avatars.githubusercontent.com/u/44965706?v=4" width="90">
+<a href="https://github.com/maebin">
+    <img src="https://avatars.githubusercontent.com/u/109774178?v=4" width="90">
 </a>
 </p>
 
