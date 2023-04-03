@@ -86,7 +86,8 @@ function Pool({ setLiquidityCount, setRate, setRates }) {
   const [poolTotals, setPoolTotals] = useState([]);
 
   const getPoolInfo = async () => {
-    const MODULE = process.env.REACT_APP_MODULE_ADDRESS;
+    // const MODULE = process.env.REACT_APP_MODULE_ADDRESS;
+    const MODULE = `0xf9ecb89020d67e318321ea2848029d40c1f96d5aecca78f5e75872e7122a786a`;
     axios
       .post("https://fullnode.testnet.aptoslabs.com/v1/view", {
         function: `${MODULE}::pool::get_reserve_stable`,
