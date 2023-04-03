@@ -45,11 +45,11 @@ Thanks for having us and reading it.
 
 ### ✅ Track 1: Market Making Bot
 
-Reason: As I said, we have skilled system trading strategies, methods of risk management and developers. One of them is an arbitrage. Arbitrage and Market making is similar to implementation. Second, we focused on pain point that most of Defi and DEX need to make value add of their reserve. MM bot is the solution for them and we made it.
+We have various system trading strategies, methods of risk management and skilled developers. One of them is an arbitrage. Arbitrage and Market making is similar to implementation. Second, we focused on pain point that most of Defi and DEX need to make value add of their reserve. MM bot is the solution for them and we made it.
 
 ### ✅ Track 2: Hybrid AMM
 
-Reason: With market making, the subject needs much more money and various of benefit from exchanges. First of all, users who want to invest this market making strategy can invest thier assets. As a platform, we take thier assets and run it. Users, our clients, could be institutional investors like blockchain foundations, teams of Defi or DEX who want to leverage thier holdings or reserve. The protocol will raise the trading volume of DEX or specific tokens.
+With market making, the subject needs much more money and various of benefit from exchanges. First of all, users who want to invest this market making strategy can invest thier assets. As a platform, we take thier assets and run it. Users, our clients, could be institutional investors like blockchain foundations, teams of Defi or DEX who want to leverage thier holdings or reserve. The protocol will raise the trading volume of DEX or specific tokens.
 
 ## Overview
 
