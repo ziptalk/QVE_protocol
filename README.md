@@ -1,9 +1,9 @@
 <div align="center">
 <img width="973" alt="Group 788" src="https://user-images.githubusercontent.com/44965706/229418285-9020d3da-2b25-4cd2-81b2-2fb345c1f7bc.png">
 
-# QVE
+# QVE Protocol
 
-**Decentralized Fund Liquidation Solution**
+**Decentralized Hybrid AMM Platform**
 
 </div>
 
@@ -79,28 +79,70 @@ Reason: With market making, the subject needs much more money and various of ben
 
 ## Team Details
 
-#### CEO - Minik
+> _**with Petra Wallet Address (Aptos Network)**_
 
-#### CFO - Toil
+<details>
+<summary>CEO - Minik</summary>
+<div markdown="1">
+</div>
+</details>
+<br/>
+<details>
+<summary>CFO - Toil</summary>
+<div markdown="1">
+</div>
+</details>
+<br/>
+<details>
+<summary>PM - Kinner</summary>
+<div markdown="1">
 
-#### PM - Kinner
+_0x7f8d18367823e9276abdadffd5337adbbbca93cc21d9a47630ef7ff846833b82_
 
-0x7f8d18367823e9276abdadffd5337adbbbca93cc21d9a47630ef7ff846833b82
+</div>
+</details>
+<br/>
+<details>
+<summary>UXUI Designer - Maebin</summary>
+<div markdown="1">
 
-#### UXUI Designer - Maebin
+_0x2ba7a4158137a4f11ed31dbf3e7fa445e0ad24f4fbd5f854659dfb26b9a9a9a6_
 
-0x2ba7a4158137a4f11ed31dbf3e7fa445e0ad24f4fbd5f854659dfb26b9a9a9a6
+</div>
+</details>
+<br/>
+<details>
+<summary>dev-1 - Youngan (Fullstack)</summary>
+<div markdown="1">
+</div>
+</details>
+<br/>
+<details>
+<summary>dev-2 - Junkyu (Frontend)</summary>
+<div markdown="1">
 
-#### dev-1- Youngan `Fullstack`
+_0x4e62cbc715605b9e1114f4605097da9426b2dbdb4c1b4b157a1b8e6f3e3657ed_
 
-#### dev-2 - Junkyu `Frontend`
+</div>
+</details>
+<br/>
+<details>
+<summary>dev-3 - Cube (Quant)</summary>
+<div markdown="1">
+</div>
+</details>
+<br/>
+<details>
+<summary>dev-4 - Joeun (Quant, Move)</summary>
+<div markdown="1">
 
-0x4e62cbc715605b9e1114f4605097da9426b2dbdb4c1b4b157a1b8e6f3e3657ed
+_0x40eb701623a64f1734a9043b47ff7fbcb375353025121a91ef27757b1021702b_
 
-#### dev-3 - Cube `Quant`
-
-#### dev-4 - Joeun `Quant` `Move`
-
-0x40eb701623a64f1734a9043b47ff7fbcb375353025121a91ef27757b1021702b
-
-#### dev-5 - Jaebin `Quant`
+</div>
+</details>
+<br/>
+<details>
+<summary> dev-5 - Jaebin (Quant) </summary>
+<div markdown="1">
+</div>
+</details>
