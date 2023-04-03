@@ -321,7 +321,9 @@ function Pool({ setLiquidityCount, setRate, setRates }) {
                 color: "#FFFFFF",
               }}
             >
-              {poolTotals[1] ? thousandsSeparator(poolTotals[1]) : 0.0}
+              {poolTotals[1]
+                ? thousandsSeparator(poolTotals[1].toFixed(2))
+                : 0.0}
             </Text>
             <Text
               style={{
@@ -332,7 +334,9 @@ function Pool({ setLiquidityCount, setRate, setRates }) {
                 color: "#FFFFFF",
               }}
             >
-              {poolTotals[0] ? thousandsSeparator(Number(poolTotals[0])) : 0.0}
+              {poolTotals[0]
+                ? thousandsSeparator(Number(poolTotals[0]).toFixed(2))
+                : 0.0}
             </Text>
           </EContainer>
           <EContainer style={{ height: "20px" }} />

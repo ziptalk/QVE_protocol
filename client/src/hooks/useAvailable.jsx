@@ -96,7 +96,8 @@ export const useAvailable = (dependency) => {
           };
         } else if (
           value.type.includes(
-            `${process.env.REACT_APP_MODULE_ADDRESS}::coins::USDC`
+            // `${process.env.REACT_APP_MODULE_ADDRESS}::coins::USDC`
+            `0xf9ecb89020d67e318321ea2848029d40c1f96d5aecca78f5e75872e7122a786a::coins::USDC`
           )
         ) {
           newObj = {
@@ -111,7 +112,8 @@ export const useAvailable = (dependency) => {
           };
         } else if (
           value.type.includes(
-            `${process.env.REACT_APP_MODULE_ADDRESS}::coins::USDT`
+            // `${process.env.REACT_APP_MODULE_ADDRESS}::coins::USDT`
+            `0xf9ecb89020d67e318321ea2848029d40c1f96d5aecca78f5e75872e7122a786a::coins::USDT`
           )
         ) {
           newObj = {
