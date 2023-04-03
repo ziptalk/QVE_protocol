@@ -86,13 +86,11 @@ Reason: With market making, the subject needs much more money and various of ben
 <div markdown="1">
 </div>
 </details>
-<br/>
 <details>
 <summary>CFO - Toil</summary>
 <div markdown="1">
 </div>
 </details>
-<br/>
 <details>
 <summary>PM - Kinner</summary>
 <div markdown="1">
@@ -101,7 +99,6 @@ _0x7f8d18367823e9276abdadffd5337adbbbca93cc21d9a47630ef7ff846833b82_
 
 </div>
 </details>
-<br/>
 <details>
 <summary>UXUI Designer - Maebin</summary>
 <div markdown="1">
@@ -110,13 +107,11 @@ _0x2ba7a4158137a4f11ed31dbf3e7fa445e0ad24f4fbd5f854659dfb26b9a9a9a6_
 
 </div>
 </details>
-<br/>
 <details>
 <summary>dev-1 - Youngan (Fullstack)</summary>
 <div markdown="1">
 </div>
 </details>
-<br/>
 <details>
 <summary>dev-2 - Junkyu (Frontend)</summary>
 <div markdown="1">
@@ -125,13 +120,11 @@ _0x4e62cbc715605b9e1114f4605097da9426b2dbdb4c1b4b157a1b8e6f3e3657ed_
 
 </div>
 </details>
-<br/>
 <details>
 <summary>dev-3 - Cube (Quant)</summary>
 <div markdown="1">
 </div>
 </details>
-<br/>
 <details>
 <summary>dev-4 - Joeun (Quant, Move)</summary>
 <div markdown="1">
@@ -140,7 +133,6 @@ _0x40eb701623a64f1734a9043b47ff7fbcb375353025121a91ef27757b1021702b_
 
 </div>
 </details>
-<br/>
 <details>
 <summary> dev-5 - Jaebin (Quant) </summary>
 <div markdown="1">
