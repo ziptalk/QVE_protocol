@@ -95,7 +95,7 @@ With market making, the subject needs much more money and various of benefit fro
 <summary>PM - Kinner</summary>
 <div markdown="1">
 
-_0x7f8d18367823e9276abdadffd5337adbbbca93cc21d9a47630ef7ff846833b82_
+_0x27fa2db5d6e8c00aefc779cb99d8ecab9ba47183d32274728725f128fa5b7544_
 
 </div>
 </details>
