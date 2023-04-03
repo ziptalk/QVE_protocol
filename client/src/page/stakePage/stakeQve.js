@@ -46,8 +46,7 @@ function StakeQve({ setCount }) {
 
   //Move 코드
   const stakeQve = async () => {
-    const moduleAddress =
-      "0x98c572593f715bd814aef03711a5a5a1705b8eba67f1686a725502f55fc92bb9";
+    const moduleAddress = process.env.REACT_APP_MODULE_ADDRESS;
 
     const payload = {
       type: "entry_function_payload",

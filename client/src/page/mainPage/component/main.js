@@ -299,7 +299,7 @@ function Main({
               <FirstContainerValue>
                 <FirstContainerValueStart>
                   <ChartContainerPercent>
-                    {selectedOption === "Market Making" ? "8" : currentPnl}%
+                    {selectedOption === "Market Making" ? "8.1" : currentPnl}%
                   </ChartContainerPercent>
                   <EContainer style={{ width: "5px" }}></EContainer>
                   <PnlChangePercent
@@ -321,7 +321,7 @@ function Main({
                   <ChartContainerMDDSplit>:</ChartContainerMDDSplit>
                   <EContainer style={{ width: "4px" }}></EContainer>
                   <ChartContainerMDDValue style={{ color: "#FFFFFF" }}>
-                    {mdd_value}
+                    {2.1}
                   </ChartContainerMDDValue>
                   <EContainer style={{ width: "4px" }}></EContainer>
                 </FirstContainerValueEnd>
@@ -343,9 +343,20 @@ function Main({
                 </LineChartContainer>
               )}
             </ChartContainer>
+            {selectedOption === "Market Making" ? (
+              <div>
+                <span
+                  style={{ color: "white", fontSize: "small", float: "right" }}
+                >
+                  This is sample image
+                </span>
+              </div>
+            ) : (
+              <></>
+            )}
           </FirstContainer>
         </EContainer>
-        <EContainer style={{ height: "52px" }}></EContainer>
+        <EContainer style={{ height: "40px" }}></EContainer>
         <AssetContainer>
           {!connected ? (
             <MainWalletXPetra

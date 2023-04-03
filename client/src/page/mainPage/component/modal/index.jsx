@@ -51,8 +51,8 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount, title }) => {
 
     const payload = {
       type: "entry_function_payload",
-      function: `${moduleAddress}::deposit_mint::deposit_apt_get_mint`,
-      arguments: [100000000 * values.input, priceUpdateData],
+      function: `${moduleAddress}::deposit_mint::deposit_apt_then_get_mint`,
+      arguments: [100000000 * values.input],
       type_arguments: [`${moduleAddress}::coins::MQVE`],
     };
 
@@ -82,7 +82,6 @@ const ModalWrapper = ({ setPreWalletCount, preWalletCount, title }) => {
       setCurStage((prev) => prev + 1);
       setLoading(true);
       onSignAndSubmitTransaction().then((res) => {
-        console.log(res);
         setLoading(false);
         if (res === "success") setErr(false);
         else if (res === "err") setErr(true);

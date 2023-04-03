@@ -5,7 +5,7 @@ const DEFAULT_TOKENS_INFO = {
   APT: {
     isExisted: false,
     available: 0,
-    rate: 1,
+    rate: 11.17,
   },
   USDT: {
     isExisted: false,
@@ -38,7 +38,7 @@ const DEFAULT_TOKENS_INFO = {
 export const useAvailable = (dependency) => {
   const [values, setValues] = useState(null);
   const [tokenInfo, setTokenInfo] = useState(DEFAULT_TOKENS_INFO);
-  const APT_EXCHANGE_RATE = 1;
+  const APT_EXCHANGE_RATE = 11.17;
   const USDT_EXCHANGE_RATE = 1;
   const USDC_EXCHANGE_RATE = 1;
   const mQVE_EXCHANGE_RATE = 1;
@@ -84,7 +84,6 @@ export const useAvailable = (dependency) => {
       let newObj = {};
       values.map((value) => {
         if (value.type.includes("AptosCoin")) {
-          //   settingObject(value.data, "APT");
           newObj = {
             ...newObj,
             APT: {
@@ -95,7 +94,11 @@ export const useAvailable = (dependency) => {
               rate: APT_EXCHANGE_RATE,
             },
           };
-        } else if (value.type.includes("DevnetUSDC")) {
+        } else if (
+          value.type.includes(
+            `${process.env.REACT_APP_MODULE_ADDRESS}::coins::USDC`
+          )
+        ) {
           newObj = {
             ...newObj,
             USDC: {
@@ -106,7 +109,11 @@ export const useAvailable = (dependency) => {
               rate: USDC_EXCHANGE_RATE,
             },
           };
-        } else if (value.type.includes("DevnetUSDT")) {
+        } else if (
+          value.type.includes(
+            `${process.env.REACT_APP_MODULE_ADDRESS}::coins::USDT`
+          )
+        ) {
           newObj = {
             ...newObj,
             USDT: {

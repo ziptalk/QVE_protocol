@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import AptosLogo from "../../../../assets/img/AptosLogo.png";
 import UsdtIcon from "../../../../assets/img/UsdtIcon.png";
+import UsdcLogo from "../../../../assets/img/UsdcLogo.png";
 
 export const TOKEN = [
   {
@@ -16,7 +17,7 @@ export const TOKEN = [
     subname: "USDT",
   },
   {
-    logo: "https://seeklogo.com/images/U/usd-coin-usdc-logo-CB4C5B1C51-seeklogo.com.png",
+    logo: UsdcLogo,
     name: "USDC",
     description: "USD Circle",
     subname: "USDC",

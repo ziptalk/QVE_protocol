@@ -62,6 +62,10 @@ const CompositionContainer = styled.div`
   padding: "0px 13px 0px 13px";
 `;
 
+const thousandsSeparator = (target) => {
+  return target?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+};
+
 function Pool({ setLiquidityCount, setRate, setRates }) {
   const [qveTotal, setQveTotal] = useState("");
   const [arbQveTotal, setArbQveTotal] = useState("");
@@ -82,8 +86,7 @@ function Pool({ setLiquidityCount, setRate, setRates }) {
   const [poolTotals, setPoolTotals] = useState([]);
 
   const getPoolInfo = async () => {
-    const MODULE =
-      "0x98c572593f715bd814aef03711a5a5a1705b8eba67f1686a725502f55fc92bb9";
+    const MODULE = process.env.REACT_APP_MODULE_ADDRESS;
     axios
       .post("https://fullnode.testnet.aptoslabs.com/v1/view", {
         function: `${MODULE}::pool::get_reserve_stable`,
@@ -318,7 +321,7 @@ function Pool({ setLiquidityCount, setRate, setRates }) {
                 color: "#FFFFFF",
               }}
             >
-              {poolTotals[1] ? poolTotals[1].toFixed(4) : 0.0}
+              {poolTotals[1] ? thousandsSeparator(poolTotals[1]) : 0.0}
             </Text>
             <Text
               style={{
@@ -329,7 +332,7 @@ function Pool({ setLiquidityCount, setRate, setRates }) {
                 color: "#FFFFFF",
               }}
             >
-              {poolTotals[0] ? poolTotals[0].toFixed(4) : 0.0}
+              {poolTotals[0] ? thousandsSeparator(Number(poolTotals[0])) : 0.0}
             </Text>
           </EContainer>
           <EContainer style={{ height: "20px" }} />
@@ -343,7 +346,6 @@ function Pool({ setLiquidityCount, setRate, setRates }) {
       </PoolContainer>
       <EContainer style={{ height: "20px" }} />
       {!connected ? (
-        // <Button onClick={() => Connect()}>Connect Wallet</Button>
         <CustomWalletSelector style={{ height: 55, borderRadius: 16 }} />
       ) : (
         <Button
@@ -362,88 +364,3 @@ function Pool({ setLiquidityCount, setRate, setRates }) {
 }
 
 export default Pool;
-{
-  /* <EContainer style={{height: '35px'}}></EContainer>
-        <EContainer style={{display: 'flex', padding: '0px 34px 0px 35px', justifyContent:'space-between'}}>
-            <EContainer style={{display: 'flex', flexDirection:'column', justifyContent:'space-between'}}>
-                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>APR</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>12.3%</Text>
-            </EContainer>
-            <EContainer>
-                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Liquidity</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>$12.3M</Text>
-            </EContainer>
-            <EContainer>
-                <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Fees</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', lineHeight: '36px', color: '#FFFFFF'}}>12.3%</Text>
-            </EContainer>
-        </EContainer> */
-}
-
-/*
-        <EContainer style={{width: '90%', maxWidth: '414px'}}>
-    <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', color: '#B7B8CD'}}>Pool</Text>
-      <PoolContainer>
-        <EContainer style={{height: '10px'}}/>
-        <EContainer style={{display: 'flex', flexDirection: 'row', padding: '0px 9.5px 0px 9.5px'}}>
-        <Image src={BothCoins}></Image>
-        <EContainer style={{width: '15px'}}></EContainer>
-        <EContainer style={{display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
-            <Text style={{fontWeight: '700', fontSize: '24px', lineHeight: '36px', color: '#FFFFFF'}}>arbQVE / QVE</Text>
-            <Text style={{fontWeight: '600', fontSize: '14px', lineHeight: '17px', color: '#5C5E81'}}>Pool</Text>
-        </EContainer>
-        </EContainer>
-        <EContainer style={{height: '15px'}}/>
-        <DetailContainer>
-            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>APR</Text>
-            <EContainer style={{height: '25px'}}/>
-            <EContainer style={{display: 'flex', justifyContent: 'flex-end'}}> 
-            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>12.3%</Text>
-            </EContainer>
-        </DetailContainer>
-        <EContainer style={{height: '20px'}}/>
-        <DetailContainer>
-            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>24h Trading Volume</Text>
-            <EContainer style={{height: '25px'}}/>
-            <EContainer style={{display: 'flex', justifyContent: 'flex-end'}}> 
-            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>$1,234,567</Text>
-            </EContainer>
-        </DetailContainer>
-        <EContainer style={{height: '20px'}}/>
-        <DetailContainer>
-            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Pool Liquidity</Text>
-            <EContainer style={{height: '25px'}}/>
-            <EContainer style={{display: 'flex', justifyContent: 'flex-end'}}> 
-            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>$1,234,567</Text>
-            </EContainer>
-        </DetailContainer>
-        <EContainer style={{height: '20px'}}/>
-        <DetailContainer>
-            <Text style={{fontWeight: '700', fontSize: '12px', lineHeight: '15px', color: '#B7B8CD'}}>Swap Fee</Text>
-            <EContainer style={{height: '25px'}}/>
-            <EContainer style={{display: 'flex', justifyContent: 'flex-end'}}> 
-            <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>0.5%</Text>
-            </EContainer>
-        </DetailContainer>
-        <EContainer style={{height: '22px'}}/>
-        <Text style={{fontWeight: '700', fontSize: '12px', color: '#B7B8CD', paddingRight: '26px', color: '#B7B8CD'}}>Pool Composition</Text>
-        <EContainer style={{height: '25px'}}/>
-        <CompositionContainer>
-            <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: '700', fontSize: '12px', color: '#B7B8CD', color: '#B7B8CD'}}>arbQVE: {((arbQveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100}%</Text>
-                <Text style={{fontWeight: '700', fontSize: '12px', color: '#B7B8CD', color: '#B7B8CD'}}>QVE: {((qveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100}%</Text>
-            </EContainer>
-            <EContainer style={{height: '15px'}}/>
-            <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>{(arbQveTotal/10**18).toFixed(2)}</Text>
-                <Text style={{fontWeight: '700', fontSize: '23px', color: '#B7B8CD', color: '#FFFFFF'}}>{(qveTotal/10**18).toFixed(2)}</Text>
-            </EContainer>
-            <EContainer style={{height: '20px'}}/>
-            <ProgressBar now={((arbQveTotal/10**18).toFixed(2) / poolTotal).toFixed(2) * 100} />
-        </CompositionContainer>
-      </PoolContainer>
-      <EContainer style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', padding: '25px 0px 0px 0px'}}>
-        <Button style={{background: '#5C5E81', color: '#B7B8CD'}}>Remove Liquidity</Button>
-        <Button style={{background: '#4A3CE8', color: '#FFFFFF'}} onClick={() => {setLiquidityCount(1)}}>Add Liquidity</Button>
-      </EContainer>
-      </EContainer> */

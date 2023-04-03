@@ -15,6 +15,11 @@ import { inputNumberReg } from "../../../../hooks/reg";
  * 값 조절용 커스텀 인풋박스
  * confirmDeposit과 enterAmount에서 사용된다.
  */
+
+const thousandsSeparator = (target) => {
+  return target?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+};
+
 const CustomInputBox = ({ token, values, setValues, ...props }) => {
   const [max, setMax] = useState(false);
   const [rate] = useRate(2000);
@@ -75,10 +80,16 @@ const CustomInputBox = ({ token, values, setValues, ...props }) => {
       <InputUpperBox style={{ paddingLeft: 41, marginTop: 3 }}>
         <Body style={{ color: "#B7B8CD" }}>
           {values.input
-            ? `$ ${rate === null ? 0 : values.input * rate[token.name].USD}`
+            ? `$ ${
+                rate === null
+                  ? 0
+                  : thousandsSeparator(values.input * rate[token.name].USD)
+              }`
             : ""}
         </Body>
-        <Body style={{ color: "#B7B8CD" }}>Available : {values.available}</Body>
+        <Body style={{ color: "#B7B8CD" }}>
+          Available : {thousandsSeparator(values.available)}
+        </Body>
       </InputUpperBox>
     </CustomInputWrapper>
   );

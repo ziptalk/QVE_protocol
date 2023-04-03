@@ -19,23 +19,6 @@ function Choose({ setCount }) {
   };
   const wallet = getAptosWallet();
 
-  // function Connect() {
-  //   console.log("connnect");
-  //   try {
-  //     wallet.connect();
-  //     const account = wallet.account();
-  //     localStorage.setItem("user", JSON.stringify(account.address));
-  //     window.location.reload();
-  //   } catch (error) {}
-  // }
-
-  // try {
-  //   let connectionStatus = window.aptos.isConnected();
-  //   connectionStatus.then((result) => {
-  //     setConnected(result);
-  //   });
-  // } catch (error) {}
-
   return (
     <Background>
       <EContainer style={{ width: "90%", maxWidth: "374px" }}>
