@@ -19,11 +19,17 @@ jobs:
         run: npm i
         working-directory: ${{ env.working-directory }}
 
+      - name: Setting .env
+        run: |
+          echo "REACT_APP_CRYPTO_COMPARE_KEY=${{ secrets.REACT_APP_CRYPTO_COMPARE_KEY }}" >> .env
+          echo "REACT_APP_CRYPTO_COMPARE_KEY=${{ secrets.REACT_APP_CRYPTO_COMPARE_KEY }}" >> .env
+          cat .env
+
       - name: Build
         run: npm run build
         working-directory: ${{ env.working-directory }}
         env:
-          CI: ''
+          CI: ""
 
       - name: Deploy
         env:
