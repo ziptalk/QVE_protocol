@@ -1,10 +1,6 @@
 const axios = require("axios")
 require("dotenv").config({ path: "../.env" })
 
-const thousandsSeparator = (target) => {
-  return target?.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-}
-
 const viewMarketAccount = async () => {
   const { data } = await axios.post(
     "https://fullnode.testnet.aptoslabs.com/v1/view",
@@ -20,16 +16,7 @@ const viewMarketAccount = async () => {
       headers: { "Content-Type": "application/json", charset: "utf-8" },
     }
   )
-  console.log(
-    data[0].activeOrders
-    //     `
-    // instrument balance: ${thousandsSeparator(
-    //       data[0].instrumentBalance / 10 ** 10
-    //     )} APT
-    // quote balance: ${thousandsSeparator(data[0].quoteBalance / 10 ** 10)} USDF
-    // `
-  )
+  console.log("Get existing orders:", data[0].activeOrders, "\n")
 }
-// viewMarketAccount()
 
 exports.viewMarketAccount = viewMarketAccount

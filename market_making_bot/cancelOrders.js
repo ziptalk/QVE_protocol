@@ -5,9 +5,8 @@ const {
   BCS,
   HexString,
 } = require("aptos")
-const util = require("util")
+const axios = require("axios")
 require("dotenv").config({ path: "../.env" })
-const { viewMarketAccount } = require("./viewMarketAccount")
 
 const NODE_URL = "https://fullnode.testnet.aptoslabs.com/v1"
 const client = new AptosClient(NODE_URL)
@@ -64,21 +63,37 @@ async function cancelOrderEntry(
   return await sendSignedTransactionWithAccount(signerAccount, entryFunction)
 }
 
-async function main() {
+async function cancelOrders() {
+  const { data } = await axios.post(
+    "https://fullnode.testnet.aptoslabs.com/v1/view",
+    {
+      function: `${process.env.FERUM_MODULE_ADDRESS}::market::view_market_account`,
+      type_arguments: [
+        `${process.env.FERUM_MODULE_ADDRESS}::test_coins::APTF`,
+        `${process.env.FERUM_MODULE_ADDRESS}::test_coins::USDF`,
+      ],
+      arguments: [process.env.FERUM_MODULE_ADDRESS, process.env.MY_ACCOUNT],
+    },
+    {
+      headers: { "Content-Type": "application/json", charset: "utf-8" },
+    }
+  )
+
   const quoteCoinType = `${process.env.FERUM_MODULE_ADDRESS}::test_coins::USDF`
   const instrumentCoinType = `${process.env.FERUM_MODULE_ADDRESS}::test_coins::APTF`
 
-  for (let i = 132; i < 135; i++) {
+  for (order of data[0].activeOrders) {
     const txHash = await cancelOrderEntry(
       account,
       instrumentCoinType,
       quoteCoinType,
-      i
+      order.counter
     )
 
     const txResult = await client.waitForTransactionWithResult(txHash)
 
-    console.log(txResult.success)
+    console.log("order canceld")
   }
 }
-main()
+cancelOrders()
+exports.cancelOrders = cancelOrders
